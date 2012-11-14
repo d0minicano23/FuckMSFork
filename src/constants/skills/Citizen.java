@@ -1,0 +1,138 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package constants.skills;
+
+/**
+ *
+ * @author Steven
+ */
+
+public class Citizen {
+    public static final int POTION_MASTERY1 = 30000002;
+    public static final int FOLLOW_THE_LEADER = 30000008;
+    public static final int BLESSING_OF_THE_FAIRY = 30000012;
+    public static final int DEADLY_CRITICAL = 30000022;
+    public static final int EMPRESS_BLESSING = 30000073;
+    public static final int EMPRESS_SHOUT = 30000074;
+    public static final int EMPRESS_MIGHT = 30000080;
+    public static final int ARCHANGELIC1 = 30000086;
+    public static final int DARK_ANGELIC = 30000088;
+    public static final int ARCHANGELIC2 = 30000091;
+    public static final int HIDDEN_POTENTIAL_RESISTANCE = 30000093;
+    public static final int FREEZING_AXE = 30000097;
+    public static final int ICE_SMASH = 30000099;
+    public static final int ICE_TEMPEST = 30000100;
+    public static final int ICE_CHOP = 30000103;
+    public static final int ICE_CURSE = 30000104;
+    public static final int MASTER_SWIMMER = 30000109;
+    public static final int PIRATE_BLESSING = 30000110;
+    public static final int MASTER_OGRANIZATION1 = 30000111;
+    public static final int MASTER_ORGANIZATION2 = 30000112;
+    public static final int WHITE_ANGELIC = 30000180;
+    public static final int ALLIANCE = 30000190;
+    public static final int CRYSTAL_THROW = 30001000;
+    public static final int INFILTRATE = 30001001;
+    public static final int POTION_MASTERY2 = 30010002;
+    public static final int LEGENDARY_SPRIT = 30001003;
+    public static final int MONSTER_RIDER = 30001004;
+    public static final int ECHO_OF_HERO = 30001005;
+    public static final int JUMP_DOWN = 30001006;
+    public static final int MAKER = 30001007;
+    public static final int BAMBOO_RAIN = 30001009;
+    public static final int INVINCIBLE_BARRIER = 30001010;
+    public static final int BERSERK_FURY = 30001011;
+    public static final int SPACESHIP = 30001013;
+    public static final int SPACE_DASH = 30001014;
+    public static final int SPACE_BEAM = 30001015;
+    public static final int YETI_MOUNT1 = 30001017;
+    public static final int YETI_MOUNT2 = 30001018;
+    public static final int WITCH_BROOMSTICK = 30001019;
+    public static final int PHARAOH_RAGE = 30001020;
+    public static final int WOODEN_HORSE = 30001025;
+    public static final int SOARING = 30001026;
+    public static final int CROCKING = 30001027;
+    public static final int RETRO_SCOOTER = 30001028;
+    public static final int LOVELY_SCOOTER = 30001029;
+    public static final int NIMBUS_CLOUD = 30001030;
+    public static final int BALROG_MOUNT = 30001031;
+    public static final int F1_MACHINE = 30001033;
+    public static final int TIGER = 30001034;
+    public static final int MIST_BARLOG = 30001035;
+    public static final int LION = 30001036;
+    public static final int UNICORN = 30001037;
+    public static final int LOW_RIDER1 = 30001038;
+    public static final int RED_TRUCK = 30001039;
+    public static final int GARGOYLE = 30001040;
+    public static final int SHINJO = 30001042;
+    public static final int ORANGE_MUSHROOM = 30001044;
+    public static final int HELICOPTER = 30001045;
+    public static final int SPACESHIP1 = 30001046;
+    public static final int SPACE_DASH1 = 30001047;
+    public static final int SPACE_BEAM1 = 30001048;
+    public static final int NIGHTMARE = 30001049;
+    public static final int YETI_MOUNT3 = 30001050;
+    public static final int OSTRICH = 30001051;
+    public static final int PINK_BEAR = 30001052;
+    public static final int TRANSFORMER = 30001053;
+    public static final int CHICKEN = 30001054;
+    public static final int KURENAI = 30001063;
+    public static final int POWER_SUIT = 30001064;
+    public static final int OS4_SHUTTLE = 30001065;
+    public static final int VISITOR_MELEE_ATTACK = 30001066;
+    public static final int VISITOR_RANGE_ATTACK = 30001067;
+    public static final int OWL = 30001069;
+    public static final int MOTHERSHIP = 30001070;
+    public static final int OS3A_MACHINE = 30001071;
+    public static final int LEONARDO = 30001072;
+    public static final int WITCH_BROOMSTICK1 = 30001081;
+    public static final int BLUE_SCOOTER = 30001084;
+    public static final int ARCANGEL = 30001085;
+    public static final int DARK_ANGEL = 30001087;
+    public static final int SANTA_SLED = 30001089;
+    public static final int WHITE_ANGEL = 30001090;
+    public static final int GIANT_RABBIT = 30001096;
+    public static final int ICE_DOUBLE_JUMP = 30001098;
+    public static final int SMALL_RABBIT = 30001101;
+    public static final int ICE_KNIGHT = 30001102;
+    public static final int FORTUNE = 30001106;
+    public static final int SIXTH_PARTY1 = 30001113;
+    public static final int SIXTH_PARTY2 = 30001114;
+    public static final int LAW_OFFICER = 30001115;
+    public static final int NINA_PENTACLE = 30001118;
+    public static final int FROG = 30001121;
+    public static final int TURTLE = 30001122;
+    public static final int BUFFALO = 30001123;
+    public static final int JR_TANK = 30001124;
+    public static final int SPIRIT_VIKING = 30001129;
+    public static final int PACHINKO_ROBO = 30001130;
+    public static final int REX_HYENA = 30001136;
+    public static final int LOW_RIDER2 = 30001138;
+    public static final int NAPOLEAN = 30001139;
+    public static final int SOARING2 = 30001142;
+    public static final int RED_DRACO = 30001143;
+    public static final int SHINJO2 = 30001144;
+    public static final int HOT_AIR = 30001145;
+    public static final int NADESHIKO = 30001146;
+    public static final int PEGASUS = 30001147;
+    public static final int DRAGON = 30001148;
+    public static final int MAGIC_BROOM = 30001149;
+    public static final int CLOUD = 30001150;
+    public static final int KNIGHT_CHARRIOT = 30001151;
+    public static final int NIGHTMARE2 = 30001152;
+    public static final int BARLOG3 = 30001153;
+    public static final int INVISI_BARLOG = 30001154;
+    public static final int LVL_3_DRAGON = 30001155;
+    public static final int OWL2 = 30001156;
+    public static final int HELICOPTER2 = 30001157;
+    public static final int PATROL_CAR = 30001158;
+    public static final int WHITE_ANGEL2 = 30001179;
+    public static final int DECENT_HASTE = 30008000;
+    public static final int DECENT_MYSTIC_DOOR = 30008001;
+    public static final int DECENT_SHARP_EYES = 30008002;
+    public static final int DECENT_HYPER_BODY = 30008003;
+    public static final int DECENT_COMBAT_ORDERS = 30008004;
+    public static final int DECENT_ADVANCE_BLESSING = 30008005;
+    public static final int DECENT_SPEED_INFUSION = 30008006;
+}
