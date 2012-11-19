@@ -34,4 +34,6 @@ public class ILArchMage {
     public static final int IFRIT = 2221005;
     public static final int BLIZZARD = 2221007;
     public static final int HEROS_WILL = 2221008;
+    public static final int ARCANE_AIM = 2220010;
+    public static final int BUFF_MASTERY = 2221009;
 }

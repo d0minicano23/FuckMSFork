@@ -31,4 +31,5 @@ public class Hunter {
     public static final int BOW_BOOSTER = 3101002;
     public static final int SOUL_ARROW = 3101004;
     public static final int ARROW_BOMB = 3101005;
+    public static final int SILVER_HAWK = 3101007;
 }

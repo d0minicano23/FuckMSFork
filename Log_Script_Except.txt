@@ -31,3 +31,11 @@ Error executing NPC script, NPC ID : 9900002.javax.script.ScriptException: sun.o
 Error executing NPC script, NPC ID : 9201082.javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: TypeError: Cannot find function getNPC in object scripting.NPCConversationManager@2dd42c77. (<Unknown source>#5) in <Unknown source> at line number 5
 ------------------------ 2012-11-13 22:38:47 ------------------------
 Error executing NPC script, NPC ID : 9000039.javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: TypeError: Cannot find function getCData in object scripting.NPCConversationManager@4eaba4c5. (<Unknown source>#389) in <Unknown source> at line number 389
+------------------------ 2012-11-16 16:16:15 ------------------------
+Unhandled portal script market25 on map 910001000
+------------------------ 2012-11-16 16:16:17 ------------------------
+Unhandled portal script market25 on map 910001000
+------------------------ 2012-11-16 16:16:17 ------------------------
+Unhandled portal script market25 on map 910001000
+------------------------ 2012-11-16 16:16:18 ------------------------
+Unhandled portal script market25 on map 910001000

@@ -141,165 +141,302 @@ public class Skill {
                 }
             }
             switch (id) {
-                case Cleric.HEAL: // heal is alert2 but not overtime...
-                case FPMage.POISON_MIST: // poison mist
-                case BlazeWizard.FLAME_GEAR: // Flame Gear
-                case 22161003:
-                case 32121006:
-                case 11076:
-                case 2111002: // explosion
-                case 4211001: // chakra
-                case 2121001: // Big bang
-                case 2221001: // Big bang
-                case 2321001: // Big bang
-                case 1076:
+                case Hero.RUSH:
+                case Paladin.RUSH:
+                case DarkKnight.RUSH:
+                case DragonKnight.SACRIFICE:
+                case FPMage.EXPLOSION:
+                case FPMage.POISON_MIST:
+                case Cleric.HEAL:
+                case Ranger.MORTAL_BLOW:
+                case Sniper.MORTAL_BLOW:
+                case Assassin.DRAIN:
+                case Hermit.SHADOW_WEB:
+                case Bandit.STEAL:
+                case Shadower.SMOKE_SCREEN:
+                case SuperGM.HEAL_PLUS_DISPEL:
+                case Hero.MONSTER_MAGNET:
+                case Paladin.MONSTER_MAGNET:
+                case DarkKnight.MONSTER_MAGNET:
+                case Gunslinger.RECOIL_SHOT:
+                case Marauder.ENERGY_DRAIN:
+                case BlazeWizard.FLAME_GEAR:
+                case NightWalker.SHADOW_WEB:
+                case NightWalker.POISON_BOMB:
+                case NightWalker.VAMPIRE:
+                case Evan.RECOVERY_AURA:
+                case BattleMage.PARTY_SHIELD:
+                case Bishop.BIG_BANG:
+                case ChiefBandit.CHAKRA:
+                case Beginner.OZ_FLAME:
+                case Beginner.OZ_FLAME_GEAR:
                     isBuff = false;
                     break;
-                case 4111009:
-                case 14111007:
-                case 3121002:
-                case 3221002:
-                case 5311004:
-                case 5121015:
-                case 5211009:
-                case 24111002:
-                case 1004: // monster riding
-                case 20031209:
-                case 20031210:
-                case 10001004:
-                case 20001004:
-                case 20011004:
-                case 80001000:
-                case 1026:
-                case 10001026:
-                case 20001026:
-                case 20011026:
-                case 20021026:
-                case 30001026:
-                case 30011026:
-                case 93:
-                case 10000093:
-                case 20000093:
-                case 20010093:
-                case 20020093:
-                case 30000093:
-                case 30010093:
-                case 9101004: // hide is a buff -.- atleast for us o.o"
-                case 1111002: // combo
-                case 4211003: // pickpocket
-                case 4111001: // mesoup
-                case 15111002: // Super Transformation
-                case 5111005: // Transformation
-                case 5121003: // Super Transformation
-                case 13111005: // Alabtross
-                case 21000000: // Aran Combo
-                case 21101003: // Body Pressure
-                case 5211001: // Pirate octopus summon
-                case 5211002:
-                case 5220002: // wrath of the octopi
-                case 5001005: //dash
-                case 15001003:
-                case 5211006: //homing beacon
-                case 5220011: //bullseye
-                case 5110001: //energy charge
-                case 15100004:
-                case 5121009: //speed infusion
-                case 15111005:
-                case 22121001: //element reset
-                case 22131001: //magic shield
-                case 22141002: //magic booster
-                case 2311006: //magic booster
-                case 22151002: //killer wing
-                case 22151003: //magic resist
-                case 22161002: //imprint
-                case 22171000: //maple warrior
-                case 22171004: //hero will
-                case 5721002: //hero will
-                case 22181000: //onyx blessing
-                case 22181004:
-                case 22161004:
-                case 22181003: //soul stone
-                //case 22121000:
-                //case 22141003:
-                //case 22151001:
-                //case 22161002:
-                case 4331003: //owl spirit
-                case 15101006: //spark
-                case 15111006: //spark
-                case 4321000: //tornado spin
-                case 1320009: //beholder's buff.. passive
-                case 35120000:
-                case 35001002: //TEMP. mech
-                case 9001004: // hide
-                case 4341002:
-                case 32001003: //dark aura
-                case 32120000:
-                case 32111012: //blue aura
-                case 32110000:
-                case 32101003: //yellow aura
-                case 32120001:
-                case 35101007: //perfect armor
-                case 35121006: //satellite safety
-                case 35001001: //flame
-                case 35101009:
-                case 35121005: //missile
-                case 35121013:
-                case 35111004: //siege
-                case 33111003: //puppet ?
-                case 1211009:
-                case 1111007:
-                case 1311007: //magic,armor,atk crash
-                case 32121003: //twister
-                case 5111007:
-                case 5211007:
-                case 15111011://dice 
-                case 5311005:
-                case 5320007:
-                case 5720005:
-                case 35111013: //dice
-                case 5711011: //dice
-                case 32111006:
-                case 5120011:
-                case 5220012:
-                case 1220013:
-                case 33101006: //jaguar oshi
+                case Beginner.RECOVERY:
+                case Beginner.NIMBLE_FEET:
+                case Beginner.MONSTER_RIDER:
+                case Beginner.ECHO_OF_HERO:
+                case Swordsman.IRON_BODY:
+                case Fighter.AXE_BOOSTER:
+                case Fighter.POWER_GUARD:
+                case Fighter.RAGE:
+                case Fighter.SWORD_BOOSTER:
+                case Crusader.ARMOR_CRASH:
+                case Crusader.COMBO:
+                case Hero.ENRAGE:
+                case Hero.HEROS_WILL:
+                case Hero.MAPLE_WARRIOR:
+                case Hero.STANCE:
+                case Page.BW_BOOSTER:
+                case Page.POWER_GUARD:
+                case Page.SWORD_BOOSTER:
+                case Page.THREATEN:
+                case WhiteKnight.BW_FIRE_CHARGE:
+                case WhiteKnight.BW_ICE_CHARGE:
+                case WhiteKnight.BW_LIT_CHARGE:
+                case WhiteKnight.MAGIC_CRASH:
+                case WhiteKnight.SWORD_FIRE_CHARGE:
+                case WhiteKnight.SWORD_ICE_CHARGE:
+                case WhiteKnight.SWORD_LIT_CHARGE:
+                case Paladin.BW_HOLY_CHARGE:
+                case Paladin.HEROS_WILL:
+                case Paladin.MAPLE_WARRIOR:
+                case Paladin.STANCE:
+                case Paladin.SWORD_HOLY_CHARGE:
+                case Spearman.HYPER_BODY:
+                case Spearman.IRON_WILL:
+                case Spearman.POLEARM_BOOSTER:
+                case Spearman.SPEAR_BOOSTER:
+                case DragonKnight.DRAGON_BLOOD:
+                case DragonKnight.POWER_CRASH:
+                case DarkKnight.AURA_OF_BEHOLDER:
+                case DarkKnight.BEHOLDER:
+                case DarkKnight.HEROS_WILL:
+                case DarkKnight.HEX_OF_BEHOLDER:
+                case DarkKnight.MAPLE_WARRIOR:
+                case DarkKnight.STANCE:
+                case Magician.MAGIC_GUARD:
+                case Magician.MAGIC_ARMOR:
+                case FPWizard.MEDITATION:
+                case FPWizard.SLOW:
+                case FPMage.SEAL:
+                case FPMage.SPELL_BOOSTER:
+                case FPArchMage.HEROS_WILL:
+                case FPArchMage.INFINITY:
+                case FPArchMage.MANA_REFLECTION:
+                case FPArchMage.MAPLE_WARRIOR:
+                case ILWizard.MEDITATION:
+                case ILMage.SEAL:
+                case ILWizard.SLOW:
+                case ILMage.SPELL_BOOSTER:
+                case ILArchMage.HEROS_WILL:                
+                case ILArchMage.INFINITY:
+                case ILArchMage.MANA_REFLECTION:
+                case ILArchMage.MAPLE_WARRIOR:
+                case Cleric.INVINCIBLE:
+                case Cleric.BLESS:
+                case Priest.DISPEL:
+                case Priest.DOOM:
+                case Priest.HOLY_SYMBOL:
+                case Priest.MYSTIC_DOOR:
+                case Bishop.HEROS_WILL:
+                case Bishop.HOLY_SHIELD:
+                case Bishop.INFINITY:
+                case Bishop.MANA_REFLECTION:
+                case Bishop.MAPLE_WARRIOR:
+                case Archer.FOCUS:
+                case Hunter.BOW_BOOSTER:
+                case Hunter.SOUL_ARROW:
+                case Ranger.PUPPET:
+                case Bowmaster.CONCENTRATE:
+                case Bowmaster.HEROS_WILL:
+                case Bowmaster.MAPLE_WARRIOR:
+                case Bowmaster.SHARP_EYES:
+                case Crossbowman.CROSSBOW_BOOSTER:
+                case Crossbowman.SOUL_ARROW:
+                case Sniper.PUPPET:
+                case Marksman.BLIND:
+                case Marksman.HEROS_WILL:
+                case Marksman.MAPLE_WARRIOR:
+                case Marksman.SHARP_EYES:
+                case Rogue.DARK_SIGHT:
+                case Assassin.CLAW_BOOSTER:
+                case Assassin.HASTE:
+                case Hermit.MESO_UP:
+                case Hermit.SHADOW_PARTNER:
+                case Hermit.SHADOW_STARS:
+                case NightLord.HEROS_WILL:
+                case NightLord.MAPLE_WARRIOR:
+                case NightLord.NINJA_AMBUSH:
+                case NightLord.SHADOW_STARS:
+                case Bandit.DAGGER_BOOSTER:
+                case Bandit.HASTE:
+                case ChiefBandit.MESO_GUARD:
+                case ChiefBandit.PICKPOCKET:
+                case Shadower.HEROS_WILL:
+                case Shadower.MAPLE_WARRIOR:
+                case Shadower.NINJA_AMBUSH:
+                case Pirate.DASH:
+                case Marauder.TRANSFORMATION:
+                case Buccaneer.SUPER_TRANSFORMATION:
+                case Corsair.BATTLE_SHIP:
+                case GM.HIDE:
+                case SuperGM.HASTE:
+                case SuperGM.HOLY_SYMBOL:
+                case SuperGM.BLESS:
+                case SuperGM.HIDE:
+                case SuperGM.HYPER_BODY:
+                case Noblesse.BLESSING_OF_THE_FAIRY:
+                case Noblesse.ECHO_OF_HERO:
+                case Noblesse.MONSTER_RIDER:
+                case Noblesse.NIMBLE_FEET:
+                case Noblesse.RECOVERY:
+                case DawnWarrior.COMBO:
+                case DawnWarrior.FINAL_ATTACK:
+                case DawnWarrior.IRON_BODY:
+                case DawnWarrior.RAGE:
+                case DawnWarrior.SOUL:
+                case DawnWarrior.SOUL_CHARGE:
+                case DawnWarrior.SWORD_BOOSTER:
+                case BlazeWizard.ELEMENTAL_RESET:
+                case BlazeWizard.FLAME:
+                case BlazeWizard.IFRIT:
+                case BlazeWizard.MAGIC_ARMOR:
+                case BlazeWizard.MAGIC_GUARD:
+                case BlazeWizard.MEDITATION:
+                case BlazeWizard.SEAL:
+                case BlazeWizard.SLOW:
+                case BlazeWizard.SPELL_BOOSTER:
+                case WindArcher.BOW_BOOSTER:
+                case WindArcher.EAGLE_EYE:
+                case WindArcher.FINAL_ATTACK:
+                case WindArcher.FOCUS:
+                case WindArcher.PUPPET:
+                case WindArcher.SOUL_ARROW:
+                case WindArcher.STORM:
+                case WindArcher.WIND_WALK:
+                case NightWalker.CLAW_BOOSTER:
+                case NightWalker.DARKNESS:
+                case NightWalker.DARK_SIGHT:
+                case NightWalker.HASTE:
+                case NightWalker.SHADOW_PARTNER:
+                case ThunderBreaker.DASH:
+                case ThunderBreaker.ENERGY_CHARGE:
+                case ThunderBreaker.ENERGY_DRAIN:
+                case ThunderBreaker.KNUCKLER_BOOSTER:
+                case ThunderBreaker.LIGHTNING:
+                case ThunderBreaker.SPARK:
+                case ThunderBreaker.LIGHTNING_CHARGE:
+                case ThunderBreaker.SPEED_INFUSION:
+                case ThunderBreaker.TRANSFORMATION:
+                case Legend.BLESSING_OF_THE_FAIRY:
+                case Legend.AGILE_BODY:
+                case Legend.ECHO_OF_HERO:
+                case Legend.RECOVERY:
+                case Legend.MONSTER_RIDER:
+                case Aran.MAPLE_WARRIOR:
+                case Aran.HEROS_WILL:
+                case Aran.POLEARM_BOOSTER:
+                case Aran.COMBO_DRAIN:
+                case Aran.SNOW_CHARGE:
+                case Aran.BODY_PRESSURE:
+                case Aran.SMART_KNOCKBACK:
+                case Aran.COMBO_BARRIER:
+                case Aran.COMBO_ABILITY:
+                case Phantom.JUDGEMENT_DRAW1:
+                case Phantom.JUDGEMENT_DRAW2:
+                case CannonShooter.BARREL_ROULETTE:
+                case Evan.ELEMENT_RESET:
+                case Evan.MAGIC_SHIELD:
+                case Evan.MAGIC_BOOSTER:
+                case Evan.MONSTER_RIDER:
+                case Beginner.SOARING:
+                case Noblesse.SOARING:
+                case Legend.SOARING:
+                case Evan.SOARING:
+                case Mercedes.SOARING:
+                case Citizen.SOARING:
+                case DemonSlayer.SOARING:
+                case Phantom.SOARING:
+                case Beginner.HIDDEN_POTENTIAL_EXPLORER:
+                case Noblesse.HIDDEN_POTENTIAL_CK:
+                case Legend.HIDDEN_POTENTIAL_HERO:
+                case Evan.HIDDEN_POTENTIAL_HERO:
+                case Mercedes.HIDDEN_POTENTIAL_HERO:
+                case Citizen.HIDDEN_POTENTIAL_RESISTANCE:
+                case DemonSlayer.HIDDEN_POTENTIAL_RESISTANCE:
+                case Phantom.HIDDEN_POTENTIAL_HERO:
+                case Paladin.DIVINE_SHIELD:
+                case FPArchMage.ARCANE_AIM:
+                case FPArchMage.BUFF_MASTERY:
+                case Evan.KILLER_WINGS:
+                case Evan.MAGIC_RESISTANCE:
+                case Evan.ONYX_SHROUD:
+                case Evan.PHANTOM_IMPRINT:
+                case Evan.MAPLE_WARRIOR:
+                case Evan.HEROS_WILL:
+                case Evan.SOUL_STONE:
+                case Evan.ONYX_BLESSING:
+                case Evan.ONYX_WILL:
+                case ILArchMage.ARCANE_AIM:
+                case ILArchMage.BUFF_MASTERY:
+                case Bishop.ARCANE_AIM:
+                case Bishop.BUFF_MASTERY:
+                case Phantom.CANE_BOOSTER:
+                case BattleMage.DARK_META:
+                case BattleMage.DARK_AURA:
+                case BattleMage.YELLOW_AURA:
+                case BattleMage.ADV_BLUE_AURA:
                 case 32110007:
                 case 32110008:
                 case 32110009:
-                case 32111005:
-                case 31121005:		
-                case 35121003:
-                case 35121009:
-                case 35121010:
-                case 35111005:
-                case 35111001:
-                case 35111010:
-                case 35111009:
-                case 35111011:
-                case 35111002:
-                case 35101005:
-                case 3120006:
-                case 3220005:
-                case 2121009:
-                case 2120010:
-                case 2221009:
-                case 2220010:
-                case 2321010:
-                case 2320011:
-                case 5321003:
-                case 5321004:
+                case BattleMage.BODY_BOOSTER:
+                case BattleMage.REAPER:
+                case BattleMage.BLUE_AURA:
+                case BattleMage.ADV_DARK_AURA:
+                case BattleMage.ADV_YELLOW_AURA:
+                case BattleMage.TWISTER_SPIN:
+                case WildHunter.JAGUAR: //jaguar
+                case WildHunter.WILD_TRAP: //puppet
+                case Mechanic.FLAME_LAUNCHER:
+                case Mechanic.PROTOTYPE: //TEMP. mech
+                case Mechanic.PORTAL:
+                case Mechanic.PERFECT_ARMOR:
+                case Mechanic.ENHANCED_FLAME_LAUNCHER:
+                case Mechanic.SATELLITE1:
+                case Mechanic.ROCK_N_SHOCK:
+                case Mechanic.SIEGE:
+                case Mechanic.BOT_EX7:
+                case Mechanic.SATELLITE2:
+                case Mechanic.SATELLITE3:
+                case Mechanic.HEAL:
+                case Mechanic.DICE: //dice
+                case Mechanic.EXTREME:
+                case Mechanic.SG88:
+                case Mechanic.MISSLE: //missile
+                case Mechanic.SATELLITE_SAFETY: //satellite safety
+                case Mechanic.BOTS_N_TOTS:
+                case Mechanic.AMPLIFIER:
+                case Mechanic.SIEGE_MODE:
+                case DualBlade.TORNADO_SPIN: //tornado spin
+                case DualBlade.FINAL_CUT:
+                case Marauder.DICE:
+                case Buccaneer.PIRATES_REVENGE:
+                case Outlaw.DICE:
+                case Corsair.PIRATES_REVENGE:
+                case CannonShooter.DIE:
+                case CannonShooter.DOUBLE_DOWN:
+                case CannonShooter.ANCHORS:
+                case CannonShooter.MILITA:
+                case Jett.DICE:
+                case DualBlade.HEROS_WILL:
+                case DualBlade.MAPLE_WARRIOR:
+                case DualBlade.KATARA_BOOSTER:
+                case Jett.DOUBLE_DOWN:
+                case CannonShooter.HEROS_WILL:
+		case CannonShooter.CANNON_BOOSTER:               
+                case DualBlade.ADV_DARK_SIGHT:
                 case 80001089:
-                case 24101005: // booster
-		case 5701005: // gun booster
-		case 24121009: // hero's will
-		case 24121008: // maple warrior
-		case 5711001: // turret
-                case 51121004:
-                case 51121005:
-                case 51101003:
-                case 51111004:
-                case 51111003:
-                case 50001214:    
                     isBuff = true;
                     break;
             }

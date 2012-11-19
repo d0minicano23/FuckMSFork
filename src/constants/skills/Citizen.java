@@ -10,11 +10,14 @@ package constants.skills;
  */
 
 public class Citizen {
-    public static final int POTION_MASTERY1 = 30000002;
+    public static final int POTION_MASTERY = 30000002;
     public static final int FOLLOW_THE_LEADER = 30000008;
     public static final int BLESSING_OF_THE_FAIRY = 30000012;
     public static final int DEADLY_CRITICAL = 30000022;
     public static final int EMPRESS_BLESSING = 30000073;
+    public static final int CAPTURE = 30001061;
+    public static final int CALL_OF_THE_HUNTER = 30001062;
+    public static final int MECHANIC_DASH = 30001068;
     public static final int EMPRESS_SHOUT = 30000074;
     public static final int EMPRESS_MIGHT = 30000080;
     public static final int ARCHANGELIC1 = 30000086;

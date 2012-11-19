@@ -117,7 +117,7 @@ public class HiredMerchantHandler {
             final MerchItemPackage pack = loadItemFrom_Database(c.getPlayer().getAccountID());
 
             if (pack == null) {
-                c.getSession().write(NPCPacket.getNPCTalk(9030000, (byte) 0, "I don't think you have any items or money to retrieve here.\r\nThis is where you retrieve the items and mesos that you couldn't get from your Hired Merchant. You'll also need to see me as the character that opened the Personal Store.", "00 00", (byte) 0));
+                c.getPlayer().dropMessage(1, "I don't think you have any items or money to retrieve here.\r\nThis is where you retrieve the items and mesos that you couldn't get from your Hired Merchant. You'll also need to see me as the character that opened the Personal Store.");
                 c.getPlayer().setConversation(0);
             } else if (pack.getItems().size() <= 0) { //error fix for complainers.
                 if (!check(c.getPlayer(), pack)) {
@@ -125,11 +125,9 @@ public class HiredMerchantHandler {
                     return;
                 }
                 if (deletePackage(c.getPlayer().getAccountID(), pack.getPackageid(), c.getPlayer().getId())) {
-                    //c.getPlayer().fakeRelog();
                     c.getPlayer().gainMeso(pack.getMesos(), false);
                     c.getSession().write(PlayerShopPacket.merchItem_Message((byte) 0x1d));
-                    c.getSession().write(NPCPacket.getNPCTalk(9030000, (byte) 0, "I see that you forgot something here right?\r\nHere is your money sir " + pack.getMesos(), "00 00", (byte) 0));
-                    c.getPlayer().setConversation(0);
+                    c.getPlayer().dropMessage(1, "I see that you forgot something here right?\r\nYou have gained "+ pack.getMesos() +" mesos in profit."); // fix this
                 } else {
                     c.getPlayer().dropMessage(1, "An unknown error occured.");
                 }
@@ -139,20 +137,23 @@ public class HiredMerchantHandler {
                 MapleInventoryManipulator.checkSpace(c, conv, conv, null);
                 for (final Item item : pack.getItems()) {
                     if(c.getPlayer().getInventory(GameConstants.getInventoryType(item.getItemId())).isFull()){
-                        c.getSession().write(NPCPacket.getNPCTalk(9030000, (byte) 0, "Sir, if you want your items back please clean up your inventory before you come here!", "00 00", (byte) 0));
-                        c.getPlayer().setConversation(0);
+                        c.removeClickedNPC();
+                        c.getPlayer().dropMessage(1, "Sir, if you want your items back please clean up your inventory before you come here!");
                         break;
                     }
                     MapleInventoryManipulator.addFromDrop(c, item, true);
                     deletePackage(c.getPlayer().getAccountID(), pack.getPackageid(), c.getPlayer().getId());
-                    c.getSession().write(NPCPacket.getNPCTalk(9030000, (byte) 0, "I saved your items sir, next time don't forget them, have a nice day.", "00 00", (byte) 0));
-                    c.getPlayer().setConversation(0);
+                    c.removeClickedNPC();
+                    c.getPlayer().dropMessage(1, "I saved your items sir, next time don't forget them, have a nice day.");
                 }
                 
             }
         }
         c.getSession().write(CWvsContext.enableActions());
     }
+
+    
+
 
     public static final void MerchantItemStore(final LittleEndianAccessor slea, final MapleClient c) {
         if (c.getPlayer() == null) {

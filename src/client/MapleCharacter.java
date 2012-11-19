@@ -46,6 +46,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -167,6 +168,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             guildid = 0, fallcounter, maplepoints, acash, nxcredit, chair, itemEffect, points, vpoints,
             rank = 1, rankMove = 0, jobRank = 1, jobRankMove = 0, marriageId, marriageItemId, dotHP,
             currentrep, totalrep, coconutteam, followid, battleshipHP, gachexp, challenge, guildContribution = 0, remainingAp, honourExp, honourLevel;
+    private AtomicInteger exp2 = new AtomicInteger();
     private Point old;
     private MonsterFamiliar summonedFamiliar;
     private int[] wishlist, rocks, savedLocations, regrocks, hyperrocks, remainingSp = new int[10];
@@ -461,7 +463,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
 
         ret.chalktext = ct.chalkboard;
         ret.gmLevel = ct.gmLevel;
-        ret.exp = (ret.level >= 200 || (GameConstants.isKOC(ret.job) && ret.level >= 120)) && !ret.isIntern() ? 0 : ct.exp;
+        ret.exp = (ret.level < 200 || (GameConstants.isKOC(ret.job) && ret.level < 120)) && !ret.isIntern() ? 0 : ct.exp;
         ret.hpApUsed = ct.hpApUsed;
         ret.remainingSp = ct.remainingSp;
         ret.remainingAp = ct.remainingAp;
@@ -647,7 +649,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             ret.stats.mp = rs.getInt("mp");
             ret.job = rs.getShort("job");
             ret.gmLevel = rs.getByte("gm");
-            ret.exp = (ret.level >= 200 || (GameConstants.isKOC(ret.job) && ret.level >= 120)) && !ret.isIntern() ? 0 : rs.getInt("exp");
+            ret.exp = (ret.level < 200 || (GameConstants.isKOC(ret.job) && ret.level < 120)) && !ret.isIntern() ? 0 : rs.getInt("exp");
             ret.hpApUsed = rs.getShort("hpApUsed");
             final String[] sp = rs.getString("sp").split(",");
             for (int i = 0; i < ret.remainingSp.length; i++) {
@@ -3238,7 +3240,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
        }
         
         if (job >= 430 && job <= 434) { // Dual Blade Skill fix
-            final int[] DB_SKILL_LIST = {4331002, 4330009, 4341004, 4341006, 4341007, 4341011, 4340013}; 
+            final int[] DB_SKILL_LIST = {4331002, 4341002, 4330009, 4341004, 4341006, 4341007, 4341011, 4340013}; 
             for (int i : DB_SKILL_LIST) { 
                 skil = SkillFactory.getSkill(i); 
                 if (skil != null) { 
@@ -3746,64 +3748,57 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         statup.put(stat, newval);
         client.getSession().write(CWvsContext.updatePlayerStats(statup, itemReaction, this));
     }
-
-    public void gainExp(final int total, final boolean show, final boolean inChat, final boolean white) { 
-        try { 
-            int prevexp = getExp(); 
-            int needed = getNeededExp(); 
-            if (total > 0) { 
-                stats.checkEquipLevels(this, total); //gms like 
-            } 
-            if ((level >= 200 || (GameConstants.isKOC(job) && level >= 120))) { 
+    
+    public void gainExp(final int total, final boolean show, final boolean inChat, final boolean white) {
+        try {
+            int prevexp = getExp();
+            int needed = getNeededExp();
+            if (total > 0) {
+                stats.checkEquipLevels(this, total); //gms like
+            }
+            if ((level >= 200 || (GameConstants.isKOC(job) && level >= 120)) && !isIntern()) {
                 setExp(0);
-            } else { 
-                boolean leveled = false; 
-                long tot = exp + total; 
-                if (tot >= needed) { 
-                    exp += total; 
-                    levelUp(); 
-                    leveled = true; 
-                    if (level >= 200 || (GameConstants.isKOC(job) && level >= 120)) { 
-                        setExp(0); 
-                    } else { 
-                        needed = GameConstants.getExpNeededForLevel(level); 
-                        if (exp >= needed) { 
-                            if (gmLevel >= 0) { 
-                                while (exp >= GameConstants.getExpNeededForLevel(level)) { 
-                                    levelUp(); 
-                                    setExp(getExp() - needed); 
-                                } 
-                            } 
-                            setExp(needed - 1); 
-                        } 
-                    } 
-                     
-                } else { 
 
-                    exp += total; 
-                } 
-
-                if (total > 0) { 
-                    familyRep(prevexp, needed, leveled); 
-                } 
-            } 
-            if (total != 0) { 
-                if (exp < 0) { // After adding, and negative 
-                    if (total > 0) { 
-                        setExp(needed); 
-                    } else if (total < 0) { 
-                        setExp(0); 
-                    } 
-                } 
-                updateSingleStat(MapleStat.EXP, getExp()); 
-                if (show) { // still show the expgain even if it's not there 
-                    client.getSession().write(InfoPacket.GainEXP_Others(total, inChat, white)); 
-                } 
-            } 
-        } catch (Exception e) { 
-            FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, e); //all jobs throw errors :( 
-        } 
-    }  
+            } else {
+                boolean leveled = false;
+                long tot = exp + total;
+                if (tot >= needed) {
+                    exp += total;
+                    levelUp();
+                    leveled = true;
+                    if ((level >= 200 || (GameConstants.isKOC(job) && level >= 120)) && !isIntern()) {
+                       updateSingleStat(MapleStat.EXP, 0);
+                    } else {
+                        needed = getNeededExp();
+                        if (exp >= needed) {
+                            setExp(needed - 1);
+                        }
+                    }
+                } else {
+                    exp += total;
+                }
+                if (total > 0) {
+                    familyRep(prevexp, needed, leveled);
+                }
+            }
+            if (total != 0) {
+                if (exp < 0) { // After adding, and negative
+                    if (total > 0) {
+                        setExp(needed);
+                    } else if (total < 0) {
+                        setExp(0);
+                    }
+                }
+                updateSingleStat(MapleStat.EXP, getExp());
+                if (show) { // still show the expgain even if it's not there
+                    client.getSession().write(InfoPacket.GainEXP_Others(total, inChat, white));
+                }
+            }
+        } catch (Exception e) {
+            FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, e); //all jobs throw errors :(
+        }
+    }        
+            
 
     public void setGmLevel(byte level) {
         this.gmLevel = level;
@@ -4372,6 +4367,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
 
             statup.put(MapleStat.STR, (int) stats.getStr());
         }
+        
         if (LoginInformationProvider.isExtendedSpJob(job)) {
             if (level >= 11) {
                 remainingSp[GameConstants.getSkillBook(job, level)] += 3;

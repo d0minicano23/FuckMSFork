@@ -30,11 +30,13 @@ public class NightWalker {
     public static final int DISORDER = 14001002;
     public static final int DARK_SIGHT = 14001003;
     public static final int DARKNESS = 14001005;
+    public static final int DARK_FLARE = 14111010;
     public static final int CLAW_BOOSTER = 14101002;
     public static final int CLAW_MASTERY = 14100000;
     public static final int CRITICAL_THROW = 14100001;
     public static final int HASTE = 14101003;
     public static final int POISON_BOMB = 14111006;
+    public static final int SHADOW_STARS = 14111007;
     public static final int SHADOW_PARTNER = 14111000;
     public static final int SHADOW_WEB = 14111001;
     public static final int VANISH = 14100005;

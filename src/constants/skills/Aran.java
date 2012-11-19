@@ -47,4 +47,5 @@ public class Aran {
     public static final int COMBO_BARRIER = 21120007;
     public static final int HIDDEN_OVER_DOUBLE = 21120009;
     public static final int HIDDEN_OVER_TRIPLE = 21120010;
+    public static final int COMBO_RECHARGE = 21111009;
 }

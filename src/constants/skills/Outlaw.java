@@ -31,4 +31,11 @@ public class Outlaw {
     public static final int FLAME_THROWER = 5211004;
     public static final int HOMING_BEACON = 5211006;
     public static final int ICE_SPLITTER = 5211005;
+    public static final int DICE = 5211007;
+    public static final int OCTO_CANNON = 5211014;
+    public static final int ALL_ABOARD1 = 5211011;
+    public static final int ALL_ABOARD2 = 5211015;
+    public static final int ALL_ABOARD3 = 5211016;
+    public static final int CROSS_CUT_BLAST = 5211009;
+    public static final int DICE2 = 5911007;
 }

@@ -37,4 +37,5 @@ public class Paladin {
     public static final int ADVANCED_CHARGE = 1220010;
     public static final int HEAVENS_HAMMER = 1221011;
     public static final int HEROS_WILL = 1221012;
+    public static final int DIVINE_SHIELD = 1220013;
 }

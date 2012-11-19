@@ -34,5 +34,5 @@ public class GM {
     public static final int HYPER_BODY = 9001008;
     public static final int ANTI_MACRO = 9001009;
     public static final int HASTE = 9101000;
-    public static final int BLESS = 9101003;
+    public static final int BLESS = 9001003;
 }

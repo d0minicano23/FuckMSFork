@@ -35,4 +35,8 @@ public class Corsair {
     public static final int HYPNOTIZE = 5221009;
     public static final int SPEED_INFUSION = 5221010;
     public static final int BULLSEYE = 5220011;
+    public static final int CROSS_CUT_BLAST = 5211009;
+    public static final int PIRATES_REVENGE = 5220012;
+    public static final int AHOY = 5220019;
+    public static final int DOUBLE_DOWN = 5220014;
 }

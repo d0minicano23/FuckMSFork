@@ -35,4 +35,7 @@ public class Buccaneer {
     public static final int PIRATES_RAGE = 5121008;
     public static final int SPEED_INFUSION = 5121009;
     public static final int TIME_LEAP = 5121010;
+    public static final int CROSS_BONES = 5121015;
+    public static final int PIRATES_REVENGE = 5120011;
+    public static final int DOUBLE_DOWN = 5120012;
 }

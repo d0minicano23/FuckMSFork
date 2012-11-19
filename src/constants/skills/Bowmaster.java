@@ -31,7 +31,10 @@ public class Bowmaster {
     public static final int HURRICANE = 3121004;
     public static final int BOW_EXPERT = 3120005;
     public static final int PHOENIX = 3121006;
+    public static final int SPIRIT_LINK = 3120006;
     public static final int HAMSTRING = 3121007;
     public static final int CONCENTRATE = 3121008;
     public static final int HEROS_WILL = 3121009;
+    public static final int ELITE_PUPPET = 3120012;
+    public static final int ADVANCE_FINAL_ATTACK = 3120008;
 }

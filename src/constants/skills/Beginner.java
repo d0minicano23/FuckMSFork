@@ -29,8 +29,8 @@ public class Beginner {
     public static final int FOLLOW_THE_LEADER = 8;
     public static final int BLESSING_OF_THE_FAIRY = 12;
     public static final int EMPRESS_BLESSING = 73;
-    public static final int EMPRESS_SHOUT = 74;
-    public static final int EMPRESS_MIGHT = 80;
+    public static final int EMPRESS_MIGHT1 = 74;
+    public static final int EMPRESS_MIGHT2 = 80;
     public static final int ARCHANGELIC1 = 86;
     public static final int DARK_ANGELIC = 88;
     public static final int ARCHANGELIC2 = 91;
@@ -115,6 +115,7 @@ public class Beginner {
     public static final int ICE_DOUBLE_JUMP = 1098;
     public static final int SMALL_RABBIT = 1101;
     public static final int ICE_KNIGHT = 1102;
+    public static final int ICE_KNIGHT2 = 1105;
     public static final int FORTUNE = 1106;
     public static final int SIXTH_PARTY1 = 1113;
     public static final int SIXTH_PARTY2 = 1114;

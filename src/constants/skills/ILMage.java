@@ -32,4 +32,6 @@ public class ILMage {
     public static final int SEAL = 2211004;
     public static final int SPELL_BOOSTER = 2211005;
     public static final int ELEMENT_COMPOSITION = 2211006;
+    public static final int ELEMNT_DECREASE = 2211008;
+    public static final int TELEPORT_MASTERY = 2211007;
 }

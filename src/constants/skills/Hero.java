@@ -35,4 +35,5 @@ public class Hero {
     public static final int RUSH = 1121006;
     public static final int ENRAGE = 1121010;
     public static final int HEROS_WILL = 1121011;
+    public static final int ADVANCE_FINAL_ATTACK = 1120013;
 }

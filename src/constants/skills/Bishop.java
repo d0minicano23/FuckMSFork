@@ -34,4 +34,7 @@ public class Bishop {
     public static final int HOLY_SHIELD = 2321005;
     public static final int RESURRECTION = 2321006;
     public static final int HEROS_WILL = 2321009;
+    public static final int BUFF_MASTERY = 2321010;
+    public static final int ARCANE_AIM = 2320011;
+    public static final int ADV_BLESS = 2321005;
 }

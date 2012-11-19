@@ -34,4 +34,6 @@ public class FPArchMage {
     public static final int ELQUINES = 2121005;
     public static final int PARALYZE = 2121006;
     public static final int HEROS_WILL = 2121008;
+    public static final int BUFF_MASTERY = 2121009;
+    public static final int ARCANE_AIM = 2120010;
 }
