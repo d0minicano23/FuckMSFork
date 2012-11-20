@@ -49,7 +49,6 @@ import client.status.MonsterStatus;
 import client.status.MonsterStatusEffect;
 import constants.MapConstants;
 import constants.ServerConstants;
-import constants.TutorialConstants;
 import database.DatabaseConnection;
 
 import handling.channel.ChannelServer;
@@ -3767,35 +3766,7 @@ public final class MapleMap {
         return nodes.getDirection(i);
     }
     
-    public final void spawnTutorialDrop() {
-        if (mapobjects.get(MapleMapObjectType.ITEM).size() >= 3) {
-            return;
-        }
-	if (mapid != TutorialConstants.tutorialDropsMap) {
-	    return;
-	}
-	mapobjectlocks.get(MapleMapObjectType.ITEM).readLock().lock();
-	    try {
-		for (MapleMapObject o : mapobjects.get(MapleMapObjectType.ITEM).values()) {
-		    if (((MapleMapItem) o).isRandDrop()) { // this is to show that 1 item has already been dropped before
-                        return;
-                }
-            }
-        } finally {
-            mapobjectlocks.get(MapleMapObjectType.ITEM).readLock().unlock();
-        }
-
-        final Point pos = new Point(TutorialConstants.dropPosX, TutorialConstants.dropPosY); // change to the position you want to		
-	final int[] itemid = null;
-    
-	if (mapid == TutorialConstants.tutorialDropsMap) {
-	    if (itemid != null) {
-		spawnAutoDrop(TutorialConstants.tutorialDrops[Randomizer.nextInt(TutorialConstants.tutorialDrops.length)], pos);
-	    }
-	    spawnAutoDrop(TutorialConstants.tutorialDrops[Randomizer.nextInt(TutorialConstants.tutorialDrops.length)], pos);	
-        }
-    }
-    
+  
 
     public final MapleMapObject getClosestMapObjectInRange(final Point from, final double rangeSq, final List<MapleMapObjectType> MapObject_types) {
         MapleMapObject ret = null;

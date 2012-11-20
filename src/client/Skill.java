@@ -167,6 +167,8 @@ public class Skill {
                 case Evan.RECOVERY_AURA:
                 case BattleMage.PARTY_SHIELD:
                 case Bishop.BIG_BANG:
+                case ILArchMage.BIG_BANG:
+                case FPArchMage.BIG_BANG:
                 case ChiefBandit.CHAKRA:
                 case Beginner.OZ_FLAME:
                 case Beginner.OZ_FLAME_GEAR:
@@ -387,9 +389,9 @@ public class Skill {
                 case BattleMage.DARK_AURA:
                 case BattleMage.YELLOW_AURA:
                 case BattleMage.ADV_BLUE_AURA:
-                case 32110007:
-                case 32110008:
-                case 32110009:
+                case 32110007: // arua effect
+                case 32110008: // aura effect
+                case 32110009: // aura effect
                 case BattleMage.BODY_BOOSTER:
                 case BattleMage.REAPER:
                 case BattleMage.BLUE_AURA:
@@ -434,7 +436,7 @@ public class Skill {
                 case DualBlade.KATARA_BOOSTER:
                 case Jett.DOUBLE_DOWN:
                 case CannonShooter.HEROS_WILL:
-		case CannonShooter.CANNON_BOOSTER:               
+		case CannonShooter.CANNON_BOOSTER:                                            
                 case DualBlade.ADV_DARK_SIGHT:
                 case 80001089:
                     isBuff = true;

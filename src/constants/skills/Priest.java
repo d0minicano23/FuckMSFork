@@ -30,6 +30,7 @@ public class Priest {
     public static final int DISPEL = 2311001;
     public static final int MYSTIC_DOOR = 2311002;
     public static final int HOLY_SYMBOL = 2311003;
+    public static final int RAY = 2311004;
     public static final int DOOM = 2311005;
     public static final int SUMMON_DRAGON = 2311006;
     public static final int TELEPORT_MASTERY = 2311007;

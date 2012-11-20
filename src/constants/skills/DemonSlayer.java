@@ -145,4 +145,6 @@ public class DemonSlayer {
     public static final int BLACK_HEART = 31111004;
     public static final int MAPLE_WARRIOR = 31121004;
     public static final int BATTLE_IMPACT = 31001001;
+    public static final int VORTEX = 31111001;
+    public static final int RAVEN_STORM = 31101002;
 }

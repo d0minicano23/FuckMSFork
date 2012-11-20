@@ -30,9 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import constants.GameConstants;
-import constants.ExpBonus;
 import client.Skill;
 import client.inventory.Item;
 import client.MapleDisease;
@@ -355,7 +353,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
 	listener = null;
     }
 
-    private final void giveExpToCharacter(final MapleCharacter attacker, int exp, final boolean highestDamage, final int numExpSharers, final byte pty, final byte Class_Bonus_EXP_PERCENT, final byte Premium_Bonus_EXP_PERCENT, final int lastskillID) {
+    private final void giveExpToCharacter(final MapleCharacter attacker, int exp, final boolean highestDamage, final int numExpSharers, final byte pty, final byte Premium_Bonus_EXP_PERCENT, final int lastskillID) { // TODO ADD ELVEN BLESSING
         if (highestDamage) {
             if (eventInstance != null) {
                 eventInstance.monsterKilled(attacker, this);
@@ -381,10 +379,6 @@ public class MapleMonster extends AbstractLoadedMapleLife {
             }
             exp = (int) Math.min(Integer.MAX_VALUE, exp * attacker.getEXPMod() * attacker.getStat().expBuff / 100.0 * (attacker.getLevel() < 10 ? GameConstants.getExpRate_Below10(attacker.getJob()) : GameConstants.getExpRate(attacker.getJob(), ChannelServer.getInstance(map.getChannel()).getExpRate())));
             //do this last just incase someone has a 2x exp card and its set to max value
-            int Class_Bonus_EXP = 0;
-            if (Class_Bonus_EXP_PERCENT > 0) {
-                Class_Bonus_EXP = (int) ((exp / 100.0) * Class_Bonus_EXP_PERCENT);
-            }
             int Premium_Bonus_EXP = 0;
             if (Premium_Bonus_EXP_PERCENT > 0) {
                 Premium_Bonus_EXP = (int) ((exp / 100.0) * Premium_Bonus_EXP_PERCENT);
@@ -394,7 +388,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
                 Equipment_Bonus_EXP += (int) ((exp / 100.0) * attacker.getFairyExp());
             }
 	    attacker.getTrait(MapleTraitType.charisma).addExp(stats.getCharismaEXP(), attacker);
-            attacker.gainExpMonster(exp, true, highestDamage, pty, Class_Bonus_EXP, Equipment_Bonus_EXP, Premium_Bonus_EXP, stats.isPartyBonus(), stats.getPartyBonusRate());
+            attacker.gainExpMonster(exp, true, highestDamage, pty, Equipment_Bonus_EXP, Premium_Bonus_EXP, stats.isPartyBonus(), stats.getPartyBonusRate());
         }
         attacker.mobKilled(getId(), lastskillID);
     }
@@ -1217,7 +1211,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
         public void killedMob(final MapleMap map, final int baseExp, final boolean mostDamage, final int lastSkill) {
             final MapleCharacter chr = map.getCharacterById(chrid);
             if (chr != null && chr.isAlive()) {
-                giveExpToCharacter(chr, baseExp, mostDamage, 1, (byte) 0, (byte) 0, (byte) 0, lastSkill);
+                giveExpToCharacter(chr, baseExp, mostDamage, 1, (byte) 0, (byte) 0, lastSkill);
             }
         }
 
@@ -1246,14 +1240,12 @@ public class MapleMonster extends AbstractLoadedMapleLife {
 
         public final int exp;
         public final byte ptysize;
-        public final byte Class_Bonus_EXP;
         public final byte Premium_Bonus_EXP;
 
-        public ExpMap(final int exp, final byte ptysize, final byte Class_Bonus_EXP, final byte Premium_Bonus_EXP) {
+        public ExpMap(final int exp, final byte ptysize, final byte Premium_Bonus_EXP) {
             super();
             this.exp = exp;
             this.ptysize = ptysize;
-            this.Class_Bonus_EXP = Class_Bonus_EXP;
             this.Premium_Bonus_EXP = Premium_Bonus_EXP;
         }
     }
@@ -1345,13 +1337,11 @@ public class MapleMonster extends AbstractLoadedMapleLife {
             double addedPartyLevel, levelMod, innerBaseExp;
             List<MapleCharacter> expApplicable;
             final Map<MapleCharacter, ExpMap> expMap = new HashMap<MapleCharacter, ExpMap>(6);
-            byte Class_Bonus_EXP;
             byte Premium_Bonus_EXP;
 
             for (final Entry<MapleCharacter, OnePartyAttacker> attacker : resolveAttackers().entrySet()) {
                 party = attacker.getValue().lastKnownParty;
                 addedPartyLevel = 0;
-                Class_Bonus_EXP = 0;
                 Premium_Bonus_EXP = 0;
                 expApplicable = new ArrayList<MapleCharacter>();
                 for (final MaplePartyCharacter partychar : party.getMembers()) {
@@ -1360,8 +1350,6 @@ public class MapleMonster extends AbstractLoadedMapleLife {
                         if (pchr != null && pchr.isAlive()) {
                             expApplicable.add(pchr);
                             addedPartyLevel += pchr.getLevel();
-
-                            Class_Bonus_EXP += ExpBonus.Class_Bonus_EXP(pchr.getJob());
                             if (pchr.getStat().equippedWelcomeBackRing && Premium_Bonus_EXP == 0) {
                                 Premium_Bonus_EXP = 80;
                             }
@@ -1374,21 +1362,19 @@ public class MapleMonster extends AbstractLoadedMapleLife {
                     highestDamage = iDamage;
                 }
                 innerBaseExp = baseExp * ((double) iDamage / totDamage);
-                if (expApplicable.size() <= 1) {
-                    Class_Bonus_EXP = 0; //no class bonus if not in a party.
-                }
+
 
                 for (final MapleCharacter expReceiver : expApplicable) {
                     iexp = expMap.get(expReceiver) == null ? 0 : expMap.get(expReceiver).exp;
                     levelMod = expReceiver.getLevel() / addedPartyLevel * (GameConstants.GMS ? 0.8 : 0.4);
                     iexp += (int) Math.round(((attacker.getKey().getId() == expReceiver.getId() ? (GameConstants.GMS ? 0.2 : 0.6) : 0.0) + levelMod) * innerBaseExp);
-                    expMap.put(expReceiver, new ExpMap(iexp, (byte) expApplicable.size(), Class_Bonus_EXP, Premium_Bonus_EXP));
+                    expMap.put(expReceiver, new ExpMap(iexp, (byte) expApplicable.size(), Premium_Bonus_EXP));
                 }
             }
             ExpMap expmap;
             for (final Entry<MapleCharacter, ExpMap> expReceiver : expMap.entrySet()) {
                 expmap = expReceiver.getValue();
-                giveExpToCharacter(expReceiver.getKey(), expmap.exp, mostDamage ? expReceiver.getKey() == highest : false, expMap.size(), expmap.ptysize, expmap.Class_Bonus_EXP, expmap.Premium_Bonus_EXP, lastSkill);
+                giveExpToCharacter(expReceiver.getKey(), expmap.exp, mostDamage ? expReceiver.getKey() == highest : false, expMap.size(), expmap.ptysize, expmap.Premium_Bonus_EXP, lastSkill);
             }
         }
 

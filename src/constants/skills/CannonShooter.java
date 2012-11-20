@@ -20,4 +20,8 @@ public class CannonShooter {
         public static final int BLAST_BACK = 50110002;
         public static final int SPIRIT = 5321010;
         public static final int MAPLE_WARRIOR = 5321005;
+        public static final int BARREL_BOMB = 5301001;
+        public static final int MONKEY_MADNESS = 5311001;
+        public static final int MONKEY_WAVE = 5311002;
+        public static final int MONKEY_WAVE2 = 5310008;
 }

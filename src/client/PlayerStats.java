@@ -250,7 +250,7 @@ public class PlayerStats implements Serializable {
             speed += equip.getSpeed();
             jump += equip.getJump();
             pvpDamage += equip.getPVPDamage();
-            switch (equip.getItemId()) {
+            switch (equip.getItemId()) { // gives the buff when rings are equipped
                 case 1112127:
                     equippedWelcomeBackRing = true;
                     break;
@@ -261,8 +261,6 @@ public class PlayerStats implements Serializable {
                     equippedFairy = 5;
                     break;
                 case 1112594:
-                    equippedSummon = 1085;    
-                    break;
                 case 1112585:
                     equippedSummon = 1085;
                     break;

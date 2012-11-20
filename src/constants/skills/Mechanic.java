@@ -32,4 +32,6 @@ public class Mechanic {
     public static final int MAPLE_WARRIOR = 35121007;
     public static final int MECHANIC_RAGE = 35101006;
     public static final int UNKNOWN_SKILL = 35121011;
+    public static final int ATOMIC_HAMMER = 35101003;
+    public static final int PUNCH = 35111015;
 }

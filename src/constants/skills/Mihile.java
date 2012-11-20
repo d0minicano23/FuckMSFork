@@ -19,4 +19,5 @@ public class Mihile {
         public static final int ROILING_SOUL = 51121006;
         public static final int MAPLE_WARRIOR = 51121005;
         public static final int SWORD_BOOSTER = 51101003;
+        public static final int RADIANT_BUSTER = 51111007;
 }

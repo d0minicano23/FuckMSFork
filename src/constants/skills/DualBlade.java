@@ -20,4 +20,7 @@ public class DualBlade {
         public static final int THORNS = 4341007;
         public static final int MONSTER_BOMB = 4341003;
         public static final int MIRROR_TARGET = 4341006;
+        public static final int FLY_ASSULTER = 4211002;
+        public static final int FLY_ASSULTER2 = 4331005;
+        public static final int FLASHBANG = 4321002;
 }

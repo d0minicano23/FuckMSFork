@@ -1709,9 +1709,6 @@ public class World {
             }
         }
         if (map.characterSize() > 0 || map.getId() == 931000500) { //jaira hack
-            if (map.getId() == 30000) {
-	        map.spawnTutorialDrop();
-            }
             if (map.canSpawn(now)) {
                 map.respawn(false, now);
             }

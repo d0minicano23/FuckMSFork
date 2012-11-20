@@ -32,4 +32,5 @@ public class Marauder {
     public static final int TRANSFORMATION = 5111005;
     public static final int DICE = 5111007;
     public static final int DICE2 = 5811007;
+    public static final int ENERGY_BLAST = 5111002;
 }

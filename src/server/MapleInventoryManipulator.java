@@ -27,7 +27,6 @@ import tools.packet.MTSCSPacket;
 import tools.StringUtil;
 import constants.MapConstants;
 import constants.ServerConstants;
-import constants.TutorialConstants;
 import java.util.HashMap;
 import server.quest.MapleQuest;
 import tools.packet.CWvsContext;
@@ -890,13 +889,6 @@ public class MapleInventoryManipulator {
             c.getSession().write(InventoryPacket.getInventoryFull());
             return;
         }
-        if (MapConstants.isStorylineMap(c.getPlayer().getMapId())) {
-            if (TutorialConstants.isBeginnerEquip(source.getItemId())) {
-                c.getPlayer().dropMessage(5, TutorialConstants.getEquipBlockedMsg());
-                c.getSession().write(CWvsContext.enableActions());
-                return;
-            }
-        }
         c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).removeSlot(src);
         if (target != null) {
             c.getPlayer().getInventory(MapleInventoryType.EQUIP).removeSlot(dst);
@@ -971,13 +963,6 @@ public class MapleInventoryManipulator {
         if (quantity < 0 || source == null || (GameConstants.GMS && src == -55) || (!npcInduced && GameConstants.isPet(source.getItemId())) || (quantity == 0 && !GameConstants.isRechargable(source.getItemId())) || c.getPlayer().inPVP()) {
             c.getSession().write(CWvsContext.enableActions());
             return false;
-        }
-        if (MapConstants.isStorylineMap(c.getPlayer().getMapId())) {
-            if (TutorialConstants.isBeginnerEquip(source.getItemId()) || source.getItemId() == ServerConstants.CURRENCY) {
-                c.getPlayer().dropMessage(5, TutorialConstants.getDropBlockedMsg());
-                c.getSession().write(CWvsContext.enableActions());
-                return false;
-            }
         }
 
         final short flag = source.getFlag();

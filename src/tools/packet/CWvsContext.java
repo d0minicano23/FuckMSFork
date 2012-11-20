@@ -2926,7 +2926,7 @@ import handling.world.World;
 /*  876 */       return mplew.getPacket();
      }
  
-     public static byte[] GainEXP_Monster(int gain, boolean white, int partyinc, int Class_Bonus_EXP, int Equipment_Bonus_EXP, int Premium_Bonus_EXP) {
+     public static byte[] GainEXP_Monster(int gain, boolean white, int partyinc, int Equipment_Bonus_EXP, int Premium_Bonus_EXP) {
 /*  880 */       MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
  
 /*  882 */       mplew.writeShort(SendPacketOpcode.SHOW_STATUS_INFO.getValue());

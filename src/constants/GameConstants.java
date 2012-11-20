@@ -258,9 +258,9 @@ public class GameConstants {
     }
 
     public static boolean isSeparatedSp(int job) {
-/*  248 */     return (isEvan(job)) || (isResist(job)) || (isMercedes(job)) || (isJett(job)) || (isPhantom(job) || (isMihile(job)));
-/*      */   }
-/*      */     
+         return (isEvan(job)) || (isResist(job)) || (isMercedes(job)) || (isJett(job)) || (isPhantom(job) || (isMihile(job)));
+    }
+     
         
     public static boolean isDemon(final int job) {
         return job == 3001 || (job >= 3100 && job <= 3112);

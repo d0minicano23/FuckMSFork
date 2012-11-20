@@ -34,4 +34,5 @@ public class ILMage {
     public static final int ELEMENT_COMPOSITION = 2211006;
     public static final int ELEMNT_DECREASE = 2211008;
     public static final int TELEPORT_MASTERY = 2211007;
+    public static final int THUNDER_SPEAR = 2211003;
 }

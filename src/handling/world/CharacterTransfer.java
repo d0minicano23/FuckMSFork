@@ -134,8 +134,6 @@ public class CharacterTransfer implements Externalizable {
          */
         this.reborns = chr.getReborns();
         this.apstorage = chr.getAPS();
-        this.occupationId = chr.getOccupation();
-        this.occupationEXP = chr.getOccupationEXP();
         /*
          * End of Custom Feature
          */

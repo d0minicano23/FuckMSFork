@@ -31,4 +31,9 @@ public class Evan {
     public static final int TELEPORT_MASTERY = 22161005;
     public static final int DRAGON_SPARK = 22150004;
     public static final int ELEMTENTAL_WEAKNESS = 22000002;
+    public static final int DRAGON_THRUST = 22141001;
+    public static final int FIRE_BREATH = 22151001;
+    public static final int BLAZE = 22181001;
+    public static final int BLESSING_OF_ONYX = 22131000;
+    public static final int ICE_BREATH = 22121000;
 }

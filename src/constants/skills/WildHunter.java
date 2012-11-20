@@ -21,4 +21,9 @@ public class WildHunter {
         public static final int SOUL_ARROW = 33101003;
         public static final int MAPLE_WARRIOR = 33121007;
         public static final int CROSSBOW_BOOSTER = 33001003;
+        public static final int RICOCHET = 33101001;
+        public static final int JAGUAR_RAWR = 33101002;
+        public static final int DASH = 33111002;
+        public static final int SONIC = 33121002;
+        public static final int STINK_BOMB = 33121005;
 }

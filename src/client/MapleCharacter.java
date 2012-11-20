@@ -3756,7 +3756,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             if (total > 0) {
                 stats.checkEquipLevels(this, total); //gms like
             }
-            if ((level >= 200 || (GameConstants.isKOC(job) && level >= 120)) && !isIntern()) {
+            if ((level == 200 || (GameConstants.isKOC(job) && level == 120))) {
                 setExp(0);
 
             } else {
@@ -3766,7 +3766,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     exp += total;
                     levelUp();
                     leveled = true;
-                    if ((level >= 200 || (GameConstants.isKOC(job) && level >= 120)) && !isIntern()) {
+                    if (level == 200 || (GameConstants.isKOC(job) && level == 120)) {
                        updateSingleStat(MapleStat.EXP, 0);
                     } else {
                         needed = getNeededExp();
@@ -3823,8 +3823,8 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         }
     }
 
-    public void gainExpMonster(final int gain, final boolean show, final boolean white, final byte pty, int Class_Bonus_EXP, int Equipment_Bonus_EXP, int Premium_Bonus_EXP, boolean partyBonusMob, final int partyBonusRate) { 
-        int total = gain + Class_Bonus_EXP + Equipment_Bonus_EXP + Premium_Bonus_EXP; 
+    public void gainExpMonster(final int gain, final boolean show, final boolean white, final byte pty, int Equipment_Bonus_EXP, int Premium_Bonus_EXP, boolean partyBonusMob, final int partyBonusRate) { 
+        int total = gain + Equipment_Bonus_EXP + Premium_Bonus_EXP; 
         int partyinc = 0; 
         int prevexp = getExp(); 
         if (pty > 1) { 
@@ -3840,7 +3840,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             stats.checkEquipLevels(this, total); //gms like 
         } 
         int needed = getNeededExp(); 
-        if (level == 200 && !isIntern()) { 
+        if (level == 200) { 
             setExp(0);  
         } else { 
                 boolean leveled = false; 
@@ -3883,7 +3883,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             } 
             updateSingleStat(MapleStat.EXP, getExp()); 
             if (show) { // still show the expgain even if it's not there 
-                client.getSession().write(InfoPacket.GainEXP_Monster(gain, white, partyinc, Class_Bonus_EXP, Equipment_Bonus_EXP, Premium_Bonus_EXP)); 
+                client.getSession().write(InfoPacket.GainEXP_Monster(gain, white, partyinc, Equipment_Bonus_EXP, Premium_Bonus_EXP)); 
             } 
         } 
     }  
@@ -4314,16 +4314,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         maxmp += stats.getTotalInt() / 10;
 
         exp -= getNeededExp();
-        if (getOccupation() / 100 == 2) { // Gamer 
-            final int chance = OccupationConstants.getGamerChance(getOccupation());
-            if (chance > 0) {
-                if (Randomizer.nextInt(100) < chance) {
-                    level += 1; // or maybe give an item?..then can sell to players (instant level item)
-                    dropMessage(-3, "Level UP! Yeah!");
-                    dropMessage(-1, "[Game] You've obtained an extra level!");
-                }
-            }
-        }
         level += 1;
         if (GameConstants.isKOC(job) && level < 120 && level > 10) {
             exp += getNeededExp() / 10;
@@ -4615,12 +4605,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     break;
             }
 
-
-
-            //  PHANTOM(2003),PHANTOM1(2400), PHANTOM2(2410), PHANTOM3(2411), PHANTOM4(2412),
-
-
-
         } else if (GameConstants.isJett(job)) {
             switch (getLevel()) {
                 case 10:
@@ -4652,17 +4636,9 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     changeJob((short) 2412);
                     break;
             } 
+         }
     }
-    }
-
-        //    PHANTOM(2003),PHANTOM1(2400), PHANTOM2(2410), PHANTOM3(2411), PHANTOM4(2412),
-        // End of auto job [someone optimize this]
-        //if (map.getForceMove() > 0 && map.getForceMove() <= getLevel()) {
-        //    changeMap(map.getReturnMap(), map.getReturnMap().getPortal(0));
-        //    dropMessage(-1, "You have been expelled from the map.");
-        //}
     
-
     public void changeKeybinding(int key, byte type, int action) {
         if (type != 0) {
             keylayout.Layout().put(Integer.valueOf(key), new Pair<Byte, Integer>(type, action));
@@ -6609,7 +6585,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
 
     public final void cloneLook() {
-        if (clone || inPVP() || (getOccupation() / 100 != 1 && !isGM())) {
+        if (clone || inPVP()) {
             return;
         }
         for (int i = 0; i < clones.length; i++) {
@@ -8464,58 +8440,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
 
     public void setLoginTime(long login) {
         this.loginTime = login;
-    }
-
-    public short getOccupation() {
-        return occupationId;
-    }
-
-    public void changeOccupation(short occu) {
-        this.occupationId = occu;
-    }
-
-    public short getOccupationEXP() {
-        return occupationEXP;
-    }
-
-    public void gainOccupationEXP(int amount) {
-        if (getOccupation() <= 0 || (getOccupation() % 10) >= 10 || amount >= 30000 || occupationEXP >= 30000) { // Max level already
-            return;
-        }
-        dropMessage(-1, "You have " + (amount > 1 ? "lost " : "gained ") + "" + amount + " occupation experience.");
-        final short occLevel = (short) (occupationId % 10);
-        if (occupationEXP + amount >= OccupationConstants.getOccExpForLevel(occLevel)) {
-            occupationEXP += amount;
-            levelOccupation();
-
-            final short needed = (short) OccupationConstants.getOccExpForLevel(occLevel);
-            if (occupationEXP > needed) {
-                occupationEXP = needed;
-            }
-        } else {
-            occupationEXP += amount;
-        }
-    }
-
-    public void levelOccupation() {
-        if (this.occupationId % 10 < 10) {
-            this.occupationId++; // Add 1
-        }
-        if (this.occupationId % 10 == 0) { // Max level occupation
-            finishAchievement(42);
-            final StringBuilder sb = new StringBuilder("[" + TutorialConstants.beginnerNPCName + "] ");
-            sb.append(getName());
-            sb.append(" has leveled up to a Level 10 ").append(OccupationConstants.toString(occupationId)).append(". Congrats!!");
-            World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, sb.toString())); // maybe <<use red color msg
-        }
-    }
-    //prefix..
-    /*
-     * End of Custom Feature
-     */
-
-    ;   public int getStr() {
-        return str;
     }
 
     public void setStr(int str) {

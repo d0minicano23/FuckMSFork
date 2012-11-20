@@ -4,14 +4,7 @@
  */
 package constants;
 
-import java.util.ArrayList;
-import java.util.List;
-import tools.Pair;
 
-/**
- *
- * @author Steven
- */
 public class Rank {
        public static enum PlayerGMRank {
 

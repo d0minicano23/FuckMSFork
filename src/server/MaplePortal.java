@@ -25,7 +25,6 @@ import java.awt.Point;
 import client.MapleClient;
 import client.anticheat.CheatingOffense;
 import constants.MapConstants;
-import constants.TutorialConstants;
 import handling.channel.ChannelServer;
 import scripting.PortalScriptManager;
 import server.maps.MapleMap;
@@ -123,23 +122,10 @@ public class MaplePortal {
                 }
             } else if (getTargetMapId() != 999999999) {
                 final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(getTargetMapId());
-				if (to == null) {
-            	    c.getSession().write(CWvsContext.enableActions());
-					return;
-				}
-                if (!c.getPlayer().isGM()) {
-                    if (to.getLevelLimit() > 0 && to.getLevelLimit() > c.getPlayer().getLevel()) {
-                        c.getPlayer().dropMessage(-1, "You are too low of a level to enter this place.");
-                        c.getSession().write(CWvsContext.enableActions());
-                        return;
-                    }
-                } else if (to.getId() == c.getPlayer().getMapId() + 10000 && MapConstants.isStorylineMap(c.getPlayer().getMapId())) { // TODO REMOVE THE BLOCKED BEGINNER MAP
-                    if (c.getPlayer().getQuestStatus(TutorialConstants.getQuest(c.getPlayer(), c.getPlayer().getMapId())) != 2) {
-                        c.getPlayer().dropMessage(1, TutorialConstants.getPortalBlockedMsg());
-                        c.getSession().write(CWvsContext.enableActions());
-                        return;
-                    }
-                }
+			if (to == null) {
+                           c.getSession().write(CWvsContext.enableActions());
+                                return;
+                        }
                 c.getPlayer().changeMapPortal(to, to.getPortal(getTarget()) == null ? to.getPortal(0) : to.getPortal(getTarget())); //late resolving makes this harder but prevents us from loading the whole world at once
             }
         }

@@ -29,4 +29,7 @@ public class BattleMage {
     public static final int CONVERSION = 32111004;
     public static final int STAFF_BOOSTER = 32101005;
     public static final int ELEMENTAL_WEAKNESS = 32000012;
+    public static final int HYPER_DARK_CHAIN = 32101001;
+    public static final int ADV_DARK_CHAIN = 32111011;
+    public static final int DARK_GENESIS = 32121004;
 }
