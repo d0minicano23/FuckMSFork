@@ -240,8 +240,8 @@ function action(mode, type, selection) {
 			cm.dispose();
 			return;
 		}
-		if (cm.getPlayer().getClient().getChannel() != 3 && cm.getPlayer().getClient().getChannel() != 2 && cm.getPlayer().getClient().getChannel() != 4) {
-			cm.sendOk("Zakum may only be attempted on channel 2, 3 and 4.");
+		if (cm.getPlayer().getClient().getChannel() != 1 && cm.getPlayer().getClient().getChannel() != 2 && cm.getPlayer().getClient().getChannel() != 3) {
+			cm.sendOk("Zakum may only be attempted on channel 1, 2 and 3.");
 			cm.dispose();
 			return;
 		}

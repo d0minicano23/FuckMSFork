@@ -5,3 +5,11 @@ Unhandled script : map_913070000, type : onUserEnter - MAPID 913070000
 Unhandled script : map_913070000, type : onUserEnter - MAPID 913070000
 ------------------------ 2012-11-21 20:35:22 ------------------------
 Unhandled portal script portal_000 on map 913070000
+------------------------ 2012-11-23 16:12:50 ------------------------
+Error executing Quest script. (1021)..NPCID: 2000:javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: ReferenceError: "client" is not defined. (<Unknown source>#26) in <Unknown source> at line number 26
+------------------------ 2012-11-23 16:12:55 ------------------------
+Error executing Quest script. (1021)..NPCID: 2000:javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: ReferenceError: "client" is not defined. (<Unknown source>#26) in <Unknown source> at line number 26
+------------------------ 2012-11-23 16:15:29 ------------------------
+Error executing Quest script. (1021)..NPCID: 2000:javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: ReferenceError: "client" is not defined. (<Unknown source>#26) in <Unknown source> at line number 26
+------------------------ 2012-11-23 16:15:34 ------------------------
+Error executing Quest script. (1021)..NPCID: 2000:javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: ReferenceError: "client" is not defined. (<Unknown source>#26) in <Unknown source> at line number 26

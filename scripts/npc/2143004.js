@@ -1,18 +1,18 @@
 var status = -1;
 
 function start() {
-	if (cm.getPlayer().getMapId() == 262031300) {
+	if (cm.getPlayer().getMapId() == 271040100) {
 		cm.sendYesNo("Would you like to get out?");
 		status = 1;
 		return;
 	}
-		if (cm.getPlayer().getLevel() < 120) {
+		if (cm.getPlayer().getLevel() < 170) {
 			cm.sendOk("There is a level requirement of 170 to attempt Empress Cygnus.");
 			cm.dispose();
 			return;
 		}
-		if (cm.getPlayer().getClient().getChannel() != 1) {
-			cm.sendOk("Cygnus may only be attempted on channel 1.");
+		if (cm.getPlayer().getClient().getChannel() != 13) {
+			cm.sendOk("Cygnus may only be attempted on channel 13.");
 			cm.dispose();
 			return;
 		}

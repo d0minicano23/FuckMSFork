@@ -4525,31 +4525,31 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             }
 
         } else if (GameConstants.isDemon(job)) {
-                if(level<=9 && job!=3001){
+                if(level<10){
                     Item eq_weapon24 = MapleItemInformationProvider.getInstance().getEquipById(1099001);
                     eq_weapon24.setPosition((byte) -10);
                     equip.addFromDB(eq_weapon24);
                     equipChanged();
                     changeJob((short) 3001);
-                } else if(level==10 && job!=3100){
+                } else if(level==10){
                     Item eq_weapon23 = MapleItemInformationProvider.getInstance().getEquipById(1099000);
                     eq_weapon23.setPosition((byte) -10);
                     equip.addFromDB(eq_weapon23);
                     equipChanged();
                     changeJob((short) 3100);
-                }else if(level==30 && job!=3110){
+                }else if(level==30){
                     Item eq_weapon0 = MapleItemInformationProvider.getInstance().getEquipById(1099002);
                     eq_weapon0.setPosition((byte) -10);
                     equip.addFromDB(eq_weapon0);
                     equipChanged();
                     changeJob((short) 3110);
-                }else if(level==70 && job!=3111){
+                }else if(level==70){
                     Item eq_weapon11 = MapleItemInformationProvider.getInstance().getEquipById(1099003);
                     eq_weapon11.setPosition((byte) -10);
                     equip.addFromDB(eq_weapon11);
                     equipChanged(); 
                     changeJob((short) 3111);
-                 }else if(level==120 && job!=3112){
+                 }else if(level==120){
                     Item eq_weapon12 = MapleItemInformationProvider.getInstance().getEquipById(1099004);
                     eq_weapon12.setPosition((byte) -10);
                     equip.addFromDB(eq_weapon12);

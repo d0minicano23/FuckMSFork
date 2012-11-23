@@ -1,24 +1,12 @@
-var status = -1;
+function start(mode, type, selection) {
+	qm.dispose();
+	}
 
 function end(mode, type, selection) {
-    if (mode == 1) {
-	status++;
-    } else {
-	qm.dispose();
-	return;
-    }
-    if (status == 0) {
-	if(qm.getLevel() == 4){
-	qm.forceStartQuest();
-	qm.dispose();
-	} else {
-	qm.sendNext("Are you done cleaning yet? I suppose it looks moderately\r\npresentable in here. what are you looking at? Go organize the shelves!");
-	}
-    } else if (status == 1) {
-	qm.getPlayer().levelUp();
-	qm.forceCompleteQuest();
-	qm.warp(913070003);
+	qm.gainExp(227);
+	qm.gainItem(2000003,20);
+	qm.gainItem(2000000,20);
+	qm.forceCompleteQuest(20032);
+	qm.warp(913070003,"sp");
 	qm.dispose();
     }
-}
-
