@@ -42,6 +42,7 @@ import client.anticheat.ReportType;
 import client.inventory.Item;
 import client.inventory.MapleImp;
 import client.inventory.MaplePet;
+import constants.GameConstants;
 import server.quest.MapleQuest;
 import tools.Pair;
 import java.util.ArrayList;

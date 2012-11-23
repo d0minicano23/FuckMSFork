@@ -26,6 +26,9 @@ public class ServerConstants {
     public static final String HOST = "25.222.122.82";
     public static final int EXP_RATE = 10;
     public static final int MESO_RATE = 10;
+    public static final int DROP_RATE = 10;
+    public static final int TRAIT_RATE = 1;
+    public static final int CASH_RATE = 1;
     public static final int NUM_CHANNELS = 2;
     public static final int USER_LIMIT = 100;
     public static final int LOGIN_FLAGS = 2;

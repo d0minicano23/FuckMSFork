@@ -23,4 +23,7 @@ public class DualBlade {
         public static final int FLY_ASSULTER = 4211002;
         public static final int FLY_ASSULTER2 = 4331005;
         public static final int FLASHBANG = 4321002;
+        public static final int VENOM1 = 4320005;
+        public static final int VENOM2 = 4340001;
+        public static final int TOXIC_VENOM = 4340012;
 }

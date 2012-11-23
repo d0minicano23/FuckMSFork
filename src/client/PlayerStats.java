@@ -573,8 +573,16 @@ public class PlayerStats implements Serializable {
             }
         }
         chra.changeSkillLevel_Skip(sData, false);
-        if (GameConstants.isDemon(chra.getJob())) {
-            localmaxmp = GameConstants.getMPByJob(chra.getJob());
+        if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 1 && chra.getLevel() < 10){
+            localmaxmp = 120;
+        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 10 && chra.getLevel() < 30){
+            localmaxmp = 30;
+        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 30 && chra.getLevel() < 70){
+            localmaxmp = 60;
+        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 70 && chra.getLevel() < 120){
+            localmaxmp = 90;
+        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 120){
+            localmaxmp = 120;
         }
         CalcPassive_SharpEye(chra);
         CalcPassive_Mastery(chra);
@@ -2767,8 +2775,8 @@ public class PlayerStats implements Serializable {
                     }
                     break;
             }
-            localmaxbasepvpdamage = weapon.getMaxDamageMultiplier() * (4 * mainstatpvp + secondarystatpvp) * (100.0f + (pvpDamage / 100.0f));
-            localmaxbasepvpdamageL = weapon.getMaxDamageMultiplier() * (4 * mainstat + secondarystat) * (100.0f + (pvpDamage / 100.0f));
+                localmaxbasepvpdamage = weapon.getMaxDamageMultiplier() * (4 * mainstatpvp + secondarystatpvp) * (100.0f + (pvpDamage / 100.0f));
+                localmaxbasepvpdamageL = weapon.getMaxDamageMultiplier() * (4 * mainstat + secondarystat) * (100.0f + (pvpDamage / 100.0f));
             if (weapon2 != MapleWeaponType.NOT_A_WEAPON && weapon_item != null && weapon_item2 != null) {
                 Equip we1 = (Equip) weapon_item;
                 Equip we2 = (Equip) weapon_item2;
@@ -2831,9 +2839,9 @@ public class PlayerStats implements Serializable {
 			final Skill effect = SkillFactory.getSkill(5700005); // Perseverance
             final int lvl = chra.getSkillLevel(effect);
             if (lvl > 0) {
-				final MapleStatEffect eff = effect.getEffect(lvl);
+            final MapleStatEffect eff = effect.getEffect(lvl);
                 shouldHealHP += eff.getX();
-				shouldHealMP += eff.getX();
+	        shouldHealMP += eff.getX();
                 hpRecoverTime = eff.getY();
                 mpRecoverTime = eff.getY();
             }
@@ -3031,13 +3039,13 @@ public class PlayerStats implements Serializable {
                     }
                     break;
                 case "hpmpchange":
-                    switch (add.getMid()) {
-                        case "hpChangerPerTime":
-                            recoverHP += right;
-                            break;
-                        case "mpChangerPerTime":
-                            recoverMP += right;
-                            break;
+                        switch (add.getMid()) {
+                           case "hpChangerPerTime":
+                             recoverHP += right;
+                             break;
+                          case "mpChangerPerTime":
+                                recoverMP += right;
+                               break;
                     }
                     break;
                 case "statinc":
@@ -3130,7 +3138,7 @@ public class PlayerStats implements Serializable {
         localint_ += soc.get("incINT");
         localluk += soc.get("incLUK");
         accuracy += soc.get("incACC");
-        // incEVA -> increase dodge
+       // incEVA -> increase dodge
         speed += soc.get("incSpeed");
         jump += soc.get("incJump");
         watk += soc.get("incPAD");
@@ -3368,9 +3376,10 @@ public class PlayerStats implements Serializable {
 
     public final int getCurrentMaxMp(final int job) {
         if (GameConstants.isDemon(job)) {
-            return GameConstants.getMPByJob(job);
+            return 10;
+        } else {
+            return localmaxmp;
         }
-        return localmaxmp;
     }
 
     public final int getHands() {

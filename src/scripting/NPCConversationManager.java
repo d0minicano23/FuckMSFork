@@ -1212,7 +1212,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         c.getPlayer().getStat().int_ = (short) 32767;
         c.getPlayer().getStat().luk = (short) 32767;
 
-        int overrDemon = GameConstants.isDemon(c.getPlayer().getJob()) ? GameConstants.getMPByJob(c.getPlayer().getJob()) : 99999;
+        int overrDemon = 99999;
         c.getPlayer().getStat().maxhp = 99999;
         c.getPlayer().getStat().maxmp = overrDemon;
         c.getPlayer().getStat().setHp(99999, c.getPlayer());

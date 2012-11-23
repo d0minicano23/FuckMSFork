@@ -172,6 +172,7 @@ public class Skill {
                 case ChiefBandit.CHAKRA:
                 case Beginner.OZ_FLAME:
                 case Beginner.OZ_FLAME_GEAR:
+                case Phantom.TEMPEST:
                     isBuff = false;
                     break;
                 case Beginner.RECOVERY:
@@ -340,7 +341,8 @@ public class Skill {
                 case Aran.HEROS_WILL:
                 case Aran.POLEARM_BOOSTER:
                 case Aran.COMBO_DRAIN:
-                case Aran.SNOW_CHARGE:
+                case Aran.SNOW_CHARGE1:
+                case Aran.SNOW_CHARGE2:
                 case Aran.BODY_PRESSURE:
                 case Aran.SMART_KNOCKBACK:
                 case Aran.COMBO_BARRIER:
@@ -385,7 +387,7 @@ public class Skill {
                 case Bishop.ARCANE_AIM:
                 case Bishop.BUFF_MASTERY:
                 case Phantom.CANE_BOOSTER:
-                case BattleMage.DARK_META:
+                case DemonSlayer.DARK_META:
                 case BattleMage.DARK_AURA:
                 case BattleMage.YELLOW_AURA:
                 case BattleMage.ADV_BLUE_AURA:
@@ -438,6 +440,7 @@ public class Skill {
                 case CannonShooter.HEROS_WILL:
 		case CannonShooter.CANNON_BOOSTER:                                            
                 case DualBlade.ADV_DARK_SIGHT:
+                case WhiteKnight.COMBAT_ORDERS:
                 case 80001089:
                     isBuff = true;
                     break;

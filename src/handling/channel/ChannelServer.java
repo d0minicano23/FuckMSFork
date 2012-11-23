@@ -68,7 +68,7 @@ import tools.packet.CWvsContext;
 public class ChannelServer {
 
     public static long serverStartTime;
-    private int expRate, mesoRate, dropRate = 2, cashRate = 1, traitRate = 3, BossDropRate = 3; 
+    private int expRate, mesoRate, dropRate, cashRate, traitRate, BossDropRate; 
     private short port = 8585;
     private static final short DEFAULT_PORT = 8585;
     private int channel, running_MerchantID = 0, flags = 0;
@@ -120,6 +120,9 @@ public class ChannelServer {
         try {
             expRate = ServerConstants.EXP_RATE;
             mesoRate = ServerConstants.MESO_RATE;
+            dropRate = ServerConstants.DROP_RATE;
+            cashRate = ServerConstants.CASH_RATE;
+            traitRate = ServerConstants.TRAIT_RATE;
             serverMessage = ServerConstants.SERVER_MESSAGE;
             serverName = ServerConstants.SERVER_NAME;
             flags = ServerConstants.FLAGS;

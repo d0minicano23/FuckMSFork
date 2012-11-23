@@ -10,7 +10,6 @@ package constants.skills;
  */
 public class BattleMage {
     public static final int PARTY_SHIELD = 32121006;
-    public static final int DARK_META = 31121005;
     public static final int DARK_AURA = 3200103;
     public static final int YELLOW_AURA = 32101003;
     public static final int ADV_BLUE_AURA = 32110000;

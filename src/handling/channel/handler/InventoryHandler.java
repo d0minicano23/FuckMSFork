@@ -2624,13 +2624,13 @@ public class InventoryHandler {
                         item.setViciousHammer((byte) (item.getViciousHammer() + 1));
                         item.setUpgradeSlots((byte) (item.getUpgradeSlots() + 1));
                         c.getPlayer().forceReAddItem(item, MapleInventoryType.EQUIP);
-                        c.getSession().write(MTSCSPacket.ViciousHammer(true, (byte) item.getViciousHammer()));
+                        c.getSession().write(MTSCSPacket.ViciousHammer((byte) item.getViciousHammer()));
                         c.getPlayer().fakeRelog();
                         c.getPlayer().dropMessage(1, "Added 1 slot successfully to " + item);
                         used = true;
                     } else {
                         c.getPlayer().dropMessage(5, "You may not use it on this item.");
-                        c.getSession().write(MTSCSPacket.ViciousHammer(true, (byte) 0));
+                        c.getSession().write(MTSCSPacket.ViciousHammer((byte) 0));
                     }
                 }
 

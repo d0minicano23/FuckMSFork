@@ -36,4 +36,11 @@ public class Evan {
     public static final int BLAZE = 22181001;
     public static final int BLESSING_OF_ONYX = 22131000;
     public static final int ICE_BREATH = 22121000;
+    public static final int DECENT_HASTE = 20028000;
+    public static final int DECENT_MYSTIC_DOOR = 20008001;
+    public static final int DECENT_SHARP_EYES = 20008002;
+    public static final int DECENT_HYPER_BODY = 20008003;
+    public static final int DECENT_COMBAT_ORDERS = 20008004;
+    public static final int DECENT_ADVANCE_BLESSING = 20008005;
+    public static final int DECENT_SPEED_INFUSION = 20008006;
 }

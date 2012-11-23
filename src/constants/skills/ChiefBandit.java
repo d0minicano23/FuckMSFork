@@ -35,4 +35,5 @@ public class ChiefBandit {
     public static final int MESO_GUARD2 = 4201011;
     public static final int MESO_EXPLOSION = 4211006;
     public static final int SHADOW_PARTNER = 4211008;
+    public static final int VENOM = 4210010;
 }

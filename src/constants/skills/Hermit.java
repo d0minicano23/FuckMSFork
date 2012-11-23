@@ -34,4 +34,5 @@ public class Hermit {
     public static final int AVENGER = 4111005;
     public static final int DARK_FLARE = 4111007;
     public static final int SHADOW_STARS = 4111009;
+    public static final int VENOM = 4110011;
 }

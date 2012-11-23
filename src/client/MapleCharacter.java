@@ -3166,18 +3166,37 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             if (maxhp >= 99999) {
                 maxhp = 99999;
             }
-            if (maxmp >= 99999) {
-                maxmp = 99999;
-            }
-            if (GameConstants.isDemon(job)) {
-                maxmp = GameConstants.getMPByJob(job);
-            }
+            
+        if ((GameConstants.isDemon(getJob()))){
+           if(getLevel()<10){
+             maxmp = 5;
+           }else{
+             maxmp = 10;
+           }       
+        } else if(maxmp >= 99999 && !(GameConstants.isDemon(getJob()))) {
+            maxmp = 99999;     
+        }
             stats.setInfo(maxhp, maxmp, maxhp, maxmp);
             Map<MapleStat, Integer> statup = new EnumMap<MapleStat, Integer>(MapleStat.class);
             statup.put(MapleStat.MAXHP, Integer.valueOf(maxhp));
             statup.put(MapleStat.MAXMP, Integer.valueOf(maxmp));
             statup.put(MapleStat.HP, Integer.valueOf(maxhp));
-            statup.put(MapleStat.MP, Integer.valueOf(maxmp));
+         int mp = 0;
+      if((GameConstants.isDemon(getJob()))){
+        if(getLevel()<10 || getLevel()>=120){
+             mp = 120;
+        }else if(getLevel()>=10 && getLevel()<30){
+             mp = 30;
+        }else if(getLevel()>=30 && getLevel()<70){
+             mp = 60;
+        }else if(getLevel()>=70 && getLevel()<120){
+             mp = 90;
+        }
+        statup.put(MapleStat.MP, Integer.valueOf(mp));
+      } else {
+        statup.put(MapleStat.MP, Integer.valueOf(maxmp));
+      }  
+            
             characterCard.recalcLocalStats(this);
             stats.recalcLocalStats(this);
             client.getSession().write(CWvsContext.updatePlayerStats(statup, this));
@@ -3199,6 +3218,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         } catch (Exception e) {
             FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, e); //all jobs throw errors :(
         }
+        return;
     }
 
     public void baseSkills() {
@@ -3707,7 +3727,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
 
     public void addMP(int delta, boolean ignore) {
-        if ((delta < 0 && GameConstants.isDemon(getJob())) || !GameConstants.isDemon(getJob()) || ignore) {
+        if (delta < 0 || !GameConstants.isDemon(getJob()) || ignore) {
             if (stats.setMp(stats.getMp() + delta, this)) {
                 updateSingleStat(MapleStat.MP, stats.getMp());
             }
@@ -4334,30 +4354,51 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             finishAchievement(5);
         }
         maxhp = Math.min(99999, Math.abs(maxhp));
-        maxmp = Math.min(99999, Math.abs(maxmp));
-        if (GameConstants.isDemon(job)) {
-            maxmp = GameConstants.getMPByJob(job);
+
+        if ((GameConstants.isDemon(getJob()))){
+           if(getLevel()<10){
+             maxmp = 5;
+           }else{
+             maxmp = 10;
+           }
+        } else {
+             maxmp = Math.min(99999, Math.abs(maxmp));
         }
+        
         final Map<MapleStat, Integer> statup = new EnumMap<MapleStat, Integer>(MapleStat.class);
         final MapleInventory equip = client.getPlayer().getInventory(MapleInventoryType.EQUIPPED);
-
-        statup.put(MapleStat.MAXHP, maxhp);
-        statup.put(MapleStat.MAXMP, maxmp);
+        
+        statup.put(MapleStat.MAXHP, maxhp);       
         statup.put(MapleStat.HP, maxhp);
+        statup.put(MapleStat.MAXMP, maxmp);
+        
+        int mp = 0;
+      if ((GameConstants.isDemon(getJob()))){
+        if(getLevel()<10 || getLevel()>=120){
+             mp = 120;
+        }else if(getLevel()>=10 && getLevel()<30){
+             mp = 30;
+        }else if(getLevel()>=30 && getLevel()<70){
+             mp = 60;
+        }else if(getLevel()>=70 && getLevel()<120){
+             mp = 90;
+        }
+        statup.put(MapleStat.MP, mp);
+      } else {
         statup.put(MapleStat.MP, maxmp);
+      }  
         statup.put(MapleStat.EXP, exp);
         statup.put(MapleStat.LEVEL, (int) level);
         updateSingleStat(MapleStat.AVAILABLESP, 0); // we don't care the value here
         
-        if (level <= 10 && stats.str <= (32767-15)) { //This puts all the ap into strength from level 1-10 be careful with this
-                                           // Because if you use the command !level with this active for all types of players
-                                           // That can use this command will be bugged
+        if (level <= 10 && stats.str <= (32767-15)) {
             stats.str += remainingAp;
             remainingAp = 0;
-
             statup.put(MapleStat.STR, (int) stats.getStr());
         }
-        
+        /* This puts all the ap into strength from level 1-10 be careful with this
+           Because if you use the command !level with this active for all types of players
+           That can use this command will be bugged! */
         if (LoginInformationProvider.isExtendedSpJob(job)) {
             if (level >= 11) {
                 remainingSp[GameConstants.getSkillBook(job, level)] += 3;
@@ -4432,36 +4473,33 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     changeJob((short) 2112);
                     break;
             }
-        } else if (GameConstants.isMihile(job)) {
-            switch (getLevel()) {
-                case 10:
+            
+            } else if (GameConstants.isMihile(job)) {
+                
+                if(getLevel()==10){
                     changeJob((short) 5100);
-                    break;
-                case 30:
+                }else if(getLevel()==30){
                     changeJob((short) 5110);
                     removeAll(1098000);
                     Item eq_weapon = MapleItemInformationProvider.getInstance().getEquipById(1098001);
                     eq_weapon.setPosition((byte) -10);
                     equip.addFromDB(eq_weapon);
                     equipChanged();    
-                    break;
-                case 70:
+                }else if(getLevel()==70){
                     changeJob((short) 5111);
                     removeAll(1098001);
                     Item eq_weapon1 = MapleItemInformationProvider.getInstance().getEquipById(1098002);
                     eq_weapon1.setPosition((byte) -10);
                     equip.addFromDB(eq_weapon1);
                     equipChanged();  
-                    break;
-                case 120:
+                 }else if(getLevel()==120){
                     changeJob((short) 5112);
                     removeAll(1098002);
                     Item eq_weapon2 = MapleItemInformationProvider.getInstance().getEquipById(1098003);
                     eq_weapon2.setPosition((byte) -10);
                     equip.addFromDB(eq_weapon2);
                     equipChanged();  
-                    break;
-            }
+                }
             
         } else if (GameConstants.isEvan(job)) { // 2218, 2217, 2216, 2215, 2214, 2213, 2212, 2211, 2210, 2200, 2001
             if (level >= 160 && job != 2218) {
@@ -4487,20 +4525,37 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             }
 
         } else if (GameConstants.isDemon(job)) {
-            switch (getLevel()) {
-                case 10:
+                if(level<=9 && job!=3001){
+                    Item eq_weapon24 = MapleItemInformationProvider.getInstance().getEquipById(1099001);
+                    eq_weapon24.setPosition((byte) -10);
+                    equip.addFromDB(eq_weapon24);
+                    equipChanged();
+                    changeJob((short) 3001);
+                } else if(level==10 && job!=3100){
+                    Item eq_weapon23 = MapleItemInformationProvider.getInstance().getEquipById(1099000);
+                    eq_weapon23.setPosition((byte) -10);
+                    equip.addFromDB(eq_weapon23);
+                    equipChanged();
                     changeJob((short) 3100);
-                    break;
-                case 30:
+                }else if(level==30 && job!=3110){
+                    Item eq_weapon0 = MapleItemInformationProvider.getInstance().getEquipById(1099002);
+                    eq_weapon0.setPosition((byte) -10);
+                    equip.addFromDB(eq_weapon0);
+                    equipChanged();
                     changeJob((short) 3110);
-                    break;
-                case 70:
+                }else if(level==70 && job!=3111){
+                    Item eq_weapon11 = MapleItemInformationProvider.getInstance().getEquipById(1099003);
+                    eq_weapon11.setPosition((byte) -10);
+                    equip.addFromDB(eq_weapon11);
+                    equipChanged(); 
                     changeJob((short) 3111);
-                    break;
-                case 120:
+                 }else if(level==120 && job!=3112){
+                    Item eq_weapon12 = MapleItemInformationProvider.getInstance().getEquipById(1099004);
+                    eq_weapon12.setPosition((byte) -10);
+                    equip.addFromDB(eq_weapon12);
+                    equipChanged();  
                     changeJob((short) 3112);
-                    break;
-            }
+                }
 
         } else if (GameConstants.isCannon(job)) {
             switch (getLevel()) {
@@ -4564,26 +4619,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                             break;
                         case 120:
                             changeJob((short) 3312);
-                            break;
-                    }
-                    break;
-                case 3001:
-                case 3100:
-                case 3110:
-                case 3111:
-                case 3112:
-                    switch (getLevel()) {
-                        case 10:
-                            changeJob((short) 3100);
-                            break;
-                        case 30:
-                            changeJob((short) 3110);
-                            break;
-                        case 70:
-                            changeJob((short) 3111);
-                            break;
-                        case 120:
-                            changeJob((short) 3112);
                             break;
                     }
                     break;

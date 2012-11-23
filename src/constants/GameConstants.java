@@ -2638,13 +2638,13 @@ public static int getSkillBook(final int job, final int level) {
                         return 1932033;
                     case 60:
                         return 1932036;
-					case 70:
-						return 1932100;
+                    case 70:
+			return 1932100;
                 }
-                return 1932015;
-            case 35001002:
-            case 35120000:
-                return 1932016;
+                        return 1932015;
+                        case 35001002:
+                        case 35120000:
+                        return 1932016;
 			//case 30011109:
 			//	return 1932085;
         }
@@ -2711,8 +2711,8 @@ public static int getSkillBook(final int job, final int level) {
                 return 1932022;
             case 1044:
                 return 1932023;
-            //case 1045:
-            //return 1932030; //wth? helicopter? i didnt see one, so we use hog
+            case 1045:
+                 return 1932030; //wth? helicopter? i didnt see one, so we use hog
             case 1049:
                 return 1932025;
             case 1050:
@@ -3655,18 +3655,7 @@ public static int getSkillBook(final int job, final int level) {
         return 0;
     }
 
-    public static int getMPByJob(int job) {
-        switch (job) {
-            case 3100:
-            case 3110:
-            case 3111:
-            case 3112:
-		return 10; // Demon Slayers DF is always at 10, the Shield is what increases its Demon Force
 
-        }
-		return 30; // beginner or 3100
-    }
-	
 	public static int getSkillLevel(final int level) {
 		if (level >= 70 && level < 120) {
 			return 2;

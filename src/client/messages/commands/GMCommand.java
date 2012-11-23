@@ -134,7 +134,7 @@ public class GMCommand {
         public int execute(MapleClient c, String[] splitted) {
         Map<MapleStat, Integer> statup = new EnumMap<MapleStat, Integer>(MapleStat.class);
 
-        int overrDemon = GameConstants.isDemon(c.getPlayer().getJob()) ? GameConstants.getMPByJob(c.getPlayer().getJob()) : 99999;
+        int overrDemon = 99999;
         c.getPlayer().getStat().maxhp = 99999;
         c.getPlayer().getStat().maxmp = overrDemon;
         c.getPlayer().getStat().setHp(99999, c.getPlayer());
@@ -261,8 +261,8 @@ public class GMCommand {
         @Override
         public int execute(MapleClient c, String[] splitted) {
             c.getPlayer().setLevel(Short.parseShort(splitted[1]));
-            c.getPlayer().updateSingleStat(MapleStat.LEVEL, c.getPlayer().getLevel());
             c.getPlayer().updateSingleStat(MapleStat.EXP,0);
+            c.getPlayer().updateSingleStat(MapleStat.LEVEL, c.getPlayer().getLevel());
             return 1;
         }
     }

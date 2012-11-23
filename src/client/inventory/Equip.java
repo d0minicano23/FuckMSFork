@@ -35,7 +35,7 @@ public class Equip extends Item implements Serializable {
     //charm: -1 = has not been initialized yet, 0 = already been worn, >0 = has teh charm exp
     private byte upgradeSlots = 0, level = 0, vicioushammer = 0, enhance = 0;
     private short str = 0, dex = 0, _int = 0, luk = 0, hp = 0, mp = 0, watk = 0, matk = 0, wdef = 0, mdef = 0, acc = 0, avoid = 0, hands = 0, speed = 0, jump = 0, charmExp = 0, pvpDamage = 0;
-    private int itemEXP = 0, durability = -1, incSkill = -1, potential1 = 0, potential2 = 0, potential3 = 0, potential4 = 0, potential5 = 0, socket1 = -1, socket2 = -1, socket3= -1;
+    private int itemEXP = 0, durability = -1, incSkill = -1, potential1 = 0, potential2 = 0, potential3 = 0, potential4 = 0, potential5 = 0, socket1 = -1, socket2 = -1, socket3 = -1;
     private MapleRing ring = null;
     private MapleAndroid android = null;
 

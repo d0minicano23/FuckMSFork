@@ -30,7 +30,8 @@ public class Aran {
     public static final int POLEARM_BOOSTER = 21001003;
     public static final int MAPLE_WARRIOR = 21121000;
     public static final int FREEZE_STANDING = 21121003;
-    public static final int SNOW_CHARGE = 21111005;
+    public static final int SNOW_CHARGE1 = 21111005;
+    public static final int SNOW_CHARGE2 = 21101006;
     public static final int HEROS_WILL = 21121008;
     public static final int BODY_PRESSURE = 21101003;
     public static final int COMBO_DRAIN = 21100005;

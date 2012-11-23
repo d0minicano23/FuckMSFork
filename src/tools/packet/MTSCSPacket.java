@@ -716,16 +716,12 @@ public class MTSCSPacket {
         return mplew.getPacket();
     }
 
-    public static byte[] ViciousHammer(boolean start, int hammered) {
+    public static byte[] ViciousHammer(int hammered) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
-
         mplew.writeShort(SendPacketOpcode.VICIOUS_HAMMER.getValue());
-        mplew.write(start ? 63 : 67);
+        mplew.write(63);
         mplew.writeInt(0);
-        if (start) {
-            mplew.writeInt(hammered);
-        }
-
+        mplew.writeInt(hammered);
         return mplew.getPacket();
     }
 

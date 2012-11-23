@@ -872,7 +872,7 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
             case VICIOUS_HAMMER:
                 slea.skip(4); // 3F 00 00 00
                 slea.skip(4); // all 0
-                c.getSession().write(MTSCSPacket.ViciousHammer(false, 0));
+                c.getSession().write(MTSCSPacket.ViciousHammer(0));
                 break;
             case USE_NEBULITE_FUSION:
                 InventoryHandler.UseNebuliteFusion(slea, c);

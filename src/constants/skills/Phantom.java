@@ -15,6 +15,7 @@ public class Phantom {
     public static final int SHROUD_WALK = 20031205;
     public static final int FINAL_FEINT = 24111002;
     public static final int PRENOMBRE = 24121003;
+    public static final int ARIA = 24121004;
     public static final int JUDGEMENT_DRAW1 = 20031209;
     public static final int JUDGEMENT_DRAW2 = 20031210;
     public static final int FORTUNE = 20031106;
@@ -152,4 +153,5 @@ public class Phantom {
     public static final int DECENT_ADVANCE_BLESSING = 20038005;
     public static final int DECENT_SPEED_INFUSION = 20038006;
     public static final int CANE_BOOSTER = 24101005;
+    public static final int TEMPEST = 24121005;
 }

@@ -36,4 +36,5 @@ public class Shadower {
     public static final int BOOMERANG_STEP = 4221007;
     public static final int HEROS_WILL = 4221008;
     public static final int SHADOWER_INSTINCT = 4221013;
+    public static final int TOXIC_VENOM = 4220011;
 }

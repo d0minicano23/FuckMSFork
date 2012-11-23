@@ -227,7 +227,7 @@ public class CharLoginHandler {
         final MapleItemInformationProvider li = MapleItemInformationProvider.getInstance();
         final MapleInventory equip = newchar.getInventory(MapleInventoryType.EQUIPPED);
 
- Item item = li.getEquipById(top);
+        Item item = li.getEquipById(top);
         item.setPosition((byte) -5);
         equip.addFromDB(item);
 
@@ -256,7 +256,7 @@ public class CharLoginHandler {
             item.setPosition((byte) -10);
             equip.addFromDB(item);
         }
-        if(mihile) {
+       if(mihile) {
         item = li.getEquipById(1098000);
         item.setPosition((byte) -10);
         equip.addFromDB(item);
@@ -295,8 +295,8 @@ public class CharLoginHandler {
 				ss.put(SkillFactory.getSkill(20020111), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss.put(SkillFactory.getSkill(20020112), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss.put(SkillFactory.getSkill(20021181), new SkillEntry((byte) -1, (byte) 0, -1));
-                ss.put(SkillFactory.getSkill(20021166), new SkillEntry((byte) -1, (byte) 0, -1));
-                ss.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                                ss.put(SkillFactory.getSkill(20021166), new SkillEntry((byte) -1, (byte) 0, -1));
+                                ss.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
 				newchar.changeSkillLevel_Skip(ss, false);
                 break;
             case Demon: //Demon
@@ -312,11 +312,11 @@ public class CharLoginHandler {
 				ss2.put(SkillFactory.getSkill(30010022), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss2.put(SkillFactory.getSkill(30011109), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss2.put(SkillFactory.getSkill(30011170), new SkillEntry((byte) 1, (byte) 1, -1));
-                ss2.put(SkillFactory.getSkill(30011169), new SkillEntry((byte) 1, (byte) 1, -1));
-                ss2.put(SkillFactory.getSkill(30011168), new SkillEntry((byte) 1, (byte) 1, -1));
-                ss2.put(SkillFactory.getSkill(30011167), new SkillEntry((byte) 1, (byte) 1, -1));
-                ss2.put(SkillFactory.getSkill(30010166), new SkillEntry((byte) 1, (byte) 1, -1));
-                ss2.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                                ss2.put(SkillFactory.getSkill(30011169), new SkillEntry((byte) 1, (byte) 1, -1));
+                                ss2.put(SkillFactory.getSkill(30011168), new SkillEntry((byte) 1, (byte) 1, -1));
+                                ss2.put(SkillFactory.getSkill(30011167), new SkillEntry((byte) 1, (byte) 1, -1));
+                                ss2.put(SkillFactory.getSkill(30010166), new SkillEntry((byte) 1, (byte) 1, -1));
+                                ss2.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
 				newchar.changeSkillLevel_Skip(ss2, false);
                 break;
             case Jett:
@@ -341,45 +341,45 @@ public class CharLoginHandler {
                break;				
             case Mihile:
             final Map<Skill, SkillEntry> ss4 = new HashMap<>();
-            ss4.put(SkillFactory.getSkill(50001214), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss4.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss4.put(SkillFactory.getSkill(50001214), new SkillEntry((byte) 1, (byte) 1, -1));
-            newchar.setHair(36033);
-            newchar.changeSkillLevel_Skip(ss4, false);
+                     ss4.put(SkillFactory.getSkill(50001214), new SkillEntry((byte) 1, (byte) 1, -1));
+                     ss4.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                     ss4.put(SkillFactory.getSkill(50001214), new SkillEntry((byte) 1, (byte) 1, -1));
+                     newchar.setHair(36033);
+                     newchar.changeSkillLevel_Skip(ss4, false);
         break;
             case Luminous:
             final Map<Skill, SkillEntry> ss5 = new HashMap<>();
-            ss5.put(SkillFactory.getSkill(20040216), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss5.put(SkillFactory.getSkill(20040217), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss5.put(SkillFactory.getSkill(20040218), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss5.put(SkillFactory.getSkill(20040221), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss5.put(SkillFactory.getSkill(20041222), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss5.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
-            newchar.changeSkillLevel_Skip(ss5, false);
+                      ss5.put(SkillFactory.getSkill(20040216), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss5.put(SkillFactory.getSkill(20040217), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss5.put(SkillFactory.getSkill(20040218), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss5.put(SkillFactory.getSkill(20040221), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss5.put(SkillFactory.getSkill(20041222), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss5.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                      newchar.changeSkillLevel_Skip(ss5, false);
         break;
             case Kaiser:
             final Map<Skill, SkillEntry> ss6 = new HashMap<>();
-            ss6.put(SkillFactory.getSkill(60001216), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss6.put(SkillFactory.getSkill(60001217), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss6.put(SkillFactory.getSkill(60001218), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss6.put(SkillFactory.getSkill(60001219), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss6.put(SkillFactory.getSkill(60001220), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss6.put(SkillFactory.getSkill(60001221), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss6.put(SkillFactory.getSkill(60001222), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss6.put(SkillFactory.getSkill(60001225), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss6.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
-            newchar.changeSkillLevel_Skip(ss6, false);
+                     ss6.put(SkillFactory.getSkill(60001216), new SkillEntry((byte) 1, (byte) 1, -1));
+                     ss6.put(SkillFactory.getSkill(60001217), new SkillEntry((byte) 1, (byte) 1, -1));
+                     ss6.put(SkillFactory.getSkill(60001218), new SkillEntry((byte) 1, (byte) 1, -1));
+                     ss6.put(SkillFactory.getSkill(60001219), new SkillEntry((byte) 1, (byte) 1, -1));
+                     ss6.put(SkillFactory.getSkill(60001220), new SkillEntry((byte) 1, (byte) 1, -1));
+                     ss6.put(SkillFactory.getSkill(60001221), new SkillEntry((byte) 1, (byte) 1, -1));
+                     ss6.put(SkillFactory.getSkill(60001222), new SkillEntry((byte) 1, (byte) 1, -1));
+                     ss6.put(SkillFactory.getSkill(60001225), new SkillEntry((byte) 1, (byte) 1, -1));
+                     ss6.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                     newchar.changeSkillLevel_Skip(ss6, false);
         break;
             case AngelicBurster:
             final Map<Skill, SkillEntry> ss7 = new HashMap<>();
-            ss7.put(SkillFactory.getSkill(60011216), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss7.put(SkillFactory.getSkill(60011218), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss7.put(SkillFactory.getSkill(60011219), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss7.put(SkillFactory.getSkill(60011220), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss7.put(SkillFactory.getSkill(60011221), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss7.put(SkillFactory.getSkill(60011222), new SkillEntry((byte) 1, (byte) 1, -1));
-            ss7.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
-                newchar.changeSkillLevel_Skip(ss7, false);
+                      ss7.put(SkillFactory.getSkill(60011216), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss7.put(SkillFactory.getSkill(60011218), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss7.put(SkillFactory.getSkill(60011219), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss7.put(SkillFactory.getSkill(60011220), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss7.put(SkillFactory.getSkill(60011221), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss7.put(SkillFactory.getSkill(60011222), new SkillEntry((byte) 1, (byte) 1, -1));
+                      ss7.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                      newchar.changeSkillLevel_Skip(ss7, false);
         }
 
         if (MapleCharacterUtil.canCreateChar(name, c.isGm()) && (!LoginInformationProvider.getInstance().isForbiddenName(name) || c.isGm()) && (c.isGm() || c.canMakeCharacter(c.getWorld()))) {
