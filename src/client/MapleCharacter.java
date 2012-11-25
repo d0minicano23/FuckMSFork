@@ -4371,7 +4371,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         
         statup.put(MapleStat.MAXHP, maxhp);       
         statup.put(MapleStat.HP, maxhp);
-        statup.put(MapleStat.MAXMP, maxmp);   
+        statup.put(MapleStat.MAXMP, maxmp); 
         statup.put(MapleStat.MP, maxmp);        
         statup.put(MapleStat.EXP, exp);
         statup.put(MapleStat.LEVEL, (int) level);

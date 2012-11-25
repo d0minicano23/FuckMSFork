@@ -2890,19 +2890,19 @@ public class MapleStatEffect implements Serializable {
     }
 
     public final boolean isArcane() {
-        return skill && (sourceid == 2320011 || sourceid == 2220010 || sourceid == 2120010);
+        return skill && (sourceid == Bishop.ARCANE_AIM || sourceid == FPArchMage.ARCANE_AIM || sourceid == ILArchMage.ARCANE_AIM);
     }
 
     public final boolean isHeal() {
-        return skill && (sourceid == 2301002 || sourceid == 9101000 || sourceid == 9001000);
+        return skill && (sourceid == Cleric.HEAL || sourceid == SuperGM.HEAL_PLUS_DISPEL || sourceid == 9001000);
     }
 
     public final boolean isResurrection() {
-        return skill && (sourceid == 9001005 || sourceid == 9101005 || sourceid == 2321006);
+        return skill && (sourceid == 9001005 || sourceid == SuperGM.RESURRECTION || sourceid == Bishop.RESURRECTION);
     }
 
     public final boolean isTimeLeap() {
-        return skill && sourceid == 5121010;
+        return skill && sourceid == Buccaneer.TIME_LEAP;
     }
 
     public final int getHp() {
@@ -2992,20 +2992,22 @@ public class MapleStatEffect implements Serializable {
     public final boolean sameSource(final MapleStatEffect effect) {
         boolean sameSrc = this.sourceid == effect.sourceid;
         switch (this.sourceid) { // All these are passive skills, will have to cast the normal ones.
-            case 32120000: // Advanced Dark Aura
+            case BattleMage.ADV_DARK_AURA: // Advanced Dark Aura
                 sameSrc = effect.sourceid == 32001003;
                 break;
-            case 32110000: // Advanced Blue Aura
+            case BattleMage.ADV_BLUE_AURA: // Advanced Blue Aura
                 sameSrc = effect.sourceid == 32111012;
                 break;
-            case 32120001: // Advanced Yellow Aura
+            case BattleMage.ADV_YELLOW_AURA: // Advanced Yellow Aura
                 sameSrc = effect.sourceid == 32101003;
                 break;
-            case 35120000: // Extreme Mech
+            case Mechanic.EXTREME: // Extreme Mech
                 sameSrc = effect.sourceid == 35001002;
                 break;
-            case 35121013: // Mech: Siege Mode
+            case Mechanic.SIEGE_MODE: // Mech: Siege Mode
                 sameSrc = effect.sourceid == 35111004;
+            case DualBlade.ADV_DARK_SIGHT:
+                sameSrc = effect.sourceid == Rogue.DARK_SIGHT;
                 break;
         }
         return effect != null && sameSrc && this.skill == effect.skill;

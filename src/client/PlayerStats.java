@@ -25,6 +25,7 @@ import constants.GameConstants;
 import client.inventory.MapleInventoryType;
 import client.inventory.Item;
 import client.inventory.Equip;
+import client.inventory.MapleInventory;
 import client.inventory.MapleWeaponType;
 import handling.world.World;
 import handling.world.guild.MapleGuild;
@@ -36,7 +37,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.EnumMap;
 import java.util.HashMap;
-
 import java.util.Iterator;
 import java.util.Map.Entry;
 import provider.MapleDataTool;
@@ -232,9 +232,7 @@ public class PlayerStats implements Serializable {
             if (equip.getItemId() / 10000 == 166 && equip.getAndroid() != null && chra.getAndroid() == null) {
                 chra.setAndroid(equip.getAndroid());
             }
-            //if (equip.getItemId() / 1000 == 1099) {
-            //    equippedForce += equip.getMp();
-            //}
+            
             chra.getTrait(MapleTraitType.craft).addLocalExp(equip.getHands());
             accuracy += equip.getAcc();
             localmaxhp_ += equip.getHp();
@@ -273,7 +271,7 @@ public class PlayerStats implements Serializable {
                 default:
                     for (int eb_bonus : GameConstants.Equipments_Bonus) {
                         if (equip.getItemId() == eb_bonus) {
-                            //equipmentBonusExp += GameConstants.Equipment_Bonus_EXP(eb_bonus);
+                            equipmentBonusExp += GameConstants.Equipment_Bonus_EXP(eb_bonus);
                             break;
                         }
                     }
@@ -572,7 +570,11 @@ public class PlayerStats implements Serializable {
                 localmaxmp = 99999;
             }
         }
+
         chra.changeSkillLevel_Skip(sData, false);
+       
+        final Iterator<Item> iteraz = chra.getInventory(MapleInventoryType.EQUIPPED).newList().iterator();
+        final Equip equip = (Equip) iteraz.next();       
         if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 1 && chra.getLevel() < 10){
             localmaxmp = 120;
         } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 10 && chra.getLevel() < 30){
@@ -581,9 +583,10 @@ public class PlayerStats implements Serializable {
             localmaxmp = 60;
         } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 70 && chra.getLevel() < 120){
             localmaxmp = 90;
-        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 120){ // TODO NEED EQUIPPED CHECK
+        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 120 && equip.getItemId()==1099004){
             localmaxmp = 120;
         }
+        
         CalcPassive_SharpEye(chra);
         CalcPassive_Mastery(chra);
         recalcPVPRank(chra);

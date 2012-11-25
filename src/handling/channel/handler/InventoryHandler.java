@@ -2181,7 +2181,7 @@ public class InventoryHandler {
                         for (Map.Entry<Integer, StructFamiliar> f : MapleItemInformationProvider.getInstance().getFamiliars().entrySet()) {
                             if (Randomizer.nextInt(500) == 0 && ((i < 2 && f.getValue().grade == 0 || (i == 2 && f.getValue().grade != 0)))) {
                                 MapleInventoryManipulator.addById(c, f.getValue().itemid, (short) 1, "Booster Pack");
-                                //c.getSession().write(CField.getBoosterFamiliar(c.getPlayer().getId(), f.getKey(), 0));
+                                c.getSession().write(CField.getBoosterFamiliar(c.getPlayer().getId(), f.getKey(), 0));
                                 familiars[i] = f.getValue().itemid;
                                 break;
                             }
