@@ -8,7 +8,7 @@ function enter(pi) {
 	pi.warp(541020800, "sp");
 	return true;
     } else {
-	if (pi.getMap(541020800).getSpeedRunStart() == 0 && (pi.getMonsterCount(541020800) <= 0 || pi.getMap(541020800).isDisconnected(pi.getPlayer().getId()))) {
+	if (pi.getMonsterCount(541020800) <= 0 || pi.getMap(541020800).isDisconnected(pi.getPlayer().getId())) {
 	    pi.playPortalSE();
 	    pi.warp(541020800, "sp");
 	    return true;

@@ -10,7 +10,7 @@ function enter(pi) {
 	    pi.playPortalSE();
 	    pi.warp(541010100, "sp");
 	} else {
-	    if (pi.getMap(541010100).getSpeedRunStart() == 0 && (pi.getMonsterCount(541010100) <= 0 || pi.getMap(541010100).isDisconnected(pi.getPlayer().getId()))) {
+	    if (pi.getMonsterCount(541010100) <= 0 || pi.getMap(541010100).isDisconnected(pi.getPlayer().getId())) {
 		pi.playPortalSE();
 		pi.warp(541010100, "sp");
 	    } else {

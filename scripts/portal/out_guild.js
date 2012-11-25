@@ -1,3 +1,3 @@
 function enter(pi) {
-    pi.warp(200000300,0);
+    pi.warp(pi.getSavedLocation("MULUNG_TC"));
 }

@@ -63,7 +63,7 @@ public class CharLoginHandler {
 
     public static final void login(final LittleEndianAccessor slea, final MapleClient c) {
          String login = c.isLocalhost() ? "admin" : slea.readMapleAsciiString();
-        String pwd = c.isLocalhost() ? "admin" : slea.readMapleAsciiString();
+         String pwd = c.isLocalhost() ? "admin" : slea.readMapleAsciiString();
        
         int loginok = 0;
         final boolean ipBan = c.hasBannedIP();
@@ -71,11 +71,11 @@ public class CharLoginHandler {
 
                 
                 
-                        if (AutoRegister.getAccountExists(login) != false) {
+                if (AutoRegister.getAccountExists(login) != false) {
                         loginok = c.login(login, pwd, ipBan || macBan);
                 } else if (AutoRegister.autoRegister != false && (!c.hasBannedIP() || !c.hasBannedMac())) {
                         AutoRegister.createAccount(login, pwd, c.getSession().getRemoteAddress().toString());
-                        if (AutoRegister.success != false) {
+                       if (AutoRegister.success != false) {
                                 loginok = c.login(login, pwd, ipBan || macBan);
                         }
                 }
@@ -268,28 +268,39 @@ public class CharLoginHandler {
         switch (jobType) {
             case Resistance: // Resistance
                 newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161001, (byte) 0, (short) 1, (byte) 0));
+                 final Map<Skill, SkillEntry> res_skill = new HashMap<>();
+                    res_skill.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                    newchar.changeSkillLevel_Skip(res_skill, false); 
                 break;
             case Adventurer: // Adventurer
                 newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161001, (byte) 0, (short) 1, (byte) 0));
+                 final Map<Skill, SkillEntry> adv_skill = new HashMap<>();
+                    adv_skill.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                    newchar.changeSkillLevel_Skip(adv_skill, false);                 
                 break;
             case Cygnus: // Cygnus
                 newchar.setQuestAdd(MapleQuest.getInstance(20022), (byte) 1, "1");
                 newchar.setQuestAdd(MapleQuest.getInstance(20010), (byte) 1, null); //>_>_>_> ugh
                 newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161047, (byte) 0, (short) 1, (byte) 0));
+                 final Map<Skill, SkillEntry> ck_skill = new HashMap<>();
+                    ck_skill.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                    newchar.changeSkillLevel_Skip(ck_skill, false);                
                 break;
             case Aran: // Aran
                 newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161048, (byte) 0, (short) 1, (byte) 0));
+                final Map<Skill, SkillEntry> aran_skill = new HashMap<>();
+                    aran_skill.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                    newchar.changeSkillLevel_Skip(aran_skill, false);
                 break;
             case Evan: //Evan
                 newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161052, (byte) 0, (short) 1, (byte) 0));
+                 final Map<Skill, SkillEntry> evan_skill = new HashMap<>();
+                    evan_skill.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
+                    newchar.changeSkillLevel_Skip(evan_skill, false);
                 break;
             case Mercedes: // Mercedes
                 newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161079, (byte) 0, (short) 1, (byte) 0));
 				final Map<Skill, SkillEntry> ss = new HashMap<>();
-				ss.put(SkillFactory.getSkill(20021000), new SkillEntry((byte) 0, (byte) 0, -1));
-				ss.put(SkillFactory.getSkill(20021001), new SkillEntry((byte) 0, (byte) 0, -1));
-				ss.put(SkillFactory.getSkill(20020002), new SkillEntry((byte) 0, (byte) 0, -1));				
-				ss.put(SkillFactory.getSkill(20020022), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss.put(SkillFactory.getSkill(20020109), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss.put(SkillFactory.getSkill(20021110), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss.put(SkillFactory.getSkill(20020111), new SkillEntry((byte) 1, (byte) 1, -1));
@@ -301,15 +312,11 @@ public class CharLoginHandler {
                 break;
             case Demon: //Demon
                 newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161054, (byte) 0, (short) 1, (byte) 0));
-				final Map<Skill, SkillEntry> ss2 = new HashMap<>();
-				ss2.put(SkillFactory.getSkill(30011000), new SkillEntry((byte) 0, (byte) 0, -1));
-				ss2.put(SkillFactory.getSkill(30011001), new SkillEntry((byte) 0, (byte) 0, -1));
-				ss2.put(SkillFactory.getSkill(30010002), new SkillEntry((byte) 0, (byte) 0, -1));				
+				final Map<Skill, SkillEntry> ss2 = new HashMap<>();				
 				ss2.put(SkillFactory.getSkill(30010185), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss2.put(SkillFactory.getSkill(30010112), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss2.put(SkillFactory.getSkill(30010111), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss2.put(SkillFactory.getSkill(30010110), new SkillEntry((byte) 1, (byte) 1, -1));
-				ss2.put(SkillFactory.getSkill(30010022), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss2.put(SkillFactory.getSkill(30011109), new SkillEntry((byte) 1, (byte) 1, -1));
 				ss2.put(SkillFactory.getSkill(30011170), new SkillEntry((byte) 1, (byte) 1, -1));
                                 ss2.put(SkillFactory.getSkill(30011169), new SkillEntry((byte) 1, (byte) 1, -1));
@@ -317,11 +324,12 @@ public class CharLoginHandler {
                                 ss2.put(SkillFactory.getSkill(30011167), new SkillEntry((byte) 1, (byte) 1, -1));
                                 ss2.put(SkillFactory.getSkill(30010166), new SkillEntry((byte) 1, (byte) 1, -1));
                                 ss2.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
-				newchar.changeSkillLevel_Skip(ss2, false);
+                                newchar.changeSkillLevel_Skip(ss2, false);
                 break;
             case Jett:
                 final Map<Skill, SkillEntry> ss8 = new HashMap<>();
                  ss8.put(SkillFactory.getSkill(0001214), new SkillEntry((byte) 1, (byte) 1, -1));
+                 ss8.put(SkillFactory.getSkill(228), new SkillEntry((byte) 1, (byte) 1, -1));
                  ss8.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
                  newchar.changeSkillLevel_Skip(ss8, false);
                 break;
@@ -334,7 +342,6 @@ public class CharLoginHandler {
                 ss3.put(SkillFactory.getSkill(20031207), new SkillEntry((byte) 1, (byte) 1, -1));
                 ss3.put(SkillFactory.getSkill(20031208), new SkillEntry((byte) 1, (byte) 1, -1));
                 ss3.put(SkillFactory.getSkill(20031209), new SkillEntry((byte) 1, (byte) 1, -1));
-	        ss3.put(SkillFactory.getSkill(20031210), new SkillEntry((byte) 1, (byte) 1, -1));
                 ss3.put(SkillFactory.getSkill(20031212), new SkillEntry((byte) 1, (byte) 1, -1));
                 ss3.put(SkillFactory.getSkill(80001152), new SkillEntry((byte) 1, (byte) 1, -1));
 	         newchar.changeSkillLevel_Skip(ss3, false);
@@ -412,11 +419,11 @@ public class CharLoginHandler {
 
         final byte gender = c.getPlayer().getGender();
         JobType jobType = JobType.Adventurer;
-        //if (!LoginInformationProvider.getInstance().isEligibleItem(gender, 0, jobType.type, face) || !LoginInformationProvider.getInstance().isEligibleItem(gender, 1, jobType.type, hair)) {
-        //    c.getPlayer().dropMessage(1, "An error occurred.");
-        //    c.getSession().write(CField.createUltimate(0));
-        //    return;
-        //}
+//        if (!LoginInformationProvider.getInstance().isEligibleItem(gender, 0, jobType.type, face) || !LoginInformationProvider.getInstance().isEligibleItem(gender, 1, jobType.type, hair)) {
+//            c.getPlayer().dropMessage(1, "An error occurred.");
+//            c.getSession().write(CField.createUltimate(0));
+//            return;
+//        }
 
         jobType = JobType.UltimateAdventurer;
         

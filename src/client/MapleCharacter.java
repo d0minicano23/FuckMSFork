@@ -4435,9 +4435,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             remainingAp = 0;
             statup.put(MapleStat.STR, (int) stats.getStr());
         }
-        /* This puts all the ap into strength from level 1-10 be careful with this
-           Because if you use the command !level with this active for all types of players
-           That can use this command will be bugged! */
         if (LoginInformationProvider.isExtendedSpJob(job)) {
             if (level >= 11) {
                 remainingSp[GameConstants.getSkillBook(job, level)] += 3;

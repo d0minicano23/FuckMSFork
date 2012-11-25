@@ -15,7 +15,7 @@ function enter(pi) {
 	pi.warp(220080001, "st00");
 	return true;
     } else {
-	if (pi.getMap(220080001).getSpeedRunStart() == 0 && (pi.getMonsterCount(220080001) <= 0 || pi.getMap(220080001).isDisconnected(pi.getPlayer().getId()))) {
+	if (pi.getMonsterCount(220080001) <= 0 || pi.getMap(220080001).isDisconnected(pi.getPlayer().getId())) {
 	    pi.playPortalSE();
 	    pi.warp(220080001, "st00");
 	    return true;

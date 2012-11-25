@@ -411,8 +411,10 @@ public class MapleStatEffect implements Serializable {
                     break;
                 case Rogue.DARK_SIGHT:
                 case NightWalker.DARK_SIGHT:
-                case DualBlade.ADV_DARK_SIGHT:
                     ret.statups.put(MapleBuffStat.DARKSIGHT, ret.info.get(MapleStatInfo.x)); // d
+                    break;
+                case DualBlade.ADV_DARK_SIGHT:
+                    ret.statups.put(MapleBuffStat.DARKSIGHT, (int) ret.level);
                     break;
                 case ChiefBandit.PICKPOCKET:
                     ret.info.put(MapleStatInfo.time, 2100000000);
@@ -1199,14 +1201,13 @@ public class MapleStatEffect implements Serializable {
                     case Beginner.RECOVERY:
                     case Noblesse.RECOVERY:
                     case Legend.RECOVERY:
+                        ret.statups.put(MapleBuffStat.RECOVERY, ret.info.get(MapleStatInfo.x));
+                        break;
                     case Citizen.INFILTRATE:
                     case DemonSlayer.INFILTRATE:
-                    case Phantom.INFILTRATE:    
-                        if (sourceid / 10000 == 3001 || sourceid / 10000 == 3000) { //resistance is diff
+                    case Phantom.INFILTRATE: 
+                    case Mercedes.INFILTRATE:
                             ret.statups.put(MapleBuffStat.INFILTRATE, ret.info.get(MapleStatInfo.x));
-                        } else {
-                            ret.statups.put(MapleBuffStat.RECOVERY, ret.info.get(MapleStatInfo.x));
-                        }
                         break;
                     case Beginner.DECENT_HYPER_BODY:
                     case Evan.DECENT_HYPER_BODY:
@@ -1266,12 +1267,12 @@ public class MapleStatEffect implements Serializable {
                         ret.statups.put(MapleBuffStat.SOARING, 1);
                         break;
                     //This is the wrong place to put item stuff    
-//                   case 2022746: //angel bless
- //                  case 2022747: //d.angel bless
-  //                 case 2022823: // wabr
-   //                     ret.statups.clear(); //no atk/matk
-    //                    ret.statups.put(MapleBuffStat.PYRAMID_PQ, 1); //ITEM_EFFECT buff
-//                    break;
+                   case 2022746: //angel bless
+                   case 2022747: //d.angel bless
+                   case 2022823: // wabr
+                        ret.statups.clear(); //no atk/matk
+                        ret.statups.put(MapleBuffStat.PYRAMID_PQ, 1); //ITEM_EFFECT buff
+                    break;
                 default:
                     break;
             }
@@ -2206,7 +2207,8 @@ public class MapleStatEffect implements Serializable {
                 break;
             case DemonSlayer.INFILTRATE:
             case Citizen.INFILTRATE:
-            case Phantom.INFILTRATE:{
+            case Phantom.INFILTRATE:
+            case Mercedes.INFILTRATE:{
                 if (applyto.isHidden()) {
                     break;
                 }
@@ -2230,7 +2232,7 @@ public class MapleStatEffect implements Serializable {
                     return;
                 } //fallthrough intended
             }
-            //case DualBlade.ADV_DARK_SIGHT: TODO
+            case DualBlade.ADV_DARK_SIGHT:
             case Phantom.GHOST_WALK:
             case NightWalker.DARK_SIGHT: {
                 if (applyto.isHidden()) {
@@ -2528,14 +2530,14 @@ public class MapleStatEffect implements Serializable {
             case Hero.ENRAGE:
                 applyto.handleOrbconsume(10);
                 break;
-          //  case 2022746: //angel bless
-          //  case 2022747: //d.angel bless
-           // case 2022823: // wabr
-           //     if (applyto.isHidden()) {
-            //        break;
-            //    }
-             //   applyto.getMap().broadcastMessage(applyto, BuffPacket.giveForeignBuff(applyto.getId(), maskedStatups == null ? localstatups : maskedStatups, this), false);
-              //  break;
+            case 2022746: //angel bless
+            case 2022747: //d.angel bless
+            case 2022823: // wabr
+                if (applyto.isHidden()) {
+                    break;
+                }
+                applyto.getMap().broadcastMessage(applyto, BuffPacket.giveForeignBuff(applyto.getId(), maskedStatups == null ? localstatups : maskedStatups, this), false);
+                break;
             case Mechanic.PROTOTYPE:
                 if (applyfrom.getTotalSkillLevel(Mechanic.PROTOTYPE) > 0) {
                     SkillFactory.getSkill(Mechanic.PROTOTYPE).getEffect(applyfrom.getTotalSkillLevel(Mechanic.PROTOTYPE)).applyBuffEffect(applyfrom, applyto, primary, newDuration);

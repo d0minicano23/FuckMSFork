@@ -24,6 +24,7 @@ package constants;
 public class ServerConstants {
 
     public static final String HOST = "25.222.122.82";
+    public static final byte[] Gateway_IP = new byte[]{(byte) 25, (byte) 222, (byte) 122, (byte) 82};
     public static final int EXP_RATE = 10;
     public static final int MESO_RATE = 10;
     public static final int DROP_RATE = 10;

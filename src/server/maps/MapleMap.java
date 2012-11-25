@@ -2208,7 +2208,7 @@ public final class MapleMap {
         }
         if (mapid == 910000000){
             chr.getClient().getSession().write(CField.musicChange(ServerConstants.FM_BGM));
-           // chr.getClient().getSession().write(CField.startMapEffect(null, 5120000, false));
+            chr.getClient().getSession().write(CField.startMapEffect(null, 5120000, false));
         }
         if(mapid == 552000010){
         chr.getClient().getSession().write(CField.UIPacket.IntroEnableUI(1)); 
@@ -2221,19 +2221,18 @@ public final class MapleMap {
          if(mapid == 913070000){ //mihile
         chr.dropMessage(-1, "Mr. Limbert's General Store");
         chr.dropMessage(-1, "Month 3, Day 4");
-        //chr.getClient().getSession().write(CField.UIPacket.IntroEnableUI(1)); 
-       // chr.getClient().getSession().write(CField.UIPacket.getDirectionInfo((byte)1, 100));                    
-        //chr.getClient().getSession().write(CField.UIPacket.getDirectionInfo((byte)3, 1)); 
+        chr.getClient().getSession().write(CField.UIPacket.IntroEnableUI(1)); 
+        chr.getClient().getSession().write(CField.UIPacket.getDirectionInfo((byte)1, 100));                    
+        chr.getClient().getSession().write(CField.UIPacket.getDirectionInfo((byte)3, 1)); 
         chr.dropMessage(5, "Click on the NPC to continue.");
         chr.getClient().removeClickedNPC();
-     //   Thread.sleep(4500);
-       // } catch(InterruptedException e) {}
-       //   try {
-        // chr.getClient().getSession().write(CField.UIPacket.getDirectionStatus(false)); 
-        // chr.getClient().removeClickedNPC();
-       //  Thread.sleep(4500);
-       // } catch(InterruptedException e) {}
-      //  NPCScriptManager.getInstance().start(chr.getClient(), 1106000);
+        } try {  
+         chr.getClient().getSession().write(CField.UIPacket.getDirectionStatus(false)); 
+         chr.getClient().removeClickedNPC();
+         Thread.sleep(4500);        
+        } catch(InterruptedException e) {
+        NPCScriptManager.getInstance().start(chr.getClient(), 1106000);
+        
         }
         if(mapid == 103050900) {
         try {
