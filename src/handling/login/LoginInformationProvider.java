@@ -36,16 +36,16 @@ import tools.Triple;
 public class LoginInformationProvider {
 
     public enum JobType {
-
+        //New character spawns
         UltimateAdventurer(-1, "Ultimate", 0, 130000000),
         Resistance(0, "Resistance", 3000, 931000000),
         Adventurer(1, "", 0, 10000),
-        Cygnus(2, "Premium", 1000, 913040000),
+        Cygnus(2, "Premium", 1000, 130030000),
         Aran(3, "Orient", 2000, 914000000),
         Evan(4, "Evan", 2001, 900090000),
         Mercedes(5, "", 2002, 910150000),
         Demon(6, "", 3001, 931050310),
-        Phantom(7, "", 2003, 10000/*915000000*/),//2003
+        Phantom(7, "", 2003, 915000000),
         DualBlade(8, "", 0, 103050900),
         Mihile(9, "", 5000, 913070000),
         Jett(10, "", 508, 10000),
@@ -140,7 +140,7 @@ public class LoginInformationProvider {
                         int val;
                         if (d.getName().endsWith("female")) {
                             val = 1;
-						} else if (d.getName().endsWith("male")) {
+			} else if (d.getName().endsWith("male")) {
                             val = 0;
                         } else {
                             continue;

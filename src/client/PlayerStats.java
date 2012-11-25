@@ -581,7 +581,7 @@ public class PlayerStats implements Serializable {
             localmaxmp = 60;
         } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 70 && chra.getLevel() < 120){
             localmaxmp = 90;
-        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 120){
+        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 120){ // TODO NEED EQUIPPED CHECK
             localmaxmp = 120;
         }
         CalcPassive_SharpEye(chra);
@@ -3375,11 +3375,7 @@ public class PlayerStats implements Serializable {
     }
 
     public final int getCurrentMaxMp(final int job) {
-        if (GameConstants.isDemon(job)) {
-            return 10;
-        } else {
-            return localmaxmp;
-        }
+            return localmaxmp;        
     }
 
     public final int getHands() {

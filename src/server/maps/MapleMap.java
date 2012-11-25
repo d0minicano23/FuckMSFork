@@ -43,6 +43,7 @@ import client.MapleBuffStat;
 import client.MapleCharacter;
 import client.MapleClient;
 import client.MonsterFamiliar;
+import client.inventory.MapleInventory;
 import client.inventory.MapleInventoryType;
 import client.inventory.MaplePet;
 import client.status.MonsterStatus;
@@ -1192,7 +1193,7 @@ public final class MapleMap {
     }
 
     /**
-     * Automagically finds a new controller for the given monster from the chars on the map...
+     * Automatically finds a new controller for the given monster from the chars on the map...
      *
      * @param monster
      */
@@ -1532,13 +1533,13 @@ public final class MapleMap {
     }
 
      public final void spawnMonster(MapleMonster monster, int spawnType) {
-/* 1403 */     spawnMonster(monster, spawnType, false);
-/*      */   }
-/*      */ 
-/*      */   public final void spawnMonster(final MapleMonster monster, final int spawnType, final boolean overwrite) {
-/* 1407 */     monster.setMap(this);
-/* 1408 */     checkRemoveAfter(monster);
-/*      */
+                spawnMonster(monster, spawnType, false);
+     }
+
+   public final void spawnMonster(final MapleMonster monster, final int spawnType, final boolean overwrite) {
+     monster.setMap(this);
+     checkRemoveAfter(monster);
+
 
         if (monster.getId() == 9300166) { 
             MapTimer.getInstance().schedule(new Runnable() { 
@@ -1557,9 +1558,9 @@ public final class MapleMap {
         updateMonsterController(monster);
 
 
-/*      */ 
-/* 1418 */     this.spawnedMonstersOnMap.incrementAndGet();
-/*      */   }
+ 
+                this.spawnedMonstersOnMap.incrementAndGet();
+           }
     
     
     
@@ -2189,6 +2190,7 @@ public final class MapleMap {
                 chr.getClient().getSession().write(CWvsContext.temporaryStats_Reset());
             }
         }
+        
         if (GameConstants.isEvan(chr.getJob()) && chr.getJob() >= 2200) {
             if (chr.getDragon() == null) {
                 chr.makeDragon();
@@ -2204,20 +2206,6 @@ public final class MapleMap {
             chr.dropMessage(5, "Your EXP Rate will be set to " + GameConstants.getExpRate_Below10(chr.getJob()) + "x until you reach level 10.");
             chr.dropMessage(5, "Use @npc to collect your Item Of Appreciation once you're level 10! Use @help for commands. Good luck and have fun!");
         }
-     /*   if (mapid == 0) {
-            if (GameConstants.isBeginnerJob(chr.getJob())) {
-                NPCScriptManager.getInstance().start(chr.getClient(), TutorialConstants.beginnerNPC);
-            }
-        } else if (MapConstants.isStorylineMap(mapid)) {
-			chr.getMap().startSimpleMapEffect(TutorialConstants.getStageMSG(chr, mapid), 5120018);  
-			if (!chr.hasSummon()) {
-               chr.setHasSummon(true);
-               chr.getClient().getSession().write(UIPacket.summonHelper(true));
-               chr.getClient().getSession().write(UIPacket.summonMessage(TutorialConstants.getTutorialTalk(chr, mapid)));
-			} else {
-              chr.getClient().getSession().write(UIPacket.summonMessage(TutorialConstants.getTutorialTalk(chr, mapid)));
-           }
-        }*/
         if (mapid == 910000000){
             chr.getClient().getSession().write(CField.musicChange(ServerConstants.FM_BGM));
            // chr.getClient().getSession().write(CField.startMapEffect(null, 5120000, false));

@@ -260,3 +260,59 @@ java.sql.SQLException: Column count doesn't match value count at row 1
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
 	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
 	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-24 15:17:09 ------------------------
+java.lang.NullPointerException
+	at server.maps.MapleMap.addPlayer(MapleMap.java:2193)
+	at handling.channel.handler.InterServerHandler.Loggedin(InterServerHandler.java:216)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:616)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-24 15:17:09 ------------------------
+Packet: 38
+All: 26 00 10 00 00 00 C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 5C 20 01 02 01 E4 75
+Now: C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 5C 20 01 02 01 E4 75
+------------------------ 2012-11-24 15:18:39 ------------------------
+java.lang.NullPointerException
+	at server.maps.MapleMap.addPlayer(MapleMap.java:2193)
+	at client.MapleCharacter.changeMapInternal(MapleCharacter.java:2995)
+	at client.MapleCharacter.changeMapPortal(MapleCharacter.java:2972)
+	at server.MaplePortal.enterPortal(MaplePortal.java:129)
+	at handling.channel.handler.PlayerHandler.ChangeMap(PlayerHandler.java:1387)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:778)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-24 15:18:39 ------------------------
+Packet: 65
+All: 41 00 01 FF FF FF FF B2 08 E6 FF 06 00 65 61 73 74 30 30 8F 05 13 01 00 00 00
+Now: 
