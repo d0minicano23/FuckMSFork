@@ -1827,6 +1827,17 @@ public static byte[] getAndroidTalkStyle(int npc, String talk, int... args) {
 /*      */ 
 /* 2840 */     return mplew.getPacket();
 /*      */   }
+
+             public static byte[] facialExpression2(int expression, int duration) { 
+                    MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter(); 
+
+                    mplew.writeShort(SendPacketOpcode.FACIAL_EXPRESSION_2.getValue()); 
+                    mplew.writeInt(expression); 
+                    mplew.writeInt(duration); 
+                    mplew.write(0); 
+
+                    return mplew.getPacket(); 
+                }  
 /*      */ 
 /*      */   public static byte[] itemEffect(int characterid, int itemid) {
 /* 2844 */     MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
@@ -1859,20 +1870,20 @@ public static byte[] getAndroidTalkStyle(int npc, String talk, int... args) {
 /* 2871 */     return mplew.getPacket();
 /*      */   }
 /*      */ 
-    public static byte[] updateCharLook(MapleCharacter chr) {
-        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+             public static byte[] updateCharLook(MapleCharacter chr) {
+                MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
-        mplew.writeShort(SendPacketOpcode.UPDATE_CHAR_LOOK.getValue());
-        mplew.writeInt(chr.getId());
-        mplew.write(1);
-        PacketHelper.addCharLook(mplew, chr, false);
-        Triple<List<MapleRing>, List<MapleRing>, List<MapleRing>> rings = chr.getRings(false);
-        addRingInfo(mplew, rings.getLeft());
-        addRingInfo(mplew, rings.getMid());
-        addMRingInfo(mplew, rings.getRight(), chr);
-        mplew.writeInt(0); // -> charid to follow (4)
-        return mplew.getPacket();
-    }
+                mplew.writeShort(SendPacketOpcode.UPDATE_CHAR_LOOK.getValue());
+                mplew.writeInt(chr.getId());
+                mplew.write(1);
+                PacketHelper.addCharLook(mplew, chr, false);
+                Triple<List<MapleRing>, List<MapleRing>, List<MapleRing>> rings = chr.getRings(false);
+                addRingInfo(mplew, rings.getLeft());
+                addRingInfo(mplew, rings.getMid());
+                addMRingInfo(mplew, rings.getRight(), chr);
+                mplew.writeInt(0); // -> charid to follow (4)
+                return mplew.getPacket();
+             }
 /*      */ 
 /*      */   public static byte[] updatePartyMemberHP(int cid, int curhp, int maxhp) {
 /* 2891 */     MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();

@@ -355,6 +355,7 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     ANDROID_EMOTION,
     ANDROID_REMOVE,
     ANDROID_DEACTIVATED,
+    FACIAL_EXPRESSION_2,
     PENDANT_SLOT,
     BOOK_INFO,
     PARTY_SEARCH,

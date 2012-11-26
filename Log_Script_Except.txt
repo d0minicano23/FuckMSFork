@@ -41,3 +41,19 @@ Unhandled script : map_913070002, type : onUserEnter - MAPID 913070003
 Unhandled script : map_913070050, type : onUserEnter - MAPID 913070050
 ------------------------ 2012-11-25 14:13:33 ------------------------
 Unhandled portal script portal_002 on map 913070050
+------------------------ 2012-11-25 15:13:20 ------------------------
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+------------------------ 2012-11-25 15:13:57 ------------------------
+Unhandled script : NLC_renew_1, type : onUserEnter - MAPID 600010300
+------------------------ 2012-11-25 15:14:09 ------------------------
+Unhandled portal script alian_out_1 on map 600010300
+------------------------ 2012-11-25 15:14:11 ------------------------
+Unhandled portal script alian_out_1 on map 600010300
+------------------------ 2012-11-25 15:14:12 ------------------------
+Unhandled portal script alian_out_1 on map 600010300
+------------------------ 2012-11-25 15:14:13 ------------------------
+Unhandled portal script alian_out_1 on map 600010300
+------------------------ 2012-11-25 15:14:14 ------------------------
+Unhandled portal script alian_out_1 on map 600010300
+------------------------ 2012-11-25 15:14:15 ------------------------
+Unhandled portal script alian_out_1 on map 600010300

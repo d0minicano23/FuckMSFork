@@ -21,9 +21,9 @@ function start(mode, type, selection) {
 	} else if (status == 2) {
 	    qm.askAcceptDecline("So..... Let me just do this for fun! Abaracadabra~!");
 	} else if (status == 3) {
-	    if (qm.getPlayerStat("HP")>1) {
-//		qm.getPlayer().setHp(qm.getPlayerStat("HP")-25);
-//		qm.getPlayer().updateSingleStat(client.MapleStat.HP, qm.getPlayerStat("HP")-25);
+        if (qm.c.getPlayer().getHp() >= 50) {
+            qm.c.getPlayer().setHp(25);
+            qm.c.getPlayer().updateSingleStat(MapleStat.HP, 25);
 	    }
 	    if (!qm.haveItem(2010007)) {
 		qm.gainItem(2010007, 1);
