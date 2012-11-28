@@ -39,4 +39,5 @@ public class DawnWarrior {
     public static final int COMA = 11111003;
     public static final int ADVANCED_COMBO = 11110005;
     public static final int SOUL_CHARGE = 11111007;
+    public static final int HP_BOOST = 11000005;
 }

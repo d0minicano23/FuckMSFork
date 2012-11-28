@@ -84,11 +84,14 @@ public class InterServerHandler {
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
-        //if (c.getChannel() == 1 && !c.getPlayer().isGM()) {
-        //    c.getPlayer().dropMessage(5, "You may not enter on this channel. Please change channels and try again.");
-        //    c.getSession().write(CWvsContext.enableActions());
-        //    return;
-        //}
+        if (c.getChannel() == ServerConstants.GM_CHANNEL && !c.getPlayer().isGM()) {
+           if (ServerConstants.ACTIVATE_GM_CHANNEL==true){ 
+            c.getPlayer().dropMessage(5, "You may not enter on this channel. Please change channels and try again.");
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+            }
+        }
+        
         final ChannelServer ch = ChannelServer.getInstance(c.getChannel());
 
         chr.changeRemoval();
@@ -199,20 +202,7 @@ public class InterServerHandler {
 
         c.getSession().write(CField.getCharInfo(player));
         c.getSession().write(MTSCSPacket.enableCSUse());
-
-        /*
-         * if (player.isGM()) { SkillFactory.getSkill(GameConstants.GMS ?
-         * 9101004 : 9001004).getEffect(1).applyTo(player);
-        }
-         */
-      /*  if (MapConstants.isStorylineMap(c.getPlayer().getMapId())) {
-            if (!c.getPlayer().hasSummon()) {
-                c.getPlayer().setHasSummon(true);
-                c.getSession().write(UIPacket.summonHelper(true));
-                c.getSession().write(UIPacket.summonMessage(TutorialConstants.getTutorialTalk(c.getPlayer(), c.getPlayer().getMapId())));
-            }
-        }*/
-        c.getSession().write(CWvsContext.temporaryStats_Reset()); // .
+        c.getSession().write(CWvsContext.temporaryStats_Reset());
         player.getMap().addPlayer(player);
         try {
             // Start of buddylist

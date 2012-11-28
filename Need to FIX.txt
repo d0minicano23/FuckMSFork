@@ -1,11 +1,11 @@
--When Clicking booster pack it dcs you from the game 
-(even if you move it) you can find the scripts by searching "boosterpack"
+- When Clicking booster pack it dcs you from the game 
+  you can find the scripts by searching "boosterpack"
 
--I want to include the complete mihile story line warpMihile()
+- Fix story quests for all jobs (evans seem fine).
 
-- 9010022 shop needs to be fixed
+- Find out the ids of demon markings and evan hand marking
 
-- shopid 57
+- 9010022 shop needs to be fixed(using the Dimension Mirrior NPC o.o)
 
 - poison needs to be fixed!
 
@@ -15,7 +15,9 @@
 
 - cannot mount a nebulite (can mount socket)
 
-- reloads the map when using the socket creator (Icon does not show), and text gets cut off.
+- reloads the map when using the socket creator (Icon does not show), and     text gets cut off.
+
+- Quick Move icon shows even if you are not in a town map
 
 - Demon pets do not give buff
 
@@ -25,15 +27,11 @@
 
 - Using hammer, getting items from fredrick reloads you in the map.
 
-- Dual blade skills ADS, SHADOW meld, enveloping darkness, life drain, flashbang, venom, and side step(i think)
+- Dual blade skills ADS, SHADOW meld, enveloping darkness, life drain,        venom, and side step(i think)
   are not working properly.
 
-- need to add the buffs for rings.
-
-- A mercedes bug(http://forum.ragezone.com/f427/partly-fix-mercedes-bug-lithium-890280/)
-
-
-
-- cash items have the mount nebulite text (I think I can find it in getSocketState() )
+- cash items have the mount nebulite text (I think I can find it in     getSocketState() )
 
 - need to add renegade shop
+
+- Need to add equipment check for the level 120 Demon Slayer shield

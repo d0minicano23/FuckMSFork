@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package handling;
 
 import constants.GameConstants;
+import constants.ServerConstants;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -454,7 +455,9 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
 
     @Override
     public short getValue() {
-        //System.out.println("Packet to send: " + this.name() + " Value: " + this.code + "\r\nCaller: " + Thread.currentThread().getStackTrace()[2]);
+        if(ServerConstants.ADMIN_SERVER){
+        System.out.println("Packet to send: " + this.name() + " Value: " + this.code + "\r\nCaller: " + Thread.currentThread().getStackTrace()[2]);
+        }
         return code;
     }
 

@@ -9,7 +9,8 @@ package constants.skills;
  * @author Steven
  */
 public class CannonShooter {
-   
+        public static final int CANNON_BOOST = 5010003;
+        public static final int PIRATES_TRAINING = 5300008;
         public static final int BARREL_ROULETTE = 5311004;
         public static final int DIE = 5311005;
         public static final int DOUBLE_DOWN = 5320007;
@@ -24,4 +25,6 @@ public class CannonShooter {
         public static final int MONKEY_MADNESS = 5311001;
         public static final int MONKEY_WAVE = 5311002;
         public static final int MONKEY_WAVE2 = 5310008;
+        public static final int PIRATE_RUSH = 5310007;
+        public static final int REINFORCED_CANNON = 5310006;
 }

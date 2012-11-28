@@ -9,6 +9,10 @@ package constants.skills;
  * @author Steven
  */
 public class Phantom {
+    public static final int PIERCING_VISION = 24110007;
+    public static final int DEVILS_LUCK = 24100006;
+    public static final int FEATHERED_FOOT = 24000003;
+    public static final int SWIFTNESS = 24001002;
     public static final int MAPLE_WARRIOR = 24121008;
     public static final int CARTE_NOIRE = 24120002;
     public static final int CARTE_BLANCHE = 24100003;

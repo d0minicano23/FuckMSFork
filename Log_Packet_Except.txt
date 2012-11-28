@@ -316,3 +316,595 @@ java.lang.NullPointerException
 Packet: 65
 All: 41 00 01 FF FF FF FF B2 08 E6 FF 06 00 65 61 73 74 30 30 8F 05 13 01 00 00 00
 Now: 
+------------------------ 2012-11-26 22:50:09 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2648)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1683)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1324)
+	at handling.channel.handler.PlayerHandler.SpecialMove(PlayerHandler.java:728)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:661)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:50:09 ------------------------
+Packet: 163
+All: A3 00 FB 98 CE 01 4B 51 2F 00 0A 00 00 00
+Now: 00 00 00
+------------------------ 2012-11-26 22:50:31 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.equipChanged(MapleCharacter.java:4781)
+	at server.MapleInventoryManipulator.unequip(MapleInventoryManipulator.java:947)
+	at handling.channel.handler.InventoryHandler.ItemMove(InventoryHandler.java:117)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:830)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:50:31 ------------------------
+Packet: 119
+All: 77 00 1D EF CE 01 01 F6 FF 13 00 FF FF
+Now: 
+------------------------ 2012-11-26 22:50:34 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2648)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1683)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1324)
+	at handling.channel.handler.PlayerHandler.SpecialMove(PlayerHandler.java:728)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:661)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:50:34 ------------------------
+Packet: 163
+All: A3 00 C9 F7 CE 01 4B 51 2F 00 0A 00 00 00
+Now: 00 00 00
+------------------------ 2012-11-26 22:50:46 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2648)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1683)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1324)
+	at handling.channel.handler.PlayerHandler.SpecialMove(PlayerHandler.java:728)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:661)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:50:46 ------------------------
+Packet: 163
+All: A3 00 A7 28 CF 01 4B 51 2F 00 0A 00 00 00
+Now: 00 00 00
+------------------------ 2012-11-26 22:50:47 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2648)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1683)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1324)
+	at handling.channel.handler.PlayerHandler.SpecialMove(PlayerHandler.java:728)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:661)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:50:47 ------------------------
+Packet: 163
+All: A3 00 1B 2D CF 01 4B 51 2F 00 0A 00 00 00
+Now: 00 00 00
+------------------------ 2012-11-26 22:50:48 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2648)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1683)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1324)
+	at handling.channel.handler.PlayerHandler.SpecialMove(PlayerHandler.java:728)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:661)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:50:48 ------------------------
+Packet: 163
+All: A3 00 25 32 CF 01 4B 51 2F 00 0A 00 00 00
+Now: 00 00 00
+------------------------ 2012-11-26 22:50:57 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2648)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1683)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1324)
+	at handling.channel.handler.PlayerHandler.SpecialMove(PlayerHandler.java:728)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:661)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:50:57 ------------------------
+Packet: 163
+All: A3 00 05 52 CF 01 4B 51 2F 00 0A 00 00 00
+Now: 00 00 00
+------------------------ 2012-11-26 22:51:09 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2648)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1683)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1324)
+	at handling.channel.handler.PlayerHandler.SpecialMove(PlayerHandler.java:728)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:661)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:51:09 ------------------------
+Packet: 163
+All: A3 00 4B 84 CF 01 4B 51 2F 00 0A 00 00 00
+Now: 00 00 00
+------------------------ 2012-11-26 22:51:11 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2648)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1683)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1324)
+	at handling.channel.handler.PlayerHandler.SpecialMove(PlayerHandler.java:728)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:661)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:51:11 ------------------------
+Packet: 163
+All: A3 00 71 8B CF 01 4B 51 2F 00 0A 00 00 00
+Now: 00 00 00
+------------------------ 2012-11-26 22:51:16 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at server.MapleInventoryManipulator.equip(MapleInventoryManipulator.java:639)
+	at handling.channel.handler.InventoryHandler.ItemMove(InventoryHandler.java:119)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:830)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:51:16 ------------------------
+Packet: 119
+All: 77 00 8D 9C CF 01 01 13 00 F6 FF FF FF
+Now: 
+------------------------ 2012-11-26 22:51:24 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at server.MapleInventoryManipulator.equip(MapleInventoryManipulator.java:639)
+	at handling.channel.handler.InventoryHandler.ItemMove(InventoryHandler.java:119)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:830)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:51:24 ------------------------
+Packet: 119
+All: 77 00 13 BC CF 01 01 20 00 F6 FF FF FF
+Now: 
+------------------------ 2012-11-26 22:51:43 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at server.MapleInventoryManipulator.equip(MapleInventoryManipulator.java:639)
+	at handling.channel.handler.InventoryHandler.ItemMove(InventoryHandler.java:119)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:830)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:51:43 ------------------------
+Packet: 119
+All: 77 00 35 03 D0 01 01 20 00 F6 FF FF FF
+Now: 
+------------------------ 2012-11-26 22:54:17 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.MapleCharacter.loadCharFromDB(MapleCharacter.java:1154)
+	at client.MapleCharacter.loadCharFromDB(MapleCharacter.java:616)
+	at handling.channel.handler.InterServerHandler.Loggedin(InterServerHandler.java:168)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:616)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:54:17 ------------------------
+Packet: 38
+All: 26 00 0A 00 00 00 C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 1B C1 F6 CB D8 58 B0
+Now: C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 1B C1 F6 CB D8 58 B0
+------------------------ 2012-11-26 22:55:10 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2648)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1683)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1324)
+	at handling.channel.handler.PlayerHandler.SpecialMove(PlayerHandler.java:728)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:661)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:55:10 ------------------------
+Packet: 163
+All: A3 00 C4 2E D3 01 CF EE C9 01 01 3E 03 E4 01 00 00 00
+Now: 00 00 00
+------------------------ 2012-11-26 22:55:21 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2648)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1683)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1320)
+	at handling.channel.handler.SummonHandler.SubSummon(SummonHandler.java:340)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:1077)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:55:21 ------------------------
+Packet: 320
+All: 40 01 25 A1 07 00 E8 EA C9 01 07 04
+Now: E8 EA C9 01 07 04
+------------------------ 2012-11-26 22:55:37 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at server.MapleInventoryManipulator.equip(MapleInventoryManipulator.java:639)
+	at handling.channel.handler.InventoryHandler.ItemMove(InventoryHandler.java:119)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:830)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-26 22:55:37 ------------------------
+Packet: 119
+All: 77 00 9A 94 D3 01 01 01 00 F5 FF FF FF
+Now: 
+------------------------ 2012-11-27 15:44:44 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.MapleCharacter.loadCharFromDB(MapleCharacter.java:1154)
+	at client.MapleCharacter.loadCharFromDB(MapleCharacter.java:616)
+	at handling.channel.handler.InterServerHandler.Loggedin(InterServerHandler.java:168)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:616)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-27 15:44:44 ------------------------
+Packet: 38
+All: 26 00 0A 00 00 00 C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 78 81 DF 4F 5C 4A 14
+Now: C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 78 81 DF 4F 5C 4A 14
+------------------------ 2012-11-27 15:47:47 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.MapleCharacter.loadCharFromDB(MapleCharacter.java:1154)
+	at client.MapleCharacter.loadCharFromDB(MapleCharacter.java:616)
+	at handling.channel.handler.InterServerHandler.Loggedin(InterServerHandler.java:168)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:616)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-27 15:47:47 ------------------------
+Packet: 38
+All: 26 00 0A 00 00 00 C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 BF 6F 90 86 44 7A 44
+Now: C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 BF 6F 90 86 44 7A 44
+------------------------ 2012-11-27 15:48:23 ------------------------
+java.lang.NullPointerException
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:594)
+	at client.MapleCharacter.loadCharFromDB(MapleCharacter.java:1154)
+	at client.MapleCharacter.loadCharFromDB(MapleCharacter.java:616)
+	at handling.channel.handler.InterServerHandler.Loggedin(InterServerHandler.java:168)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:616)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-27 15:48:23 ------------------------
+Packet: 38
+All: 26 00 08 00 00 00 C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 00 5C 58 8B 60 C9 A9
+Now: C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 00 5C 58 8B 60 C9 A9
+------------------------ 2012-11-28 18:03:16 ------------------------
+java.util.NoSuchElementException
+	at java.util.LinkedList$ListItr.next(Unknown Source)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:586)
+	at client.MapleCharacter.loadCharFromDB(MapleCharacter.java:1154)
+	at client.MapleCharacter.loadCharFromDB(MapleCharacter.java:616)
+	at handling.channel.handler.InterServerHandler.Loggedin(InterServerHandler.java:171)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:616)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-28 18:03:16 ------------------------
+Packet: 38
+All: 26 00 0A 00 00 00 C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 7E 8D 12 8F 61 D2 E2
+Now: C8 60 00 BF B1 04 EF E0 B5 CE 00 00 00 00 5A 22 00 00 00 7E 8D 12 8F 61 D2 E2

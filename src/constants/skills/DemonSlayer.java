@@ -9,6 +9,15 @@ package constants.skills;
  * @author Steven
  */
 public class DemonSlayer {
+    public static final int DEMONIC_BLOOD = 30010185;
+    public static final int BARRICADE_MASTERY = 31120008;
+    public static final int DEMON_THRASH = 31120011;
+    public static final int MAX_FURY = 31110009;
+    public static final int POSSESSED_AEGIS = 31110008;
+    public static final int TRAINING = 31100005;
+    public static final int HP_BOOST = 31000003;
+    public static final int DEMON_LASH = 31000004;
+    public static final int BARBED_LASH = 31100007;
     public static final int POTION_MASTERY = 30010002;
     public static final int FOLLOW_THE_LEADER = 30010008;
     public static final int BLESSING_OF_THE_FAIRY = 30010012;
@@ -30,8 +39,8 @@ public class DemonSlayer {
     public static final int ICE_CURSE = 30010104;
     public static final int MASTER_SWIMMER = 30010109;
     public static final int PIRATE_BLESSING = 30010110;
-    public static final int MASTER_OGRANIZATION1 = 30010111;
-    public static final int MASTER_ORGANIZATION2 = 30010112;
+    public static final int CURSE_OF_FURY = 30010111;
+    public static final int FURY_UNLEASHED = 30010112;
     public static final int WHITE_ANGELIC = 30010180;
     public static final int ALLIANCE = 30010190;
     public static final int CRYSTAL_THROW = 30011000;

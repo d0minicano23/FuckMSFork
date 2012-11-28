@@ -23,7 +23,7 @@ package constants;
 
 public class ServerConstants {
 
-    public static final String HOST = "25.222.122.82";
+    public static final String HOST = "25.222.122.82";//"25.222.134.218";//"25.222.122.82";
     public static final byte[] Gateway_IP = new byte[]{(byte) 25, (byte) 222, (byte) 122, (byte) 82};
     public static final int EXP_RATE = 10;
     public static final int MESO_RATE = 10;
@@ -46,6 +46,8 @@ public class ServerConstants {
             + "BossQuestMed,BossQuestHARD,BossQuestHELL,Ravana_EASY,Ravana_HARD,"
             + "Ravana_MED,GuildQuest,Aufhaven,Dragonica,Rex,MonsterPark,KentaPQ";
     public static final int MAX_CHARACTERS = 15;
+    public static final int GM_CHANNEL = 1;
+    public static final boolean ACTIVATE_GM_CHANNEL = false; // Do not set this to true, because I bet a normal player can go into the gm server if they logged in normally.
     public static boolean RELEASE = true;
     public static final short MAPLE_VERSION = (short) 117;
     public static final String MAPLE_PATCH = "1";
@@ -57,7 +59,6 @@ public class ServerConstants {
     public static final int MTS_TAX = 5; //+% to everything, GMS = 10
     public static final int MTS_MESO = 10000; //mesos needed, GMS = 5000
     public static final int CURRENCY = 4001055; //maybe chg to something else
-    public static final String FM_BGM = "Bgm03/Elfwood";
     public static final String DB_LINK = "jdbc:mysql://localhost:3306/fuckms?autoReconnect=true";
     public static final String SQL_USER = "root", SQL_PASSWORD = "";
     public static final String PORT = "8585";

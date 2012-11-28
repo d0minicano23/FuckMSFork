@@ -41,4 +41,5 @@ public class BlazeWizard {
     public static final int SPELL_BOOSTER = 12101004;
     public static final int TELEPORT_MASTERY = 12111007;
     public static final int ELEMENTAL_WEAKNESS = 12000006;
+    public static final int CRITICAL = 12110000;
 }

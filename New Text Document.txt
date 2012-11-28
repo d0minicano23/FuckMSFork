@@ -241,7 +241,6 @@ public class PlayerStats implements Serializable {
                 chra.setAndroid(equip.getAndroid());
             }
             
-              
             chra.getTrait(MapleTraitType.craft).addLocalExp(equip.getHands());
             accuracy += equip.getAcc();
             localmaxhp_ += equip.getHp();
@@ -573,7 +572,6 @@ public class PlayerStats implements Serializable {
                     break;
                 }
             }
-            
             eff = chra.getStatForBuff(MapleBuffStat.MORPH);
             if (eff != null && eff.getSourceId() % 10000 == 1105) { //ice knight
                 localmaxhp = 99999;
@@ -582,22 +580,21 @@ public class PlayerStats implements Serializable {
         }
 
         chra.changeSkillLevel_Skip(sData, false);
-       //This is where we calculate the localmaxmp for demonslayers, and see if they have a shield equipped.
-        if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 1 && chra.getLevel() < 10){
+       
+        final Iterator<Item> iteraz = chra.getInventory(MapleInventoryType.EQUIPPED).newList().iterator();
+        final Equip equip = (Equip) iteraz.next();       
+        if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 1 && chra.getLevel() < 10 && equip.getItemId()==1099001){
             localmaxmp = 120;
-        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 10 && chra.getLevel() < 30){
+        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 10 && chra.getLevel() < 30 && equip.getItemId()==1099000){
             localmaxmp = 30;
-        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 30 && chra.getLevel() < 70){
+        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 30 && chra.getLevel() < 70 && equip.getItemId()==1099002){
             localmaxmp = 60;
-        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 70 && chra.getLevel() < 120){
+        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 70 && chra.getLevel() < 120 && equip.getItemId()==1099003){
             localmaxmp = 90;
-        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 120){          
-            if (chra.hasEquipped(1099004)){
-                    localmaxmp = 120;
-            } else {
-                    localmaxmp = 10;
-            }
-     }
+        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 120 && equip.getItemId()==1099004){
+            localmaxmp = 120;
+        }
+        
         CalcPassive_SharpEye(chra);
         CalcPassive_Mastery(chra);
         recalcPVPRank(chra);

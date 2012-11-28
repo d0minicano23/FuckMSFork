@@ -31,4 +31,5 @@ public class Magician {
     public static final int ELEMENTAL_WEAKNESS = 2000007;
     public static final int MAGIC_GUARD = 2001002;
     public static final int MAGIC_ARMOR = 2001003;
+    public static final int MP_BOOST = 2000006;
 }

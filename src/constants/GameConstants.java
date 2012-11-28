@@ -493,6 +493,11 @@ public class GameConstants {
         final int s = itemId / 10000;
         return s == 137 || s == 138; // wand, staff
     }
+    
+    public static boolean isDemonShield(final int itemId) {
+        final int s = itemId / 10000;
+        return s == 1099;
+    }
 
     public static boolean isWeapon(final int itemId) {
         return itemId >= 1300000 && itemId < 1533000;
@@ -557,7 +562,9 @@ public class GameConstants {
             case 53:
                 return MapleWeaponType.CANNON;
         }
-        //System.out.println("Found new Weapon: " + cat + ", ItemId: " + itemId);
+        if(ServerConstants.ADMIN_SERVER){
+        System.out.println("Found new Weapon: " + cat + ", ItemId: " + itemId);
+        }
         return MapleWeaponType.NOT_A_WEAPON;
     }
 

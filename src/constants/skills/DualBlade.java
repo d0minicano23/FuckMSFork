@@ -9,6 +9,7 @@ package constants.skills;
  * @author Steven
  */
 public class DualBlade {
+        public static final int SELF_HASTE = 4001006;
         public static final int TORNADO_SPIN = 4321000;
         public static final int OWL_SPIRIT = 4331003;
         public static final int FINAL_CUT = 4341002;
@@ -26,4 +27,7 @@ public class DualBlade {
         public static final int VENOM1 = 4320005;
         public static final int VENOM2 = 4340001;
         public static final int TOXIC_VENOM = 4340012;
+        public static final int SHADOW_RESISTANCE = 4310004;
+        public static final int ENVELOPING_DARKNESS = 4330008;
+        public static final int SIDE_STEP = 4000012;
 }

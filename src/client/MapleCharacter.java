@@ -2240,9 +2240,10 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         if (!silent) {
             stats.recalcLocalStats(this);
         }
-        //System.out.println("Effect registered. Effect: " + effect.getSourceId());
+        if(ServerConstants.ADMIN_SERVER){
+        System.out.println("Effect registered. Effect: " + effect.getSourceId());
+        }
     }
-
     public List<MapleBuffStat> getBuffStats(final MapleStatEffect effect, final long startTime) {
         final List<MapleBuffStat> bstats = new ArrayList<MapleBuffStat>();
         final Map<MapleBuffStat, MapleBuffStatValueHolder> allBuffs = new EnumMap<MapleBuffStat, MapleBuffStatValueHolder>(effects);
@@ -2404,7 +2405,9 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                 }
             }
         }
-        //System.out.println("Effect deregistered. Effect: " + effect.getSourceId());
+        if(ServerConstants.ADMIN_SERVER){
+        System.out.println("Effect deregistered. Effect: " + effect.getSourceId());
+        }
     }
 
     public void cancelBuffStats(MapleBuffStat... stat) {
@@ -4365,22 +4368,38 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         } else {
              maxmp = Math.min(99999, Math.abs(maxmp));
         }
-        
+        int mp = 0;
+        if ((GameConstants.isDemon(getJob()))){ // This is where Demon Force goes down once the player reaches the next level.
+          
+           if(level<10){
+             mp = 120;
+           }else if(level >= 10 && level < 30){
+             mp = 30;
+           }else if(level >= 30 && level < 70){
+             mp = 60;
+           }else if(level >= 70 && level < 120){
+             mp = 90;
+           }else if(level >= 120){
+             mp = 120;             
+           } 
+        } else {
+             mp = Math.min(99999, Math.abs(maxmp));
+        }        
+          
         final Map<MapleStat, Integer> statup = new EnumMap<MapleStat, Integer>(MapleStat.class);
         final MapleInventory shields = client.getPlayer().getInventory(MapleInventoryType.EQUIPPED);
         
         statup.put(MapleStat.MAXHP, maxhp);       
         statup.put(MapleStat.HP, maxhp);
         statup.put(MapleStat.MAXMP, maxmp); 
-        statup.put(MapleStat.MP, maxmp);        
+        statup.put(MapleStat.MP, mp);        
         statup.put(MapleStat.EXP, exp);
         statup.put(MapleStat.LEVEL, (int) level);
         updateSingleStat(MapleStat.AVAILABLESP, 0); // we don't care the value here
         
      
              if (GameConstants.isMihile(getJob())) { // shields are equipped here once you level (just needs an update once equipped)
-                if(getLevel()==10){
-                }else if(getLevel()==30){
+                 if(getLevel()==30){
                     removeAll(1098000);
                     Item eq_weapon = MapleItemInformationProvider.getInstance().getEquipById(1098001);
                     eq_weapon.setPosition((byte) -10);
@@ -4399,30 +4418,32 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     shields.addFromDB(eq_weapon2);
                     equipChanged();  
                 }
-            }
-        
-              if (GameConstants.isDemon(getJob())) {
+            }else if(GameConstants.isDemon(getJob())) {
                 if(getLevel()<10){
                     Item eq_weapon3 = MapleItemInformationProvider.getInstance().getEquipById(1099001);
                     eq_weapon3.setPosition((byte) -10);
                     shields.addFromDB(eq_weapon3);
                     equipChanged();
                 } else if(getLevel()==10){
+                    removeAll(1099001);
                     Item eq_weapon4 = MapleItemInformationProvider.getInstance().getEquipById(1099000);
                     eq_weapon4.setPosition((byte) -10);
                     shields.addFromDB(eq_weapon4);
                     equipChanged();
                 }else if(getLevel()==30){
+                    removeAll(1098000);
                     Item eq_weapon5 = MapleItemInformationProvider.getInstance().getEquipById(1099002);
                     eq_weapon5.setPosition((byte) -10);
                     shields.addFromDB(eq_weapon5);
                     equipChanged();
                 }else if(getLevel()==70){
+                    removeAll(1098002);
                     Item eq_weapon6 = MapleItemInformationProvider.getInstance().getEquipById(1099003);
                     eq_weapon6.setPosition((byte) -10);
                     shields.addFromDB(eq_weapon6);
                     equipChanged();
                  }else if(getLevel()==120){
+                     removeAll(1098003);
                     Item eq_weapon7 = MapleItemInformationProvider.getInstance().getEquipById(1099004);
                     eq_weapon7.setPosition((byte) -10);
                     shields.addFromDB(eq_weapon7);
@@ -4443,12 +4464,12 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             remainingSp[GameConstants.getSkillBook(job)] += 3;
         }
         
-        if(level >= 200 || (GameConstants.isKOC(job) && level >=120)){ //HEA
+        if(level >= 200 || (GameConstants.isKOC(job) && level >=120)){
             setExp(0);
         }
         statup.put(MapleStat.AVAILABLEAP, (int) remainingAp);
         statup.put(MapleStat.AVAILABLESP, remainingSp[GameConstants.getSkillBook(job, level)]);
-        stats.setInfo(maxhp, maxmp, maxhp, maxmp);
+        stats.setInfo(maxhp, maxmp, maxhp, mp);
         client.getSession().write(CWvsContext.updatePlayerStats(statup, this));
         map.broadcastMessage(this, EffectPacket.showForeignEffect(getId(), 0), false);
         characterCard.recalcLocalStats(this);
