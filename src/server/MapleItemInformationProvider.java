@@ -759,6 +759,7 @@ public class MapleItemInformationProvider {
                         break;
                     }
                     case 5064000:
+                    case 5064002:
                     case 2531000: {
                         short flag = nEquip.getFlag();
                         flag |= ItemFlag.SHIELD_WARD.getValue();

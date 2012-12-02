@@ -35,7 +35,7 @@ public class AttackInfo {
     public int skill, charge, lastAttackTickCount;
     public List<AttackPair> allDamage;
     public Point position;
-	public int display;
+    public int display;
     public byte hits, targets, tbyte, speed, csstar, AOE, slot, unk;
     public boolean real = true;
 

@@ -414,7 +414,7 @@ public class MapleStatEffect implements Serializable {
                     ret.statups.put(MapleBuffStat.DARKSIGHT, ret.info.get(MapleStatInfo.x)); // d
                     break;
                 case DualBlade.ADV_DARK_SIGHT:
-                    ret.statups.put(MapleBuffStat.DARKSIGHT, (int) ret.level);
+                    ret.statups.put(MapleBuffStat.DARKSIGHT, ret.info.get(MapleStatInfo.y));
                     break;
                 case ChiefBandit.PICKPOCKET:
                     ret.info.put(MapleStatInfo.time, 2100000000);
@@ -578,9 +578,6 @@ public class MapleStatEffect implements Serializable {
                 case Evan.KILLER_WINGS:
                     ret.info.put(MapleStatInfo.time, 2100000000);
                     ret.statups.put(MapleBuffStat.HOMING_BEACON, ret.info.get(MapleStatInfo.x));
-                    break;
-                case DualBlade.THORNS:
-                    ret.statups.put(MapleBuffStat.STANCE, (int) ret.info.get(MapleStatInfo.prop));
                     break;
                 case Aran.COMBO_RECHARGE:
                 case DragonKnight.DRAGON_ROAR:
@@ -856,12 +853,10 @@ public class MapleStatEffect implements Serializable {
                 case DualBlade.VENOM1:
                 case DualBlade.VENOM2:
                 case NightWalker.VENOM:
-                    ret.monsterStatus.put(MonsterStatus.POISON, 1);
-                    break;
                 case DualBlade.TOXIC_VENOM:
                 case NightLord.TOXIC_VENOM:
                 case Shadower.TOXIC_VENOM:
-                     ret.monsterStatus.put(MonsterStatus.POISON, 3);
+                    ret.monsterStatus.put(MonsterStatus.POISON, 1);
                     break;
                 case Shadower.NINJA_AMBUSH:
                 case NightLord.NINJA_AMBUSH:
@@ -871,7 +866,7 @@ public class MapleStatEffect implements Serializable {
                     ret.monsterStatus.put(MonsterStatus.DOOM, 1);
                     break;
                 case BattleMage.REAPER:
-                    ret.statups.put(MapleBuffStat.REAPER, 1);
+                    ret.statups.put(MapleBuffStat.REAPER, 1);                
                     break;
                 case Mechanic.SG88:
                     ret.info.put(MapleStatInfo.time, 2100000000);
@@ -1013,6 +1008,7 @@ public class MapleStatEffect implements Serializable {
                 case Mihile.STANCE:
                 case Mihile.KNIGHTS_WATCH:    
                 case BattleMage.STANCE:
+                case DualBlade.THORNS:
                     ret.statups.put(MapleBuffStat.STANCE, (int) ret.info.get(MapleStatInfo.prop));
                     break;
                 case Bishop.MANA_REFLECTION:
@@ -1081,7 +1077,7 @@ public class MapleStatEffect implements Serializable {
                    ret.statups.put(MapleBuffStat.STATUS_RESIST, ret.info.get(MapleStatInfo.y));
                    ret.statups.put(MapleBuffStat.ELEMENT_RESIST, ret.info.get(MapleStatInfo.z));
                     break;
-                 case Mihile.TRINITY:
+                 case Mihile.ROILING_SOUL:
                     ret.statups.put(MapleBuffStat.DAMAGE_BUFF, ret.info.get(MapleStatInfo.x));
                     ret.statups.put(MapleBuffStat.CRITICAL_RATE_BUFF, ret.info.get(MapleStatInfo.y));
                     ret.statups.put(MapleBuffStat.CRITICAL_RATE_BUFF, ret.info.get(MapleStatInfo.z));
@@ -1141,11 +1137,6 @@ public class MapleStatEffect implements Serializable {
                     break;
                     //angelic blessing: HACK, we're actually supposed to use the passives for atk/matk buff
                     case Beginner.DARK_ANGEL:
-                    case Legend.DARK_ANGEL:
-                    case Citizen.DARK_ANGEL:
-                    case Mercedes.DARK_ANGEL:
-                    case Phantom.DARK_ANGEL:
-                    case DemonSlayer.DARK_ANGEL:
                         ret.info.put(MapleStatInfo.time, 2100000000);
                         ret.statups.put(MapleBuffStat.ANGEL_ATK, 10);
                         ret.statups.put(MapleBuffStat.ANGEL_MATK, 10);
@@ -1265,8 +1256,7 @@ public class MapleStatEffect implements Serializable {
                     case Beginner.SOARING2:
                         ret.info.put(MapleStatInfo.time, 2100000000);
                         ret.statups.put(MapleBuffStat.SOARING, 1);
-                        break;
-                    //This is the wrong place to put item stuff    
+                        break;   
                    case 2022746: //angel bless
                    case 2022747: //d.angel bless
                    case 2022823: // wabr
@@ -2226,12 +2216,6 @@ public class MapleStatEffect implements Serializable {
                 applyto.getMap().broadcastMessage(applyto, BuffPacket.giveForeignBuff(applyto.getId(), stat, this), false);
                 break;
             }
-            case Rogue.DARK_SIGHT: {
-                if (applyfrom.getTotalSkillLevel(DualBlade.ADV_DARK_SIGHT) > 0 && ((applyfrom.getJob() >= 430 && applyfrom.getJob() <= 434) || (applyfrom.getJob() == 400 && applyfrom.getSubcategory() == 1))) {
-                    SkillFactory.getSkill(DualBlade.ADV_DARK_SIGHT).getEffect(applyfrom.getTotalSkillLevel(DualBlade.ADV_DARK_SIGHT)).applyBuffEffect(applyfrom, applyto, primary, newDuration);
-                    return;
-                } //fallthrough intended
-            }
             case DualBlade.ADV_DARK_SIGHT:
             case Phantom.GHOST_WALK:
             case NightWalker.DARK_SIGHT: {
@@ -2466,12 +2450,14 @@ public class MapleStatEffect implements Serializable {
                 normal = false;
                 break;
             }
+            case Crossbowman.GOLDEN_EAGLE:    
             case Sniper.GOLDEN_EAGLE: {
                 if (applyfrom.getTotalSkillLevel(Marksman.SPIRIT_LINK) > 0) {
                     SkillFactory.getSkill(Marksman.SPIRIT_LINK).getEffect(applyfrom.getTotalSkillLevel(Marksman.SPIRIT_LINK)).applyBuffEffect(applyfrom, applyto, primary, newDuration);
                 }
                 break;
             }
+            case Hunter.SILVER_HAWK:    
             case Ranger.SILVER_HAWK: {
                 if (applyfrom.getTotalSkillLevel(Bowmaster.SPIRIT_LINK) > 0) {
                     SkillFactory.getSkill(Bowmaster.SPIRIT_LINK).getEffect(applyfrom.getTotalSkillLevel(Bowmaster.SPIRIT_LINK)).applyBuffEffect(applyfrom, applyto, primary, newDuration);
@@ -3008,8 +2994,6 @@ public class MapleStatEffect implements Serializable {
                 break;
             case Mechanic.SIEGE_MODE: // Mech: Siege Mode
                 sameSrc = effect.sourceid == 35111004;
-            case DualBlade.ADV_DARK_SIGHT:
-                sameSrc = effect.sourceid == Rogue.DARK_SIGHT;
                 break;
         }
         return effect != null && sameSrc && this.skill == effect.skill;
@@ -3330,7 +3314,7 @@ public class MapleStatEffect implements Serializable {
             case 3221005: // frostprey
             case 3121006: // phoenix
             case 23111008:
-            case 23111009:
+            case 23111009:   
             case 23111010:
                 return SummonMovementType.CIRCLE_FOLLOW;
             case 5211002: // bird - pirate

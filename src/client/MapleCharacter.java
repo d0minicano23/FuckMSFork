@@ -2406,7 +2406,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             }
         }
         if(ServerConstants.ADMIN_SERVER){
-        System.out.println("Effect deregistered. Effect: " + effect.getSourceId());
+            System.out.println("Effect deregistered. Effect: " + effect.getSourceId());
         }
     }
 
@@ -4359,18 +4359,13 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         }
         maxhp = Math.min(99999, Math.abs(maxhp));
 
-        if ((GameConstants.isDemon(getJob()))){ // This is where Demon Force goes down once the player reaches the next level.
-           if(getLevel()<10){
-             maxmp = 5;
-           }else{
-             maxmp = 10;
-           }
+        if (GameConstants.isDemon(job)){
+             maxmp = (level < 10) ? 5 : 10;
         } else {
              maxmp = Math.min(99999, Math.abs(maxmp));
         }
         int mp = 0;
-        if ((GameConstants.isDemon(getJob()))){ // This is where Demon Force goes down once the player reaches the next level.
-          
+        if (GameConstants.isDemon(job)){
            if(level<10){
              mp = 120;
            }else if(level >= 10 && level < 30){
@@ -4425,7 +4420,9 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     shields.addFromDB(eq_weapon3);
                     equipChanged();
                 } else if(getLevel()==10){
+                   if(hasEquipped(1099001)){
                     removeAll(1099001);
+                   } 
                     Item eq_weapon4 = MapleItemInformationProvider.getInstance().getEquipById(1099000);
                     eq_weapon4.setPosition((byte) -10);
                     shields.addFromDB(eq_weapon4);

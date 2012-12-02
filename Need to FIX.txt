@@ -5,10 +5,6 @@
 
 - Find out the ids of demon markings and evan hand marking
 
-- 9010022 shop needs to be fixed(using the Dimension Mirrior NPC o.o)
-
-- poison needs to be fixed!
-
 - Minimap reloads when you are on the other side of the map.
 
 - UI does not dispose when you close store
@@ -27,11 +23,8 @@
 
 - Using hammer, getting items from fredrick reloads you in the map.
 
-- Dual blade skills ADS, SHADOW meld, enveloping darkness, life drain,        venom, and side step(i think)
-  are not working properly.
-
 - cash items have the mount nebulite text (I think I can find it in     getSocketState() )
 
 - need to add renegade shop
 
-- Need to add equipment check for the level 120 Demon Slayer shield
+- NEED TO PROGRAM SHADOW MELD, DOES LIFE DRAIN WORK?

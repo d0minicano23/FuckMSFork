@@ -126,19 +126,17 @@ public class GMCommand {
             return 1;
         }
     }
-//#TODO: NEED TO ADD A CONDITIONAL FOR DEMON SLAYER
-
+    
      public static class maxstats extends CommandExecute {
 
         @Override
         public int execute(MapleClient c, String[] splitted) {
         Map<MapleStat, Integer> statup = new EnumMap<MapleStat, Integer>(MapleStat.class);
 
-        int overrDemon = 99999;
         c.getPlayer().getStat().maxhp = 99999;
-        c.getPlayer().getStat().maxmp = overrDemon;
+        c.getPlayer().getStat().maxmp = 99999;
         c.getPlayer().getStat().setHp(99999, c.getPlayer());
-        c.getPlayer().getStat().setMp(overrDemon, c.getPlayer());
+        c.getPlayer().getStat().setMp(99999, c.getPlayer());
 
         statup.put(MapleStat.STR, Integer.valueOf(32767));
         statup.put(MapleStat.DEX, Integer.valueOf(32767));
@@ -146,19 +144,29 @@ public class GMCommand {
         statup.put(MapleStat.INT, Integer.valueOf(32767));
         statup.put(MapleStat.HP, Integer.valueOf(99999));
         statup.put(MapleStat.MAXHP, Integer.valueOf(99999));
-        statup.put(MapleStat.MP, Integer.valueOf(overrDemon));
-        statup.put(MapleStat.MAXMP, Integer.valueOf(overrDemon));
+        statup.put(MapleStat.MP, Integer.valueOf(99999));
+        statup.put(MapleStat.MAXMP, Integer.valueOf(99999));
         c.getPlayer().getStat().recalcLocalStats(c.getPlayer());
             return 1;
         }
     }
     
-    public static class SP extends CommandExecute {
+   public static class SP extends CommandExecute {
 
         @Override
         public int execute(MapleClient c, String[] splitted) {
             c.getPlayer().setRemainingSp(CommandProcessorUtil.getOptionalIntArg(splitted, 1, 1));
             c.getPlayer().updateSingleStat(MapleStat.AVAILABLESP, 0); // we don't care the value here
+            return 1;
+        }
+    }
+    
+   public static class AP extends CommandExecute {
+
+        @Override
+        public int execute(MapleClient c, String[] splitted) {
+            c.getPlayer().setRemainingAp(CommandProcessorUtil.getOptionalIntArg(splitted, 1, 1));
+            c.getPlayer().updateSingleStat(MapleStat.AVAILABLEAP, 0); // we don't care the value here
             return 1;
         }
     }

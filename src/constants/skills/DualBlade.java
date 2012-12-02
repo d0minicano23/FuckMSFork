@@ -13,6 +13,7 @@ public class DualBlade {
         public static final int TORNADO_SPIN = 4321000;
         public static final int OWL_SPIRIT = 4331003;
         public static final int FINAL_CUT = 4341002;
+        public static final int LIFE_DRAIN = 4330007;
         public static final int KATARA_BOOSTER = 4311009;
         public static final int ADV_DARK_SIGHT = 4330001;
         public static final int MAPLE_WARRIOR = 4341000;
@@ -30,4 +31,5 @@ public class DualBlade {
         public static final int SHADOW_RESISTANCE = 4310004;
         public static final int ENVELOPING_DARKNESS = 4330008;
         public static final int SIDE_STEP = 4000012;
+        public static final int SHADOW_MELD = 4330009;
 }

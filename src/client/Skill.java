@@ -144,6 +144,7 @@ public class Skill {
                 case Hero.RUSH:
                 case Paladin.RUSH:
                 case DarkKnight.RUSH:
+                case Paladin.ADVANCED_CHARGE:
                 case DragonKnight.SACRIFICE:
                 case FPMage.EXPLOSION:
                 case FPMage.POISON_MIST:
@@ -438,9 +439,9 @@ public class Skill {
                 case DualBlade.KATARA_BOOSTER:
                 case Jett.DOUBLE_DOWN:
                 case CannonShooter.HEROS_WILL:
-		case CannonShooter.CANNON_BOOSTER:                                            
-                case DualBlade.ADV_DARK_SIGHT:
+		case CannonShooter.CANNON_BOOSTER:
                 case WhiteKnight.COMBAT_ORDERS:
+                case DualBlade.ADV_DARK_SIGHT:    
                 case 80001089:
                     isBuff = true;
                     break;
@@ -632,8 +633,9 @@ public class Skill {
              case 322:
              case 412:
              case 422:
+             case 434:
              case 512:
-             case 522: 
+             case 522:    
              return true;
          }
          return false;

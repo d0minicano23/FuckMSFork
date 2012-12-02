@@ -14,6 +14,7 @@
 /*      */ import client.status.MonsterStatus;
 /*      */ import client.status.MonsterStatusEffect;
 /*      */ import constants.GameConstants;
+           import constants.skills.*;
 /*      */ import handling.channel.ChannelServer;
 /*      */ import java.awt.Point;
 /*      */ import java.util.ArrayList;
@@ -48,6 +49,16 @@
 /*   60 */       player.getCheatTracker().registerOffense(CheatingOffense.ATTACKING_WHILE_DEAD);
 /*   61 */       return;
 /*      */     }
+               if(attack.skill != 0){
+                  Skill ads = SkillFactory.getSkill(DualBlade.ADV_DARK_SIGHT);
+                     int bof = player.getTotalSkillLevel(ads);
+                  if (bof > 0) {
+                         MapleStatEffect eff = ads.getEffect(bof);
+                     if (Randomizer.nextInt(100) >= eff.getProb()) {                           
+                            player.dispelSkill(Rogue.DARK_SIGHT);    
+                     }
+                  } 
+               }
 /*   63 */     if ((attack.real) && (GameConstants.getAttackDelay(attack.skill, theSkill) >= 100)) {
 /*   64 */       player.getCheatTracker().checkAttack(attack.skill, attack.lastAttackTickCount);
 /*      */     }
@@ -98,7 +109,7 @@
 /*      */     }
         int totDamage = 0;
         final MapleMap map = player.getMap();
-        if (attack.skill == 4211006) { // meso explosion
+        if (attack.skill == ChiefBandit.MESO_EXPLOSION) { // meso explosion
             for (AttackPair oned : attack.allDamage) {
                 if (oned.attack != null) {
                     continue;
@@ -132,10 +143,10 @@
         
 /*  150 */     int totDamageToOneMonster = 0;
 /*  151 */     long hpMob = 0L;
-       PlayerStats stats = player.getStat();
-/*      */ 
+               PlayerStats stats = player.getStat();
 /*  154 */     int CriticalDamage = stats.passive_sharpeye_percent();
 /*  155 */     int ShdowPartnerAttackPercentage = 0;
+
 /*  156 */     if ((attack_type == AttackType.RANGED_WITH_SHADOWPARTNER) || (attack_type == AttackType.NON_RANGED_WITH_MIRROR)) {
 /*  157 */       MapleStatEffect shadowPartnerEffect = player.getStatForBuff(MapleBuffStat.SHADOWPARTNER);
 /*  158 */       if (shadowPartnerEffect != null) {
@@ -158,7 +169,7 @@
 /*  178 */         hpMob = monster.getMobMaxHp();
 /*  179 */         MapleMonsterStats monsterstats = monster.getStats();
 /*  180 */         int fixeddmg = monsterstats.getFixedDamage();
-/*  181 */         boolean Tempest = (monster.getStatusSourceID(MonsterStatus.FREEZE) == 21120006) || (attack.skill == 21120006) || (attack.skill == 1221011);
+/*  181 */         boolean Tempest = (monster.getStatusSourceID(MonsterStatus.FREEZE) == Aran.COMBO_TEMPEST) || (attack.skill == 1221011);
 /*      */ 
 /*  183 */         if ((!Tempest) && (!player.isGM())) {
 /*  184 */           if (((player.getJob() >= 3200) && (player.getJob() <= 3212) && (!monster.isBuffed(MonsterStatus.DAMAGE_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT))) || (attack.skill == 3221007) || (attack.skill == 23121003) || (((player.getJob() < 3200) || (player.getJob() > 3212)) && (!monster.isBuffed(MonsterStatus.DAMAGE_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.WEAPON_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.WEAPON_DAMAGE_REFLECT))))
@@ -290,7 +301,7 @@
 /*      */           case 14001004:
 /*      */           case 14111002:
 /*      */           case 14111005:
-/*  310 */             int[] skills = { 4120005, 4220005, 4340001, 14110004 };
+/*  310 */             int[] skills = {DualBlade.VENOM1, DualBlade.VENOM2, DualBlade.TOXIC_VENOM, NightLord.TOXIC_VENOM, Shadower.TOXIC_VENOM, NightWalker.VENOM, ChiefBandit.VENOM, Hermit.VENOM};
 /*  311 */             for (int i : skills) {
 /*  312 */               Skill skill = SkillFactory.getSkill(i);
 /*  313 */               if (player.getTotalSkillLevel(skill) > 0) {

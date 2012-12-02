@@ -1,0 +1,11 @@
+(StringUtil.makeEnumHumanReadable(s.name())) 
+
+- Looks like this is for making item ids to string
+
+hasEquipped(x)
+
+- x is for the item id, it checks if the player has the item equipped.
+
+cancelPlayerBuffs
+
+- hope it can take away buffs!

@@ -21,6 +21,8 @@
 /*      */ import constants.GameConstants;
            import constants.ServerConstants;
 /*      */ import constants.Rank.PlayerGMRank;
+import constants.skills.DualBlade;
+import constants.skills.Rogue;
 /*      */ import handling.channel.ChannelServer;
 /*      */ import java.awt.Point;
 /*      */ import java.io.PrintStream;
@@ -309,6 +311,18 @@
 /*      */           }
 /*      */         }
 /*      */       }
+                //This is where I would program The effects for shadow meld, and Advance Dark sight
+                if(damage > 0){
+                   Skill ads = SkillFactory.getSkill(DualBlade.ADV_DARK_SIGHT);
+/*  311 */         int bof = chr.getTotalSkillLevel(ads);
+/*  312 */         if (bof > 0) {
+/*  313 */           MapleStatEffect eff = ads.getEffect(bof);
+/*  314 */           if (Randomizer.nextInt(100) <= eff.getX()) {
+/*  315 */             SkillFactory.getSkill(Rogue.DARK_SIGHT).getEffect(1).applyTo(chr);
+/*      */           }
+/*      */         }
+                }
+                   //TODO: HERE IS WHERE I WOULD PORGRAM SHADOW MELD
 /*  319 */       if (skillid != 0) {
 /*  320 */         pPhysical = slea.readByte() > 0;
 /*  321 */         pID = slea.readInt();

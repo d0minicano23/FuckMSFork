@@ -62,7 +62,7 @@ public class MapleSummon extends AnimatedMapleMapObject {
             lastSummonTickCount = 0;
             Summon_tickResetCount = 0;
             Server_ClientSummonTickDiff = 0;
-			lastAttackTime = 0;
+            lastAttackTime = 0;
         }
     }
 
@@ -111,8 +111,8 @@ public class MapleSummon extends AnimatedMapleMapObject {
         switch (skill) {
             case 3111002:
             case 3211002:
-			case 3120012:
-			case 3220012:
+            case 3120012:
+            case 3220012:
             case 13111004:
             case 4341006:
             case 33111003:
@@ -196,9 +196,9 @@ public class MapleSummon extends AnimatedMapleMapObject {
     }
 
     public final int getSummonType() {
-		if (isAngel()) {
-			return 2;
-		} else if ((skill != 33111003 && skill != 3120012 && skill != 3220012 && isPuppet()) || skill == 33101008 || skill == 35111002) {
+        if (isAngel()) {
+            return 2;
+	} else if ((skill != 33111003 && skill != 3120012 && skill != 3220012 && isPuppet()) || skill == 33101008 || skill == 35111002) {
             return 0;
         }
         switch (skill) {
@@ -210,8 +210,8 @@ public class MapleSummon extends AnimatedMapleMapObject {
                 return 3; //attacks what you attack
             case 35121009: //bots n. tots
                 return 5; //sub summons
-			case 35121003:
-				return 6; //charge
+            case 35121003:
+		return 6; //charge
             case 4111007: // test
             case 4211007: //dark flare
             case 14111010: //dark flare 

@@ -285,7 +285,7 @@ public class PlayerStats implements Serializable {
                         }
                     }
                     break;
-            }   
+            }  
             final Integer set = ii.getSetItemID(equip.getItemId());
             if (set != null && set > 0) {
                 int value = 1;
@@ -583,21 +583,20 @@ public class PlayerStats implements Serializable {
 
         chra.changeSkillLevel_Skip(sData, false);
        //This is where we calculate the localmaxmp for demonslayers, and see if they have a shield equipped.
-        if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 1 && chra.getLevel() < 10){
+        if (chra.hasEquipped(1099001)){
             localmaxmp = 120;
-        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 10 && chra.getLevel() < 30){
+        } else if (chra.hasEquipped(1099000)){
             localmaxmp = 30;
-        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 30 && chra.getLevel() < 70){
+        } else if (chra.hasEquipped(1099002)){
             localmaxmp = 60;
-        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 70 && chra.getLevel() < 120){
+        } else if (chra.hasEquipped(1099003)){
             localmaxmp = 90;
-        } else if ((GameConstants.isDemon(chra.getJob())) && chra.getLevel() >= 120){          
-            if (chra.hasEquipped(1099004)){
-                    localmaxmp = 120;
-            } else {
-                    localmaxmp = 10;
-            }
-     }
+        } else if (chra.hasEquipped(1099004)){          
+            localmaxmp = 120;
+        } else if(GameConstants.isDemon(chra.getJob()) && !(chra.hasEquipped(1099004)) || chra.hasEquipped(1099003) || chra.hasEquipped(1099002) || chra.hasEquipped(1099001) || chra.hasEquipped(1099000)) {
+            localmaxmp = 10;
+        }
+        
         CalcPassive_SharpEye(chra);
         CalcPassive_Mastery(chra);
         recalcPVPRank(chra);
@@ -1064,6 +1063,7 @@ public class PlayerStats implements Serializable {
                     percent_wdef += eff.getWDEFRate();
                     percent_mdef += eff.getMDEFRate();
                 }
+                //TODO: THIS IS WHERE I WOULD PUT THE ADDED ATTACK FOR ADVANCE DARK SIGHT
                 break;
             }
             case 100:
@@ -1707,7 +1707,7 @@ public class PlayerStats implements Serializable {
             }
             case 433:
             case 434: {
-                bx = SkillFactory.getSkill(4330007);
+                bx = SkillFactory.getSkill(DualBlade.LIFE_DRAIN);
                 bof = chra.getTotalSkillLevel(bx);
                 if (bof > 0) {
                     eff = bx.getEffect(bof);

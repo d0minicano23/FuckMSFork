@@ -173,3 +173,14 @@ java.lang.NullPointerException
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
 	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
 	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-11-29 23:23:23 ------------------------
+Error executing NPC script, NPC ID : 9000018.javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: TypeError: Cannot find function getCData in object scripting.NPCConversationManager@5257c885. (<Unknown source>#38) in <Unknown source> at line number 38
+------------------------ 2012-11-29 23:23:25 ------------------------
+Error executing NPC script, NPC ID : 9000018.javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: TypeError: Cannot find function getCData in object scripting.NPCConversationManager@62d89480. (<Unknown source>#38) in <Unknown source> at line number 38
+------------------------ 2012-11-29 23:23:41 ------------------------
+Error executing NPC script, NPC ID : 9000018.javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: TypeError: Cannot find function getCData in object scripting.NPCConversationManager@384daf96. (<Unknown source>#38) in <Unknown source> at line number 38
+------------------------ 2012-11-29 23:23:41 ------------------------
+Error executing NPC script, NPC ID : 9000018.javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: TypeError: Cannot find function getCData in object scripting.NPCConversationManager@7442bdba. (<Unknown source>#38) in <Unknown source> at line number 38
+------------------------ 2012-11-29 23:23:42 ------------------------
+Error executing NPC script, NPC ID : 9000018.javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: TypeError: Cannot find function getCData in object scripting.NPCConversationManager@49b639f7. (<Unknown source>#38) in <Unknown source> at line number 38

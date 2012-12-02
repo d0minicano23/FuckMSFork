@@ -41,13 +41,13 @@ public class MapleMonsterStats {
     private List<MobAttackInfo> mai = new ArrayList<MobAttackInfo>();
     private BanishInfo banish;
 	
-	public MapleMonsterStats(int id) {
-		this.id = id;
-	}
+    public MapleMonsterStats(int id) {
+        this.id = id;
+    }
 	
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+	return id;
+    }
 
     public int getExp() {
         return exp;
@@ -121,7 +121,6 @@ public class MapleMonsterStats {
         return pushed;
     }
 
-	
     public void setPhysicalAttack(final int PhysicalAttack) {
         this.PhysicalAttack = PhysicalAttack;
     }

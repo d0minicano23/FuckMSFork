@@ -79,18 +79,12 @@ public class InterServerHandler {
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
-        if (World.getPendingCharacterSize() >= 10) {
+        if (World.getPendingCharacterSize() >= 10) { // Could this mean max number of people able to connect?
             chr.dropMessage(1, "The server is busy at the moment. Please try again in a minute or less.");
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
-        if (c.getChannel() == ServerConstants.GM_CHANNEL && !c.getPlayer().isGM()) {
-           if (ServerConstants.ACTIVATE_GM_CHANNEL==true){ 
-            c.getPlayer().dropMessage(5, "You may not enter on this channel. Please change channels and try again.");
-            c.getSession().write(CWvsContext.enableActions());
-            return;
-            }
-        }
+
         
         final ChannelServer ch = ChannelServer.getInstance(c.getChannel());
 
@@ -129,6 +123,7 @@ public class InterServerHandler {
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
+        
         chr.dropMessage(5, "You will be transported to the Free Market Entrance.");
         chr.saveLocation(SavedLocationType.fromString("FREE_MARKET"));
         final MapleMap warpz = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(910000000);
