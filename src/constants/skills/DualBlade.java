@@ -32,4 +32,6 @@ public class DualBlade {
         public static final int ENVELOPING_DARKNESS = 4330008;
         public static final int SIDE_STEP = 4000012;
         public static final int SHADOW_MELD = 4330009;
+        public static final int CHAINS_OF_HELL = 4331006;
+        public static final int PHANTOM_BLOW = 4341009;
 }

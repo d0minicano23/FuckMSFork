@@ -978,7 +978,10 @@ public class MapleStatEffect implements Serializable {
                     break;
                 case DualBlade.SHADOW_MELD:
                     ret.statups.put(MapleBuffStat.WATK, ret.info.get(MapleStatInfo.indiePad));
-                    ret.statups.put(MapleBuffStat.SHARP_EYES, (ret.info.get(MapleStatInfo.x) + 100 << 8)); // I guess this is right!
+                    ret.statups.put(MapleBuffStat.SHARP_EYES, (ret.info.get(MapleStatInfo.x) + 100 << 8)); // Temporary until I figure out how to add it passively
+                    break;
+                case DualBlade.CHAINS_OF_HELL:
+                    ret.monsterStatus.put(MonsterStatus.STUN, 1);
                     break;
                 case Hermit.SHADOW_WEB:
                 case NightWalker.SHADOW_WEB:

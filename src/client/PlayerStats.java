@@ -2494,14 +2494,14 @@ public class PlayerStats implements Serializable {
                 }
                 break;
             }
-            case 434: {
-                critSkill = SkillFactory.getSkill(4340010);
+            case 433: {
+                critSkill = SkillFactory.getSkill(DualBlade.CHAINS_OF_HELL);
                 critlevel = player.getTotalSkillLevel(critSkill);
                 if (critlevel > 0) {
                     this.passive_sharpeye_rate += (short) (critSkill.getEffect(critlevel).getProb());
                     this.passive_sharpeye_min_percent += critSkill.getEffect(critlevel).getCriticalMin();
                     return;
-                }
+                }             
                 break;
             }
             case 520:
