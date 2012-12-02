@@ -322,6 +322,13 @@ import constants.skills.Rogue;
 /*      */           }
 /*      */         }
                 }
+                if(damage < 1){
+                   Skill shadow_meld = SkillFactory.getSkill(DualBlade.SHADOW_MELD);
+/*  311 */         int bof = chr.getTotalSkillLevel(shadow_meld);
+/*  312 */         if (bof > 0) {
+/*  314 */           SkillFactory.getSkill(DualBlade.SHADOW_MELD).getEffect(1).applyTo(chr);
+/*      */         }
+                }
                    //TODO: HERE IS WHERE I WOULD PORGRAM SHADOW MELD
 /*  319 */       if (skillid != 0) {
 /*  320 */         pPhysical = slea.readByte() > 0;

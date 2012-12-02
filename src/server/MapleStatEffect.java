@@ -681,7 +681,7 @@ public class MapleStatEffect implements Serializable {
                     ret.monsterStatus.put(MonsterStatus.MAGIC_CRASH, Integer.valueOf(1));
                     break;
                 case Paladin.DIVINE_SHIELD:
-                    ret.statups.put(MapleBuffStat.DIVINE_SHIELD, ret.info.get(MapleStatInfo.x) + 1);
+                    ret.statups.put(MapleBuffStat.DIVINE_SHIELD, ret.info.get(MapleStatInfo.x));
                     break;
                 case Paladin.ADVANCED_CHARGE:
                 case WhiteKnight.COMBAT_ORDERS:
@@ -975,6 +975,10 @@ public class MapleStatEffect implements Serializable {
                     ret.info.put(MapleStatInfo.damage, ret.info.get(MapleStatInfo.v));
                     ret.info.put(MapleStatInfo.attackCount, ret.info.get(MapleStatInfo.w));
                     ret.info.put(MapleStatInfo.mobCount, ret.info.get(MapleStatInfo.x));
+                    break;
+                case DualBlade.SHADOW_MELD:
+                    ret.statups.put(MapleBuffStat.WATK, ret.info.get(MapleStatInfo.indiePad));
+                    ret.statups.put(MapleBuffStat.SHARP_EYES, (ret.info.get(MapleStatInfo.x) + 100 << 8)); // I guess this is right!
                     break;
                 case Hermit.SHADOW_WEB:
                 case NightWalker.SHADOW_WEB:
@@ -1783,6 +1787,7 @@ public class MapleStatEffect implements Serializable {
     private boolean isSoulStone() {
         return skill && sourceid == Evan.SOUL_STONE || sourceid == Phantom.FINAL_FEINT;
     }
+    
 
     private void applyBuff(final MapleCharacter applyfrom, int newDuration) {
         if (isSoulStone() && sourceid != Phantom.FINAL_FEINT) {

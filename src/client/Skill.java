@@ -441,7 +441,8 @@ public class Skill {
                 case CannonShooter.HEROS_WILL:
 		case CannonShooter.CANNON_BOOSTER:
                 case WhiteKnight.COMBAT_ORDERS:
-                case DualBlade.ADV_DARK_SIGHT:    
+                case DualBlade.ADV_DARK_SIGHT: 
+                case DualBlade.SHADOW_MELD:    
                 case 80001089:
                     isBuff = true;
                     break;

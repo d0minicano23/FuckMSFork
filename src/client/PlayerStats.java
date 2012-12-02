@@ -1063,7 +1063,12 @@ public class PlayerStats implements Serializable {
                     percent_wdef += eff.getWDEFRate();
                     percent_mdef += eff.getMDEFRate();
                 }
-                //TODO: THIS IS WHERE I WOULD PUT THE ADDED ATTACK FOR ADVANCE DARK SIGHT
+                bx = SkillFactory.getSkill(DualBlade.SHADOW_MELD);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dodgeChance += eff.getER();
+                }
                 break;
             }
             case 100:
