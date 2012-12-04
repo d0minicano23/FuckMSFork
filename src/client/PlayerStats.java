@@ -1719,7 +1719,12 @@ public class PlayerStats implements Serializable {
                     hpRecoverProp += eff.getProb();
                     hpRecoverPercent += eff.getX();
                 }
-                bx = SkillFactory.getSkill(4341002);
+                bx = SkillFactory.getSkill(DualBlade.PHANTOM_BLOW);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ignoreTargetDEF += bx.getEffect(bof).getIgnoreMob();
+                }                
+                bx = SkillFactory.getSkill(DualBlade.FINAL_CUT);
                 bof = chra.getTotalSkillLevel(bx);
                 if (bof > 0) { //Fatal Blow, Slash Storm, Tornado Spin, Bloody Storm, Upper Stab, and Flying Assaulter
                     eff = bx.getEffect(bof);
@@ -1731,7 +1736,7 @@ public class PlayerStats implements Serializable {
                     damageIncrease.put(4331004, (int) eff.getDAMRate());
                     damageIncrease.put(4331005, (int) eff.getDAMRate());
                 }
-                bx = SkillFactory.getSkill(4341006);
+                bx = SkillFactory.getSkill(DualBlade.MIRROR_TARGET);
                 bof = chra.getTotalSkillLevel(bx);
                 if (bof > 0) {
                     dodgeChance += bx.getEffect(bof).getER();
@@ -2492,16 +2497,6 @@ public class PlayerStats implements Serializable {
                     this.passive_sharpeye_min_percent += critSkill.getEffect(critlevel).getCriticalMin();
                     return;
                 }
-                break;
-            }
-            case 433: {
-                critSkill = SkillFactory.getSkill(DualBlade.CHAINS_OF_HELL);
-                critlevel = player.getTotalSkillLevel(critSkill);
-                if (critlevel > 0) {
-                    this.passive_sharpeye_rate += (short) (critSkill.getEffect(critlevel).getProb());
-                    this.passive_sharpeye_min_percent += critSkill.getEffect(critlevel).getCriticalMin();
-                    return;
-                }             
                 break;
             }
             case 520:

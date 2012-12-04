@@ -311,7 +311,7 @@ import constants.skills.Rogue;
 /*      */           }
 /*      */         }
 /*      */       }
-                //This is where I would program The effects for shadow meld, and Advance Dark sight
+
                 if(damage > 0){
                    Skill ads = SkillFactory.getSkill(DualBlade.ADV_DARK_SIGHT);
 /*  311 */         int bof = chr.getTotalSkillLevel(ads);
@@ -329,7 +329,6 @@ import constants.skills.Rogue;
 /*  314 */           SkillFactory.getSkill(DualBlade.SHADOW_MELD).getEffect(1).applyTo(chr);
 /*      */         }
                 }
-                   //TODO: HERE IS WHERE I WOULD PORGRAM SHADOW MELD
 /*  319 */       if (skillid != 0) {
 /*  320 */         pPhysical = slea.readByte() > 0;
 /*  321 */         pID = slea.readInt();
@@ -1137,16 +1136,16 @@ import constants.skills.Rogue;
 /*      */ 
 
 
-    public static void MoveAndroid(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
-        slea.skip(8);
-        final List<LifeMovementFragment> res = MovementParse.parseMovement(slea, 3);
+            public static void MoveAndroid(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+                slea.skip(8);
+                final List<LifeMovementFragment> res = MovementParse.parseMovement(slea, 3);
 
-        if (res != null && chr != null && !res.isEmpty() && chr.getMap() != null && chr.getAndroid() != null) { // map crash hack
-            final Point pos = new Point(chr.getAndroid().getPos());
-            chr.getAndroid().updatePosition(res);
-            chr.getMap().broadcastMessage(chr, CField.moveAndroid(chr.getId(), pos, res), false);
-        }
-    }
+                if (res != null && chr != null && !res.isEmpty() && chr.getMap() != null && chr.getAndroid() != null) { // map crash hack
+                    final Point pos = new Point(chr.getAndroid().getPos());
+                    chr.getAndroid().updatePosition(res);
+                    chr.getMap().broadcastMessage(chr, CField.moveAndroid(chr.getId(), pos, res), false);
+                }
+            }
 
 /*      */ 
 /*      */   public static final void ChangeEmotion(int emote, MapleCharacter chr) {

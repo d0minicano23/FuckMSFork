@@ -30,6 +30,7 @@ import client.inventory.Equip;
 import client.inventory.MapleRing;
 import client.status.MonsterStatus;
 import constants.GameConstants;
+import constants.skills.DualBlade;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -977,7 +978,7 @@ public class PlayersHandler {
                             } else if (shad != null && i >= originalAttackCount) {
                                 ourDamage *= shad.getX() / 100.0;
                             }
-                            if (ourDamage > 0 && skillid != 4211006 && skillid != 3211003 && skillid != 4111004 && (skillid == 4221001 || skillid == 3221007 || skillid == 23121003 || skillid == 4341005 || skillid == 4331006 || skillid == 21120005 || Randomizer.nextInt(100) < critRate)) {
+                            if (ourDamage > 0 && skillid != 4211006 && skillid != 3211003 && skillid != 4111004 && (skillid == 4221001 || skillid == 3221007 || skillid == 23121003 || skillid == 4341005 || skillid == DualBlade.CHAINS_OF_HELL || skillid == DualBlade.SHADOW_MELD || skillid == 21120005 || Randomizer.nextInt(100) < critRate)) {
                                 ourDamage *= (100.0 + (Randomizer.nextInt(Math.max(2, chr.getStat().passive_sharpeye_percent() - chr.getStat().passive_sharpeye_min_percent())) + chr.getStat().passive_sharpeye_min_percent())) / 100.0;
                                 critical_ = true;
                             }

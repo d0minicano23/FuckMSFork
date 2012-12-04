@@ -49,16 +49,16 @@
 /*   60 */       player.getCheatTracker().registerOffense(CheatingOffense.ATTACKING_WHILE_DEAD);
 /*   61 */       return;
 /*      */     }
-               if(attack.skill != 0){
+
                   Skill ads = SkillFactory.getSkill(DualBlade.ADV_DARK_SIGHT);
-                     int bof = player.getTotalSkillLevel(ads);
-                  if (bof > 0) {
-                         MapleStatEffect eff = ads.getEffect(bof);
-                     if (Randomizer.nextInt(100) >= eff.getProb()) {                           
-                            player.dispelSkill(Rogue.DARK_SIGHT);    
-                     }
-                  } 
-               }
+                  int bof = player.getTotalSkillLevel(ads);
+                     if (bof > 0) {
+                            MapleStatEffect eff = ads.getEffect(bof);
+                         if (Randomizer.nextInt(100) >= eff.getProb()) {                           
+                                player.dispelSkill(Rogue.DARK_SIGHT);    
+                      }
+                     } 
+ 
 /*   63 */     if ((attack.real) && (GameConstants.getAttackDelay(attack.skill, theSkill) >= 100)) {
 /*   64 */       player.getCheatTracker().checkAttack(attack.skill, attack.lastAttackTickCount);
 /*      */     }
@@ -107,14 +107,14 @@
 /*  113 */         return;
 /*      */       }
 /*      */     }
-        int totDamage = 0;
-        final MapleMap map = player.getMap();
-        if (attack.skill == ChiefBandit.MESO_EXPLOSION) { // meso explosion
-            for (AttackPair oned : attack.allDamage) {
-                if (oned.attack != null) {
-                    continue;
-                }
-                final MapleMapObject mapobject = map.getMapObject(oned.objectid, MapleMapObjectType.ITEM);
+            int totDamage = 0;
+            final MapleMap map = player.getMap();
+            if (attack.skill == ChiefBandit.MESO_EXPLOSION) { // meso explosion
+                for (AttackPair oned : attack.allDamage) {
+                    if (oned.attack != null) {
+                        continue;
+                    }
+                    final MapleMapObject mapobject = map.getMapObject(oned.objectid, MapleMapObjectType.ITEM);
 
                 if (mapobject != null) {
                     final MapleMapItem mapitem = (MapleMapItem) mapobject;
@@ -300,7 +300,7 @@
 /*      */           case 4341009:
 /*      */           case 14001004:
 /*      */           case 14111002:
-/*      */           case 14111005:
+/*      */           case 14111005: //TOXIC VENOM NEEDS TO BE ADDED 
 /*  310 */             int[] skills = {DualBlade.VENOM1, DualBlade.VENOM2, DualBlade.TOXIC_VENOM, NightLord.TOXIC_VENOM, Shadower.TOXIC_VENOM, NightWalker.VENOM, ChiefBandit.VENOM, Hermit.VENOM};
 /*  311 */             for (int i : skills) {
 /*  312 */               Skill skill = SkillFactory.getSkill(i);
@@ -345,17 +345,17 @@
 /*      */             }
 /*  356 */             break;
 /*      */           }
-  int randomDMG = Randomizer.nextInt(player.getDamage2() - player.getReborns() + 1) + player.getReborns();
-/*      */    monster.damage(player, randomDMG, true, attack.skill);
+                    int randomDMG = Randomizer.nextInt(player.getDamage2() - player.getReborns() + 1) + player.getReborns();
+/*      */                monster.damage(player, randomDMG, true, attack.skill);
                     if (player.getshowdamage() == 1) {
-                    player.dropMessage(5, "You have done " + randomDMG + " extra RB damage! (disable/enable this with @dmgnotice)");
+                           player.dropMessage(5, "You have done " + randomDMG + " extra RB damage! (disable/enable this with @dmgnotice)");
                     }
                     } else {
                         if (player.getDamage() > 2147483647) {
-                    long randomDMG = player.getDamage();
-                    monster.damage(player, monster.getMobMaxHp(), true, attack.skill);
+                             long randomDMG = player.getDamage();
+                                 monster.damage(player, monster.getMobMaxHp(), true, attack.skill);
                     if (player.getshowdamage() == 1) {
-                    player.dropMessage(5, "You have done " + randomDMG + " extra RB damage! (disable/enable this with @dmgnotice)");
+                             player.dropMessage(5, "You have done " + randomDMG + " extra RB damage! (disable/enable this with @dmgnotice)");
                     }
                     }
 /*  362 */           if (totDamageToOneMonster > 0) {
@@ -547,17 +547,17 @@
 /*  561 */           player.getCheatTracker().registerOffense(CheatingOffense.HEAL_ATTACKING_UNDEAD);
 /*  562 */           return;
 /*      */         }
-                                     int randomDMG = Randomizer.nextInt(player.getDamage2() - player.getReborns() + 1) + player.getReborns();
-                                      monster.damage(player, randomDMG, true, attack.skill);
+                   int randomDMG = Randomizer.nextInt(player.getDamage2() - player.getReborns() + 1) + player.getReborns();
+                     monster.damage(player, randomDMG, true, attack.skill);
                     if (player.getshowdamage() == 1) {
-                    player.dropMessage(5, "You have done " + randomDMG + " extra damage! (disable/enable this with @dmgnotice)");
+                     player.dropMessage(5, "You have done " + randomDMG + " extra damage! (disable/enable this with @dmgnotice)");
                     }
                     } else {
                     if (player.getDamage() > 2147483647) {
-                    long randomDMG = player.getDamage();
-                    monster.damage(player, monster.getMobMaxHp(), true, attack.skill);
+                      long randomDMG = player.getDamage();
+                      monster.damage(player, monster.getMobMaxHp(), true, attack.skill);
                     if (player.getshowdamage() == 1) {
-                    player.dropMessage(5, "You have done " + randomDMG + " extra damage! (disable/enable this with @dmgnotice)");
+                         player.dropMessage(5, "You have done " + randomDMG + " extra damage! (disable/enable this with @dmgnotice)");
                     }
                             int totDamageToOneMonster1 = 0;
 /*  565 */         if (totDamageToOneMonster1 > 0) {
@@ -679,8 +679,8 @@
 /*  688 */     return elemMaxDamagePerMob;
 /*      */   }
 /*      */ 
-/*      */     private static final double ElementalStaffAttackBonus(final Element elem, double elemMaxDamagePerMob, final PlayerStats stats) {
-        switch (elem) {
+        private static final double ElementalStaffAttackBonus(final Element elem, double elemMaxDamagePerMob, final PlayerStats stats) {
+            switch (elem) {
             case FIRE:
                 return (elemMaxDamagePerMob / 100) * (stats.element_fire + stats.getElementBoost(elem));
             case ICE:
@@ -691,8 +691,8 @@
                 return (elemMaxDamagePerMob / 100) * (stats.element_psn + stats.getElementBoost(elem));
             default:
                 return (elemMaxDamagePerMob / 100) * (stats.def + stats.getElementBoost(elem));
+            }
         }
-    }
 /*      */ 
   private static void handlePickPocket(final MapleCharacter player, final MapleMonster mob, AttackPair oned) {
         final int maxmeso = player.getBuffedValue(MapleBuffStat.PICKPOCKET).intValue();
@@ -922,7 +922,7 @@
 /*  936 */         if (p.attack != null) {
 /*  937 */           int hit = 0;
 /*  938 */           int mid_att = shadow ? p.attack.size() / 2 : p.attack.size();
-/*      */ 
+                      //TODO:THIS IS WHERE YOU PROBABLY ADD SHADOW MELD 100% CRIT EFFECT!
 /*  940 */           int toCrit = (attack.skill == 4221001) || (attack.skill == 3221007) || (attack.skill == 23121003) || (attack.skill == 4341005) || (attack.skill == 4331006) || (attack.skill == 21120005) ? mid_att : 0;
 /*  941 */           if (toCrit == 0) {
 /*  942 */             for (Pair eachd : p.attack) {

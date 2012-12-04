@@ -366,7 +366,7 @@ public class BattleConstants {
             case Doll_H:
             case Road_Auf:
             case Road_Dunas:
-			case Cygnus_Boss:
+            case Cygnus_Boss:
                 return 2;
         }
         return -1;

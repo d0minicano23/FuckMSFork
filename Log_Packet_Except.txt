@@ -1183,3 +1183,38 @@ java.lang.NullPointerException
 Packet: 84
 All: 54 00 A7 C9 0D 52 5C 2F 8B 00 FF 00 00 00 00 00 00 00 84 CD 6C 00 2A A1 07 00 00 00 00 00 00 00 00 00 00 00 00 00
 Now: 00
+------------------------ 2012-12-03 22:02:40 ------------------------
+java.util.ConcurrentModificationException
+	at java.util.HashMap$HashIterator.nextEntry(Unknown Source)
+	at java.util.HashMap$EntryIterator.next(Unknown Source)
+	at java.util.HashMap$EntryIterator.next(Unknown Source)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:349)
+	at client.PlayerStats.recalcLocalStats(PlayerStats.java:89)
+	at client.MapleCharacter.registerEffect(MapleCharacter.java:2241)
+	at server.MapleStatEffect.applyBuffEffect(MapleStatEffect.java:2643)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1681)
+	at server.MapleStatEffect.applyTo(MapleStatEffect.java:1318)
+	at client.MapleCharacter.modifyDamageTaken(MapleCharacter.java:7788)
+	at handling.channel.handler.PlayerHandler.TakeDamage(PlayerHandler.java:381)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:730)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:456)
+	at org.apache.mina.common.support.AbstractIoFilterChain$TailFilter.messageReceived(AbstractIoFilterChain.java:570)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.codec.support.SimpleProtocolDecoderOutput.flush(SimpleProtocolDecoderOutput.java:58)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:180)
+	at org.apache.mina.common.support.AbstractIoFilterChain.callNextMessageReceived(AbstractIoFilterChain.java:299)
+	at org.apache.mina.common.support.AbstractIoFilterChain.access$1100(AbstractIoFilterChain.java:53)
+	at org.apache.mina.common.support.AbstractIoFilterChain$EntryImpl$1.messageReceived(AbstractIoFilterChain.java:648)
+	at org.apache.mina.filter.executor.ExecutorFilter.processEvent(ExecutorFilter.java:220)
+	at org.apache.mina.filter.executor.ExecutorFilter$ProcessEventsRunnable.run(ExecutorFilter.java:264)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:51)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2012-12-03 22:02:40 ------------------------
+Packet: 84
+All: 54 00 F6 20 9C 89 5F E3 E9 01 FF 00 01 00 00 00 00 00 A0 86 01 00 48 A1 07 00 01 00 00 00 00 00 00 00 00 00 00 00
+Now: 00
