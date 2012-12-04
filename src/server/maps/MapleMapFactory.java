@@ -22,7 +22,6 @@ package server.maps;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import constants.BattleConstants;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.HashMap;
@@ -234,7 +233,7 @@ public class MapleMapFactory {
                     if ((npcs || !type.equals("n")) && !limited.equals("Stage0")) { //alien pq stuff
                         myLife = loadLife(life, MapleDataTool.getString(life.getChildByPath("id")), type);
 
-                        if (myLife instanceof MapleMonster && !BattleConstants.isBattleMap(mapid) && !GameConstants.isNoSpawn(mapid)) {
+                        if (myLife instanceof MapleMonster && !GameConstants.isNoSpawn(mapid)) {
                             final MapleMonster mob = (MapleMonster) myLife;
 
                             herbRocks.add(map.addMonsterSpawn(mob,
@@ -273,7 +272,7 @@ public class MapleMapFactory {
 
                 //load reactor data
                 String id;
-                if (reactors && mapData.getChildByPath("reactor") != null && !BattleConstants.isBattleMap(mapid)) {
+                if (reactors && mapData.getChildByPath("reactor") != null) {
                     for (MapleData reactor : mapData.getChildByPath("reactor")) {
                         id = MapleDataTool.getString(reactor.getChildByPath("id"));
                         if (id != null) {
@@ -472,7 +471,7 @@ public class MapleMapFactory {
             if ((npcs || !type.equals("n")) && limited.equals("")) {
                 myLife = loadLife(life, MapleDataTool.getString(life.getChildByPath("id")), type);
 
-                if (myLife instanceof MapleMonster && !BattleConstants.isBattleMap(mapid) && !GameConstants.isNoSpawn(mapid)) {
+                if (myLife instanceof MapleMonster && !GameConstants.isNoSpawn(mapid)) {
                     final MapleMonster mob = (MapleMonster) myLife;
 
                     map.addMonsterSpawn(mob,
@@ -494,7 +493,7 @@ public class MapleMapFactory {
 
         //load reactor data
         String id;
-        if (reactors && mapData.getChildByPath("reactor") != null && !BattleConstants.isBattleMap(mapid)) {
+        if (reactors && mapData.getChildByPath("reactor") != null) {
             for (MapleData reactor : mapData.getChildByPath("reactor")) {
                 id = MapleDataTool.getString(reactor.getChildByPath("id"));
                 if (id != null) {

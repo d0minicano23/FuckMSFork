@@ -4,7 +4,7 @@
  */
 package client.messages.commands;
 
-import client.Battler;
+
 import client.MapleCharacter;
 import client.MapleCharacterUtil;
 import client.MapleClient;
@@ -19,9 +19,6 @@ import client.inventory.MapleInventoryType;
 import client.inventory.MapleRing;
 import client.messages.CommandProcessorUtil;
 import client.messages.commands.InternCommand.Ban;
-import constants.BattleConstants;
-import constants.BattleConstants.PokedexEntry;
-import constants.BattleConstants.PokemonNature;
 import constants.GameConstants;
 import constants.ServerConstants;
 import constants.Rank.PlayerGMRank;
@@ -1224,69 +1221,6 @@ public class SuperGMCommand {
         }
     }
 
-    public static class FillPokedex extends CommandExecute {
-
-        @Override
-        public int execute(MapleClient c, String[] splitted) {
-            for (PokedexEntry e : BattleConstants.getAllPokedex()) {
-                c.getPlayer().getMonsterBook().getCards().put(e.id, 2);
-            }
-            c.getPlayer().getMonsterBook().changed();
-            c.getPlayer().dropMessage(5, "Done.");
-            return 1;
-        }
-    }
-
-    public static class SeePokedex extends CommandExecute {
-
-        @Override
-        public int execute(MapleClient c, String[] splitted) {
-            for (PokedexEntry e : BattleConstants.getAllPokedex()) {
-                c.getPlayer().getMonsterBook().getCards().put(e.id, 1);
-            }
-            c.getPlayer().getMonsterBook().changed();
-            c.getPlayer().dropMessage(5, "Done.");
-            return 1;
-        }
-    }
-
-    public static class ClearPokedex extends CommandExecute {
-
-        @Override
-        public int execute(MapleClient c, String[] splitted) {
-            c.getPlayer().getMonsterBook().getCards().clear();
-            c.getPlayer().getMonsterBook().changed();
-            c.getPlayer().dropMessage(5, "Done.");
-            return 1;
-        }
-    }
-
-    public static class GetPokemon extends CommandExecute {
-
-        @Override
-        public int execute(MapleClient c, String[] splitted) {
-            if (c.getPlayer().countBattlers() >= 6 || splitted.length < 2) {
-                c.getPlayer().dropMessage(5, "You have 6 pokemons already, !getpokemon <mobID>");
-                return 0;
-            }
-            MapleMonsterStats theMob = MapleLifeFactory.getMonsterStats(Integer.parseInt(splitted[1]));
-            if (theMob == null) {
-                c.getPlayer().dropMessage(5, "mob does not exist.");
-                return 0;
-            }
-            Battler theB = new Battler(theMob.getLevel(), 0, c.getPlayer().getId(), theMob.getId(), theMob.getName(), PokemonNature.randomNature(), 0, (byte) -1, (byte) 100, (byte) 100, (byte) 100, (byte) 100, (byte) 100, (byte) 100, (byte) 100, (byte) 100, (byte) Randomizer.nextInt(2));
-            if (theB.getFamily() == null) {
-                c.getPlayer().dropMessage(5, "mob cannot be used in pokemon.");
-                return 0;
-            }
-            c.getPlayer().getBattlers()[c.getPlayer().countBattlers()] = theB;
-            c.getPlayer().getMonsterBook().monsterCaught(c, theMob.getId(), theMob.getName());
-            c.getPlayer().changedBattler();
-            c.getPlayer().dropMessage(6, "done.");
-            return 1;
-        }
-    }
-	
     public static class Subcategory extends CommandExecute {
 
         @Override

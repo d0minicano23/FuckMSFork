@@ -65,8 +65,6 @@ import client.inventory.MapleImp.ImpFlag;
 import client.status.MonsterStatus;
 import client.status.MonsterStatusEffect;
 import constants.*;
-import constants.BattleConstants.PokemonNature;
-import constants.BattleConstants.PokemonStat;
 import database.DatabaseConnection;
 import database.DatabaseException;
 
@@ -131,7 +129,6 @@ import tools.packet.MonsterCarnivalPacket;
 import server.MapleCarnivalChallenge;
 import server.MapleInventoryManipulator;
 import server.MapleStatEffect.CancelEffectAction;
-import server.PokemonBattle;
 import server.Timer.BuffTimer;
 import server.Timer.MapTimer;
 import server.life.MapleMonsterStats;
@@ -232,8 +229,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     private MapleInventory[] inventory;
     private SkillMacro[] skillMacros = new SkillMacro[5];
     private EnumMap<MapleTraitType, MapleTrait> traits;
-    private Battler[] battlers = new Battler[6];
-    private List<Battler> boxed;
     private MapleKeyLayout keylayout;
     private transient ScheduledFuture<?> mapTimeLimitTask;
     private transient Event_PyramidSubway pyramidSubway = null;
@@ -241,9 +236,8 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     private transient Map<Skill, SkillEntry> pendingSkills = null;
     private transient Map<Integer, Integer> linkMobs;
      private List<InnerSkillValueHolder> innerSkills;
-    private transient PokemonBattle battle;
     private boolean changed_wishlist, changed_trocklocations, changed_regrocklocations, changed_hyperrocklocations, changed_skillmacros, changed_achievements,
-            changed_savedlocations, changed_pokemon, changed_questinfo, changed_skills, changed_reports, changed_extendedSlots, update_skillswipe;
+            changed_savedlocations, changed_questinfo, changed_skills, changed_reports, changed_extendedSlots, update_skillswipe;
     public boolean keyvalue_changed = false,
                    innerskill_changed = true;
     /*
@@ -297,7 +291,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             changed_hyperrocklocations = false;
             changed_skillmacros = false;
             changed_savedlocations = false;
-            changed_pokemon = false;
             changed_extendedSlots = false;
             changed_questinfo = false;
             update_skillswipe = false;
@@ -362,7 +355,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             for (int i = 0; i < clones.length; i++) {
                 clones[i] = new WeakReference<MapleCharacter>(null);
             }
-            boxed = new ArrayList<Battler>();
             familiars = new LinkedHashMap<Integer, MonsterFamiliar>();
             extendedSlots = new ArrayList<Integer>();
             effects = new ConcurrentEnumMap<MapleBuffStat, MapleBuffStatValueHolder>(MapleBuffStat.class);
@@ -556,11 +548,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         for (final Integer zz : ct.finishedAchievements) {
             ret.finishedAchievements.add(zz);
         }
-        for (final Object zz : ct.boxed) {
-            Battler zzz = (Battler) zz;
-            zzz.setStats();
-            ret.boxed.add(zzz);
-        }
+
         for (Entry<MapleTraitType, Integer> t : ct.traits.entrySet()) {
             ret.traits.get(t.getKey()).setExp(t.getValue());
         }
@@ -572,12 +560,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         ret.BlessOfFairy_Origin = ct.BlessOfFairy;
         ret.BlessOfEmpress_Origin = ct.BlessOfEmpress;
         ret.skillMacros = (SkillMacro[]) ct.skillmacro;
-        ret.battlers = (Battler[]) ct.battlers;
-        for (Battler b : ret.battlers) {
-            if (b != null) {
-                b.setStats();
-            }
-        }
         ret.petStore = ct.petStore;
         ret.keylayout = new MapleKeyLayout(ct.keymap);
         ret.questinfo = ct.InfoQuest;
@@ -977,26 +959,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                         continue;
                     }
                     ret.familiars.put(rs.getInt("familiar"), new MonsterFamiliar(charid, rs.getInt("id"), rs.getInt("familiar"), rs.getLong("expiry"), rs.getString("name"), rs.getInt("fatigue"), rs.getByte("vitality")));
-                }
-                rs.close();
-                ps.close();
-
-                ps = con.prepareStatement("SELECT * FROM pokemon WHERE characterid = ? OR (accountid = ? AND active = 0)");
-                ps.setInt(1, charid);
-                ps.setInt(2, ret.accountid);
-                rs = ps.executeQuery();
-                position = 0;
-                while (rs.next()) {
-                    Battler b = new Battler(rs.getInt("level"), rs.getInt("exp"), charid, rs.getInt("monsterid"), rs.getString("name"), PokemonNature.values()[rs.getInt("nature")], rs.getInt("itemid"), rs.getByte("gender"), rs.getByte("hpiv"), rs.getByte("atkiv"), rs.getByte("defiv"), rs.getByte("spatkiv"), rs.getByte("spdefiv"), rs.getByte("speediv"), rs.getByte("evaiv"), rs.getByte("acciv"), rs.getByte("ability"));
-                    if (b.getFamily() == null) {
-                        continue;
-                    }
-                    if (rs.getInt("active") > 0 && position < 6 && rs.getInt("characterid") == charid) {
-                        ret.battlers[position] = b;
-                        position++;
-                    } else {
-                        ret.boxed.add(b);
-                    }
                 }
                 rs.close();
                 ps.close();
@@ -1480,62 +1442,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     }
                 }
             }
-            if (changed_pokemon) {
-                ps = con.prepareStatement("DELETE FROM pokemon WHERE characterid = ? OR (accountid = ? AND active = 0)");
-                ps.setInt(1, id);
-                ps.setInt(2, accountid);
-                ps.execute();
-                ps.close();
-                ps = con.prepareStatement("INSERT INTO pokemon (characterid, level, exp, monsterid, name, nature, active, accountid, itemid, gender, hpiv, atkiv, defiv, spatkiv, spdefiv, speediv, evaiv, acciv, ability) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                for (int i = 0; i < battlers.length; i++) {
-                    final Battler macro = battlers[i];
-                    if (macro != null) {
-                        ps.setInt(1, id);
-                        ps.setInt(2, macro.getLevel());
-                        ps.setInt(3, macro.getExp());
-                        ps.setInt(4, macro.getMonsterId());
-                        ps.setString(5, macro.getName());
-                        ps.setInt(6, macro.getNature().ordinal());
-                        ps.setInt(7, 1);
-                        ps.setInt(8, accountid);
-                        ps.setInt(9, macro.getItem() == null ? 0 : macro.getItem().id);
-                        ps.setByte(10, macro.getGender());
-                        ps.setByte(11, macro.getIV(PokemonStat.HP));
-                        ps.setByte(12, macro.getIV(PokemonStat.ATK));
-                        ps.setByte(13, macro.getIV(PokemonStat.DEF));
-                        ps.setByte(14, macro.getIV(PokemonStat.SPATK));
-                        ps.setByte(15, macro.getIV(PokemonStat.SPDEF));
-                        ps.setByte(16, macro.getIV(PokemonStat.SPEED));
-                        ps.setByte(17, macro.getIV(PokemonStat.EVA));
-                        ps.setByte(18, macro.getIV(PokemonStat.ACC));
-                        ps.setByte(19, macro.getAbilityIndex());
-                        ps.execute();
-                    }
-                }
-                for (Battler macro : boxed) {
-                    ps.setInt(1, id);
-                    ps.setInt(2, macro.getLevel());
-                    ps.setInt(3, macro.getExp());
-                    ps.setInt(4, macro.getMonsterId());
-                    ps.setString(5, macro.getName());
-                    ps.setInt(6, macro.getNature().ordinal());
-                    ps.setInt(7, 0);
-                    ps.setInt(8, accountid);
-                    ps.setInt(9, macro.getItem() == null ? 0 : macro.getItem().id);
-                    ps.setByte(10, macro.getGender());
-                    ps.setByte(11, macro.getIV(PokemonStat.HP));
-                    ps.setByte(12, macro.getIV(PokemonStat.ATK));
-                    ps.setByte(13, macro.getIV(PokemonStat.DEF));
-                    ps.setByte(14, macro.getIV(PokemonStat.SPATK));
-                    ps.setByte(15, macro.getIV(PokemonStat.SPDEF));
-                    ps.setByte(16, macro.getIV(PokemonStat.SPEED));
-                    ps.setByte(17, macro.getIV(PokemonStat.EVA));
-                    ps.setByte(18, macro.getIV(PokemonStat.ACC));
-                    ps.setByte(19, macro.getAbilityIndex());
-                    ps.execute();
-                }
-                ps.close();
-            }
 
             deleteWhereCharacterId(con, "DELETE FROM inventoryslot WHERE characterid = ?");
             ps = con.prepareStatement("INSERT INTO inventoryslot (characterid, `equip`, `use`, `setup`, `etc`, `cash`) VALUES (?, ?, ?, ?, ?, ?)");
@@ -1803,7 +1709,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             changed_hyperrocklocations = false;
             changed_skillmacros = false;
             changed_savedlocations = false;
-            changed_pokemon = false;
             changed_questinfo = false;
             changed_achievements = false;
             changed_extendedSlots = false;
@@ -3042,9 +2947,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         clearLinkMid();
         cancelFishingTask();
         cancelChallenge();
-        if (getBattle() != null) {
-            getBattle().forfeit(this, true);
-        }
         if (!getMechDoors().isEmpty()) {
             removeMechDoor();
         }
@@ -7328,7 +7230,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
 
     public boolean hasBlockedInventory() {
-        return !isAlive() || getTrade() != null || getConversation() > 0 || getDirection() >= 0 || getPlayerShop() != null || getBattle() != null || map == null;
+        return !isAlive() || getTrade() != null || getConversation() > 0 || getDirection() >= 0 || getPlayerShop() != null || map == null;
     }
 
     public void startPartySearch(final List<Integer> jobs, final int maxLevel, final int minLevel, final int membersNeeded) {
@@ -7345,64 +7247,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             }
         }
     }
-
-    public Battler getBattler(int pos) {
-        return battlers[pos];
-    }
-
-    public Battler[] getBattlers() {
-        return battlers;
-    }
-
-    public List<Battler> getBoxed() {
-        return boxed;
-    }
-
-    public PokemonBattle getBattle() {
-        return battle;
-    }
-
-    public void setBattle(PokemonBattle b) {
-        this.battle = b;
-    }
-
-    public int countBattlers() {
-        int ret = 0;
-        for (int i = 0; i < battlers.length; i++) {
-            if (battlers[i] != null) {
-                ret++;
-            }
-        }
-        return ret;
-    }
-
-    public void changedBattler() {
-        changed_pokemon = true;
-    }
-
-    public void makeBattler(int index, int monsterId) {
-        final MapleMonsterStats mons = MapleLifeFactory.getMonsterStats(monsterId);
-        this.battlers[index] = new Battler(mons);
-        this.battlers[index].setCharacterId(id);
-        changed_pokemon = true;
-        getMonsterBook().monsterCaught(client, monsterId, mons.getName());
-    }
-
-    public boolean removeBattler(int ind) {
-        if (countBattlers() <= 1) {
-            return false;
-        }
-        if (ind == battlers.length) {
-            this.battlers[ind] = null;
-        } else {
-            for (int i = ind; i < battlers.length; i++) {
-                this.battlers[i] = ((i + 1) == battlers.length ? null : this.battlers[i + 1]);
-            }
-        }
-        changed_pokemon = true;
-        return true;
-    }
-
+    
     public int getChallenge() {
         return challenge;
     }

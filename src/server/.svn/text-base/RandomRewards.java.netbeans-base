@@ -1,6 +1,9 @@
 package server;
 
-
+import constants.BattleConstants;
+import constants.BattleConstants.PokemonItem;
+import constants.BattleConstants.PItem;
+import constants.BattleConstants.HoldItem;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,7 +73,8 @@ public class RandomRewards {
 
         returnArray = new ArrayList<Integer>();
 
-
+        processPokemon(returnArray, BattleConstants.PokemonItem.values());
+        processPokemon(returnArray, BattleConstants.HoldItem.values());
 
         compiledPokemon = returnArray;
 
@@ -120,6 +124,15 @@ public class RandomRewards {
         Collections.shuffle(returnArray);
     }
 
+    private static void processPokemon(final List<Integer> returnArray, final PItem[] list) {
+        for (int i = 0; i < list.length; i++) {
+            PItem lastitem = list[i];
+            for (int j = 0; j < lastitem.getItemChance(); j++) {
+                returnArray.add(lastitem.getId());
+            }
+        }
+        Collections.shuffle(returnArray);
+    }
 
     public static int getGoldBoxReward() {
         return compiledGold.get(Randomizer.nextInt(compiledGold.size()));

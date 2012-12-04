@@ -2,7 +2,6 @@ package server;
 
 import client.SkillFactory;
 import client.inventory.MapleInventoryIdentifier;
-import constants.BattleConstants;
 import constants.ServerConstants;
 import handling.MapleServerHandler;
 import handling.channel.ChannelServer;

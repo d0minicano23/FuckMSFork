@@ -16,7 +16,6 @@ import client.inventory.MapleRing;
 import client.messages.commands.CommandExecute.PokemonExecute;
 import client.messages.commands.CommandExecute.TradeExecute;
 import com.mysql.jdbc.Connection;
-import constants.BattleConstants.PokemonItem;
 import constants.GameConstants;
 import database.DatabaseConnection;
 import handling.channel.ChannelServer;
@@ -38,7 +37,6 @@ import server.ItemInformation;
 import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
 import server.MapleTrade;
-import server.PokemonBattle;
 import server.RankingWorker.RankingInformation;
 import server.life.MapleMonster;
 
@@ -435,87 +433,7 @@ public static class dmgnotice extends CommandExecute {
                 return 0;
         }
         }
-    public static class Challenge extends CommandExecute {
 
-        public int execute(MapleClient c, String[] splitted) {
-            if (splitted.length <= 1) {
-                c.getPlayer().dropMessage(6, "@challenge [playername OR accept/decline OR block/unblock]");
-                return 0;
-            }
-            if (c.getPlayer().getBattler(0) == null) {
-                c.getPlayer().dropMessage(6, "You have no monsters!");
-                return 0;
-            }
-            if (splitted[1].equalsIgnoreCase("accept")) {
-                if (c.getPlayer().getChallenge() > 0) {
-                    final MapleCharacter chr = c.getPlayer().getMap().getCharacterById(c.getPlayer().getChallenge());
-                    if (chr != null) {
-                        if ((c.getPlayer().isInTownMap() || c.getPlayer().isGM() || chr.isInTownMap() || chr.isGM()) && chr.getBattler(0) != null && chr.getChallenge() == c.getPlayer().getId() && chr.getBattle() == null && c.getPlayer().getBattle() == null) {
-                            if (c.getPlayer().getPosition().y != chr.getPosition().y) {
-                                c.getPlayer().dropMessage(6, "Please be near them.");
-                                return 0;
-                            } else if (c.getPlayer().getPosition().distance(chr.getPosition()) > 600.0 || c.getPlayer().getPosition().distance(chr.getPosition()) < 400.0) {
-                                c.getPlayer().dropMessage(6, "Please be at a moderate distance from them.");
-                                return 0;
-                            }
-                            chr.setChallenge(0);
-                            chr.dropMessage(6, c.getPlayer().getName() + " has accepted!");
-                            c.getPlayer().setChallenge(0);
-                            final PokemonBattle battle = new PokemonBattle(chr, c.getPlayer());
-                            chr.setBattle(battle);
-                            c.getPlayer().setBattle(battle);
-                            battle.initiate();
-                        } else {
-                            c.getPlayer().dropMessage(6, "You may only use it in towns, or the other character has no monsters, or something failed.");
-                        }
-                    } else {
-                        c.getPlayer().dropMessage(6, "They do not exist in the map.");
-                    }
-                } else {
-                    c.getPlayer().dropMessage(6, "You don't have a challenge.");
-                }
-            } else if (splitted[1].equalsIgnoreCase("decline")) {
-                if (c.getPlayer().getChallenge() > 0) {
-                    c.getPlayer().cancelChallenge();
-                } else {
-                    c.getPlayer().dropMessage(6, "You don't have a challenge.");
-                }
-            } else if (splitted[1].equalsIgnoreCase("block")) {
-                if (c.getPlayer().getChallenge() == 0) {
-                    c.getPlayer().setChallenge(-1);
-                    c.getPlayer().dropMessage(6, "You have blocked challenges.");
-                } else {
-                    c.getPlayer().dropMessage(6, "You have a challenge or they are already blocked.");
-                }
-            } else if (splitted[1].equalsIgnoreCase("unblock")) {
-                if (c.getPlayer().getChallenge() < 0) {
-                    c.getPlayer().setChallenge(0);
-                    c.getPlayer().dropMessage(6, "You have unblocked challenges.");
-                } else {
-                    c.getPlayer().dropMessage(6, "You didn't block challenges.");
-                }
-            } else {
-                if (c.getPlayer().getChallenge() == 0) {
-                    final MapleCharacter chr = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
-                    if (chr != null && chr.getMap() == c.getPlayer().getMap() && chr.getId() != c.getPlayer().getId()) {
-                        if ((c.getPlayer().isInTownMap() || c.getPlayer().isGM() || chr.isInTownMap() || chr.isGM()) && chr.getBattler(0) != null && chr.getChallenge() == 0 && chr.getBattle() == null && c.getPlayer().getBattle() == null) {
-                            chr.setChallenge(c.getPlayer().getId());
-                            chr.dropMessage(6, c.getPlayer().getName() + " has challenged you! Type @challenge [accept/decline] to answer!");
-                            c.getPlayer().setChallenge(chr.getId());
-                            c.getPlayer().dropMessage(6, "Successfully sent the request.");
-                        } else {
-                            c.getPlayer().dropMessage(6, "You may only use it in towns, or the other character has no monsters, or they have a challenge.");
-                        }
-                    } else {
-                        c.getPlayer().dropMessage(6, splitted[1] + " does not exist in the map.");
-                    }
-                } else {
-                    c.getPlayer().dropMessage(6, "You have a challenge or you have blocked them.");
-                }
-            }
-            return 1;
-        }
-    }
 
     
     
@@ -901,44 +819,6 @@ public static class dmgnotice extends CommandExecute {
         }
     }
 
-    public static class Ball extends PokemonExecute {
-
-        public int execute(MapleClient c, String[] splitted) {
-            if (c.getPlayer().getBattle().getInstanceId() < 0 || c.getPlayer().getBattle().isTrainerBattle()) {
-                c.getPlayer().dropMessage(-3, "(...I can't use it in a trainer battle...)");
-                return 0;
-            }
-            if (splitted.length <= 1) {
-                c.getPlayer().dropMessage(-3, "(...I can use @ball <basic, great, or ultra> if I have the ball...)");
-                return 0;
-            }
-            PokemonItem item = null;
-            if (splitted[1].equalsIgnoreCase("basic")) {
-                item = PokemonItem.Basic_Ball;
-            } else if (splitted[1].equalsIgnoreCase("great")) {
-                item = PokemonItem.Great_Ball;
-            } else if (splitted[1].equalsIgnoreCase("ultra")) {
-                item = PokemonItem.Ultra_Ball;
-            }
-            if (item != null) {
-                if (c.getPlayer().haveItem(item.id, 1)) {
-                    if (c.getPlayer().getBattle().useBall(c.getPlayer(), item)) {
-                        MapleInventoryManipulator.removeById(c, GameConstants.getInventoryType(item.id), item.id, 1, false, false);
-                    } else {
-                        c.getPlayer().dropMessage(-3, "(...The monster is too strong, maybe I don't need it...)");
-                        return 0;
-                    }
-                } else {
-                    c.getPlayer().dropMessage(-3, "(...I don't have a " + splitted[1] + " ball...)");
-                    return 0;
-                }
-            } else {
-                c.getPlayer().dropMessage(-3, "(...I can use @ball <basic, great, or ultra> if I have the ball...)");
-                return 0;
-            }
-            return 1;
-        }
-    }
 
     public static class Info extends PokemonExecute {
 
@@ -948,25 +828,5 @@ public static class dmgnotice extends CommandExecute {
         }
     }
 
-    public static class Run extends PokemonExecute {
-
-        public int execute(MapleClient c, String[] splitted) {
-            c.getPlayer().getBattle().forfeit(c.getPlayer(), false);
-            return 1;
-        }
-    }
-
-    public static class Use extends PokemonExecute {
-
-        public int execute(MapleClient c, String[] splitted) {
-            if (splitted.length <= 1) {
-                c.getPlayer().dropMessage(-3, "(...I need an attack name...)");
-                return 0;
-            }
-            if (!c.getPlayer().getBattle().attack(c.getPlayer(), StringUtil.joinStringFrom(splitted, 1))) {
-                c.getPlayer().dropMessage(-3, "(...I've already selected an action...)");
-            }
-            return 1;
-        }
-    }
+ 
 }
