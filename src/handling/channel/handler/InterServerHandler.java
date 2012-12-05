@@ -272,6 +272,10 @@ public class InterServerHandler {
         }
         player.spawnClones();
         player.spawnSavedPets();
+        if(!player.hasEquipped(1112585) || !player.hasEquipped(1112594) || !player.hasEquipped(1112586) || !player.hasEquipped(1112663)){
+            player.dispelSkill(player.getStat().equippedSummon);
+            player.getStat().equippedSummon=0;
+        }
         if (player.getStat().equippedSummon > 0) {
             SkillFactory.getSkill(player.getStat().equippedSummon).getEffect(1).applyTo(player);
         }

@@ -9,7 +9,8 @@ package constants.skills;
  * @author Steven
  */
 public class DualBlade {
-        public static final int SELF_HASTE = 4001006;
+        public static final int SLASH_STORM = 4311003;
+        public static final int SELF_HASTE = 4301003;
         public static final int TORNADO_SPIN = 4321000;
         public static final int OWL_SPIRIT = 4331003;
         public static final int FINAL_CUT = 4341002;
@@ -24,6 +25,7 @@ public class DualBlade {
         public static final int MIRROR_TARGET = 4341006;
         public static final int FLY_ASSULTER = 4211002;
         public static final int FLY_ASSULTER2 = 4331005;
+        public static final int FLY_ASSULTER3 = 4321006;
         public static final int FLASHBANG = 4321002;
         public static final int VENOM1 = 4320005;
         public static final int VENOM2 = 4340001;
@@ -34,4 +36,11 @@ public class DualBlade {
         public static final int SHADOW_MELD = 4330009;
         public static final int CHAINS_OF_HELL = 4331006;
         public static final int PHANTOM_BLOW = 4341009;
+        public static final int BLADE_FURY = 4341004;
+        public static final int SUDDEN_RAID = 4341011;
+        public static final int DUAL_EXPERT = 4340013;
+        public static final int FATAL_BLOW = 4311002;
+        public static final int FLASH_JUMP = 4001011;
+        public static final int KATARA_MASTERY = 4300000;
+        public static final int FLASH_JUMP2 = 4311007;
 }

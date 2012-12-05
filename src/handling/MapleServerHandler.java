@@ -77,7 +77,6 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
     //Screw locking. Doesn't matter.
 //    private static final ReentrantReadWriteLock IPLoggingLock = new ReentrantReadWriteLock();
     private static final String nl = System.getProperty("line.separator");
-    private static final File loggedIPs = new File("LogIPs.txt");
     private static final HashMap<String, FileWriter> logIPMap = new HashMap<String, FileWriter>();
     //Note to Zero: Use an enumset. Don't iterate through an array.
     private static final EnumSet<RecvPacketOpcode> blocked = EnumSet.noneOf(RecvPacketOpcode.class), sBlocked = EnumSet.noneOf(RecvPacketOpcode.class);
@@ -99,21 +98,6 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
             }
         }
         logIPMap.clear();
-        try {
-            Scanner sc = new Scanner(loggedIPs);
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine().trim();
-                if (line.length() > 0) {
-                    addIP(line);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Could not reload packet logged IPs.");
-            System.out.println(e);
-        }
-//        } finally {
-//            IPLoggingLock.writeLock().unlock();
-//        }
     }
     //Return the Filewriter if the IP is logged. Null otherwise.
 
@@ -338,12 +322,14 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
 
 
         session.write(LoginPacket.getHello(ServerConstants.MAPLE_VERSION, ivSend, ivRecv));
-        //System.out.println("GETHELLO SENT TO " + address);
+        if (ServerConstants.ADMIN_SERVER) {
+        System.out.println("GETHELLO SENT TO " + address);
+        }
         session.setAttribute(MapleClient.CLIENT_KEY, client);
         session.setIdleTime(IdleStatus.READER_IDLE, 60);
         session.setIdleTime(IdleStatus.WRITER_IDLE, 60);
 
-        if (ServerConstants.LOCALHOST) {
+        if (ServerConstants.ADMIN_SERVER) {
             RecvPacketOpcode.reloadValues();
             SendPacketOpcode.reloadValues();
         }
@@ -470,13 +456,13 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
                     }
                 } catch (NegativeArraySizeException e) {
                     //swallow, no one cares
-                    if (ServerConstants.LOCALHOST) {
+                    if (ServerConstants.ADMIN_SERVER) {
                         FileoutputUtil.outputFileError(FileoutputUtil.PacketEx_Log, e);
                         FileoutputUtil.log(FileoutputUtil.PacketEx_Log, "Packet: " + header_num + "\n" + slea.toString(true));
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     //swallow, no one cares
-                    if (ServerConstants.LOCALHOST) {
+                    if (ServerConstants.ADMIN_SERVER) {
                         FileoutputUtil.outputFileError(FileoutputUtil.PacketEx_Log, e);
                         FileoutputUtil.log(FileoutputUtil.PacketEx_Log, "Packet: " + header_num + "\n" + slea.toString(true));
                     }

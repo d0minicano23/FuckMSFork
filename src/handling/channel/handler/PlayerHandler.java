@@ -281,8 +281,10 @@ import constants.skills.Rogue;
 /*  286 */         MobAttackInfo attackInfo = attacker.getStats().getMobAttack(type);
 /*  287 */         if (attackInfo != null) {
 /*  288 */           if ((attackInfo.isElement) && (stats.TER > 0) && (Randomizer.nextInt(100) < stats.TER)) {
-/*  289 */             System.out.println(new StringBuilder().append("Avoided ER from mob id: ").append(monsteridfrom).toString());
-/*  290 */             return;
+                      if(ServerConstants.ADMIN_SERVER){  
+/*  289 */               System.out.println(new StringBuilder().append("Avoided ER from mob id: ").append(monsteridfrom).toString());
+/*  290 */             }
+                        return;
 /*      */           }
 /*  292 */           if (attackInfo.isDeadlyAttack()) {
 /*  293 */             isDeadlyAttack = true;
@@ -329,7 +331,7 @@ import constants.skills.Rogue;
 /*  314 */           SkillFactory.getSkill(DualBlade.SHADOW_MELD).getEffect(1).applyTo(chr);
 /*      */         }
                 }
-/*  319 */       if (skillid != 0) {
+/*  319 */       if (skillid != 0){
 /*  320 */         pPhysical = slea.readByte() > 0;
 /*  321 */         pID = slea.readInt();
 /*  322 */         pType = slea.readByte();
@@ -352,14 +354,9 @@ import constants.skills.Rogue;
 /*  339 */       if (chr.getTotalSkillLevel(fake) <= 0)
 /*  340 */         return;
 /*      */     }
-/*  342 */     else if ((damage < -1) || (damage > 200000))
-/*      */     {
+/*  342 */     else if ((damage < -1) || (damage > 200000)){
 /*  344 */       c.getSession().write(CWvsContext.enableActions());
 /*  345 */       return;
-/*      */     }
-/*  347 */     if ((chr.getStat().dodgeChance > 0) && (Randomizer.nextInt(100) < chr.getStat().dodgeChance)) {
-/*  348 */       c.getSession().write(CField.EffectPacket.showForeignEffect(20));
-/*  349 */       return;
 /*      */     }
 /*  351 */     if ((pPhysical) && (skillid == 1201007) && (chr.getTotalSkillLevel(1201007) > 0)) {
 /*  352 */       damage -= pDMG;

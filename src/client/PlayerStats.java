@@ -257,6 +257,10 @@ public class PlayerStats implements Serializable {
             speed += equip.getSpeed();
             jump += equip.getJump();
             pvpDamage += equip.getPVPDamage();
+        if(!chra.hasEquipped(1112585) || !chra.hasEquipped(1112594) || !chra.hasEquipped(1112586) || !chra.hasEquipped(1112663)){
+             chra.dispelSkill(equippedSummon);   
+             equippedSummon=0;
+        }            
             switch (equip.getItemId()) { // gives the buff when rings are equipped
                 case 1112127:
                     equippedWelcomeBackRing = true;
@@ -286,6 +290,7 @@ public class PlayerStats implements Serializable {
                     }
                     break;
             }  
+            
             final Integer set = ii.getSetItemID(equip.getItemId());
             if (set != null && set > 0) {
                 int value = 1;
@@ -425,10 +430,12 @@ public class PlayerStats implements Serializable {
                 for (int i = 0; i < allJobs.length; i++) {
                     sData.put(SkillFactory.getSkill(1085 + allJobs[i]), new SkillEntry((byte) 1, (byte) 0, -1));
                     sData.put(SkillFactory.getSkill(1087 + allJobs[i]), new SkillEntry((byte) 1, (byte) 0, -1));
+                    sData.put(SkillFactory.getSkill(1179 + allJobs[i]), new SkillEntry((byte) 1, (byte) 0, -1));
                 }
             } else {
                 sData.put(SkillFactory.getSkill(getSkillByJob(1085, chra.getJob())), new SkillEntry((byte) 1, (byte) 0, -1));
                 sData.put(SkillFactory.getSkill(getSkillByJob(1087, chra.getJob())), new SkillEntry((byte) 1, (byte) 0, -1));
+                sData.put(SkillFactory.getSkill(getSkillByJob(1179, chra.getJob())), new SkillEntry((byte) 1, (byte) 0, -1));
             }
         }
         // add to localmaxhp_ if percentage plays a role in it, else add_hp
@@ -1032,6 +1039,7 @@ public class PlayerStats implements Serializable {
                 }
                 break;
             }
+            case 430: // Blade 
             case 431: // Blade Acolyte
             case 432: // Blade Specialist
             case 433: // Blade Lord
@@ -2227,6 +2235,7 @@ public class PlayerStats implements Serializable {
                 bossdam_r *= (eff.getX() + 100.0) / 100.0;
             }
         }
+  
         eff = chra.getStatForBuff(MapleBuffStat.DARK_AURA);
         if (eff != null) {
             dam_r *= (eff.getX() + 100.0) / 100.0;

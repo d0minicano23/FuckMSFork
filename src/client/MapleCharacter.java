@@ -65,6 +65,8 @@ import client.inventory.MapleImp.ImpFlag;
 import client.status.MonsterStatus;
 import client.status.MonsterStatusEffect;
 import constants.*;
+import constants.skills.DualBlade;
+import constants.skills.Rogue;
 import database.DatabaseConnection;
 import database.DatabaseException;
 
@@ -3166,7 +3168,13 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
        }
         
         if (job >= 430 && job <= 434) { // Dual Blade Skill fix
-            final int[] DB_SKILL_LIST = {4331002, 4341002, 4330009, 4341004, 4341006, 4341007, 4341011, 4340013}; 
+            final int[] DB_SKILL_LIST ={
+                DualBlade.SHADOW_MELD, DualBlade.BLADE_FURY, DualBlade.MIRROR_IMAGE,
+                DualBlade.MIRROR_TARGET, DualBlade.THORNS, DualBlade.SUDDEN_RAID, 
+                DualBlade.DUAL_EXPERT, DualBlade.SIDE_STEP, Rogue.DARK_SIGHT, 
+                DualBlade.TOXIC_VENOM, DualBlade.FATAL_BLOW, DualBlade.FLASH_JUMP,
+                DualBlade.FLASH_JUMP2
+                };
             for (int i : DB_SKILL_LIST) { 
                 skil = SkillFactory.getSkill(i); 
                 if (skil != null) { 
@@ -3174,14 +3182,20 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                         list.put(skil, new SkillEntry((byte) 0, (byte) 10, -1)); 
                     } 
                 } 
-            } 
-            skil = SkillFactory.getSkill(4311003); 
+            }
+            skil = SkillFactory.getSkill(DualBlade.KATARA_MASTERY); 
+            if (skil != null) { 
+                if (getSkillLevel(skil) <= 0) { // no total 
+                    list.put(skil, new SkillEntry((byte) -1, (byte) 10, -1)); 
+                } 
+            }         
+            skil = SkillFactory.getSkill(DualBlade.SLASH_STORM); 
             if (skil != null) { 
                 if (getSkillLevel(skil) <= 0) { // no total 
                     list.put(skil, new SkillEntry((byte) -1, (byte) 5, -1)); 
                 } 
             } 
-            skil = SkillFactory.getSkill(4321006); 
+            skil = SkillFactory.getSkill(DualBlade.FLY_ASSULTER3); 
             if (skil != null) { 
                 if (getSkillLevel(skil) <= 0) { // no total 
                     list.put(skil, new SkillEntry((byte) -1, (byte) 5, -1)); 
@@ -3252,33 +3266,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         if (!list.isEmpty()) {
             changeSkillsLevel(list);
         }
-        //redemption for completed quests. holy fk. ex
-	    /*
-         * List<MapleQuestStatus> cq = getCompletedQuests(); for
-         * (MapleQuestStatus q : cq) { for (MapleQuestAction qs :
-         * q.getQuest().getCompleteActs()) { if (qs.getType() ==
-         * MapleQuestActionType.skill) { for (Pair<Integer, Pair<Integer,
-         * Integer>> skill : qs.getSkills()) { final Skill skil =
-         * SkillFactory.getSkill(skill.left); if (skil != null &&
-         * getSkillLevel(skil) <= skill.right.left && getMasterLevel(skil) <=
-         * skill.right.right) { changeSkillLevel(skil, (byte)
-         * (int)skill.right.left, (byte) (int)skill.right.right); } } } else if
-         * (qs.getType() == MapleQuestActionType.item) { //skillbooks for
-         * (MapleQuestAction.QuestItem item : qs.getItems()) { if (item.itemid /
-         * 10000 == 228 && !haveItem(item.itemid,1)) { //skillbook //check if we
-         * have the skill final Map<String, Integer> skilldata =
-         * MapleItemInformationProvider.getInstance().getSkillStats(item.itemid);
-         * if (skilldata != null) { byte i = 0; Skill finalSkill = null; Integer
-         * skillID = 0; while (finalSkill == null) { skillID =
-         * skilldata.get("skillid" + i); i++; if (skillID == null) { break; }
-         * final Skill CurrSkill = SkillFactory.getSkill(skillID); if (CurrSkill
-         * != null && CurrSkill.canBeLearnedBy(job) && getSkillLevel(CurrSkill)
-         * <= 0 && getMasterLevel(CurrSkill) <= 0) { finalSkill = CurrSkill; } }
-         * if (finalSkill != null) { //may as well give the skill
-         * changeSkillLevel(finalSkill, (byte) 0, (byte)10);
-         * //MapleInventoryManipulator.addById(client, item.itemid, item.count);
-         * } } } } } } }
-         */
     }
     
     public void makeDragon() {

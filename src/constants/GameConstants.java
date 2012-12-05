@@ -366,12 +366,12 @@ public class GameConstants {
             case 31001007:
             case 31001008:
                 return 31000004;
-			case 30010183:
-			case 30010184:
-			case 30010186:
-				return 30010110;
-			case 5710012:
-				return 5711002;
+            case 30010183:
+            case 30010184:
+            case 30010186:
+		return 30010110;
+            case 5710012:
+                return 5711002;
             case 31121010:
                 return 31121000;
             case 5211015:
@@ -2187,7 +2187,6 @@ public class GameConstants {
             case 1112812: //new, im ASSUMING it's friendship cuz of itemID, not sure.
             case 1112816: //new, i'm also assuming
             case 1112817:
-
             case 1049000:
                 return true;
         }
@@ -2204,7 +2203,6 @@ public class GameConstants {
             case 1112007:
             case 1112012:
             case 1112015: //new
-
             case 1048000:
             case 1048001:
             case 1048002:
@@ -2965,8 +2963,8 @@ public static int getSkillBook(final int job, final int level) {
         //first line is always the best
         //but, sometimes it is possible to get second/third line as well
         //may seem like big chance, but it's not as it grabs random potential ID anyway
-		if (newstate == 20) {
-			return (i == 0 || Randomizer.nextInt(10) == 0 ? potentialID >= 40000 : potentialID >= 30000 && potentialID < 60004); // xml say so
+	if (newstate == 20) {
+            return (i == 0 || Randomizer.nextInt(10) == 0 ? potentialID >= 40000 : potentialID >= 30000 && potentialID < 60004); // xml say so
         } else if (newstate == 19) {
             return (i == 0 || Randomizer.nextInt(10) == 0 ? potentialID >= 30000 : potentialID >= 20000 && potentialID < 30000);
         } else if (newstate == 18) {

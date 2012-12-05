@@ -33,7 +33,7 @@ public class Start {
 
     public void run() throws InterruptedException {
 
-        if (ServerConstants.ADMIN_SERVER || ServerConstants.LOCALHOST) {
+        if (ServerConstants.ADMIN_SERVER) {
             System.out.println("[!!! Admin Only Mode Active !!!]");
         }
 

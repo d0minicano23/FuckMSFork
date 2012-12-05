@@ -23,7 +23,7 @@ package constants;
 
 public class ServerConstants {
 
-    public static final String HOST = "25.222.134.218";//"25.222.134.218";//"25.222.122.82";
+    public static final String HOST = "25.222.122.82";//"25.222.134.218";//"25.222.122.82";
     public static final byte[] Gateway_IP = new byte[]{(byte) 25, (byte) 222, (byte) 122, (byte) 82};
     public static final int EXP_RATE = 10;
     public static final int MESO_RATE = 10;
@@ -50,7 +50,6 @@ public class ServerConstants {
     public static final short MAPLE_VERSION = (short) 117;
     public static final String MAPLE_PATCH = "1";
     public static final boolean BLOCK_CS = false;
-    public static boolean LOCALHOST = false; // true = packets are logged, false = others can connect to server
     public static boolean ADMIN_SERVER = false;
     public static final int MIN_MTS = 100; //lowest amount an item can be, GMS = 110
     public static final int MTS_BASE = 0; //+amount to everything, GMS = 500, MSEA = 1000

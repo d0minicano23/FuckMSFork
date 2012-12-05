@@ -413,9 +413,6 @@ public class MapleStatEffect implements Serializable {
                 case NightWalker.DARK_SIGHT:
                     ret.statups.put(MapleBuffStat.DARKSIGHT, ret.info.get(MapleStatInfo.x)); // d
                     break;
-                case DualBlade.ADV_DARK_SIGHT:
-                    ret.statups.put(MapleBuffStat.DARKSIGHT, ret.info.get(MapleStatInfo.y));
-                    break;
                 case ChiefBandit.PICKPOCKET:
                     ret.info.put(MapleStatInfo.time, 2100000000);
                     ret.statups.put(MapleBuffStat.PICKPOCKET, ret.info.get(MapleStatInfo.x));
@@ -981,7 +978,7 @@ public class MapleStatEffect implements Serializable {
                     ret.statups.put(MapleBuffStat.SHARP_EYES, (ret.info.get(MapleStatInfo.x) + 100 << 8)); // Temporary until I figure out how to add it passively
                     break;
                 case DualBlade.CHAINS_OF_HELL:
-                    ret.monsterStatus.put(MonsterStatus.STUN, 1);
+                    ret.monsterStatus.put(MonsterStatus.STUN, Integer.valueOf(1));
                     break;
                 case Hermit.SHADOW_WEB:
                 case NightWalker.SHADOW_WEB:
@@ -1321,6 +1318,18 @@ public class MapleStatEffect implements Serializable {
         return applyTo(chr, chr, true, pos, info.get(MapleStatInfo.time));
     }
 
+    public boolean hasNoIcon() {
+        return (sourceid == 3111002 || sourceid == 3211002 || + // puppet, puppet
+                sourceid == 3211005 || sourceid == 2311002 || + // golden eagle, mystic door
+                sourceid == 2121005 || sourceid == 2221005 || + // elquines, ifrit
+                sourceid == 2321003 || sourceid == 3121006 || + // bahamut, phoenix
+                sourceid == 3221005 || sourceid == 3111005 || + // frostprey, silver hawk
+                sourceid == 2311006 || sourceid == 5220002 || + // summon dragon, wrath of the octopi
+                sourceid == 5211001 || sourceid == 5211002 || +
+                sourceid == 1179 || sourceid == 1087  || +
+                sourceid == 1085); // octopus, gaviota
+        }    
+    
     public final boolean applyTo(final MapleCharacter applyfrom, final MapleCharacter applyto, final boolean primary, final Point pos, int newDuration) {
         if (isHeal() && (applyfrom.getMapId() == 749040100 || applyto.getMapId() == 749040100)) {
             applyfrom.getClient().getSession().write(CWvsContext.enableActions());
@@ -2224,7 +2233,6 @@ public class MapleStatEffect implements Serializable {
                 applyto.getMap().broadcastMessage(applyto, BuffPacket.giveForeignBuff(applyto.getId(), stat, this), false);
                 break;
             }
-            case DualBlade.ADV_DARK_SIGHT:
             case Phantom.GHOST_WALK:
             case NightWalker.DARK_SIGHT: {
                 if (applyto.isHidden()) {
@@ -2632,9 +2640,10 @@ public class MapleStatEffect implements Serializable {
         if (!isMonsterRiding() && !isMechDoor() && getSummonMovementType() == null) {
             applyto.cancelEffect(this, true, -1, localstatups);
         }
+        
         // Broadcast effect to self
         if (normal && localstatups.size() > 0) {
-            applyto.getClient().getSession().write(BuffPacket.giveBuff((skill ? sourceid : -sourceid), localDuration, maskedStatups == null ? localstatups : maskedStatups, this));
+           if (!hasNoIcon()) applyto.getClient().getSession().write(BuffPacket.giveBuff((skill ? sourceid : -sourceid), localDuration, maskedStatups == null ? localstatups : maskedStatups, this));
         }
         final long starttime = System.currentTimeMillis();
         final CancelEffectAction cancelAction = new CancelEffectAction(applyto, this, starttime, localstatups);

@@ -1468,6 +1468,6 @@ public class MapleClient implements Serializable {
     }
 
     public boolean isLocalhost() {
-        return ServerConstants.LOCALHOST;
+        return ServerConstants.ADMIN_SERVER;
     }
 }

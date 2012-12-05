@@ -19,12 +19,14 @@
 
 - Protection icon / ward does not come off after item use.
 
-- DC when using WABR
-
-- Using hammer, getting items from fredrick reloads you in the map.
+- Using hammer
 
 - cash items have the mount nebulite text (I think I can find it in     getSocketState() )
 
 - need to add renegade shop
 
-- NEED TO PROGRAM SHADOW MELD, DOES LIFE DRAIN WORK?
+- NEED TO PROGRAM SHADOW MELD'S BUFF STAT
+
+- DC WHEN INVITING SOMEONE TO EXPID
+
+- ANDROID DISAPPEARS WHEN ON ROPE. 
