@@ -29,7 +29,6 @@ public class Paladin {
     public static final int MAPLE_WARRIOR = 1221000;
     public static final int MONSTER_MAGNET = 1221001;
     public static final int STANCE = 1221002;
-    public static final int SWORD_HOLY_CHARGE = 1221003;
     public static final int BW_HOLY_CHARGE = 1221004;
     public static final int ACHILLES = 1220005;
     public static final int GUARDIAN = 1220006;

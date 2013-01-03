@@ -54,10 +54,7 @@ public class HiredMerchantSave {
                 while (!Queue.isEmpty()) {
                     HiredMerchant next = Queue.take();
                     long Start = System.currentTimeMillis();
-                     if (next.getMCOwner() != null && next.getMCOwner().getPlayerShop() == next) {
-                          next.getMCOwner().setPlayerShop(null);
-                    }
-                    next.closeShop(true, false);  
+                    next.closeShop(true, false);
                     TimeTaken += (System.currentTimeMillis() - Start);
                     ShopsSaved++;
                 }

@@ -257,10 +257,7 @@ public class PlayerStats implements Serializable {
             speed += equip.getSpeed();
             jump += equip.getJump();
             pvpDamage += equip.getPVPDamage();
-        if(!chra.hasEquipped(1112585) || !chra.hasEquipped(1112594) || !chra.hasEquipped(1112586) || !chra.hasEquipped(1112663)){
-             chra.dispelSkill(equippedSummon);   
-             equippedSummon=0;
-        }            
+        
             switch (equip.getItemId()) { // gives the buff when rings are equipped
                 case 1112127:
                     equippedWelcomeBackRing = true;
@@ -289,7 +286,7 @@ public class PlayerStats implements Serializable {
                         }
                     }
                     break;
-            }  
+            }
             
             final Integer set = ii.getSetItemID(equip.getItemId());
             if (set != null && set > 0) {
@@ -348,6 +345,9 @@ public class PlayerStats implements Serializable {
             if (GameConstants.getMaxLevel(equip.getItemId()) > 0 && (GameConstants.getStatFromWeapon(equip.getItemId()) == null ? (equip.getEquipLevel() <= GameConstants.getMaxLevel(equip.getItemId())) : (equip.getEquipLevel() < GameConstants.getMaxLevel(equip.getItemId())))) {
                 equipLevelHandling.add((Equip) equip);
             }
+        if (!chra.isAngelEquipped()){
+            chra.spawnAngel(equippedSummon,0);
+         }            
         }
         final Iterator<Entry<Integer, Integer>> iter = setHandling.entrySet().iterator();
         while (iter.hasNext()) {
@@ -425,8 +425,9 @@ public class PlayerStats implements Serializable {
                     break;
             }
         }
-        if (first_login && chra.getLevel() >= 30) {
-            if (chra.isGM()) { //!job lol
+        
+        if (first_login && chra.getLevel() >= 30) { //Angelic blessing for all jobs
+             if (chra.isGM()) { //!job lol
                 for (int i = 0; i < allJobs.length; i++) {
                     sData.put(SkillFactory.getSkill(1085 + allJobs[i]), new SkillEntry((byte) 1, (byte) 0, -1));
                     sData.put(SkillFactory.getSkill(1087 + allJobs[i]), new SkillEntry((byte) 1, (byte) 0, -1));
@@ -437,7 +438,7 @@ public class PlayerStats implements Serializable {
                 sData.put(SkillFactory.getSkill(getSkillByJob(1087, chra.getJob())), new SkillEntry((byte) 1, (byte) 0, -1));
                 sData.put(SkillFactory.getSkill(getSkillByJob(1179, chra.getJob())), new SkillEntry((byte) 1, (byte) 0, -1));
             }
-        }
+        } 
         // add to localmaxhp_ if percentage plays a role in it, else add_hp
         handleBuffStats(chra);
         Integer buff = chra.getBuffedValue(MapleBuffStat.ENHANCED_MAXHP);
@@ -656,7 +657,7 @@ public class PlayerStats implements Serializable {
             case 1210:
             case 1211:
             case 1212: {
-                bx = SkillFactory.getSkill(Evan.MP_BOOST);
+                bx = SkillFactory.getSkill(BlazeWizard.MP_BOOST);
                 bof = chra.getTotalSkillLevel(bx);
                 if (bof > 0) {
                     percent_mp += bx.getEffect(bof).getPercentMP();
@@ -1730,8 +1731,13 @@ public class PlayerStats implements Serializable {
                 bx = SkillFactory.getSkill(DualBlade.PHANTOM_BLOW);
                 bof = chra.getTotalSkillLevel(bx);
                 if (bof > 0) {
-                    ignoreTargetDEF += bx.getEffect(bof).getIgnoreMob();
-                }                
+                    ignoreTargetDEF += bx.getEffect(bof).getIgnoreMob() / 100;
+                }    
+                bx = SkillFactory.getSkill(DualBlade.SHADOW_MELD);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    watk += bx.getEffect(bof).getindiePad();
+                }                    
                 bx = SkillFactory.getSkill(DualBlade.FINAL_CUT);
                 bof = chra.getTotalSkillLevel(bx);
                 if (bof > 0) { //Fatal Blow, Slash Storm, Tornado Spin, Bloody Storm, Upper Stab, and Flying Assaulter

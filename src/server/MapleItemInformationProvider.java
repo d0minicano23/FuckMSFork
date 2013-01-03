@@ -713,6 +713,11 @@ public class MapleItemInformationProvider {
             final int curse = (GameConstants.isTablet(scrollId.getItemId()) ? GameConstants.getCurseTablet(scrollId.getItemId(), nEquip.getLevel()) : ((GameConstants.isEquipScroll(scrollId.getItemId()) || GameConstants.isPotentialScroll(scrollId.getItemId()) || !stats.containsKey("cursed") ? 0 : stats.get("cursed"))));
             final int added = (ItemFlag.LUCKS_KEY.check(equip.getFlag()) ? 10 : 0) + (chr.getTrait(MapleTraitType.craft).getLevel() / 10);
             int success = succ + (vegas == 5610000 && succ == 10 ? 20 : (vegas == 5610001 && succ == 60 ? 30 : 0)) + added;
+            
+            if (chr.isGM()){
+                success = 100;
+            }
+            
             if (ItemFlag.LUCKS_KEY.check(equip.getFlag()) && !GameConstants.isPotentialScroll(scrollId.getItemId()) && !GameConstants.isEquipScroll(scrollId.getItemId()) && !GameConstants.isSpecialScroll(scrollId.getItemId())) {
                 equip.setFlag((short) (equip.getFlag() - ItemFlag.LUCKS_KEY.getValue()));
             }
@@ -766,6 +771,7 @@ public class MapleItemInformationProvider {
                         break;
                     }
                     default: {
+                        //TODO: NEED TO MAKE CHAOS SCROLLS ADD NOT REMOVE FOR GM 
                         if (GameConstants.isChaosScroll(scrollId.getItemId())) {
                             final int z = GameConstants.getChaosNumber(scrollId.getItemId());
                             if (nEquip.getStr() > 0) {
@@ -813,7 +819,7 @@ public class MapleItemInformationProvider {
                             break;
                         } else if (GameConstants.isEquipScroll(scrollId.getItemId())) {
                             final int chanc = Math.max((scrollId.getItemId() == 2049300 || scrollId.getItemId() == 2049303 ? 100 : (scrollId.getItemId() == 2049305 ? 60 : 80)) - (nEquip.getEnhance() * 10), 10) + added;
-                            if (Randomizer.nextInt(100) > chanc) {
+                            if (Randomizer.nextInt(100) > chanc && !chr.isGM()) {
                                 return null; //destroyed, nib
                             }
                            for (int i = 0; i <  (scrollId.getItemId() == 2049308 ? 5 : (scrollId.getItemId() == 2049305 ? 4 : (scrollId.getItemId() == 2049304 ? 3 : 1))); i++) {  
@@ -865,13 +871,13 @@ public class MapleItemInformationProvider {
                         } else if (GameConstants.isPotentialScroll(scrollId.getItemId())) {
                             if (nEquip.getState() <= 17 && (scrollId.getItemId() / 100 == 20497)) {
                                 final int chanc = (scrollId.getItemId() == 2049700 ? 100 : 80) + added; // 2049701
-                                if (Randomizer.nextInt(100) > chanc) {
+                                if (Randomizer.nextInt(100) > chanc && !chr.isGM()) {
                                     return null; //destroyed, nib
                                 }
                                 nEquip.renewPotential(2);
                             } else if (nEquip.getState() == 0) {
                                 final int chanc = (scrollId.getItemId() == 5534000 || scrollId.getItemId() == 2049402 || scrollId.getItemId() == 2049406 ? 100 : (scrollId.getItemId() == 2049400 ? 90 : 70)) + added;
-                                if (Randomizer.nextInt(100) > chanc) {
+                                if (Randomizer.nextInt(100) > chanc && !chr.isGM()) {
                                     return null; //destroyed, nib
                                 }
                                 nEquip.resetPotential();
@@ -916,14 +922,18 @@ public class MapleItemInformationProvider {
                     }
                 }
                 if (!GameConstants.isCleanSlate(scrollId.getItemId()) && !GameConstants.isSpecialScroll(scrollId.getItemId()) && !GameConstants.isEquipScroll(scrollId.getItemId()) && !GameConstants.isPotentialScroll(scrollId.getItemId())) {
+                   if(!chr.isGM()){
                     nEquip.setUpgradeSlots((byte) (nEquip.getUpgradeSlots() - 1));
                     nEquip.setLevel((byte) (nEquip.getLevel() + 1));
+                   }
                 }
             } else {
                 if (!ws && !GameConstants.isCleanSlate(scrollId.getItemId()) && !GameConstants.isSpecialScroll(scrollId.getItemId()) && !GameConstants.isEquipScroll(scrollId.getItemId()) && !GameConstants.isPotentialScroll(scrollId.getItemId())) {
+                   if(!chr.isGM()){                  
                     nEquip.setUpgradeSlots((byte) (nEquip.getUpgradeSlots() - 1));
+                   }
                 }
-                if (Randomizer.nextInt(99) < curse) {
+                if (Randomizer.nextInt(99) < curse && !chr.isGM()) {
                     return null;
                 }
             }
@@ -1036,7 +1046,7 @@ public class MapleItemInformationProvider {
 
     public final int getTotalStat(final Equip equip) { //i get COOL when my defense is higher on gms...
         return equip.getStr() + equip.getDex() + equip.getInt() + equip.getLuk() + equip.getMatk() + equip.getWatk() + equip.getAcc() + equip.getAvoid() + equip.getJump()
-                + equip.getHands() + equip.getSpeed() + equip.getHp() + equip.getMp() + equip.getWdef() + equip.getMdef();
+         + equip.getHands() + equip.getSpeed() + equip.getHp() + equip.getMp() + equip.getWdef() + equip.getMdef();
     }
 
     public final MapleStatEffect getItemEffect(final int itemId) {

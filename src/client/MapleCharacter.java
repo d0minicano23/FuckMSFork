@@ -65,6 +65,7 @@ import client.inventory.MapleImp.ImpFlag;
 import client.status.MonsterStatus;
 import client.status.MonsterStatusEffect;
 import constants.*;
+import constants.skills.Beginner;
 import constants.skills.DualBlade;
 import constants.skills.Rogue;
 import database.DatabaseConnection;
@@ -216,6 +217,9 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     private transient MapleTrade trade;
     private MapleMount mount;
     private int sp;
+    private int angelRing, angelState=1, angelBuff;
+    private String angelName;
+    public boolean angelEquipped=false;
     private List<Integer> finishedAchievements;
     private MapleMessenger messenger;
     private byte[] petStore;
@@ -237,7 +241,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     private transient List<Integer> pendingExpiration = null;
     private transient Map<Skill, SkillEntry> pendingSkills = null;
     private transient Map<Integer, Integer> linkMobs;
-     private List<InnerSkillValueHolder> innerSkills;
+    private List<InnerSkillValueHolder> innerSkills;
     private boolean changed_wishlist, changed_trocklocations, changed_regrocklocations, changed_hyperrocklocations, changed_skillmacros, changed_achievements,
             changed_savedlocations, changed_questinfo, changed_skills, changed_reports, changed_extendedSlots, update_skillswipe;
     public boolean keyvalue_changed = false,
@@ -249,7 +253,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
      * All custom shit declare her
      */
     private int reborns, apstorage;
-    private short occupationId, occupationEXP, mobKilledNo;
     private long loginTime;
     private int showdamage;
     private long damage;
@@ -3167,41 +3170,30 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             }
        }
         
-        if (job >= 430 && job <= 434) { // Dual Blade Skill fix
-            final int[] DB_SKILL_LIST ={
-                DualBlade.SHADOW_MELD, DualBlade.BLADE_FURY, DualBlade.MIRROR_IMAGE,
-                DualBlade.MIRROR_TARGET, DualBlade.THORNS, DualBlade.SUDDEN_RAID, 
-                DualBlade.DUAL_EXPERT, DualBlade.SIDE_STEP, Rogue.DARK_SIGHT, 
-                DualBlade.TOXIC_VENOM, DualBlade.FATAL_BLOW, DualBlade.FLASH_JUMP,
-                DualBlade.FLASH_JUMP2
-                };
-            for (int i : DB_SKILL_LIST) { 
+
+        if (job >= 430 && job <= 434) { 
+            final int[] ss0 = {4331002, 4330009, 4341004, 4341006, 4341007, 4341011, 4340013}; 
+            for (int i : ss0) { 
                 skil = SkillFactory.getSkill(i); 
                 if (skil != null) { 
                     if (getSkillLevel(skil) <= 0) { // no total 
                         list.put(skil, new SkillEntry((byte) 0, (byte) 10, -1)); 
                     } 
                 } 
-            }
-            skil = SkillFactory.getSkill(DualBlade.KATARA_MASTERY); 
-            if (skil != null) { 
-                if (getSkillLevel(skil) <= 0) { // no total 
-                    list.put(skil, new SkillEntry((byte) -1, (byte) 10, -1)); 
-                } 
-            }         
-            skil = SkillFactory.getSkill(DualBlade.SLASH_STORM); 
+            } 
+            skil = SkillFactory.getSkill(4311003); 
             if (skil != null) { 
                 if (getSkillLevel(skil) <= 0) { // no total 
                     list.put(skil, new SkillEntry((byte) -1, (byte) 5, -1)); 
                 } 
             } 
-            skil = SkillFactory.getSkill(DualBlade.FLY_ASSULTER3); 
+            skil = SkillFactory.getSkill(4321006); 
             if (skil != null) { 
                 if (getSkillLevel(skil) <= 0) { // no total 
                     list.put(skil, new SkillEntry((byte) -1, (byte) 5, -1)); 
                 } 
             } 
-        }  
+        }   
         
         
         if (GameConstants.isWildHunter(job)) {
@@ -6116,7 +6108,64 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     public void setTeam(int v) {
         this.coconutteam = v;
     }
+    
+    public boolean hasAngel(){
+        return angelEquipped;
+    }
+    
+    public boolean isAngelEquipped(){
+      return hasEquipped(1112594) || hasEquipped(1112585) || hasEquipped(1112586) || hasEquipped(1112663);
+    }
+    
+    public int angelState(){
+        return angelState; // Going to try and use this idea to stop the infinate loop
+    }                      // It is suppose to be 0 for not equipped 1 for is equipped and 3 to stop checking if equipped 
+    
+    public void spawnAngel(int buff, int state){ //States 0 - not equipped 1- equipped 2 - STOP FUCKING LOOPING FUCNTION OR METHOD IN JAVA FOR PLAYERSSTATS.JAVA
+        
+        final Item item = getInventory(MapleInventoryType.EQUIPPED).getItem((byte)-12);
+        angelRing=buff;
+        angelState=state;
+        
+        if(angelRing==1085){
+            angelBuff = 1085;
+            angelName="Arcangel";
+        }else if(angelRing==1087){
+            angelBuff = 1087;
+            angelName="Dark Angel";
+        }else if(angelRing==1179){
+            angelBuff = 1179;
+            angelName="White Angel";
+        }
+           
+        if(!isAngelEquipped() && angelEquipped){         
+              dispelSkill(angelBuff);
+              angelEquipped=false;
+              dropMessage(5,angelName + " has been removed from your inventory.");
+            return;
+       }
 
+        if(state==2){
+            return;
+        }
+        
+      if(state==1){
+        switch (item.getItemId()){
+                case 1112594:
+                case 1112585:
+                case 1112586:
+                case 1112663:{
+                if (angelRing > 0) {
+                   SkillFactory.getSkill(angelRing).getEffect(1).applyTo(this);
+                   angelEquipped=true;
+                }
+                break;
+         }
+               default:
+        }
+       }    
+    }
+    
     public void spawnPet(byte slot) {
         spawnPet(slot, false, true);
     }
@@ -6127,7 +6176,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
 
     public void spawnPet(byte slot, boolean lead, boolean broadcast) {
         final Item item = getInventory(MapleInventoryType.CASH).getItem(slot);
-        if (item == null || item.getItemId() > 5000200 || item.getItemId() < 5000000) {
+        if (item == null || item.getItemId() > 5001000 || item.getItemId() < 5000000) {
             return;
         }
         switch (item.getItemId()) {
@@ -6161,8 +6210,6 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                             leadid = 30011024;
                         } else if (GameConstants.isResist(getJob())) {
                             leadid = 30001024;
-                            //} else if (GameConstants.isCannon(getJob())) {
-                            //    leadid = 10008; //idk, TODO JUMP
                         }
                         if (getSkillLevel(SkillFactory.getSkill(leadid)) == 0 && getPet(0) != null) {
                             unequipPet(getPet(0), false, false);
@@ -6195,6 +6242,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         client.getSession().write(CWvsContext.enableActions());
     }
 
+  
     public void clearLinkMid() {
         linkMobs.clear();
         cancelEffectFromBuffStat(MapleBuffStat.HOMING_BEACON);

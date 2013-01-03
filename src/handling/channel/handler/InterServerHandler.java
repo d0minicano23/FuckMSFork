@@ -272,18 +272,14 @@ public class InterServerHandler {
         }
         player.spawnClones();
         player.spawnSavedPets();
-        if(!player.hasEquipped(1112585) || !player.hasEquipped(1112594) || !player.hasEquipped(1112586) || !player.hasEquipped(1112663)){
-            player.dispelSkill(player.getStat().equippedSummon);
-            player.getStat().equippedSummon=0;
-        }
-        if (player.getStat().equippedSummon > 0) {
-            SkillFactory.getSkill(player.getStat().equippedSummon).getEffect(1).applyTo(player);
-        }
         MapleQuestStatus stat = player.getQuestNoAdd(MapleQuest.getInstance(GameConstants.PENDANT_SLOT));
         //c.getSession().write(CWvsContext.pendantSlot(stat != null && stat.getCustomData() != null && Long.parseLong(stat.getCustomData()) > System.currentTimeMillis()));
-       stat = player.getQuestNoAdd(MapleQuest.getInstance(GameConstants.QUICK_SLOT));
-       c.getSession().write(CField.quickSlot(stat != null && stat.getCustomData() != null ? stat.getCustomData() : null));
+        stat = player.getQuestNoAdd(MapleQuest.getInstance(GameConstants.QUICK_SLOT));
+        c.getSession().write(CField.quickSlot(stat != null && stat.getCustomData() != null ? stat.getCustomData() : null));
         c.getSession().write(CWvsContext.getFamiliarInfo(player));
+        if (player.getStat().equippedSummon > 0) {
+             player.spawnAngel(player.getStat().equippedSummon,1);
+        }
     }
 
     public static final void ChangeChannel(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr, final boolean room) {

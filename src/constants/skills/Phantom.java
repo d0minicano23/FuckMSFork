@@ -158,4 +158,5 @@ public class Phantom {
     public static final int DECENT_SPEED_INFUSION = 20038006;
     public static final int CANE_BOOSTER = 24101005;
     public static final int TEMPEST = 24121005;
+    public static final int MILLIE = 24121000;
 }

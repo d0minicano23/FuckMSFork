@@ -177,7 +177,7 @@ public class LoginInformationProvider {
 
     public static boolean isExtendedSpJob(int jobId) {
         return jobId >= 5000 && jobId <= 5112 || jobId >= 3100 && jobId <= 3512 || jobId/100 == 22 || jobId / 100 == 23 
-           || jobId ==2002 ||jobId ==2001 || jobId == 3000 || jobId == 3001
+              || jobId ==2002 ||jobId ==2001 || jobId == 3000 || jobId == 3001
               || jobId == 508 || jobId == 2003 || jobId / 100 == 24 || jobId / 10 == 57;
     }
     

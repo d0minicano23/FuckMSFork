@@ -41,10 +41,9 @@
 /*      */ import tools.packet.CField;
 /*      */ import tools.packet.CWvsContext;
 /*      */ 
-/*      */ public class DamageParse
-/*      */ {
-/*      */   public static void applyAttack(AttackInfo attack, Skill theSkill, MapleCharacter player, int attackCount, double maxDamagePerMonster, MapleStatEffect effect, AttackType attack_type)
-/*      */   {
+/*      */ public class DamageParse{
+    
+/*      */   public static void applyAttack(AttackInfo attack, Skill theSkill, MapleCharacter player, int attackCount, double maxDamagePerMonster, MapleStatEffect effect, AttackType attack_type){
 /*   59 */     if (!player.isAlive()) {
 /*   60 */       player.getCheatTracker().registerOffense(CheatingOffense.ATTACKING_WHILE_DEAD);
 /*   61 */       return;
@@ -78,8 +77,7 @@
 /*   79 */         player.mulung_EnergyModify(false);
 /*      */       }
 /*   81 */       else if (GameConstants.isPyramidSkill(attack.skill)) {
-/*   82 */         if (player.getMapId() / 1000000 != 926)
-/*      */         {
+/*   82 */         if (player.getMapId() / 1000000 != 926){
 /*   84 */           return;
 /*      */         }
 /*   86 */         if ((player.getPyramidSubway() == null) || (!player.getPyramidSubway().onSkillUse(player))) {
@@ -90,7 +88,7 @@
 /*   91 */         if (player.getBuffedValue(MapleBuffStat.GIANT_POTION) == null)
 /*   92 */           return;
 /*      */       }
-/*   94 */       else if ((attack.targets > effect.getMobCount()) && (attack.skill != 1211002) && (attack.skill != 1220010)) {
+/*   94 */       else if ((attack.targets > effect.getMobCount()) && (attack.skill != WhiteKnight.CHARGE_BLOW) && (attack.skill != Paladin.ADVANCED_CHARGE)) {
 /*   95 */         player.getCheatTracker().registerOffense(CheatingOffense.MISMATCHING_BULLETCOUNT);
 /*   96 */         return;
 /*      */       }
@@ -98,10 +96,9 @@
 /*   99 */     if (player.getClient().getChannelServer().isAdminOnly()) {
 /*  100 */       player.dropMessage(-1, new StringBuilder().append("Animation: ").append(Integer.toHexString((attack.display & 0x8000) != 0 ? attack.display - 32768 : attack.display)).toString());
 /*      */     }
-/*  102 */     boolean useAttackCount = (attack.skill != 4211006) && (attack.skill != 3221007) && (attack.skill != 23121003) && ((attack.skill != 1311001) || (player.getJob() != 132)) && (attack.skill != 3211006);
+/*  102 */     boolean useAttackCount = (attack.skill != ChiefBandit.MESO_EXPLOSION) && (attack.skill != Marksman.SNIPE) && (attack.skill != Mercedes.LIGHTING_EDGE) && ((attack.skill != DragonKnight.DRAGON_BUSTER) || (player.getJob() != 132)) && (attack.skill != Sniper.STRIFE);
 /*      */ 
-/*  109 */     if ((attack.hits > 0) && (attack.targets > 0))
-/*      */     {
+/*  109 */     if ((attack.hits > 0) && (attack.targets > 0)){
 /*  111 */       if (!player.getStat().checkEquipDurabilitys(player, -1)) {
 /*  112 */         player.dropMessage(5, "An item has run out of durability but has no inventory room to go to.");
 /*  113 */         return;
@@ -140,7 +137,7 @@
                 }
             }
         }
-        
+               //DO WE ADD SHADOW MELD HERE?
 /*  150 */     int totDamageToOneMonster = 0;
 /*  151 */     long hpMob = 0L;
                PlayerStats stats = player.getStat();
@@ -155,7 +152,7 @@
 /*  161 */       attackCount /= 2;
 /*      */     }
 /*  163 */     ShdowPartnerAttackPercentage *= (CriticalDamage + 100) / 100;
-/*  164 */     if (attack.skill == 4221001) {
+/*  164 */     if (attack.skill == Shadower.ASSASSINATE) {
 /*  165 */       ShdowPartnerAttackPercentage *= 10;
 /*      */     }
 /*      */ 
@@ -241,32 +238,31 @@
 /*  250 */         totDamage += totDamageToOneMonster;
 /*  251 */         player.checkMonsterAggro(monster);
 /*      */ 
-/*  253 */         if ((GameConstants.getAttackDelay(attack.skill, theSkill) >= 100) && (!GameConstants.isNoDelaySkill(attack.skill)) && (attack.skill != 3101005) && (!monster.getStats().isBoss()) && (player.getTruePosition().distanceSq(monster.getTruePosition()) > GameConstants.getAttackRange(effect, player.getStat().defRange))) {
+/*  253 */         if ((GameConstants.getAttackDelay(attack.skill, theSkill) >= 100) && (!GameConstants.isNoDelaySkill(attack.skill)) && (attack.skill != Hunter.ARROW_BOMB) && (!monster.getStats().isBoss()) && (player.getTruePosition().distanceSq(monster.getTruePosition()) > GameConstants.getAttackRange(effect, player.getStat().defRange))) {
 /*  254 */           player.getCheatTracker().registerOffense(CheatingOffense.ATTACK_FARAWAY_MONSTER, new StringBuilder().append("[Distance: ").append(player.getTruePosition().distanceSq(monster.getTruePosition())).append(", Expected Distance: ").append(GameConstants.getAttackRange(effect, player.getStat().defRange)).append(" Job: ").append(player.getJob()).append("]").toString());
 /*      */         }
 /*      */ 
 /*  257 */         if (player.getBuffedValue(MapleBuffStat.PICKPOCKET) != null) {
 /*  258 */           switch (attack.skill) {
 /*      */           case 0:
-/*      */           case 4001334:
-/*      */           case 4201005:
-/*      */           case 4211002:
+/*      */           case Rogue.DOUBLE_STAB:
+/*      */           case Bandit.SAVAGE_BLOW:
+/*      */           case ChiefBandit.ASSAULTER:
 /*      */           case 4211004:
 /*      */           case 4221003:
-/*      */           case 4221007:
+/*      */           case Shadower.BOOMERANG_STEP:
 /*  266 */             handlePickPocket(player, monster, oned);
 /*      */           }
-/*      */ 
 /*      */         }
 /*      */ 
-/*  271 */         if ((totDamageToOneMonster > 0) || (attack.skill == 1221011) || (attack.skill == 21120006)) {
+/*  271 */         if ((totDamageToOneMonster > 0) || (attack.skill == Paladin.HEAVENS_HAMMER) || (attack.skill == Aran.COMBO_TEMPEST)) {
 /*  272 */           if (GameConstants.isDemon(player.getJob())) {
 /*  273 */             player.handleForceGain(monster.getObjectId(), attack.skill);
 /*      */           }
-                   if ((GameConstants.isPhantom(player.getJob())) && (attack.skill != 24120002) && (attack.skill != 24100003)) {
+                   if ((GameConstants.isPhantom(player.getJob())) && (attack.skill != Phantom.CARTE_NOIRE) && (attack.skill != Phantom.CARTE_BLANCHE)) {
                       player.handleCardStack();
                      }
-/*  275 */           if (attack.skill != 1221011)
+/*  275 */           if (attack.skill != Paladin.HEAVENS_HAMMER)
 /*  276 */             monster.damage(player, totDamageToOneMonster, true, attack.skill);
 /*      */           else {
 /*  278 */             monster.damage(player, monster.getStats().isBoss() ? 500000L : monster.getHp() - 1L, true, attack.skill);
@@ -278,29 +274,31 @@
 /*  284 */           player.onAttack(monster.getMobMaxHp(), monster.getMobMaxMp(), attack.skill, monster.getObjectId(), totDamage, 0);
 /*  285 */           switch (attack.skill)
 /*      */           {
-/*      */           case 4001002:
-/*      */           case 4001334:
-/*      */           case 4001344:
-/*      */           case 4111005:
-/*      */           case 4121007:
-/*      */           case 4201005:
-/*      */           case 4211002:
-/*      */           case 4221001:
-/*      */           case 4221007:
-/*      */           case 4301001:
-/*      */           case 4311002:
-/*      */           case 4311003:
-/*      */           case 4331000:
-/*      */           case 4331004:
-/*      */           case 4331005:
-/*      */           case 4331006:
-/*      */           case 4341002:
-/*      */           case 4341004:
+/*      */           case Rogue.DISORDER:
+/*      */           case Rogue.DOUBLE_STAB:
+/*      */           case Rogue.LUCKY_SEVEN:
+/*      */           case Hermit.AVENGER:
+/*      */           case Hermit.DARK_FLARE:
+/*      */           case ChiefBandit.DARK_FLARE:
+/*      */           case ChiefBandit.ASSAULTER:
+/*      */           case Shadower.ASSASSINATE:
+/*      */           case Shadower.BOOMERANG_STEP:
+/*      */           case DualBlade.TRIPLE_STAB:
+/*      */           case DualBlade.FATAL_BLOW:
+/*      */           case DualBlade.SLASH_STORM:
+/*      */           case DualBlade.BLOODY_STORM:
+/*      */           case DualBlade.UPPER_STAB:
+/*      */           case DualBlade.FLY_ASSULTER2:
+/*      */           case DualBlade.CHAINS_OF_HELL:
+/*      */           case DualBlade.FINAL_CUT:
+/*      */           case DualBlade.BLADE_FURY:
 /*      */           case 4341005:
-/*      */           case 4341009:
-/*      */           case 14001004:
-/*      */           case 14111002:
-/*      */           case 14111005: //TOXIC VENOM NEEDS TO BE ADDED 
+/*      */           case DualBlade.PHANTOM_BLOW:
+/*      */           case NightWalker.LUCKY_SEVEN:
+/*      */           case NightWalker.AVENGER:
+/*      */           case NightWalker.QUAD_STAR: 
+                     case Hermit.TRIPLE_THROW:
+                     case NightLord.QUAD_STAR: 
 /*  310 */             int[] skills = {DualBlade.VENOM1, DualBlade.VENOM2, DualBlade.TOXIC_VENOM, NightLord.TOXIC_VENOM, Shadower.TOXIC_VENOM, NightWalker.VENOM, ChiefBandit.VENOM, Hermit.VENOM};
 /*  311 */             for (int i : skills) {
 /*  312 */               Skill skill = SkillFactory.getSkill(i);
@@ -313,7 +311,7 @@
 /*      */             }
 /*      */ 
 /*  322 */             break;
-/*      */           case 4201004:
+/*      */           case Bandit.STEAL:
 /*  325 */             monster.handleSteal(player);
 /*  326 */             break;
 /*      */           case 21000002:
@@ -345,19 +343,7 @@
 /*      */             }
 /*  356 */             break;
 /*      */           }
-                    int randomDMG = Randomizer.nextInt(player.getDamage2() - player.getReborns() + 1) + player.getReborns();
-/*      */                monster.damage(player, randomDMG, true, attack.skill);
-                    if (player.getshowdamage() == 1) {
-                           player.dropMessage(5, "You have done " + randomDMG + " extra RB damage! (disable/enable this with @dmgnotice)");
-                    }
-                    } else {
-                        if (player.getDamage() > 2147483647) {
-                             long randomDMG = player.getDamage();
-                                 monster.damage(player, monster.getMobMaxHp(), true, attack.skill);
-                    if (player.getshowdamage() == 1) {
-                             player.dropMessage(5, "You have done " + randomDMG + " extra RB damage! (disable/enable this with @dmgnotice)");
-                    }
-                    }
+
 /*  362 */           if (totDamageToOneMonster > 0) {
 /*  363 */             Item weapon_ = player.getInventory(MapleInventoryType.EQUIPPED).getItem((byte)-11);
 /*  364 */             if (weapon_ != null) {
@@ -418,9 +404,8 @@
 /*  427 */         tracker.registerOffense(CheatingOffense.ATTACK_WITHOUT_GETTING_HIT, Integer.toString(tracker.getAttacksWithoutHit()));
 /*      */     }
 /*      */   }
-/*      */ 
-/*      */   public static final void applyAttackMagic(AttackInfo attack, Skill theSkill, MapleCharacter player, MapleStatEffect effect, double maxDamagePerHit)
-/*      */   {
+/*      */ //TODO: FIX MAGIC ATTACK DAMAGE
+/*      */   public static final void applyAttackMagic(AttackInfo attack, Skill theSkill, MapleCharacter player, MapleStatEffect effect, double maxDamagePerHit){
 /*  433 */     if (!player.isAlive()) {
 /*  434 */       player.getCheatTracker().registerOffense(CheatingOffense.ATTACKING_WHILE_DEAD);
 /*  435 */       return;
@@ -547,21 +532,10 @@
 /*  561 */           player.getCheatTracker().registerOffense(CheatingOffense.HEAL_ATTACKING_UNDEAD);
 /*  562 */           return;
 /*      */         }
-                   int randomDMG = Randomizer.nextInt(player.getDamage2() - player.getReborns() + 1) + player.getReborns();
-                     monster.damage(player, randomDMG, true, attack.skill);
-                    if (player.getshowdamage() == 1) {
-                     player.dropMessage(5, "You have done " + randomDMG + " extra damage! (disable/enable this with @dmgnotice)");
-                    }
-                    } else {
-                    if (player.getDamage() > 2147483647) {
-                      long randomDMG = player.getDamage();
-                      monster.damage(player, monster.getMobMaxHp(), true, attack.skill);
-                    if (player.getshowdamage() == 1) {
-                         player.dropMessage(5, "You have done " + randomDMG + " extra damage! (disable/enable this with @dmgnotice)");
-                    }
-                            int totDamageToOneMonster1 = 0;
-/*  565 */         if (totDamageToOneMonster1 > 0) {
-/*  566 */           monster.damage(player, totDamageToOneMonster1, true, attack.skill);
+
+
+/*  565 */         if (totDamageToOneMonster  > 0) {
+/*  566 */           monster.damage(player, totDamageToOneMonster , true, attack.skill);
 /*  567 */           if (monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT)) {
 /*  568 */             player.addHP(-(7000 + Randomizer.nextInt(8000)));
 /*      */           }
@@ -609,7 +583,7 @@
 /*  612 */         tracker.registerOffense(CheatingOffense.ATTACK_WITHOUT_GETTING_HIT, Integer.toString(tracker.getAttacksWithoutHit()));
 /*      */     }
 /*      */   }
-}
+
 /*      */ 
 /*      */   private static final double CalculateMaxMagicDamagePerHit(MapleCharacter chr, Skill skill, MapleMonster monster, MapleMonsterStats mobstats, PlayerStats stats, Element elem, Integer sharpEye, double maxDamagePerMonster, MapleStatEffect attackEffect)
 /*      */   {
@@ -693,17 +667,17 @@
                 return (elemMaxDamagePerMob / 100) * (stats.def + stats.getElementBoost(elem));
             }
         }
-/*      */ 
-  private static void handlePickPocket(final MapleCharacter player, final MapleMonster mob, AttackPair oned) {
-        final int maxmeso = player.getBuffedValue(MapleBuffStat.PICKPOCKET).intValue();
 
-        for (final Pair<Integer, Boolean> eachde : oned.attack) {
-            final Integer eachd = eachde.left;
-            if (player.getStat().pickRate >= 100 || Randomizer.nextInt(99) < player.getStat().pickRate) {
-                player.getMap().spawnMesoDrop(Math.min((int) Math.max(((double) eachd / (double) 20000) * (double) maxmeso, (double) 1), maxmeso), new Point((int) (mob.getTruePosition().getX() + Randomizer.nextInt(100) - 50), (int) (mob.getTruePosition().getY())), mob, player, false, (byte) 0);
-            }
-        }
-    }
+        private static void handlePickPocket(final MapleCharacter player, final MapleMonster mob, AttackPair oned) {
+              final int maxmeso = player.getBuffedValue(MapleBuffStat.PICKPOCKET).intValue();
+
+              for (final Pair<Integer, Boolean> eachde : oned.attack) {
+                  final Integer eachd = eachde.left;
+                  if (player.getStat().pickRate >= 100 || Randomizer.nextInt(99) < player.getStat().pickRate) {
+                      player.getMap().spawnMesoDrop(Math.min((int) Math.max(((double) eachd / (double) 20000) * (double) maxmeso, (double) 1), maxmeso), new Point((int) (mob.getTruePosition().getX() + Randomizer.nextInt(100) - 50), (int) (mob.getTruePosition().getY())), mob, player, false, (byte) 0);
+                  }
+              }
+          }
 /*      */   private static double CalculateMaxWeaponDamagePerHit(MapleCharacter player, MapleMonster monster, AttackInfo attack, Skill theSkill, MapleStatEffect attackEffect, double maximumDamageToMonster, Integer CriticalDamagePercent)
 /*      */   {
 /*  718 */     int dLevel = Math.max(monster.getStats().getLevel() - player.getLevel(), 0) * 2;
@@ -893,19 +867,19 @@
 /*      */   }
 /*      */ 
 /*      */    public static final AttackInfo DivideAttack(final AttackInfo attack, final int rate) {
-        attack.real = false;
-        if (rate <= 1) {
-            return attack; //lol
-        }
-        for (AttackPair p : attack.allDamage) {
-            if (p.attack != null) {
-                for (Pair<Integer, Boolean> eachd : p.attack) {
-                    eachd.left /= rate; //too ex.
-                }
-            }
-        }
-        return attack;
-    }
+                 attack.real = false;
+                   if (rate <= 1) {
+                      return attack; //lol
+                   }
+                   for (AttackPair p : attack.allDamage) {
+                     if (p.attack != null) {
+                        for (Pair<Integer, Boolean> eachd : p.attack) {
+                               eachd.left /= rate; //too ex.
+                         }
+                      }
+                    }
+                  return attack;
+             }
 /*      */ 
 /*      */   public static final AttackInfo Modify_AttackCrit(AttackInfo attack, MapleCharacter chr, int type, MapleStatEffect effect)
 /*      */   {
@@ -967,9 +941,9 @@
 /*  981 */     return attack;
 /*      */   }
 /*      */ 
-/*      */   public static final AttackInfo parseDmgMa(LittleEndianAccessor lea, MapleCharacter chr)
-/*      */   {
-/*      */     try {
+/*      */   public static final AttackInfo parseDmgMa(LittleEndianAccessor lea, MapleCharacter chr){
+/*      */    
+                try {
 /*  987 */       AttackInfo ret = new AttackInfo();
 /*      */ 
 /*  995 */       lea.skip(1);
@@ -1022,8 +996,7 @@
 /* 1060 */     }return null;
 /*      */   }
 /*      */ 
-/*      */   public static final AttackInfo parseDmgM(LittleEndianAccessor lea, MapleCharacter chr)
-/*      */   {
+/*      */   public static final AttackInfo parseDmgM(LittleEndianAccessor lea, MapleCharacter chr){
 /* 1066 */     AttackInfo ret = new AttackInfo();
 /* 1067 */     lea.skip(1);
 /* 1068 */     ret.tbyte = lea.readByte();
@@ -1035,12 +1008,11 @@
 /* 1074 */       return null;
 /*      */     }
 /* 1076 */     lea.skip(9);
-  switch (ret.skill) {
+        switch (ret.skill) {
             case 24121000:// mille
             case 24121005://tempest
-            //case 5101004: // Corkscrew
-            //case 15101003: // Cygnus corkscrew
-
+            case 5101004: // Corkscrew
+            case 15101003: // Cygnus corkscrew
             case 5201002: // Gernard
             case 14111006: // Poison bomb
             case 4341002:
@@ -1050,8 +1022,6 @@
             case 31001000: // grim scythe
             case 31101000: // soul eater
             case 31111005: // carrion breath
- 
-
                 ret.charge = lea.readInt();
                 break;
             default:
@@ -1066,24 +1036,26 @@
 /* 1100 */     if ((ret.skill == 5300007) || (ret.skill == 5101012) || (ret.skill == 5081001) || (ret.skill == 15101010)) {
 /* 1101 */       lea.readInt();
 /*      */     }
-               if(ret.skill == 24121005){
-                 lea.readInt();
+               if(ret.skill == Phantom.TEMPEST){
+                    lea.readInt();
                }
+               
 /* 1103 */     ret.speed = lea.readByte();
 /* 1104 */     ret.lastAttackTickCount = lea.readInt();
-            if(ret.skill == 32121003){
-               lea.skip(4);
+
+               if(ret.skill == BattleMage.TWISTER_SPIN){
+                     lea.skip(4);
                } else {
-               lea.skip(8);
+                     lea.skip(8);
                }
 /*      */ 
 /* 1107 */     ret.allDamage = new ArrayList();
 /*      */ 
-/* 1109 */     if (ret.skill == 4211006) {
+/* 1109 */     if (ret.skill == ChiefBandit.MESO_EXPLOSION) {
 /* 1110 */       return parseMesoExplosion(lea, ret, chr);
 /*      */     }
 /*      */ 
-/* 1114 */     /*if (ret.skill == 24121000) {
+/* 1114 */     /*if (ret.skill == Phantom.MILLIE) {
 /* 1115 */      // lea.readInt();
 /*      */    // }
 /* 1117 */     for (int i = 0; i < ret.targets; i++) {

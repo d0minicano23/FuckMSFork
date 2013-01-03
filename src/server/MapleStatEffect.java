@@ -90,7 +90,7 @@ public class MapleStatEffect implements Serializable {
         }
     }
 
-    private static int parseEval(String path, MapleData source, int def, String variables, int level) {
+    private static int parseEval(String path, MapleData source, int def, String variables, int level) { // Where you add new info to parse from the wz
         if (variables == null) {
             return MapleDataTool.getIntConvert(path, source, def);
         } else {
@@ -462,9 +462,6 @@ public class MapleStatEffect implements Serializable {
                 case WhiteKnight.BW_LIT_CHARGE:
                 case Paladin.BW_HOLY_CHARGE:
                 case DawnWarrior.SOUL_CHARGE:
-                case WhiteKnight.SWORD_FIRE_CHARGE:
-                case WhiteKnight.SWORD_ICE_CHARGE:
-                case WhiteKnight.SWORD_LIT_CHARGE:
                     ret.statups.put(MapleBuffStat.WK_CHARGE, ret.info.get(MapleStatInfo.x));
                     break;
                 case ILMage.ELEMNT_DECREASE:
@@ -965,7 +962,7 @@ public class MapleStatEffect implements Serializable {
                 case ILMage.SEAL:
                 case FPMage.SEAL:
                 case BlazeWizard.SEAL:
-                case 90001005: // pot skill
+                case 90001005: // seal pot skill
                     ret.monsterStatus.put(MonsterStatus.SEAL, 1);
                     break;
                 case Phantom.PRENOMBRE:
@@ -973,10 +970,13 @@ public class MapleStatEffect implements Serializable {
                     ret.info.put(MapleStatInfo.attackCount, ret.info.get(MapleStatInfo.w));
                     ret.info.put(MapleStatInfo.mobCount, ret.info.get(MapleStatInfo.x));
                     break;
-                case DualBlade.SHADOW_MELD:
-                    ret.statups.put(MapleBuffStat.WATK, ret.info.get(MapleStatInfo.indiePad));
-                    ret.statups.put(MapleBuffStat.SHARP_EYES, (ret.info.get(MapleStatInfo.x) + 100 << 8)); // Temporary until I figure out how to add it passively
-                    break;
+                case Phantom.TEMPEST:
+                  // ret.info.put(MapleStatInfo., ret.info.get(MapleStatInfo.x));
+               // <vector name="lt" x="-150" y="-150"/>
+               // <vector name="rb" x="150" y="5"/>
+               // <vector name="lt2" x="-250" y="-250"/>
+               // <vector name="rb2" x="250" y="5"/>
+                   break;
                 case DualBlade.CHAINS_OF_HELL:
                     ret.monsterStatus.put(MonsterStatus.STUN, Integer.valueOf(1));
                     break;
@@ -1319,15 +1319,17 @@ public class MapleStatEffect implements Serializable {
     }
 
     public boolean hasNoIcon() {
-        return (sourceid == 3111002 || sourceid == 3211002 || + // puppet, puppet
-                sourceid == 3211005 || sourceid == 2311002 || + // golden eagle, mystic door
-                sourceid == 2121005 || sourceid == 2221005 || + // elquines, ifrit
-                sourceid == 2321003 || sourceid == 3121006 || + // bahamut, phoenix
-                sourceid == 3221005 || sourceid == 3111005 || + // frostprey, silver hawk
-                sourceid == 2311006 || sourceid == 5220002 || + // summon dragon, wrath of the octopi
-                sourceid == 5211001 || sourceid == 5211002 || +
-                sourceid == 1179 || sourceid == 1087  || +
-                sourceid == 1085); // octopus, gaviota
+        return (sourceid == Sniper.PUPPET || sourceid == Ranger.PUPPET ||
+                sourceid == Sniper.GOLDEN_EAGLE || sourceid == Ranger.SILVER_HAWK ||
+                sourceid == ILArchMage.IFRIT || sourceid == FPArchMage.ELQUINES ||
+                sourceid == Bishop.BAHAMUT || sourceid == Marksman.FROST_PREY ||
+                sourceid == Bowmaster.PHOENIX || sourceid == Priest.MYSTIC_DOOR ||
+                sourceid == Priest.SUMMON_DRAGON || sourceid == Corsair.WRATH_OF_THE_OCTOPI ||
+                sourceid == Outlaw.OCTOPUS || sourceid == Outlaw.GAVIOTA || 
+                sourceid == Beginner.DARK_ANGEL || sourceid == Beginner.ARCANGEL || 
+                sourceid == Beginner.WHITE_ANGEL2 || sourceid == Bowmaster.ELITE_PUPPET || 
+                sourceid == Marksman.ELITE_PUPPET || sourceid == Crossbowman.GOLDEN_EAGLE ||
+                sourceid == DualBlade.MIRROR_TARGET || sourceid == Hunter.SILVER_HAWK);
         }    
     
     public final boolean applyTo(final MapleCharacter applyfrom, final MapleCharacter applyto, final boolean primary, final Point pos, int newDuration) {
@@ -3100,31 +3102,31 @@ public class MapleStatEffect implements Serializable {
     }
 
     public final boolean isHide() {
-        return skill && (sourceid == 9001004 || sourceid == 9101004);
+        return skill && (sourceid == GM.HIDE || sourceid == SuperGM.HIDE);
     }
 
     public final boolean isDragonBlood() {
-        return skill && sourceid == 1311008;
+        return skill && sourceid == DragonKnight.DRAGON_BLOOD;
     }
 
     public final boolean isRecovery() {
-        return skill && (sourceid == 1001 || sourceid == 10001001 || sourceid == 20001001 || sourceid == 20011001 || sourceid == 20021001 || sourceid == 11001 || sourceid == 35121005);
+        return skill && (sourceid == Beginner.RECOVERY || sourceid == Noblesse.RECOVERY || sourceid == Legend.RECOVERY || sourceid == Evan.RECOVERY || sourceid == Citizen.INFILTRATE || sourceid == 11001 || sourceid == Mechanic.MISSLE);
     }
 
     public final boolean isBerserk() {
-        return skill && sourceid == 1320006;
+        return skill && sourceid == DarkKnight.BERSERK;
     }
 
     public final boolean isBeholder() {
-        return skill && sourceid == 1321007;
+        return skill && sourceid == DarkKnight.BEHOLDER;
     }
 
     public final boolean isMPRecovery() {
-        return skill && sourceid == 5101005;
+        return skill && sourceid == Brawler.MP_RECOVERY;
     }
 
     public final boolean isInfinity() {
-        return skill && (sourceid == 2121004 || sourceid == 2221004 || sourceid == 2321004);
+        return skill && (sourceid == Bishop.INFINITY || sourceid == FPArchMage.INFINITY || sourceid == ILArchMage.INFINITY);
     }
 
     public final boolean isMonsterRiding_() {
@@ -3136,29 +3138,29 @@ public class MapleStatEffect implements Serializable {
     }
 
     public final boolean isMagicDoor() {
-        return skill && (sourceid == 2311002 || sourceid % 10000 == 8001);
+        return skill && (sourceid == Priest.MYSTIC_DOOR || sourceid % 10000 == Beginner.DECENT_MYSTIC_DOOR);
     }
 
     public final boolean isMesoGuard() {
-        return skill && sourceid == 4211005;
+        return skill && sourceid == ChiefBandit.MESO_GUARD;
     }
 
     public final boolean isMechDoor() {
-        return skill && sourceid == 35101005;
+        return skill && sourceid == Mechanic.PORTAL;
     }
 
     public final boolean isComboRecharge() {
-        return skill && sourceid == 21111009;
+        return skill && sourceid == Aran.COMBO_RECHARGE;
     }
 
     public final boolean isDragonBlink() {
-        return skill && sourceid == 22141004;
+        return skill && sourceid == Evan.BLINK;
     }
 
     public final boolean isCharge() {
         switch (sourceid) {
             case 1211003:
-            case 1211008:
+            case WhiteKnight.BW_LIT_CHARGE:
             case 11111007:
             case 51111003:  
             case 12101005:
@@ -3178,15 +3180,15 @@ public class MapleStatEffect implements Serializable {
     }
 
     private boolean isSpiritClaw() {
-        return skill && sourceid == 4111009 || sourceid == 14111007 || sourceid == 5201008;
+        return skill && sourceid == Hermit.SHADOW_STARS || sourceid == NightWalker.SHADOW_STARS || sourceid == Gunslinger.INFINITY_BLAST;
     }
 
     private boolean isSpiritBlast() {
-        return skill && sourceid == 5201008;
+        return skill && sourceid == Gunslinger.INFINITY_BLAST;
     }
     
     private boolean isDispel() {
-        return skill && (sourceid == 2311001 || sourceid == 9001000 || sourceid == 9101000);
+        return skill && (sourceid == Priest.DISPEL || sourceid == GM.DISPEL || sourceid == SuperGM.HEAL_PLUS_DISPEL);
     }
 
     private boolean isHeroWill() {
@@ -3219,13 +3221,13 @@ public class MapleStatEffect implements Serializable {
     }
 
     public final boolean isAranCombo() {
-        return sourceid == 21000000;
+        return sourceid == Aran.COMBO_ABILITY;
     }
 
     public final boolean isCombo() {
         switch (sourceid) {
-            case 1111002:
-            case 11111001: // Combo
+            case Crusader.COMBO:
+            case DawnWarrior.COMBO: // Combo
                 return skill;
         }
         return false;
@@ -3233,10 +3235,10 @@ public class MapleStatEffect implements Serializable {
 
     public final boolean isPirateMorph() {
         switch (sourceid) {
-            case 13111005:
-            case 15111002:
-            case 5111005:
-            case 5121003:
+            case WindArcher.EAGLE_EYE:
+            case ThunderBreaker.TRANSFORMATION:
+            case Marauder.TRANSFORMATION:
+            case Buccaneer.SUPER_TRANSFORMATION:
                 return skill;
         }
         return false;
@@ -3248,14 +3250,14 @@ public class MapleStatEffect implements Serializable {
 
     public final int getMorph() {
         switch (sourceid) {
-            case 15111002:
-            case 5111005:
+            case ThunderBreaker.TRANSFORMATION:
+            case Marauder.TRANSFORMATION:
                 return 1000;
-            case 5121003:
+            case Buccaneer.SUPER_TRANSFORMATION:
                 return 1001;
-            case 5101007:
+            case Brawler.OAK_BARREL:
                 return 1002;
-            case 13111005:
+            case WindArcher.EAGLE_EYE:
                 return 1003;
         }
         return morphId;
@@ -3267,7 +3269,7 @@ public class MapleStatEffect implements Serializable {
 
     public final boolean isDivineShield() {
         switch (sourceid) {
-            case 1220013:
+            case Paladin.DIVINE_SHIELD:
                 return skill;
         }
         return false;
@@ -3354,7 +3356,6 @@ public class MapleStatEffect implements Serializable {
             case 35111001:
             case 35111010:
             case 35111009:
-
                 return SummonMovementType.FOLLOW;
         }
         if (isAngel()) {
@@ -3393,8 +3394,8 @@ public class MapleStatEffect implements Serializable {
 
     public final boolean isFinalAttack() {
         switch (sourceid) {
-            case 13101002:
-            case 11101002:
+            case WindArcher.FINAL_ATTACK:
+            case DawnWarrior.FINAL_ATTACK:
                 return skill;
         }
         return false;
@@ -3402,7 +3403,7 @@ public class MapleStatEffect implements Serializable {
 
     public final boolean isMistEruption() {
         switch (sourceid) {
-            case 2121003:
+            case FPArchMage.MIST_ERUPTION:
                 return skill;
         }
         return false;
@@ -3410,10 +3411,10 @@ public class MapleStatEffect implements Serializable {
 
     public final boolean isShadow() {
         switch (sourceid) {
-            case 4111002: // shadowpartner
-            case 14111000: // cygnus
-            case 4211008:
-            case 4331002:
+            case Hermit.SHADOW_PARTNER:
+            case NightWalker.SHADOW_PARTNER:
+            case ChiefBandit.SHADOW_PARTNER:
+            case DualBlade.MIRROR_IMAGE:
                 return skill;
         }
         return false;
@@ -3421,8 +3422,8 @@ public class MapleStatEffect implements Serializable {
 
     public final boolean isMechPassive() {
         switch (sourceid) {
-            //case 35121005:
-            case 35121013:
+            case Mechanic.MISSLE:
+            case Mechanic.SIEGE_MODE:
                 return true;
         }
         return false;
@@ -3586,16 +3587,16 @@ public class MapleStatEffect implements Serializable {
     }
 
     public final boolean isReturnScroll() {
-        return skill && (sourceid == 80001040 || sourceid == 20021110 || sourceid == 20031203);
+        return skill && (sourceid == 80001040 || sourceid == 20021110 || sourceid == 20031203); // Elven Blessing
     }
 
     public final boolean isMechChange() {
         switch (sourceid) {
-            case 35111004: //siege
-            case 35001001: //flame
-            case 35101009:
-            case 35121013:
-            case 35121005:
+            case Mechanic.SIEGE: //siege
+            case Mechanic.FLAME_LAUNCHER: //flame
+            case Mechanic.ENHANCED_FLAME_LAUNCHER:
+            case Mechanic.SIEGE_MODE:
+            case Mechanic.MISSLE:
                 return skill;
         }
         return false;
@@ -3700,7 +3701,11 @@ public class MapleStatEffect implements Serializable {
     public final int getIndieAllStat() {
         return info.get(MapleStatInfo.indieAllStat);
     }
-
+    
+    public final int getindiePad(){
+        return info.get(MapleStatInfo.indiePad);
+    }
+    
     public final byte getType() {
         return type;
     }
@@ -3754,6 +3759,6 @@ public class MapleStatEffect implements Serializable {
                 return true;
             }
         }
-        return  sourceid == 4221013;
+        return  sourceid == Shadower.SHADOWER_INSTINCT;
     }
 }

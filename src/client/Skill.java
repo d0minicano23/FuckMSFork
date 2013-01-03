@@ -199,14 +199,10 @@ public class Skill {
                 case WhiteKnight.BW_ICE_CHARGE:
                 case WhiteKnight.BW_LIT_CHARGE:
                 case WhiteKnight.MAGIC_CRASH:
-                case WhiteKnight.SWORD_FIRE_CHARGE:
-                case WhiteKnight.SWORD_ICE_CHARGE:
-                case WhiteKnight.SWORD_LIT_CHARGE:
                 case Paladin.BW_HOLY_CHARGE:
                 case Paladin.HEROS_WILL:
                 case Paladin.MAPLE_WARRIOR:
                 case Paladin.STANCE:
-                case Paladin.SWORD_HOLY_CHARGE:
                 case Spearman.HYPER_BODY:
                 case Spearman.IRON_WILL:
                 case Spearman.POLEARM_BOOSTER:

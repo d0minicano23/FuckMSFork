@@ -9,6 +9,7 @@ package constants.skills;
  * @author Steven
  */
 public class Mercedes {
+    public static final int LIGHTING_EDGE = 23121003;
     public static final int SPIRIT_SURGE = 23101003;
     public static final int POTION_MASTERY = 20020002;
     public static final int FOLLOW_THE_LEADER = 20020008;

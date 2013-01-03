@@ -9,7 +9,8 @@ package constants.skills;
  * @author Steven
  */
 public class Evan {
-    public static final int MP_BOOST = 12000005;
+    public static final int BLINK = 22141004;
+    public static final int RECOVERY = 20011001;
     public static final int HIDDEN_POTENTIAL_HERO = 20010093;
     public static final int RECOVERY_AURA = 22161003;
     public static final int MONSTER_RIDER = 20011004;

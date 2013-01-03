@@ -1,5 +1,6 @@
 package server;
 
+import constants.ServerConstants;
 import java.sql.SQLException;
 
 import database.DatabaseConnection;
@@ -13,7 +14,7 @@ import javax.management.ObjectName;
 import server.Timer.*;
 import tools.packet.CWvsContext;
 
-public class ShutdownServer implements ShutdownServerMBean {
+ public class ShutdownServer implements ShutdownServerMBean {
 
     public static ShutdownServer instance;
 
@@ -40,32 +41,19 @@ public class ShutdownServer implements ShutdownServerMBean {
 
     @Override
     public void run() {
+        int exit= 0;
 	if (mode == 0) {
 	    int ret = 0;
 	    World.Broadcast.broadcastMessage(CWvsContext.serverNotice(0, "The world is going to shutdown soon. Please log off safely."));
             for (ChannelServer cs : ChannelServer.getAllInstances()) {
                 cs.setShutdown();
-				cs.setServerMessage("The world is going to shutdown soon. Please log off safely.");
+		cs.setServerMessage("The world is going to shutdown soon. Please log off safely.");
                 ret += cs.closeAllMerchant();
-            }
-            /*AtomicInteger FinishedThreads = new AtomicInteger(0);
-            HiredMerchantSave.Execute(this);
-            synchronized (this) {
-                try {
-                    wait();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ShutdownServer.class.getName()).log(Level.SEVERE, null, ex);
+                exit++;
+                if(exit==ServerConstants.NUM_CHANNELS){
+                     break;
                 }
             }
-            while (FinishedThreads.incrementAndGet() != HiredMerchantSave.NumSavingThreads) {
-                synchronized (this) {
-                    try {
-                        wait();
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(ShutdownServer.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }*/
             World.Guild.save();
             World.Alliance.save();
 	    World.Family.save();

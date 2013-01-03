@@ -36,4 +36,5 @@ public class NightLord {
     public static final int NINJA_STORM = 4121008;
     public static final int HEROS_WILL = 4121009;
     public static final int TOXIC_VENOM = 4120011;
+    public static final int QUAD_STAR = 4121013;
 }

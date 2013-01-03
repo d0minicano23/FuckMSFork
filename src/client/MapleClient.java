@@ -774,17 +774,20 @@ public class MapleClient implements Serializable {
             if (player.getEventInstance() != null) {
                 player.getEventInstance().playerDisconnected(player, player.getId());
             }
-            final IMaplePlayerShop shop = player.getPlayerShop();
+     synchronized (this) {
+        final IMaplePlayerShop shop = player.getPlayerShop();
             if (shop != null) {
                 shop.removeVisitor(player);
-                if (shop.isOwner(player)) {
-                    if (shop.getShopType() == 1 && shop.isAvailable() && !shutdown) {
-                        shop.setOpen(true);
-                    } else {
-                        shop.closeShop(true, !shutdown);
-                    }
-                }
-            }
+             if (shop.isOwner(player)) {
+                if (shop.getShopType() == 1 && shop.isAvailable() && !shutdown) {
+                    shop.setOpen(true);
+                } else {
+                    shop.closeShop(true, !shutdown);
+                    player.setPlayerShop(null);
+          }
+        }
+      }
+}  
             player.setMessenger(null);
             if (player.getMap() != null) {
                 if (shutdown || (getChannelServer() != null && getChannelServer().isShutdown())) {

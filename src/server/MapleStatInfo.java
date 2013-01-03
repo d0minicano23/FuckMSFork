@@ -172,6 +172,10 @@ public enum MapleStatInfo {
     x(0),
     y(0),
     z(0),
+//    lt(0),
+//    lt2(0),
+//    rb(0),
+//    rb2(0),
     // START OF ITEM ONLY
     int_(0, true),
     luk(0);

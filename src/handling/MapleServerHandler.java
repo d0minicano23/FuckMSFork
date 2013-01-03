@@ -559,11 +559,11 @@ public class MapleServerHandler extends IoHandlerAdapter implements MapleServerH
             case AUTH_SECOND_PASSWORD:
                 CharLoginHandler.Character_WithSecondPassword(slea, c, false);
                 break;
-			case CHARACTER_CARDS:
-				//CharLoginHandler.updateCCards(slea, c);
-				break;
+            case CHARACTER_CARDS:
+		//CharLoginHandler.updateCCards(slea, c);
+		break;
             case CLIENT_ERROR:
-                System.out.println("Client error: " + slea.toString());
+                System.out.println("\nClient error: " + slea.toString());
                 if (slea.available() < 8) {
                     return;
                 }

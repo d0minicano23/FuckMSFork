@@ -9,6 +9,7 @@ package constants.skills;
  * @author Steven
  */
 public class DualBlade {
+        public static final int BLOODY_STORM = 4331000;
         public static final int SLASH_STORM = 4311003;
         public static final int SELF_HASTE = 4301003;
         public static final int TORNADO_SPIN = 4321000;
@@ -43,4 +44,7 @@ public class DualBlade {
         public static final int FLASH_JUMP = 4001011;
         public static final int KATARA_MASTERY = 4300000;
         public static final int FLASH_JUMP2 = 4311007;
+        public static final int TRIPLE_STAB = 4301001;
+        public static final int UPPER_STAB = 4331004;
+        public static final int SHARPNESS = 4340010;
 }

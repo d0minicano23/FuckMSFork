@@ -550,8 +550,9 @@ public class InventoryHandler {
 
     public static final boolean UseUpgradeScroll(final short slot, final short dst, final short ws, final MapleClient c, final MapleCharacter chr, final int vegas, final boolean legendarySpirit) {
         boolean whiteScroll = false; // white scroll being used?
+         boolean checkIfGM = c.getPlayer().isGM();// GM CHECK! TODO: MAKE THE GM CHECK
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        chr.setScrolledPosition((short) 0);
+            chr.setScrolledPosition((short) 0);
         if ((ws & 2) == 2) {
             whiteScroll = true;
         }
@@ -580,6 +581,7 @@ public class InventoryHandler {
                 return false;
             }
         }
+       
         if (!GameConstants.isSpecialScroll(scroll.getItemId()) && !GameConstants.isCleanSlate(scroll.getItemId()) && !GameConstants.isEquipScroll(scroll.getItemId()) && !GameConstants.isPotentialScroll(scroll.getItemId())) {
             if (toScroll.getUpgradeSlots() < 1) {
                 c.getSession().write(InventoryPacket.getInventoryFull());

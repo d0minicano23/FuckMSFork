@@ -42,4 +42,7 @@ public class NightWalker {
     public static final int VANISH = 14100005;
     public static final int VAMPIRE = 14101006;
     public static final int VENOM = 14110004;
+    public static final int LUCKY_SEVEN = 14001004;
+    public static final int QUAD_STAR = 14111005;
+    public static final int AVENGER = 14111002;
 }

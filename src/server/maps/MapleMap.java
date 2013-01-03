@@ -494,9 +494,9 @@ public final class MapleMap {
                 if (mesoDropped && droptype != 3 && de.itemId == 0) { //not more than 1 sack of meso
                     continue;
                 }
-				if (de.questid > 0 && chr.getQuestStatus(de.questid) != 1) { 
-					continue; 
-				} 
+		if (de.questid > 0 && chr.getQuestStatus(de.questid) != 1) { 
+                    continue; 
+		} 
                 if (de.itemId / 10000 == 238 && !mob.getStats().isBoss() && chr.getMonsterBook().getLevelByCard(ii.getCardMobId(de.itemId)) >= 2) {
                     continue;
                 }
@@ -533,9 +533,9 @@ public final class MapleMap {
         for (final MonsterGlobalDropEntry de : globalEntry) {
             if (Randomizer.nextInt(999999) < de.chance && (de.continent < 0 || (de.continent < 10 && mapid / 100000000 == de.continent) || (de.continent < 100 && mapid / 10000000 == de.continent) || (de.continent < 1000 && mapid / 1000000 == de.continent))) {
                 if (de.questid > 0 && chr.getQuestStatus(de.questid) != 1) { 
-					continue; 
-				} 
-				if (de.itemId == 0) {
+                    continue; 
+		} 
+		if (de.itemId == 0) {
                     chr.modifyCSPoints(1, (int) ((Randomizer.nextInt(cashz) + cashz + cashModifier) * (chr.getStat().cashBuff / 100.0) * chr.getCashMod()), true);
                 } else if (!gDropsDisabled) {
                     if (droptype == 3) {
@@ -2200,13 +2200,15 @@ public final class MapleMap {
             if (chr.getDragon() != null) {
                 broadcastMessage(CField.spawnDragon(chr.getDragon()));
             }
-        }
+        } 
         //Try to remove the damn useless shit
         if ((mapid == 10000 && chr.getJob() == 0) || (mapid == 130030000 && chr.getJob() == 1000) || (mapid == 914000000 && chr.getJob() == 2000) || (mapid == 900010000 && chr.getJob() == 2001) || (mapid == 931000000 && chr.getJob() == 3000)) {
             chr.dropMessage(5, "Your EXP Rate will be set to " + GameConstants.getExpRate_Below10(chr.getJob()) + "x until you reach level 10.");
             chr.dropMessage(5, "Use @npc to collect your Item Of Appreciation once you're level 10! Use @help for commands. Good luck and have fun!");
         }
-        
+       if (chr.getStat().equippedSummon > 0) {
+             chr.spawnAngel(chr.getStat().equippedSummon,1);
+        }
         if(mapid == 552000010){
         chr.getClient().getSession().write(CField.UIPacket.IntroEnableUI(1)); 
         chr.getClient().getSession().write(CField.UIPacket.getDirectionInfo((byte)1, 1000));                    

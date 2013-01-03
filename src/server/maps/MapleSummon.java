@@ -126,10 +126,10 @@ public class MapleSummon extends AnimatedMapleMapObject {
 	}
 	
 	public final boolean isMultiAttack() {
-		if (skill != 35111002 && skill != 35121003 && (isGaviota() || skill == 33101008 || skill >= 35000000) && skill != 35111009 && skill != 35111010 && skill != 35111001) {
-			return false;
-		}
-		return true;
+            if (skill != 35111002 && skill != 35121003 && (isGaviota() || skill == 33101008 || skill >= 35000000) && skill != 35111009 && skill != 35111010 && skill != 35111001) {
+		return false;
+            }
+          return true;
 	}
 
     public final boolean isGaviota() {

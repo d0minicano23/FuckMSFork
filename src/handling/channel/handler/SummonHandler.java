@@ -340,7 +340,7 @@ public class SummonHandler {
                 MapleItemInformationProvider.getInstance().getItemEffect(2022747).applyTo(chr);
             } else if (sum.getSkill() % 10000 == 1179) {
                 MapleItemInformationProvider.getInstance().getItemEffect(2022823).applyTo(chr);
-            } else {
+            } else if(sum.getSkill() % 10000 == 1085){
                 MapleItemInformationProvider.getInstance().getItemEffect(2022746).applyTo(chr);
             }
             chr.getClient().getSession().write(EffectPacket.showOwnBuffEffect(sum.getSkill(), 2, 2, 1));
