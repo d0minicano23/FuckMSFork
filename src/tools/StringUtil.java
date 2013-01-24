@@ -222,9 +222,9 @@ public class StringUtil {
   }
 
 public static boolean isNumber(String s) {
-/* 214 */     for (char c : s.toCharArray())
-/* 215 */       if (!Character.isDigit(c))
-/* 216 */         return false;
-/* 217 */     return true;
-/*     */   }
-/*     */ }
+     for (char c : s.toCharArray())
+       if (!Character.isDigit(c))
+         return false;
+     return true;
+   }
+ }

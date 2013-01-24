@@ -233,7 +233,11 @@ public class PlayerNPC extends MapleNPC implements MapleCharacterLook {
     public int getDemonMarking() {
         return 0; // player npcs should have demon mark? ..idk, we'll see later
     }
-
+    
+    public int getMercedesEars(){
+        return 0; //TODO: Make it return the value of 01 or 1 if the player has mercedes ears.
+    }
+    
     public Map<Byte, Integer> getEquips() {
         return equips;
     }

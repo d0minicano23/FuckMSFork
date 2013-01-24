@@ -56,7 +56,7 @@ public class CharacterTransfer implements Externalizable {
             meso, hair, face, demonMarking, mapid, honourexp, honourlevel, guildid,
             partyid, messengerid, ACash, nxCredit, MaplePoints,
             mount_itemid, mount_exp, points, vpoints, marriageId, maxhp, maxmp, hp, mp,
-            familyid, seniorid, junior1, junior2, currentrep, totalrep, battleshipHP, gachexp, guildContribution, totalWins, totalLosses;
+            familyid, seniorid, junior1, junior2, currentrep, totalrep, battleshipHP, gachexp, guildContribution, totalWins, totalLosses, MercedesEars;
     public byte channel, gender, gmLevel, guildrank, alliancerank, clonez,
             fairyExp, cardStack, buddysize, world, initialSpawnPoint, skinColor, mount_level, mount_Fatigue, subcategory;
     public long lastfametime, TranferTime;
@@ -141,6 +141,7 @@ public class CharacterTransfer implements Externalizable {
         this.hair = chr.getHair();
         this.face = chr.getFace();
         this.demonMarking = chr.getDemonMarking();
+        this.MercedesEars = chr.getMercedesEars();        
         this.mapid = chr.getMapId();
         this.initialSpawnPoint = chr.getInitialSpawnpoint();
         this.marriageId = chr.getMarriageId();

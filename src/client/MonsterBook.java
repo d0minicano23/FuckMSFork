@@ -211,8 +211,6 @@ public class MonsterBook implements Serializable {
         eq.setPotential1(0);
         eq.setPotential2(0);
         eq.setPotential3(0);
-        eq.setPotential4(0);
-        eq.setPotential5(0);
         if (currentSet > -1) {
             final Triple<Integer, List<Integer>, List<Integer>> set = MapleItemInformationProvider.getInstance().getMonsterBookInfo(currentSet);
             if (set != null) {
@@ -223,10 +221,6 @@ public class MonsterBook implements Serializable {
                         eq.setPotential2(set.right.get(i).intValue());
                     } else if (i == 2) {
                         eq.setPotential3(set.right.get(i).intValue());
-                    } else if (i == 3) {
-                        eq.setPotential4(set.right.get(i).intValue());
-                    } else if (i == 4) {
-                        eq.setPotential5(set.right.get(i).intValue());
                         break;
                     }
                 }

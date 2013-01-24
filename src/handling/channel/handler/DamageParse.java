@@ -1,54 +1,54 @@
-/*      */ package handling.channel.handler;
-/*      */ 
-/*      */ import client.MapleBuffStat;
-/*      */ import client.MapleCharacter;
-/*      */ import client.MapleClient;
-/*      */ import client.PlayerStats;
-/*      */ import client.Skill;
-/*      */ import client.SkillFactory;
-/*      */ import client.anticheat.CheatTracker;
-/*      */ import client.anticheat.CheatingOffense;
-/*      */ import client.inventory.Item;
-/*      */ import client.inventory.MapleInventory;
-/*      */ import client.inventory.MapleInventoryType;
-/*      */ import client.status.MonsterStatus;
-/*      */ import client.status.MonsterStatusEffect;
-/*      */ import constants.GameConstants;
-           import constants.skills.*;
-/*      */ import handling.channel.ChannelServer;
-/*      */ import java.awt.Point;
-/*      */ import java.util.ArrayList;
-/*      */ import java.util.Collections;
-/*      */ import java.util.List;
-/*      */ import java.util.Map;
-/*      */ import java.util.Map.Entry;
-/*      */ import java.util.concurrent.locks.Lock;
-/*      */ import org.apache.mina.common.IoSession;
-/*      */ import server.MapleStatEffect;
-/*      */ import server.Randomizer;
-/*      */ import server.life.Element;
-/*      */ import server.life.ElementalEffectiveness;
-/*      */ import server.life.MapleMonster;
-/*      */ import server.life.MapleMonsterStats;
-/*      */ import server.maps.Event_PyramidSubway;
-/*      */ import server.maps.MapleMap;
-/*      */ import server.maps.MapleMapItem;
-/*      */ import server.maps.MapleMapObject;
-/*      */ import server.maps.MapleMapObjectType;
-/*      */ import tools.AttackPair;
-/*      */ import tools.Pair;
-/*      */ import tools.data.LittleEndianAccessor;
-/*      */ import tools.packet.CField;
-/*      */ import tools.packet.CWvsContext;
-/*      */ 
-/*      */ public class DamageParse{
+ package handling.channel.handler;
+ 
+ import client.MapleBuffStat;
+ import client.MapleCharacter;
+ import client.MapleClient;
+ import client.PlayerStats;
+ import client.Skill;
+ import client.SkillFactory;
+ import client.anticheat.CheatTracker;
+ import client.anticheat.CheatingOffense;
+ import client.inventory.Item;
+ import client.inventory.MapleInventory;
+ import client.inventory.MapleInventoryType;
+ import client.status.MonsterStatus;
+ import client.status.MonsterStatusEffect;
+ import constants.GameConstants;
+ import constants.skills.*;
+ import handling.channel.ChannelServer;
+ import java.awt.Point;
+ import java.util.ArrayList;
+ import java.util.Collections;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.Map.Entry;
+ import java.util.concurrent.locks.Lock;
+ import org.apache.mina.common.IoSession;
+ import server.MapleStatEffect;
+ import server.Randomizer;
+ import server.life.Element;
+ import server.life.ElementalEffectiveness;
+ import server.life.MapleMonster;
+ import server.life.MapleMonsterStats;
+ import server.maps.Event_PyramidSubway;
+ import server.maps.MapleMap;
+ import server.maps.MapleMapItem;
+ import server.maps.MapleMapObject;
+ import server.maps.MapleMapObjectType;
+ import tools.AttackPair;
+ import tools.Pair;
+ import tools.data.LittleEndianAccessor;
+ import tools.packet.CField;
+ import tools.packet.CWvsContext;
+ 
+ public class DamageParse{
     
-/*      */   public static void applyAttack(AttackInfo attack, Skill theSkill, MapleCharacter player, int attackCount, double maxDamagePerMonster, MapleStatEffect effect, AttackType attack_type){
-/*   59 */     if (!player.isAlive()) {
-/*   60 */       player.getCheatTracker().registerOffense(CheatingOffense.ATTACKING_WHILE_DEAD);
-/*   61 */       return;
-/*      */     }
-
+   public static void applyAttack(AttackInfo attack, Skill theSkill, MapleCharacter player, int attackCount, double maxDamagePerMonster, MapleStatEffect effect, AttackType attack_type){
+     if (!player.isAlive()) {
+       player.getCheatTracker().registerOffense(CheatingOffense.ATTACKING_WHILE_DEAD);
+       return;
+     }
+                if(GameConstants.isDualBlade(player.getJob())){
                   Skill ads = SkillFactory.getSkill(DualBlade.ADV_DARK_SIGHT);
                   int bof = player.getTotalSkillLevel(ads);
                      if (bof > 0) {
@@ -57,53 +57,53 @@
                                 player.dispelSkill(Rogue.DARK_SIGHT);    
                       }
                      } 
+                }
+     if ((attack.real) && (GameConstants.getAttackDelay(attack.skill, theSkill) >= 100)) {
+       player.getCheatTracker().checkAttack(attack.skill, attack.lastAttackTickCount);
+     }
+     if (attack.skill != 0) {
+       if (effect == null) {
+         player.getClient().getSession().write(CWvsContext.enableActions());
+         return;
+       }
+       if (GameConstants.isMulungSkill(attack.skill)) {
+         if (player.getMapId() / 10000 != 92502)
+         {
+           return;
+         }
+         if (player.getMulungEnergy() < 10000) {
+           return;
+         }
+         player.mulung_EnergyModify(false);
+       }
+       else if (GameConstants.isPyramidSkill(attack.skill)) {
+         if (player.getMapId() / 1000000 != 926){
+           return;
+         }
+         if ((player.getPyramidSubway() == null) || (!player.getPyramidSubway().onSkillUse(player))) {
+           return;
+         }
+       }
+       else if (GameConstants.isInflationSkill(attack.skill)) {
+         if (player.getBuffedValue(MapleBuffStat.GIANT_POTION) == null)
+           return;
+       }
+       else if ((attack.targets > effect.getMobCount()) && (attack.skill != WhiteKnight.CHARGE_BLOW) && (attack.skill != Paladin.ADVANCED_CHARGE)) {
+         player.getCheatTracker().registerOffense(CheatingOffense.MISMATCHING_BULLETCOUNT);
+         return;
+       }
+     }
+     if (player.getClient().getChannelServer().isAdminOnly()) {
+       player.dropMessage(-1, new StringBuilder().append("Animation: ").append(Integer.toHexString((attack.display & 0x8000) != 0 ? attack.display - 32768 : attack.display)).toString());
+     }
+     boolean useAttackCount = (attack.skill != ChiefBandit.MESO_EXPLOSION) && (attack.skill != Marksman.SNIPE) && (attack.skill != Mercedes.LIGHTING_EDGE) && ((attack.skill != DragonKnight.DRAGON_BUSTER) || (player.getJob() != 132)) && (attack.skill != Sniper.STRIFE);
  
-/*   63 */     if ((attack.real) && (GameConstants.getAttackDelay(attack.skill, theSkill) >= 100)) {
-/*   64 */       player.getCheatTracker().checkAttack(attack.skill, attack.lastAttackTickCount);
-/*      */     }
-/*   66 */     if (attack.skill != 0) {
-/*   67 */       if (effect == null) {
-/*   68 */         player.getClient().getSession().write(CWvsContext.enableActions());
-/*   69 */         return;
-/*      */       }
-/*   71 */       if (GameConstants.isMulungSkill(attack.skill)) {
-/*   72 */         if (player.getMapId() / 10000 != 92502)
-/*      */         {
-/*   74 */           return;
-/*      */         }
-/*   76 */         if (player.getMulungEnergy() < 10000) {
-/*   77 */           return;
-/*      */         }
-/*   79 */         player.mulung_EnergyModify(false);
-/*      */       }
-/*   81 */       else if (GameConstants.isPyramidSkill(attack.skill)) {
-/*   82 */         if (player.getMapId() / 1000000 != 926){
-/*   84 */           return;
-/*      */         }
-/*   86 */         if ((player.getPyramidSubway() == null) || (!player.getPyramidSubway().onSkillUse(player))) {
-/*   87 */           return;
-/*      */         }
-/*      */       }
-/*   90 */       else if (GameConstants.isInflationSkill(attack.skill)) {
-/*   91 */         if (player.getBuffedValue(MapleBuffStat.GIANT_POTION) == null)
-/*   92 */           return;
-/*      */       }
-/*   94 */       else if ((attack.targets > effect.getMobCount()) && (attack.skill != WhiteKnight.CHARGE_BLOW) && (attack.skill != Paladin.ADVANCED_CHARGE)) {
-/*   95 */         player.getCheatTracker().registerOffense(CheatingOffense.MISMATCHING_BULLETCOUNT);
-/*   96 */         return;
-/*      */       }
-/*      */     }
-/*   99 */     if (player.getClient().getChannelServer().isAdminOnly()) {
-/*  100 */       player.dropMessage(-1, new StringBuilder().append("Animation: ").append(Integer.toHexString((attack.display & 0x8000) != 0 ? attack.display - 32768 : attack.display)).toString());
-/*      */     }
-/*  102 */     boolean useAttackCount = (attack.skill != ChiefBandit.MESO_EXPLOSION) && (attack.skill != Marksman.SNIPE) && (attack.skill != Mercedes.LIGHTING_EDGE) && ((attack.skill != DragonKnight.DRAGON_BUSTER) || (player.getJob() != 132)) && (attack.skill != Sniper.STRIFE);
-/*      */ 
-/*  109 */     if ((attack.hits > 0) && (attack.targets > 0)){
-/*  111 */       if (!player.getStat().checkEquipDurabilitys(player, -1)) {
-/*  112 */         player.dropMessage(5, "An item has run out of durability but has no inventory room to go to.");
-/*  113 */         return;
-/*      */       }
-/*      */     }
+     if ((attack.hits > 0) && (attack.targets > 0)){
+       if (!player.getStat().checkEquipDurabilitys(player, -1)) {
+         player.dropMessage(5, "An item has run out of durability but has no inventory room to go to.");
+         return;
+       }
+     }
             int totDamage = 0;
             final MapleMap map = player.getMap();
             if (attack.skill == ChiefBandit.MESO_EXPLOSION) { // meso explosion
@@ -137,522 +137,521 @@
                 }
             }
         }
-               //DO WE ADD SHADOW MELD HERE?
-/*  150 */     int totDamageToOneMonster = 0;
-/*  151 */     long hpMob = 0L;
-               PlayerStats stats = player.getStat();
-/*  154 */     int CriticalDamage = stats.passive_sharpeye_percent();
-/*  155 */     int ShdowPartnerAttackPercentage = 0;
 
-/*  156 */     if ((attack_type == AttackType.RANGED_WITH_SHADOWPARTNER) || (attack_type == AttackType.NON_RANGED_WITH_MIRROR)) {
-/*  157 */       MapleStatEffect shadowPartnerEffect = player.getStatForBuff(MapleBuffStat.SHADOWPARTNER);
-/*  158 */       if (shadowPartnerEffect != null) {
-/*  159 */         ShdowPartnerAttackPercentage += shadowPartnerEffect.getX();
-/*      */       }
-/*  161 */       attackCount /= 2;
-/*      */     }
-/*  163 */     ShdowPartnerAttackPercentage *= (CriticalDamage + 100) / 100;
-/*  164 */     if (attack.skill == Shadower.ASSASSINATE) {
-/*  165 */       ShdowPartnerAttackPercentage *= 10;
-/*      */     }
-/*      */ 
-/*  168 */     double maxDamagePerHit = 0.0D;
-/*      */     MapleMonster monster;
-/*  173 */     for (AttackPair oned : attack.allDamage) {
-/*  174 */       monster = map.getMonsterByOid(oned.objectid);
-/*      */ 
-/*  176 */       if ((monster != null) && (monster.getLinkCID() <= 0)) {
-/*  177 */         totDamageToOneMonster = 0;
-/*  178 */         hpMob = monster.getMobMaxHp();
-/*  179 */         MapleMonsterStats monsterstats = monster.getStats();
-/*  180 */         int fixeddmg = monsterstats.getFixedDamage();
-/*  181 */         boolean Tempest = (monster.getStatusSourceID(MonsterStatus.FREEZE) == Aran.COMBO_TEMPEST) || (attack.skill == 1221011);
-/*      */ 
-/*  183 */         if ((!Tempest) && (!player.isGM())) {
-/*  184 */           if (((player.getJob() >= 3200) && (player.getJob() <= 3212) && (!monster.isBuffed(MonsterStatus.DAMAGE_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT))) || (attack.skill == 3221007) || (attack.skill == 23121003) || (((player.getJob() < 3200) || (player.getJob() > 3212)) && (!monster.isBuffed(MonsterStatus.DAMAGE_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.WEAPON_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.WEAPON_DAMAGE_REFLECT))))
-/*  185 */             maxDamagePerHit = CalculateMaxWeaponDamagePerHit(player, monster, attack, theSkill, effect, maxDamagePerMonster, Integer.valueOf(CriticalDamage));
-/*      */           else {
-/*  187 */             maxDamagePerHit = 1.0D;
-/*      */           }
-/*      */         }
-/*  190 */         byte overallAttackCount = 0;
-/*      */ 
-/*  192 */         int criticals = 0;
-/*  193 */         for (Pair eachde : oned.attack) {
-/*  194 */           Integer eachd = (Integer)eachde.left;
-/*  195 */           overallAttackCount = (byte)(overallAttackCount + 1);
-/*  196 */           if (((Boolean)eachde.right).booleanValue()) {
-/*  197 */             criticals++;
-/*      */           }
-/*  199 */           if ((useAttackCount) && (overallAttackCount - 1 == attackCount)) {
-/*  200 */             maxDamagePerHit = maxDamagePerHit / 100.0D * (ShdowPartnerAttackPercentage * (monsterstats.isBoss() ? stats.bossdam_r : stats.dam_r) / 100.0D);
-/*      */           }
-/*      */ 
-/*  203 */           if (fixeddmg != -1) {
-/*  204 */             if (monsterstats.getOnlyNoramlAttack())
-/*  205 */               eachd = Integer.valueOf(attack.skill != 0 ? 0 : fixeddmg);
-/*      */             else {
-/*  207 */               eachd = Integer.valueOf(fixeddmg);
-/*      */             }
-/*      */           }
-/*  210 */           else if (monsterstats.getOnlyNoramlAttack())
-/*  211 */             eachd = Integer.valueOf(attack.skill != 0 ? 0 : Math.min(eachd.intValue(), (int)maxDamagePerHit));
-/*  212 */           else if (!player.isGM()) {
-/*  213 */             if (Tempest) {
-/*  214 */               if (eachd.intValue() > monster.getMobMaxHp()) {
-/*  215 */                 eachd = Integer.valueOf((int)Math.min(monster.getMobMaxHp(), 2147483647L));
-/*  216 */                 player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE);
-/*      */               }
-/*      */             }
-/*  219 */             else if (((player.getJob() >= 3200) && (player.getJob() <= 3212) && (!monster.isBuffed(MonsterStatus.DAMAGE_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT))) || (attack.skill == 23121003) || (((player.getJob() < 3200) || (player.getJob() > 3212)) && (!monster.isBuffed(MonsterStatus.DAMAGE_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.WEAPON_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.WEAPON_DAMAGE_REFLECT)))) {
-/*  220 */               if (eachd.intValue() > maxDamagePerHit) {
-/*  221 */                 player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE, new StringBuilder().append("[Damage: ").append(eachd).append(", Expected: ").append(maxDamagePerHit).append(", Mob: ").append(monster.getId()).append("] [Job: ").append(player.getJob()).append(", Level: ").append(player.getLevel()).append(", Skill: ").append(attack.skill).append("]").toString());
-/*  222 */                 if (attack.real) {
-/*  223 */                   player.getCheatTracker().checkSameDamage(eachd.intValue(), maxDamagePerHit);
-/*      */                 }
-/*  225 */                 if (eachd.intValue() > maxDamagePerHit * 2.0D) {
-/*  226 */                   player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE_2, new StringBuilder().append("[Damage: ").append(eachd).append(", Expected: ").append(maxDamagePerHit).append(", Mob: ").append(monster.getId()).append("] [Job: ").append(player.getJob()).append(", Level: ").append(player.getLevel()).append(", Skill: ").append(attack.skill).append("]").toString());
-/*  227 */                   eachd = Integer.valueOf((int)(maxDamagePerHit * 2.0D));
-/*  228 */                   if (eachd.intValue() >= 2499999) {
-/*  229 */                     player.getClient().getSession().close();
-/*  230 */                     return;
-/*      */                   }
-/*      */                 }
-/*      */               }
-/*      */             }
-/*  235 */             else if (eachd.intValue() > maxDamagePerHit) {
-/*  236 */               eachd = Integer.valueOf((int)maxDamagePerHit);
-/*      */             }
-/*      */ 
-/*      */           }
-/*      */ 
-/*  241 */           if (player == null) {
-/*  242 */             return;
-/*      */           }
-/*  244 */           totDamageToOneMonster += eachd.intValue();
-/*      */ 
-/*  246 */           if (((eachd.intValue() == 0) || (monster.getId() == 9700021)) && (player.getPyramidSubway() != null)) {
-/*  247 */             player.getPyramidSubway().onMiss(player);
-/*      */           }
-/*      */         }
-/*  250 */         totDamage += totDamageToOneMonster;
-/*  251 */         player.checkMonsterAggro(monster);
-/*      */ 
-/*  253 */         if ((GameConstants.getAttackDelay(attack.skill, theSkill) >= 100) && (!GameConstants.isNoDelaySkill(attack.skill)) && (attack.skill != Hunter.ARROW_BOMB) && (!monster.getStats().isBoss()) && (player.getTruePosition().distanceSq(monster.getTruePosition()) > GameConstants.getAttackRange(effect, player.getStat().defRange))) {
-/*  254 */           player.getCheatTracker().registerOffense(CheatingOffense.ATTACK_FARAWAY_MONSTER, new StringBuilder().append("[Distance: ").append(player.getTruePosition().distanceSq(monster.getTruePosition())).append(", Expected Distance: ").append(GameConstants.getAttackRange(effect, player.getStat().defRange)).append(" Job: ").append(player.getJob()).append("]").toString());
-/*      */         }
-/*      */ 
-/*  257 */         if (player.getBuffedValue(MapleBuffStat.PICKPOCKET) != null) {
-/*  258 */           switch (attack.skill) {
-/*      */           case 0:
-/*      */           case Rogue.DOUBLE_STAB:
-/*      */           case Bandit.SAVAGE_BLOW:
-/*      */           case ChiefBandit.ASSAULTER:
-/*      */           case 4211004:
-/*      */           case 4221003:
-/*      */           case Shadower.BOOMERANG_STEP:
-/*  266 */             handlePickPocket(player, monster, oned);
-/*      */           }
-/*      */         }
-/*      */ 
-/*  271 */         if ((totDamageToOneMonster > 0) || (attack.skill == Paladin.HEAVENS_HAMMER) || (attack.skill == Aran.COMBO_TEMPEST)) {
-/*  272 */           if (GameConstants.isDemon(player.getJob())) {
-/*  273 */             player.handleForceGain(monster.getObjectId(), attack.skill);
-/*      */           }
-                   if ((GameConstants.isPhantom(player.getJob())) && (attack.skill != Phantom.CARTE_NOIRE) && (attack.skill != Phantom.CARTE_BLANCHE)) {
-                      player.handleCardStack();
-                     }
-/*  275 */           if (attack.skill != Paladin.HEAVENS_HAMMER)
-/*  276 */             monster.damage(player, totDamageToOneMonster, true, attack.skill);
-/*      */           else {
-/*  278 */             monster.damage(player, monster.getStats().isBoss() ? 500000L : monster.getHp() - 1L, true, attack.skill);
-/*      */           }
-/*      */ 
-/*  281 */           if (monster.isBuffed(MonsterStatus.WEAPON_DAMAGE_REFLECT)) {
-/*  282 */             player.addHP(-(7000 + Randomizer.nextInt(8000)));
-/*      */           }
-/*  284 */           player.onAttack(monster.getMobMaxHp(), monster.getMobMaxMp(), attack.skill, monster.getObjectId(), totDamage, 0);
-/*  285 */           switch (attack.skill)
-/*      */           {
-/*      */           case Rogue.DISORDER:
-/*      */           case Rogue.DOUBLE_STAB:
-/*      */           case Rogue.LUCKY_SEVEN:
-/*      */           case Hermit.AVENGER:
-/*      */           case Hermit.DARK_FLARE:
-/*      */           case ChiefBandit.DARK_FLARE:
-/*      */           case ChiefBandit.ASSAULTER:
-/*      */           case Shadower.ASSASSINATE:
-/*      */           case Shadower.BOOMERANG_STEP:
-/*      */           case DualBlade.TRIPLE_STAB:
-/*      */           case DualBlade.FATAL_BLOW:
-/*      */           case DualBlade.SLASH_STORM:
-/*      */           case DualBlade.BLOODY_STORM:
-/*      */           case DualBlade.UPPER_STAB:
-/*      */           case DualBlade.FLY_ASSULTER2:
-/*      */           case DualBlade.CHAINS_OF_HELL:
-/*      */           case DualBlade.FINAL_CUT:
-/*      */           case DualBlade.BLADE_FURY:
-/*      */           case 4341005:
-/*      */           case DualBlade.PHANTOM_BLOW:
-/*      */           case NightWalker.LUCKY_SEVEN:
-/*      */           case NightWalker.AVENGER:
-/*      */           case NightWalker.QUAD_STAR: 
-                     case Hermit.TRIPLE_THROW:
-                     case NightLord.QUAD_STAR: 
-/*  310 */             int[] skills = {DualBlade.VENOM1, DualBlade.VENOM2, DualBlade.TOXIC_VENOM, NightLord.TOXIC_VENOM, Shadower.TOXIC_VENOM, NightWalker.VENOM, ChiefBandit.VENOM, Hermit.VENOM};
-/*  311 */             for (int i : skills) {
-/*  312 */               Skill skill = SkillFactory.getSkill(i);
-/*  313 */               if (player.getTotalSkillLevel(skill) > 0) {
-/*  314 */                 MapleStatEffect venomEffect = skill.getEffect(player.getTotalSkillLevel(skill));
-/*  315 */                 if (!venomEffect.makeChanceResult()) break;
-/*  316 */                 monster.applyStatus(player, new MonsterStatusEffect(MonsterStatus.POISON, Integer.valueOf(1), i, null, false), true, venomEffect.getDuration(), true, venomEffect); break;
-/*      */               }
-/*      */ 
-/*      */             }
-/*      */ 
-/*  322 */             break;
-/*      */           case Bandit.STEAL:
-/*  325 */             monster.handleSteal(player);
-/*  326 */             break;
-/*      */           case 21000002:
-/*      */           case 21100001:
-/*      */           case 21100002:
-/*      */           case 21100004:
-/*      */           case 21110002:
-/*      */           case 21110003:
-/*      */           case 21110004:
-/*      */           case 21110006:
-/*      */           case 21110007:
-/*      */           case 21110008:
-/*      */           case 21120002:
-/*      */           case 21120005:
-/*      */           case 21120006:
-/*      */           case 21120009:
-/*      */           case 21120010:
-/*  344 */             if ((player.getBuffedValue(MapleBuffStat.WK_CHARGE) != null) && (!monster.getStats().isBoss())) {
-/*  345 */               MapleStatEffect eff = player.getStatForBuff(MapleBuffStat.WK_CHARGE);
-/*  346 */               if (eff != null) {
-/*  347 */                 monster.applyStatus(player, new MonsterStatusEffect(MonsterStatus.SPEED, Integer.valueOf(eff.getX()), eff.getSourceId(), null, false), false, eff.getY() * 1000, true, eff);
-/*      */               }
-/*      */             }
-/*  350 */             if ((player.getBuffedValue(MapleBuffStat.BODY_PRESSURE) == null) || (monster.getStats().isBoss())) break;
-/*  351 */             MapleStatEffect eff = player.getStatForBuff(MapleBuffStat.BODY_PRESSURE);
-/*      */ 
-/*  353 */             if ((eff != null) && (eff.makeChanceResult()) && (!monster.isBuffed(MonsterStatus.NEUTRALISE))) {
-/*  354 */               monster.applyStatus(player, new MonsterStatusEffect(MonsterStatus.NEUTRALISE, Integer.valueOf(1), eff.getSourceId(), null, false), false, eff.getX() * 1000, true, eff);
-/*      */             }
-/*  356 */             break;
-/*      */           }
+     int totDamageToOneMonster = 0;
+     long hpMob = 0L;
+     PlayerStats stats = player.getStat();
+     int CriticalDamage = stats.passive_sharpeye_percent();
+     int ShdowPartnerAttackPercentage = 0;
 
-/*  362 */           if (totDamageToOneMonster > 0) {
-/*  363 */             Item weapon_ = player.getInventory(MapleInventoryType.EQUIPPED).getItem((byte)-11);
-/*  364 */             if (weapon_ != null) {
-/*  365 */               MonsterStatus stat = GameConstants.getStatFromWeapon(weapon_.getItemId());
-/*  366 */               if ((stat != null) && (Randomizer.nextInt(100) < GameConstants.getStatChance())) {
-/*  367 */                 MonsterStatusEffect monsterStatusEffect = new MonsterStatusEffect(stat, Integer.valueOf(GameConstants.getXForStat(stat)), GameConstants.getSkillForStat(stat), null, false);
-/*  368 */                 monster.applyStatus(player, monsterStatusEffect, false, 10000L, false, null);
-/*      */               }
-/*      */             }
-/*  371 */             if (player.getBuffedValue(MapleBuffStat.BLIND) != null) {
-/*  372 */               MapleStatEffect eff = player.getStatForBuff(MapleBuffStat.BLIND);
-/*      */ 
-/*  374 */               if ((eff != null) && (eff.makeChanceResult())) {
-/*  375 */                 MonsterStatusEffect monsterStatusEffect = new MonsterStatusEffect(MonsterStatus.ACC, Integer.valueOf(eff.getX()), eff.getSourceId(), null, false);
-/*  376 */                 monster.applyStatus(player, monsterStatusEffect, false, eff.getY() * 1000, true, eff);
-/*      */               }
-/*      */             }
-/*      */ 
-/*  380 */             if (player.getBuffedValue(MapleBuffStat.HAMSTRING) != null) {
-/*  381 */               MapleStatEffect eff = player.getStatForBuff(MapleBuffStat.HAMSTRING);
-/*      */ 
-/*  383 */               if ((eff != null) && (eff.makeChanceResult())) {
-/*  384 */                 MonsterStatusEffect monsterStatusEffect = new MonsterStatusEffect(MonsterStatus.SPEED, Integer.valueOf(eff.getX()), 3121007, null, false);
-/*  385 */                 monster.applyStatus(player, monsterStatusEffect, false, eff.getY() * 1000, true, eff);
-/*      */               }
-/*      */             }
-/*  388 */             if ((player.getJob() == 121) || (player.getJob() == 122)) {
-/*  389 */               Skill skill = SkillFactory.getSkill(1211006);
-/*  390 */               if (player.isBuffFrom(MapleBuffStat.WK_CHARGE, skill)) {
-/*  391 */                 MapleStatEffect eff = skill.getEffect(player.getTotalSkillLevel(skill));
-/*  392 */                 MonsterStatusEffect monsterStatusEffect = new MonsterStatusEffect(MonsterStatus.FREEZE, Integer.valueOf(1), skill.getId(), null, false);
-/*  393 */                 monster.applyStatus(player, monsterStatusEffect, false, eff.getY() * 2000, true, eff);
-/*      */               }
-/*      */             }                       
-/*      */           }
-/*  403 */           if ((effect != null) && (effect.getMonsterStati().size() > 0) && 
-/*  404 */             (effect.makeChanceResult()))
-/*  405 */             for (Map.Entry z : effect.getMonsterStati().entrySet())
-/*  406 */               monster.applyStatus(player, new MonsterStatusEffect((MonsterStatus)z.getKey(), (Integer)z.getValue(), theSkill.getId(), null, false), effect.isPoison(), effect.getDuration(), true, effect);
-/*      */         }
-/*      */       }
-/*      */     }
+     if ((attack_type == AttackType.RANGED_WITH_SHADOWPARTNER) || (attack_type == AttackType.NON_RANGED_WITH_MIRROR)) {
+       MapleStatEffect shadowPartnerEffect = player.getStatForBuff(MapleBuffStat.SHADOWPARTNER);
+       if (shadowPartnerEffect != null) {
+         ShdowPartnerAttackPercentage += shadowPartnerEffect.getX();
+       }
+       attackCount /= 2;
+     }
+     ShdowPartnerAttackPercentage *= (CriticalDamage + 100) / 100;
+     if (attack.skill == Shadower.ASSASSINATE) {
+       ShdowPartnerAttackPercentage *= 10;
+     }
+ 
+     double maxDamagePerHit = 0.0D;
+     MapleMonster monster;
+     for (AttackPair oned : attack.allDamage) {
+       monster = map.getMonsterByOid(oned.objectid);
+ 
+       if ((monster != null) && (monster.getLinkCID() <= 0)) {
+         totDamageToOneMonster = 0;
+         hpMob = monster.getMobMaxHp();
+         MapleMonsterStats monsterstats = monster.getStats();
+         int fixeddmg = monsterstats.getFixedDamage();
+         boolean Tempest = (monster.getStatusSourceID(MonsterStatus.FREEZE) == Aran.COMBO_TEMPEST) || (attack.skill == 1221011);
+ 
+         if ((!Tempest) && (!player.isGM())) {
+           if (((player.getJob() >= 3200) && (player.getJob() <= 3212) && (!monster.isBuffed(MonsterStatus.DAMAGE_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT))) || (attack.skill == 3221007) || (attack.skill == 23121003) || (((player.getJob() < 3200) || (player.getJob() > 3212)) && (!monster.isBuffed(MonsterStatus.DAMAGE_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.WEAPON_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.WEAPON_DAMAGE_REFLECT))))
+             maxDamagePerHit = CalculateMaxWeaponDamagePerHit(player, monster, attack, theSkill, effect, maxDamagePerMonster, Integer.valueOf(CriticalDamage));
+           else {
+             maxDamagePerHit = 1.0D;
+           }
+         }
+         byte overallAttackCount = 0;
+ 
+         int criticals = 0;
+         for (Pair eachde : oned.attack) {
+           Integer eachd = (Integer)eachde.left;
+           overallAttackCount = (byte)(overallAttackCount + 1);
+           if (((Boolean)eachde.right).booleanValue()) {
+             criticals++;
+           }
+           if ((useAttackCount) && (overallAttackCount - 1 == attackCount)) {
+             maxDamagePerHit = maxDamagePerHit / 100.0D * (ShdowPartnerAttackPercentage * (monsterstats.isBoss() ? stats.bossdam_r : stats.dam_r) / 100.0D);
+           }
+ 
+           if (fixeddmg != -1) {
+             if (monsterstats.getOnlyNoramlAttack())
+               eachd = Integer.valueOf(attack.skill != 0 ? 0 : fixeddmg);
+             else {
+               eachd = Integer.valueOf(fixeddmg);
+             }
+           }
+           else if (monsterstats.getOnlyNoramlAttack())
+             eachd = Integer.valueOf(attack.skill != 0 ? 0 : Math.min(eachd.intValue(), (int)maxDamagePerHit));
+           else if (!player.isGM()) {
+             if (Tempest) {
+               if (eachd.intValue() > monster.getMobMaxHp()) {
+                 eachd = Integer.valueOf((int)Math.min(monster.getMobMaxHp(), 2147483647L));
+                 player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE);
+               }
+             }
+             else if (((player.getJob() >= 3200) && (player.getJob() <= 3212) && (!monster.isBuffed(MonsterStatus.DAMAGE_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT))) || (attack.skill == 23121003) || (((player.getJob() < 3200) || (player.getJob() > 3212)) && (!monster.isBuffed(MonsterStatus.DAMAGE_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.WEAPON_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.WEAPON_DAMAGE_REFLECT)))) {
+               if (eachd.intValue() > maxDamagePerHit) {
+                 player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE, new StringBuilder().append("[Damage: ").append(eachd).append(", Expected: ").append(maxDamagePerHit).append(", Mob: ").append(monster.getId()).append("] [Job: ").append(player.getJob()).append(", Level: ").append(player.getLevel()).append(", Skill: ").append(attack.skill).append("]").toString());
+                 if (attack.real) {
+                   player.getCheatTracker().checkSameDamage(eachd.intValue(), maxDamagePerHit);
+                 }
+                 if (eachd.intValue() > maxDamagePerHit * 2.0D) {
+                   player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE_2, new StringBuilder().append("[Damage: ").append(eachd).append(", Expected: ").append(maxDamagePerHit).append(", Mob: ").append(monster.getId()).append("] [Job: ").append(player.getJob()).append(", Level: ").append(player.getLevel()).append(", Skill: ").append(attack.skill).append("]").toString());
+                   eachd = Integer.valueOf((int)(maxDamagePerHit * 2.0D));
+                   if (eachd.intValue() >= 2499999) {
+                     player.getClient().getSession().close();
+                     return;
+                   }
+                 }
+               }
+             }
+             else if (eachd.intValue() > maxDamagePerHit) {
+               eachd = Integer.valueOf((int)maxDamagePerHit);
+             }
+ 
+           }
+ 
+           if (player == null) {
+             return;
+           }
+           totDamageToOneMonster += eachd.intValue();
+ 
+           if (((eachd.intValue() == 0) || (monster.getId() == 9700021)) && (player.getPyramidSubway() != null)) {
+             player.getPyramidSubway().onMiss(player);
+           }
+         }
+         totDamage += totDamageToOneMonster;
+         player.checkMonsterAggro(monster);
+ 
+         if ((GameConstants.getAttackDelay(attack.skill, theSkill) >= 100) && (!GameConstants.isNoDelaySkill(attack.skill)) && (attack.skill != Hunter.ARROW_BOMB) && (!monster.getStats().isBoss()) && (player.getTruePosition().distanceSq(monster.getTruePosition()) > GameConstants.getAttackRange(effect, player.getStat().defRange))) {
+           player.getCheatTracker().registerOffense(CheatingOffense.ATTACK_FARAWAY_MONSTER, new StringBuilder().append("[Distance: ").append(player.getTruePosition().distanceSq(monster.getTruePosition())).append(", Expected Distance: ").append(GameConstants.getAttackRange(effect, player.getStat().defRange)).append(" Job: ").append(player.getJob()).append("]").toString());
+         }
+ 
+         if (player.getBuffedValue(MapleBuffStat.PICKPOCKET) != null) {
+           switch (attack.skill) {
+           case 0:
+           case Rogue.DOUBLE_STAB:
+           case Bandit.SAVAGE_BLOW:
+           case ChiefBandit.ASSAULTER:
+           case 4211004:
+           case 4221003:
+           case Shadower.BOOMERANG_STEP:
+             handlePickPocket(player, monster, oned);
+           }
+         }
+ 
+         if ((totDamageToOneMonster > 0) || (attack.skill == Paladin.HEAVENS_HAMMER) || (attack.skill == Aran.COMBO_TEMPEST)) {
+           if (GameConstants.isDemon(player.getJob())) {
+             player.handleForceGain(monster.getObjectId(), attack.skill);
+           }
+           if ((GameConstants.isPhantom(player.getJob())) && (attack.skill != Phantom.CARTE_NOIRE) && (attack.skill != Phantom.CARTE_BLANCHE)) {
+                player.handleCardStack();
+           }
+           if (attack.skill != Paladin.HEAVENS_HAMMER)
+             monster.damage(player, totDamageToOneMonster, true, attack.skill);
+           else {
+             monster.damage(player, monster.getStats().isBoss() ? 500000L : monster.getHp() - 1L, true, attack.skill);
+           }
+ 
+           if (monster.isBuffed(MonsterStatus.WEAPON_DAMAGE_REFLECT)) {
+             player.addHP(-(7000 + Randomizer.nextInt(8000)));
+           }
+           player.onAttack(monster.getMobMaxHp(), monster.getMobMaxMp(), attack.skill, monster.getObjectId(), totDamage, 0);
+           switch (attack.skill)
+           {
+           case Rogue.DISORDER:
+           case Rogue.DOUBLE_STAB:
+           case Rogue.LUCKY_SEVEN:
+           case Hermit.AVENGER:
+           case Hermit.DARK_FLARE:
+           case ChiefBandit.DARK_FLARE:
+           case ChiefBandit.ASSAULTER:
+           case Shadower.ASSASSINATE:
+           case Shadower.BOOMERANG_STEP:
+           case DualBlade.TRIPLE_STAB:
+           case DualBlade.FATAL_BLOW:
+           case DualBlade.SLASH_STORM:
+           case DualBlade.BLOODY_STORM:
+           case DualBlade.UPPER_STAB:
+           case DualBlade.FLY_ASSULTER2:
+           case DualBlade.CHAINS_OF_HELL:
+           case DualBlade.FINAL_CUT:
+           case DualBlade.BLADE_FURY:
+           case 4341005:
+           case DualBlade.PHANTOM_BLOW:
+           case NightWalker.LUCKY_SEVEN:
+           case NightWalker.AVENGER:
+           case NightWalker.QUAD_STAR: 
+           case Hermit.TRIPLE_THROW:
+           case NightLord.QUAD_STAR: 
+             int[] skills = {DualBlade.VENOM1, DualBlade.VENOM2, DualBlade.TOXIC_VENOM, NightLord.TOXIC_VENOM, Shadower.TOXIC_VENOM, NightWalker.VENOM, ChiefBandit.VENOM, Hermit.VENOM};
+             for (int i : skills) {
+               Skill skill = SkillFactory.getSkill(i);
+               if (player.getTotalSkillLevel(skill) > 0) {
+                 MapleStatEffect venomEffect = skill.getEffect(player.getTotalSkillLevel(skill));
+                 if (!venomEffect.makeChanceResult()) break;
+                 monster.applyStatus(player, new MonsterStatusEffect(MonsterStatus.POISON, Integer.valueOf(1), i, null, false), true, venomEffect.getDuration(), true, venomEffect); break;
+               }
+             }
+ 
+             break;
+           case Bandit.STEAL:
+             monster.handleSteal(player);
+             break;
+           case 21000002:
+           case 21100001:
+           case 21100002:
+           case 21100004:
+           case 21110002:
+           case 21110003:
+           case 21110004:
+           case 21110006:
+           case 21110007:
+           case 21110008:
+           case 21120002:
+           case 21120005:
+           case 21120006:
+           case 21120009:
+           case 21120010:
+             if ((player.getBuffedValue(MapleBuffStat.WK_CHARGE) != null) && (!monster.getStats().isBoss())) {
+               MapleStatEffect eff = player.getStatForBuff(MapleBuffStat.WK_CHARGE);
+               if (eff != null) {
+                 monster.applyStatus(player, new MonsterStatusEffect(MonsterStatus.SPEED, Integer.valueOf(eff.getX()), eff.getSourceId(), null, false), false, eff.getY() * 1000, true, eff);
+               }
+             }
+             if ((player.getBuffedValue(MapleBuffStat.BODY_PRESSURE) == null) || (monster.getStats().isBoss())) break;
+             MapleStatEffect eff = player.getStatForBuff(MapleBuffStat.BODY_PRESSURE);
+             
+             if ((eff != null) && (eff.makeChanceResult()) && (!monster.isBuffed(MonsterStatus.NEUTRALISE))) {
+               monster.applyStatus(player, new MonsterStatusEffect(MonsterStatus.NEUTRALISE, Integer.valueOf(1), eff.getSourceId(), null, false), false, eff.getX() * 1000, true, eff);
+             }
+             break;
+           }
 
-/*  413 */     if ((attack.skill == 4331003) && ((hpMob <= 0L) || (totDamageToOneMonster < hpMob))) {
-/*  414 */       return;
-/*      */     }
-/*  416 */     if ((hpMob > 0L) && (totDamageToOneMonster > 0)) {
-/*  417 */       player.afterAttack(attack.targets, attack.hits, attack.skill);
-/*      */     }
-/*  419 */     if ((attack.skill != 0) && ((attack.targets > 0) || ((attack.skill != 4331003) && (attack.skill != 4341002))) && (!GameConstants.isNoDelaySkill(attack.skill))) {
-/*  420 */       effect.applyTo(player, attack.position);
-/*      */     }
-/*  422 */     if ((totDamage > 1) && (GameConstants.getAttackDelay(attack.skill, theSkill) >= 100)) {
-/*  423 */       CheatTracker tracker = player.getCheatTracker();
-/*      */ 
-/*  425 */       tracker.setAttacksWithoutHit(true);
-/*  426 */       if (tracker.getAttacksWithoutHit() > 1000)
-/*  427 */         tracker.registerOffense(CheatingOffense.ATTACK_WITHOUT_GETTING_HIT, Integer.toString(tracker.getAttacksWithoutHit()));
-/*      */     }
-/*      */   }
-/*      */ //TODO: FIX MAGIC ATTACK DAMAGE
-/*      */   public static final void applyAttackMagic(AttackInfo attack, Skill theSkill, MapleCharacter player, MapleStatEffect effect, double maxDamagePerHit){
-/*  433 */     if (!player.isAlive()) {
-/*  434 */       player.getCheatTracker().registerOffense(CheatingOffense.ATTACKING_WHILE_DEAD);
-/*  435 */       return;
-/*      */     }
-/*  437 */     if ((attack.real) && (GameConstants.getAttackDelay(attack.skill, theSkill) >= 100)) {
-/*  438 */       player.getCheatTracker().checkAttack(attack.skill, attack.lastAttackTickCount);
-/*      */     }
-/*      */ 
-/*  443 */     if ((attack.hits > effect.getAttackCount()) || (attack.targets > effect.getMobCount())) {
-/*  444 */       player.getCheatTracker().registerOffense(CheatingOffense.MISMATCHING_BULLETCOUNT);
-/*  445 */       return;
-/*      */     }
-/*  447 */     if ((attack.hits > 0) && (attack.targets > 0) && 
-/*  448 */       (!player.getStat().checkEquipDurabilitys(player, -1))) {
-/*  449 */       player.dropMessage(5, "An item has run out of durability but has no inventory room to go to.");
-/*  450 */       return;
-/*      */     }
-/*      */ 
-/*  453 */     if (GameConstants.isMulungSkill(attack.skill)) {
-/*  454 */       if (player.getMapId() / 10000 != 92502)
-/*      */       {
-/*  456 */         return;
-/*      */       }
-/*  458 */       if (player.getMulungEnergy() < 10000) {
-/*  459 */         return;
-/*      */       }
-/*  461 */       player.mulung_EnergyModify(false);
-/*      */     }
-/*  463 */     else if (GameConstants.isPyramidSkill(attack.skill)) {
-/*  464 */       if (player.getMapId() / 1000000 != 926)
-/*      */       {
-/*  466 */         return;
-/*      */       }
-/*  468 */       if ((player.getPyramidSubway() == null) || (!player.getPyramidSubway().onSkillUse(player))) {
-/*  469 */         return;
-/*      */       }
-/*      */     }
-/*  472 */     else if ((GameConstants.isInflationSkill(attack.skill)) && 
-/*  473 */       (player.getBuffedValue(MapleBuffStat.GIANT_POTION) == null)) {
-/*  474 */       return;
-/*      */     }
-/*      */ 
-/*  477 */     if (player.getClient().getChannelServer().isAdminOnly()) {
-/*  478 */       player.dropMessage(-1, new StringBuilder().append("Animation: ").append(Integer.toHexString((attack.display & 0x8000) != 0 ? attack.display - 32768 : attack.display)).toString());
-/*      */     }
-/*  480 */     PlayerStats stats = player.getStat();
-/*  481 */     Element element = player.getBuffedValue(MapleBuffStat.ELEMENT_RESET) != null ? Element.NEUTRAL : theSkill.getElement();
-/*      */ 
-/*  483 */     double MaxDamagePerHit = 0.0D;
-/*  484 */     int totDamage = 0;
-/*      */ 
-/*  488 */     int CriticalDamage = stats.passive_sharpeye_percent();
-/*  489 */     Skill eaterSkill = SkillFactory.getSkill(GameConstants.getMPEaterForJob(player.getJob()));
-/*  490 */     int eaterLevel = player.getTotalSkillLevel(eaterSkill);
-/*      */ 
-/*  492 */     MapleMap map = player.getMap();
-/*      */ 
-/*  494 */     for (AttackPair oned : attack.allDamage) {
-/*  495 */       MapleMonster monster = map.getMonsterByOid(oned.objectid);
-/*      */ 
-/*  497 */       if ((monster != null) && (monster.getLinkCID() <= 0)) {
-/*  498 */         boolean Tempest = (monster.getStatusSourceID(MonsterStatus.FREEZE) == 21120006) && (!monster.getStats().isBoss());
-/*  499 */         int totDamageToOneMonster = 0;
-/*  500 */         MapleMonsterStats monsterstats = monster.getStats();
-/*  501 */         int fixeddmg = monsterstats.getFixedDamage();
-/*  502 */         if ((!Tempest) && (!player.isGM())) {
-/*  503 */           if ((!monster.isBuffed(MonsterStatus.MAGIC_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT)))
-/*  504 */             MaxDamagePerHit = CalculateMaxMagicDamagePerHit(player, theSkill, monster, monsterstats, stats, element, Integer.valueOf(CriticalDamage), maxDamagePerHit, effect);
-/*      */           else {
-/*  506 */             MaxDamagePerHit = 1.0D;
-/*      */           }
-/*      */         }
-/*  509 */         byte overallAttackCount = 0;
-/*      */ 
-/*  511 */         for (Pair eachde : oned.attack) {
-/*  512 */           Integer eachd = (Integer)eachde.left;
-/*  513 */           overallAttackCount = (byte)(overallAttackCount + 1);
-/*  514 */           if (fixeddmg != -1) {
-/*  515 */             eachd = Integer.valueOf(monsterstats.getOnlyNoramlAttack() ? 0 : fixeddmg);
-/*      */           }
-/*  517 */           else if (monsterstats.getOnlyNoramlAttack())
-/*  518 */             eachd = Integer.valueOf(0);
-/*  519 */           else if (!player.isGM())
-/*      */           {
-/*  522 */             if (Tempest)
-/*      */             {
-/*  524 */               if (eachd.intValue() > monster.getMobMaxHp()) {
-/*  525 */                 eachd = Integer.valueOf((int)Math.min(monster.getMobMaxHp(), 2147483647L));
-/*  526 */                 player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE_MAGIC);
-/*      */               }
-/*  528 */             } else if ((!monster.isBuffed(MonsterStatus.MAGIC_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT))) {
-/*  529 */               if (eachd.intValue() > MaxDamagePerHit) {
-/*  530 */                 player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE_MAGIC, new StringBuilder().append("[Damage: ").append(eachd).append(", Expected: ").append(MaxDamagePerHit).append(", Mob: ").append(monster.getId()).append("] [Job: ").append(player.getJob()).append(", Level: ").append(player.getLevel()).append(", Skill: ").append(attack.skill).append("]").toString());
-/*  531 */                 if (attack.real) {
-/*  532 */                   player.getCheatTracker().checkSameDamage(eachd.intValue(), MaxDamagePerHit);
-/*      */                 }
-/*  534 */                 if (eachd.intValue() > MaxDamagePerHit * 2.0D)
-/*      */                 {
-/*  536 */                   player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE_MAGIC_2, new StringBuilder().append("[Damage: ").append(eachd).append(", Expected: ").append(MaxDamagePerHit).append(", Mob: ").append(monster.getId()).append("] [Job: ").append(player.getJob()).append(", Level: ").append(player.getLevel()).append(", Skill: ").append(attack.skill).append("]").toString());
-/*  537 */                   eachd = Integer.valueOf((int)(MaxDamagePerHit * 2.0D));
-/*      */ 
-/*  539 */                   if (eachd.intValue() >= 2499999) {
-/*  540 */                     player.getClient().getSession().close();
-/*  541 */                     return;
-/*      */                   }
-/*      */                 }
-/*      */               }
-/*      */             }
-/*  546 */             else if (eachd.intValue() > MaxDamagePerHit) {
-/*  547 */               eachd = Integer.valueOf((int)MaxDamagePerHit);
-/*      */             }
-/*      */ 
-/*      */           }
-/*      */ 
-/*  552 */           totDamageToOneMonster += eachd.intValue();
-/*      */         }
-/*  554 */         totDamage += totDamageToOneMonster;
-/*  555 */         player.checkMonsterAggro(monster);
-/*      */ 
-/*  557 */         if ((GameConstants.getAttackDelay(attack.skill, theSkill) >= 100) && (!GameConstants.isNoDelaySkill(attack.skill)) && (!monster.getStats().isBoss()) && (player.getTruePosition().distanceSq(monster.getTruePosition()) > GameConstants.getAttackRange(effect, player.getStat().defRange))) {
-/*  558 */           player.getCheatTracker().registerOffense(CheatingOffense.ATTACK_FARAWAY_MONSTER, new StringBuilder().append("[Distance: ").append(player.getTruePosition().distanceSq(monster.getTruePosition())).append(", Expected Distance: ").append(GameConstants.getAttackRange(effect, player.getStat().defRange)).append(" Job: ").append(player.getJob()).append("]").toString());
-/*      */         }
-/*  560 */         if ((attack.skill == 2301002) && (!monsterstats.getUndead())) {
-/*  561 */           player.getCheatTracker().registerOffense(CheatingOffense.HEAL_ATTACKING_UNDEAD);
-/*  562 */           return;
-/*      */         }
+           if (totDamageToOneMonster > 0) {
+             Item weapon_ = player.getInventory(MapleInventoryType.EQUIPPED).getItem((byte)-11);
+             if (weapon_ != null) {
+               MonsterStatus stat = GameConstants.getStatFromWeapon(weapon_.getItemId());
+               if ((stat != null) && (Randomizer.nextInt(100) < GameConstants.getStatChance())) {
+                 MonsterStatusEffect monsterStatusEffect = new MonsterStatusEffect(stat, Integer.valueOf(GameConstants.getXForStat(stat)), GameConstants.getSkillForStat(stat), null, false);
+                 monster.applyStatus(player, monsterStatusEffect, false, 10000L, false, null);
+               }
+             }
+             if (player.getBuffedValue(MapleBuffStat.BLIND) != null) {
+               MapleStatEffect eff = player.getStatForBuff(MapleBuffStat.BLIND);
+ 
+               if ((eff != null) && (eff.makeChanceResult())) {
+                 MonsterStatusEffect monsterStatusEffect = new MonsterStatusEffect(MonsterStatus.ACC, Integer.valueOf(eff.getX()), eff.getSourceId(), null, false);
+                 monster.applyStatus(player, monsterStatusEffect, false, eff.getY() * 1000, true, eff);
+               }
+             }
+ 
+             if (player.getBuffedValue(MapleBuffStat.HAMSTRING) != null) {
+               MapleStatEffect eff = player.getStatForBuff(MapleBuffStat.HAMSTRING);
+ 
+               if ((eff != null) && (eff.makeChanceResult())) {
+                 MonsterStatusEffect monsterStatusEffect = new MonsterStatusEffect(MonsterStatus.SPEED, Integer.valueOf(eff.getX()), 3121007, null, false);
+                 monster.applyStatus(player, monsterStatusEffect, false, eff.getY() * 1000, true, eff);
+               }
+             }
+             if ((player.getJob() == 121) || (player.getJob() == 122)) {
+               Skill skill = SkillFactory.getSkill(1211006);
+               if (player.isBuffFrom(MapleBuffStat.WK_CHARGE, skill)) {
+                 MapleStatEffect eff = skill.getEffect(player.getTotalSkillLevel(skill));
+                 MonsterStatusEffect monsterStatusEffect = new MonsterStatusEffect(MonsterStatus.FREEZE, Integer.valueOf(1), skill.getId(), null, false);
+                 monster.applyStatus(player, monsterStatusEffect, false, eff.getY() * 2000, true, eff);
+               }
+             }                       
+           }
+           if ((effect != null) && (effect.getMonsterStati().size() > 0) && 
+             (effect.makeChanceResult()))
+             for (Map.Entry z : effect.getMonsterStati().entrySet())
+               monster.applyStatus(player, new MonsterStatusEffect((MonsterStatus)z.getKey(), (Integer)z.getValue(), theSkill.getId(), null, false), effect.isPoison(), effect.getDuration(), true, effect);
+         }
+       }
+     }
+
+     if ((attack.skill == 4331003) && ((hpMob <= 0L) || (totDamageToOneMonster < hpMob))) {
+       return;
+     }
+     if ((hpMob > 0L) && (totDamageToOneMonster > 0)) {
+       player.afterAttack(attack.targets, attack.hits, attack.skill);
+     }
+     if ((attack.skill != 0) && ((attack.targets > 0) || ((attack.skill != 4331003) && (attack.skill != 4341002))) && (!GameConstants.isNoDelaySkill(attack.skill))) {
+       effect.applyTo(player, attack.position);
+     }
+     if ((totDamage > 1) && (GameConstants.getAttackDelay(attack.skill, theSkill) >= 100)) {
+       CheatTracker tracker = player.getCheatTracker();
+ 
+       tracker.setAttacksWithoutHit(true);
+       if (tracker.getAttacksWithoutHit() > 1000)
+         tracker.registerOffense(CheatingOffense.ATTACK_WITHOUT_GETTING_HIT, Integer.toString(tracker.getAttacksWithoutHit()));
+     }
+   }
+ //TODO: FIX MAGIC ATTACK DAMAGE
+   public static final void applyAttackMagic(AttackInfo attack, Skill theSkill, MapleCharacter player, MapleStatEffect effect, double maxDamagePerHit){
+     if (!player.isAlive()) {
+       player.getCheatTracker().registerOffense(CheatingOffense.ATTACKING_WHILE_DEAD);
+       return;
+     }
+     if ((attack.real) && (GameConstants.getAttackDelay(attack.skill, theSkill) >= 100)) {
+       player.getCheatTracker().checkAttack(attack.skill, attack.lastAttackTickCount);
+     }
+ 
+     if ((attack.hits > effect.getAttackCount()) || (attack.targets > effect.getMobCount())) {
+       player.getCheatTracker().registerOffense(CheatingOffense.MISMATCHING_BULLETCOUNT);
+       return;
+     }
+     if ((attack.hits > 0) && (attack.targets > 0) && 
+       (!player.getStat().checkEquipDurabilitys(player, -1))) {
+       player.dropMessage(5, "An item has run out of durability but has no inventory room to go to.");
+       return;
+     }
+ 
+     if (GameConstants.isMulungSkill(attack.skill)) {
+       if (player.getMapId() / 10000 != 92502)
+       {
+         return;
+       }
+       if (player.getMulungEnergy() < 10000) {
+         return;
+       }
+       player.mulung_EnergyModify(false);
+     }
+     else if (GameConstants.isPyramidSkill(attack.skill)) {
+       if (player.getMapId() / 1000000 != 926)
+       {
+         return;
+       }
+       if ((player.getPyramidSubway() == null) || (!player.getPyramidSubway().onSkillUse(player))) {
+         return;
+       }
+     }
+     else if ((GameConstants.isInflationSkill(attack.skill)) && 
+       (player.getBuffedValue(MapleBuffStat.GIANT_POTION) == null)) {
+       return;
+     }
+ 
+     if (player.getClient().getChannelServer().isAdminOnly()) {
+       player.dropMessage(-1, new StringBuilder().append("Animation: ").append(Integer.toHexString((attack.display & 0x8000) != 0 ? attack.display - 32768 : attack.display)).toString());
+     }
+     PlayerStats stats = player.getStat();
+     Element element = player.getBuffedValue(MapleBuffStat.ELEMENT_RESET) != null ? Element.NEUTRAL : theSkill.getElement();
+ 
+     double MaxDamagePerHit = 0.0D;
+     int totDamage = 0;
+ 
+     int CriticalDamage = stats.passive_sharpeye_percent();
+     Skill eaterSkill = SkillFactory.getSkill(GameConstants.getMPEaterForJob(player.getJob()));
+     int eaterLevel = player.getTotalSkillLevel(eaterSkill);
+ 
+     MapleMap map = player.getMap();
+ 
+     for (AttackPair oned : attack.allDamage) {
+       MapleMonster monster = map.getMonsterByOid(oned.objectid);
+ 
+       if ((monster != null) && (monster.getLinkCID() <= 0)) {
+         boolean Tempest = (monster.getStatusSourceID(MonsterStatus.FREEZE) == 21120006) && (!monster.getStats().isBoss());
+         int totDamageToOneMonster = 0;
+         MapleMonsterStats monsterstats = monster.getStats();
+         int fixeddmg = monsterstats.getFixedDamage();
+         if ((!Tempest) && (!player.isGM())) {
+           if ((!monster.isBuffed(MonsterStatus.MAGIC_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT)))
+             MaxDamagePerHit = CalculateMaxMagicDamagePerHit(player, theSkill, monster, monsterstats, stats, element, Integer.valueOf(CriticalDamage), maxDamagePerHit, effect);
+           else {
+             MaxDamagePerHit = 1.0D;
+           }
+         }
+         byte overallAttackCount = 0;
+ 
+         for (Pair eachde : oned.attack) {
+           Integer eachd = (Integer)eachde.left;
+           overallAttackCount = (byte)(overallAttackCount + 1);
+           if (fixeddmg != -1) {
+             eachd = Integer.valueOf(monsterstats.getOnlyNoramlAttack() ? 0 : fixeddmg);
+           }
+           else if (monsterstats.getOnlyNoramlAttack())
+             eachd = Integer.valueOf(0);
+           else if (!player.isGM())
+           {
+             if (Tempest)
+             {
+               if (eachd.intValue() > monster.getMobMaxHp()) {
+                 eachd = Integer.valueOf((int)Math.min(monster.getMobMaxHp(), 2147483647L));
+                 player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE_MAGIC);
+               }
+             } else if ((!monster.isBuffed(MonsterStatus.MAGIC_IMMUNITY)) && (!monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT))) {
+               if (eachd.intValue() > MaxDamagePerHit) {
+                 player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE_MAGIC, new StringBuilder().append("[Damage: ").append(eachd).append(", Expected: ").append(MaxDamagePerHit).append(", Mob: ").append(monster.getId()).append("] [Job: ").append(player.getJob()).append(", Level: ").append(player.getLevel()).append(", Skill: ").append(attack.skill).append("]").toString());
+                 if (attack.real) {
+                   player.getCheatTracker().checkSameDamage(eachd.intValue(), MaxDamagePerHit);
+                 }
+                 if (eachd.intValue() > MaxDamagePerHit * 2.0D)
+                 {
+                   player.getCheatTracker().registerOffense(CheatingOffense.HIGH_DAMAGE_MAGIC_2, new StringBuilder().append("[Damage: ").append(eachd).append(", Expected: ").append(MaxDamagePerHit).append(", Mob: ").append(monster.getId()).append("] [Job: ").append(player.getJob()).append(", Level: ").append(player.getLevel()).append(", Skill: ").append(attack.skill).append("]").toString());
+                   eachd = Integer.valueOf((int)(MaxDamagePerHit * 2.0D));
+ 
+                   if (eachd.intValue() >= 2499999) {
+                     player.getClient().getSession().close();
+                     return;
+                   }
+                 }
+               }
+             }
+             else if (eachd.intValue() > MaxDamagePerHit) {
+               eachd = Integer.valueOf((int)MaxDamagePerHit);
+             }
+ 
+           }
+ 
+           totDamageToOneMonster += eachd.intValue();
+         }
+         totDamage += totDamageToOneMonster;
+         player.checkMonsterAggro(monster);
+ 
+         if ((GameConstants.getAttackDelay(attack.skill, theSkill) >= 100) && (!GameConstants.isNoDelaySkill(attack.skill)) && (!monster.getStats().isBoss()) && (player.getTruePosition().distanceSq(monster.getTruePosition()) > GameConstants.getAttackRange(effect, player.getStat().defRange))) {
+           player.getCheatTracker().registerOffense(CheatingOffense.ATTACK_FARAWAY_MONSTER, new StringBuilder().append("[Distance: ").append(player.getTruePosition().distanceSq(monster.getTruePosition())).append(", Expected Distance: ").append(GameConstants.getAttackRange(effect, player.getStat().defRange)).append(" Job: ").append(player.getJob()).append("]").toString());
+         }
+         if ((attack.skill == 2301002) && (!monsterstats.getUndead())) {
+           player.getCheatTracker().registerOffense(CheatingOffense.HEAL_ATTACKING_UNDEAD);
+           return;
+         }
 
 
-/*  565 */         if (totDamageToOneMonster  > 0) {
-/*  566 */           monster.damage(player, totDamageToOneMonster , true, attack.skill);
-/*  567 */           if (monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT)) {
-/*  568 */             player.addHP(-(7000 + Randomizer.nextInt(8000)));
-/*      */           }
-/*  570 */           if (player.getBuffedValue(MapleBuffStat.SLOW) != null) {
-/*  571 */             MapleStatEffect eff = player.getStatForBuff(MapleBuffStat.SLOW);
-/*      */ 
-/*  573 */             if ((eff != null) && (eff.makeChanceResult()) && (!monster.isBuffed(MonsterStatus.SPEED))) {
-/*  574 */               monster.applyStatus(player, new MonsterStatusEffect(MonsterStatus.SPEED, Integer.valueOf(eff.getX()), eff.getSourceId(), null, false), false, eff.getY() * 1000, true, eff);
-/*      */             }
-/*      */ 
-/*      */           }
-/*      */ 
-/*  580 */           player.onAttack(monster.getMobMaxHp(), monster.getMobMaxMp(), attack.skill, monster.getObjectId(), totDamage, 0);
-/*      */ 
-/*  582 */           switch (attack.skill) {
-/*      */           case 2221003:
-/*  584 */             monster.setTempEffectiveness(Element.ICE, effect.getDuration());
-/*  585 */             break;
-/*      */           case 2121003:
-/*  587 */             monster.setTempEffectiveness(Element.FIRE, effect.getDuration());
-/*      */           }
-/*      */ 
-/*  590 */           if ((effect != null) && (effect.getMonsterStati().size() > 0) && 
-/*  591 */             (effect.makeChanceResult())) {
-/*  592 */             for (Map.Entry z : effect.getMonsterStati().entrySet()) {
-/*  593 */               monster.applyStatus(player, new MonsterStatusEffect((MonsterStatus)z.getKey(), (Integer)z.getValue(), theSkill.getId(), null, false), effect.isPoison(), effect.getDuration(), true, effect);
-/*      */             }
-/*      */           }
-/*      */ 
-/*  597 */           if (eaterLevel > 0) {
-/*  598 */             eaterSkill.getEffect(eaterLevel).applyPassive(player, monster);
-/*      */           }
-/*      */         }
-/*      */       }
-/*      */     }
-/*  603 */     if (attack.skill != 2301002) {
-/*  604 */       effect.applyTo(player);
-/*      */     }
-/*      */ 
-/*  607 */     if ((totDamage > 1) && (GameConstants.getAttackDelay(attack.skill, theSkill) >= 100)) {
-/*  608 */       CheatTracker tracker = player.getCheatTracker();
-/*  609 */       tracker.setAttacksWithoutHit(true);
-/*      */ 
-/*  611 */       if (tracker.getAttacksWithoutHit() > 1000)
-/*  612 */         tracker.registerOffense(CheatingOffense.ATTACK_WITHOUT_GETTING_HIT, Integer.toString(tracker.getAttacksWithoutHit()));
-/*      */     }
-/*      */   }
+         if (totDamageToOneMonster  > 0) {
+           monster.damage(player, totDamageToOneMonster , true, attack.skill);
+           if (monster.isBuffed(MonsterStatus.MAGIC_DAMAGE_REFLECT)) {
+             player.addHP(-(7000 + Randomizer.nextInt(8000)));
+           }
+           if (player.getBuffedValue(MapleBuffStat.SLOW) != null) {
+             MapleStatEffect eff = player.getStatForBuff(MapleBuffStat.SLOW);
+ 
+             if ((eff != null) && (eff.makeChanceResult()) && (!monster.isBuffed(MonsterStatus.SPEED))) {
+               monster.applyStatus(player, new MonsterStatusEffect(MonsterStatus.SPEED, Integer.valueOf(eff.getX()), eff.getSourceId(), null, false), false, eff.getY() * 1000, true, eff);
+             }
+ 
+           }
+ 
+           player.onAttack(monster.getMobMaxHp(), monster.getMobMaxMp(), attack.skill, monster.getObjectId(), totDamage, 0);
+ 
+           switch (attack.skill) {
+           case 2221003:
+             monster.setTempEffectiveness(Element.ICE, effect.getDuration());
+             break;
+           case 2121003:
+             monster.setTempEffectiveness(Element.FIRE, effect.getDuration());
+           }
+ 
+           if ((effect != null) && (effect.getMonsterStati().size() > 0) && 
+             (effect.makeChanceResult())) {
+             for (Map.Entry z : effect.getMonsterStati().entrySet()) {
+               monster.applyStatus(player, new MonsterStatusEffect((MonsterStatus)z.getKey(), (Integer)z.getValue(), theSkill.getId(), null, false), effect.isPoison(), effect.getDuration(), true, effect);
+             }
+           }
+ 
+           if (eaterLevel > 0) {
+             eaterSkill.getEffect(eaterLevel).applyPassive(player, monster);
+           }
+         }
+       }
+     }
+     if (attack.skill != 2301002) {
+       effect.applyTo(player);
+     }
+ 
+     if ((totDamage > 1) && (GameConstants.getAttackDelay(attack.skill, theSkill) >= 100)) {
+       CheatTracker tracker = player.getCheatTracker();
+       tracker.setAttacksWithoutHit(true);
+ 
+       if (tracker.getAttacksWithoutHit() > 1000)
+         tracker.registerOffense(CheatingOffense.ATTACK_WITHOUT_GETTING_HIT, Integer.toString(tracker.getAttacksWithoutHit()));
+     }
+   }
 
-/*      */ 
-/*      */   private static final double CalculateMaxMagicDamagePerHit(MapleCharacter chr, Skill skill, MapleMonster monster, MapleMonsterStats mobstats, PlayerStats stats, Element elem, Integer sharpEye, double maxDamagePerMonster, MapleStatEffect attackEffect)
-/*      */   {
-/*  618 */     int dLevel = Math.max(mobstats.getLevel() - chr.getLevel(), 0) * 2;
-/*  619 */     int HitRate = Math.min((int)Math.floor(Math.sqrt(stats.getAccuracy())) - (int)Math.floor(Math.sqrt(mobstats.getEva())) + 100, 100);
-/*  620 */     if (dLevel > HitRate) {
-/*  621 */       HitRate = dLevel;
-/*      */     }
-/*  623 */     HitRate -= dLevel;
-/*  624 */     if ((HitRate <= 0) && ((!GameConstants.isBeginnerJob(skill.getId() / 10000)) || (skill.getId() % 10000 != 1000))) {
-/*  625 */       return 0.0D;
-/*      */     }
-/*      */ 
-/*  628 */     int CritPercent = sharpEye.intValue();
-/*  629 */     ElementalEffectiveness ee = monster.getEffectiveness(elem);
-/*      */     double elemMaxDamagePerMob;
-/*  630 */     switch (ee) {
-/*      */     case IMMUNE:
-/*  632 */       elemMaxDamagePerMob = 1.0D;
-/*  633 */       break;
-/*      */     default:
-/*  635 */       elemMaxDamagePerMob = ElementalStaffAttackBonus(elem, maxDamagePerMonster * ee.getValue(), stats);
-/*      */     }
-/*      */ 
-/*  641 */     int MDRate = monster.getStats().getMDRate();
-/*  642 */     MonsterStatusEffect pdr = monster.getBuff(MonsterStatus.MDEF);
-/*  643 */     if (pdr != null) {
-/*  644 */       MDRate += pdr.getX().intValue();
-/*      */     }
-/*  646 */     elemMaxDamagePerMob -= elemMaxDamagePerMob * (Math.max(MDRate - stats.ignoreTargetDEF - attackEffect.getIgnoreMob(), 0) / 100.0D);
-/*      */ 
-/*  648 */     elemMaxDamagePerMob += elemMaxDamagePerMob / 100.0D * CritPercent;
-/*      */ 
-/*  655 */     elemMaxDamagePerMob *= (monster.getStats().isBoss() ? chr.getStat().bossdam_r : chr.getStat().dam_r) / 100.0D;
-/*  656 */     MonsterStatusEffect imprint = monster.getBuff(MonsterStatus.IMPRINT);
-/*  657 */     if (imprint != null) {
-/*  658 */       elemMaxDamagePerMob += elemMaxDamagePerMob * imprint.getX().intValue() / 100.0D;
-/*      */     }
-/*  660 */     elemMaxDamagePerMob += elemMaxDamagePerMob * chr.getDamageIncrease(monster.getObjectId()) / 100.0D;
-/*  661 */     if (GameConstants.isBeginnerJob(skill.getId() / 10000)) {
-/*  662 */       switch (skill.getId() % 10000) {
-/*      */       case 1000:
-/*  664 */         elemMaxDamagePerMob = 40.0D;
-/*  665 */         break;
-/*      */       case 1020:
-/*  667 */         elemMaxDamagePerMob = 1.0D;
-/*  668 */         break;
-/*      */       case 1009:
-/*  670 */         elemMaxDamagePerMob = monster.getStats().isBoss() ? monster.getMobMaxHp() / 30L * 100L : monster.getMobMaxHp();
-/*      */       }
-/*      */     }
-/*      */ 
-/*  674 */     switch (skill.getId()) {
-/*      */     case 32001000:
-/*      */     case 32101000:
-/*      */     case 32111002:
-/*      */     case 32121002:
-/*  679 */       elemMaxDamagePerMob *= 1.5D;
-/*      */     }
-/*      */ 
-/*  682 */     if (elemMaxDamagePerMob > 999999.0D)
-/*  683 */       elemMaxDamagePerMob = 999999.0D;
-/*  684 */     else if (elemMaxDamagePerMob <= 0.0D) {
-/*  685 */       elemMaxDamagePerMob = 1.0D;
-/*      */     }
-/*      */ 
-/*  688 */     return elemMaxDamagePerMob;
-/*      */   }
-/*      */ 
+ 
+   private static final double CalculateMaxMagicDamagePerHit(MapleCharacter chr, Skill skill, MapleMonster monster, MapleMonsterStats mobstats, PlayerStats stats, Element elem, Integer sharpEye, double maxDamagePerMonster, MapleStatEffect attackEffect)
+   {
+     int dLevel = Math.max(mobstats.getLevel() - chr.getLevel(), 0) * 2;
+     int HitRate = Math.min((int)Math.floor(Math.sqrt(stats.getAccuracy())) - (int)Math.floor(Math.sqrt(mobstats.getEva())) + 100, 100);
+     if (dLevel > HitRate) {
+       HitRate = dLevel;
+     }
+     HitRate -= dLevel;
+     if ((HitRate <= 0) && ((!GameConstants.isBeginnerJob(skill.getId() / 10000)) || (skill.getId() % 10000 != 1000))) {
+       return 0.0D;
+     }
+ 
+     int CritPercent = sharpEye.intValue();
+     ElementalEffectiveness ee = monster.getEffectiveness(elem);
+     double elemMaxDamagePerMob;
+     switch (ee) {
+     case IMMUNE:
+       elemMaxDamagePerMob = 1.0D;
+       break;
+     default:
+       elemMaxDamagePerMob = ElementalStaffAttackBonus(elem, maxDamagePerMonster * ee.getValue(), stats);
+     }
+ 
+     int MDRate = monster.getStats().getMDRate();
+     MonsterStatusEffect pdr = monster.getBuff(MonsterStatus.MDEF);
+     if (pdr != null) {
+       MDRate += pdr.getX().intValue();
+     }
+     elemMaxDamagePerMob -= elemMaxDamagePerMob * (Math.max(MDRate - stats.ignoreTargetDEF - attackEffect.getIgnoreMob(), 0) / 100.0D);
+ 
+     elemMaxDamagePerMob += elemMaxDamagePerMob / 100.0D * CritPercent;
+ 
+     elemMaxDamagePerMob *= (monster.getStats().isBoss() ? chr.getStat().bossdam_r : chr.getStat().dam_r) / 100.0D;
+     MonsterStatusEffect imprint = monster.getBuff(MonsterStatus.IMPRINT);
+     if (imprint != null) {
+       elemMaxDamagePerMob += elemMaxDamagePerMob * imprint.getX().intValue() / 100.0D;
+     }
+     elemMaxDamagePerMob += elemMaxDamagePerMob * chr.getDamageIncrease(monster.getObjectId()) / 100.0D;
+     if (GameConstants.isBeginnerJob(skill.getId() / 10000)) {
+       switch (skill.getId() % 10000) {
+       case 1000:
+         elemMaxDamagePerMob = 40.0D;
+         break;
+       case 1020:
+         elemMaxDamagePerMob = 1.0D;
+         break;
+       case 1009:
+         elemMaxDamagePerMob = monster.getStats().isBoss() ? monster.getMobMaxHp() / 30L * 100L : monster.getMobMaxHp();
+       }
+     }
+ 
+     switch (skill.getId()) {
+     case 32001000:
+     case 32101000:
+     case 32111002:
+     case 32121002:
+       elemMaxDamagePerMob *= 1.5D;
+     }
+ 
+     if (elemMaxDamagePerMob > 999999.0D)
+       elemMaxDamagePerMob = 999999.0D;
+     else if (elemMaxDamagePerMob <= 0.0D) {
+       elemMaxDamagePerMob = 1.0D;
+     }
+ 
+     return elemMaxDamagePerMob;
+   }
+ 
         private static final double ElementalStaffAttackBonus(final Element elem, double elemMaxDamagePerMob, final PlayerStats stats) {
             switch (elem) {
             case FIRE:
@@ -678,157 +677,157 @@
                   }
               }
           }
-/*      */   private static double CalculateMaxWeaponDamagePerHit(MapleCharacter player, MapleMonster monster, AttackInfo attack, Skill theSkill, MapleStatEffect attackEffect, double maximumDamageToMonster, Integer CriticalDamagePercent)
-/*      */   {
-/*  718 */     int dLevel = Math.max(monster.getStats().getLevel() - player.getLevel(), 0) * 2;
-/*  719 */     int HitRate = Math.min((int)Math.floor(Math.sqrt(player.getStat().getAccuracy())) - (int)Math.floor(Math.sqrt(monster.getStats().getEva())) + 100, 100);
-/*  720 */     if (dLevel > HitRate) {
-/*  721 */       HitRate = dLevel;
-/*      */     }
-/*  723 */     HitRate -= dLevel;
-/*  724 */     if ((HitRate <= 0) && ((!GameConstants.isBeginnerJob(attack.skill / 10000)) || (attack.skill % 10000 != 1000)) && (!GameConstants.isPyramidSkill(attack.skill)) && (!GameConstants.isMulungSkill(attack.skill)) && (!GameConstants.isInflationSkill(attack.skill))) {
-/*  725 */       return 0.0D;
-/*      */     }
-/*  727 */     if ((player.getMapId() / 1000000 == 914) || (player.getMapId() / 1000000 == 927)) {
-/*  728 */       return 999999.0D;
-/*      */     }
-/*      */ 
-/*  731 */      List<Element> elements = new ArrayList<Element>();
-/*  732 */     boolean defined = false;
-/*  733 */     int CritPercent = CriticalDamagePercent.intValue();
-/*  734 */     int PDRate = monster.getStats().getPDRate();
-/*  735 */     MonsterStatusEffect pdr = monster.getBuff(MonsterStatus.WDEF);
-/*  736 */     if (pdr != null) {
-/*  737 */       PDRate += pdr.getX().intValue();
-/*      */     }
-/*  739 */     if (theSkill != null) {
-/*  740 */       elements.add(theSkill.getElement());
-/*  741 */       if (GameConstants.isBeginnerJob(theSkill.getId() / 10000)) {
-/*  742 */         switch (theSkill.getId() % 10000) {
-/*      */         case 1000:
-/*  744 */           maximumDamageToMonster = 40.0D;
-/*  745 */           defined = true;
-/*  746 */           break;
-/*      */         case 1020:
-/*  748 */           maximumDamageToMonster = 1.0D;
-/*  749 */           defined = true;
-/*  750 */           break;
-/*      */         case 1009:
-/*  752 */           maximumDamageToMonster = monster.getStats().isBoss() ? monster.getMobMaxHp() / 30L * 100L : monster.getMobMaxHp();
-/*  753 */           defined = true;
-/*      */         }
-/*      */       }
-/*      */ 
-/*  757 */       switch (theSkill.getId()) {
-/*      */       case 1311005:
-/*  759 */         PDRate = monster.getStats().isBoss() ? PDRate : 0;
-/*  760 */         break;
-/*      */       case 3221001:
-/*      */       case 33101001:
-/*  763 */         maximumDamageToMonster *= attackEffect.getMobCount();
-/*  764 */         defined = true;
-/*  765 */         break;
-/*      */       case 3101005:
-/*  767 */         defined = true;
-/*  768 */         break;
-/*      */       case 32001000:
-/*      */       case 32101000:
-/*      */       case 32111002:
-/*      */       case 32121002:
-/*  773 */         maximumDamageToMonster *= 1.5D;
-/*  774 */         break;
-/*      */       case 1221009:
-/*      */       case 3221007:
-/*      */       case 4331003:
-/*      */       case 23121003:
-/*  779 */         if (monster.getStats().isBoss()) break;
-/*  780 */         maximumDamageToMonster = monster.getMobMaxHp();
-/*  781 */         defined = true; break;
-/*      */       case 1221011:
-/*      */       case 21120006:
-/*  786 */         maximumDamageToMonster = monster.getStats().isBoss() ? 500000L : monster.getHp() - 1L;
-/*  787 */         defined = true;
-/*  788 */         break;
-/*      */       case 3211006:
-/*  790 */         if (monster.getStatusSourceID(MonsterStatus.FREEZE) != 3211003) break;
-/*  791 */         defined = true;
-/*  792 */         maximumDamageToMonster = 999999.0D;
-/*      */       }
-/*      */ 
-/*      */     }
-/*      */ 
-/*  797 */     double elementalMaxDamagePerMonster = maximumDamageToMonster;
-/*  798 */     if ((player.getJob() == 311) || (player.getJob() == 312) || (player.getJob() == 321) || (player.getJob() == 322))
-/*      */     {
-/*  800 */       Skill mortal = SkillFactory.getSkill((player.getJob() == 311) || (player.getJob() == 312) ? 3110001 : 3210001);
-/*  801 */       if (player.getTotalSkillLevel(mortal) > 0) {
-/*  802 */         MapleStatEffect mort = mortal.getEffect(player.getTotalSkillLevel(mortal));
-/*  803 */         if ((mort != null) && (monster.getHPPercent() < mort.getX())) {
-/*  804 */           elementalMaxDamagePerMonster = 999999.0D;
-/*  805 */           defined = true;
-/*  806 */           if (mort.getZ() > 0)
-/*  807 */             player.addHP(player.getStat().getMaxHp() * mort.getZ() / 100);
-/*      */         }
-/*      */       }
-/*      */     }
-/*  811 */     else if ((player.getJob() == 221) || (player.getJob() == 222))
-/*      */     {
-/*  813 */       Skill mortal = SkillFactory.getSkill(2210000);
-/*  814 */       if (player.getTotalSkillLevel(mortal) > 0) {
-/*  815 */         MapleStatEffect mort = mortal.getEffect(player.getTotalSkillLevel(mortal));
-/*  816 */         if ((mort != null) && (monster.getHPPercent() < mort.getX())) {
-/*  817 */           elementalMaxDamagePerMonster = 999999.0D;
-/*  818 */           defined = true;
-/*      */         }
-/*      */       }
-/*      */     }
-/*  822 */     if ((!defined) || ((theSkill != null) && ((theSkill.getId() == 33101001) || (theSkill.getId() == 3221001)))) {
-/*  823 */       if (player.getBuffedValue(MapleBuffStat.WK_CHARGE) != null) {
-/*  824 */         int chargeSkillId = player.getBuffSource(MapleBuffStat.WK_CHARGE);
-/*      */ 
-/*  826 */         switch (chargeSkillId) {
-/*      */         case 1211003:
-/*      */         case 1211004:
-/*  829 */           elements.add(Element.FIRE);
-/*  830 */           break;
-/*      */         case 1211005:
-/*      */         case 1211006:
-/*      */         case 21111005:
-/*  834 */           elements.add(Element.ICE);
-/*  835 */           break;
-/*      */         case 1211007:
-/*      */         case 1211008:
-/*      */         case 15101006:
-/*  839 */           elements.add(Element.LIGHTING);
-/*  840 */           break;
-/*      */         case 1221003:
-/*      */         case 1221004:
-/*      */         case 11111007:
-/*  844 */           elements.add(Element.HOLY);
-/*  845 */           break;
-/*      */         case 12101005:
-/*      */         }
-/*      */ 
-/*      */       }
-/*      */ 
-/*  851 */       if (player.getBuffedValue(MapleBuffStat.LIGHTNING_CHARGE) != null) {
-/*  852 */         elements.add(Element.LIGHTING);
-/*      */       }
-/*  854 */       if (player.getBuffedValue(MapleBuffStat.ELEMENT_RESET) != null)
-/*  855 */         elements.clear();
-/*      */       double elementalEffect;
-/*  857 */       if (elements.size() > 0)
-/*      */       {
-/*  860 */         switch (attack.skill) {
-/*      */         case 3111003:
-/*      */         case 3211003:
-/*  863 */           elementalEffect = attackEffect.getX() / 100.0D;
-/*  864 */           break;
-/*      */         default:
-/*  866 */           elementalEffect = 0.5D / elements.size();
-/*      */         }
-/*      */ 
-/*  869 */           for (Element element : elements) {
+   private static double CalculateMaxWeaponDamagePerHit(MapleCharacter player, MapleMonster monster, AttackInfo attack, Skill theSkill, MapleStatEffect attackEffect, double maximumDamageToMonster, Integer CriticalDamagePercent)
+   {
+     int dLevel = Math.max(monster.getStats().getLevel() - player.getLevel(), 0) * 2;
+     int HitRate = Math.min((int)Math.floor(Math.sqrt(player.getStat().getAccuracy())) - (int)Math.floor(Math.sqrt(monster.getStats().getEva())) + 100, 100);
+     if (dLevel > HitRate) {
+       HitRate = dLevel;
+     }
+     HitRate -= dLevel;
+     if ((HitRate <= 0) && ((!GameConstants.isBeginnerJob(attack.skill / 10000)) || (attack.skill % 10000 != 1000)) && (!GameConstants.isPyramidSkill(attack.skill)) && (!GameConstants.isMulungSkill(attack.skill)) && (!GameConstants.isInflationSkill(attack.skill))) {
+       return 0.0D;
+     }
+     if ((player.getMapId() / 1000000 == 914) || (player.getMapId() / 1000000 == 927)) {
+       return 999999.0D;
+     }
+ 
+      List<Element> elements = new ArrayList<Element>();
+     boolean defined = false;
+     int CritPercent = CriticalDamagePercent.intValue();
+     int PDRate = monster.getStats().getPDRate();
+     MonsterStatusEffect pdr = monster.getBuff(MonsterStatus.WDEF);
+     if (pdr != null) {
+       PDRate += pdr.getX().intValue();
+     }
+     if (theSkill != null) {
+       elements.add(theSkill.getElement());
+       if (GameConstants.isBeginnerJob(theSkill.getId() / 10000)) {
+         switch (theSkill.getId() % 10000) {
+         case 1000:
+           maximumDamageToMonster = 40.0D;
+           defined = true;
+           break;
+         case 1020:
+           maximumDamageToMonster = 1.0D;
+           defined = true;
+           break;
+         case 1009:
+           maximumDamageToMonster = monster.getStats().isBoss() ? monster.getMobMaxHp() / 30L * 100L : monster.getMobMaxHp();
+           defined = true;
+         }
+       }
+ 
+       switch (theSkill.getId()) {
+       case 1311005:
+         PDRate = monster.getStats().isBoss() ? PDRate : 0;
+         break;
+       case 3221001:
+       case 33101001:
+         maximumDamageToMonster *= attackEffect.getMobCount();
+         defined = true;
+         break;
+       case 3101005:
+         defined = true;
+         break;
+       case 32001000:
+       case 32101000:
+       case 32111002:
+       case 32121002:
+         maximumDamageToMonster *= 1.5D;
+         break;
+       case 1221009:
+       case 3221007:
+       case 4331003:
+       case 23121003:
+         if (monster.getStats().isBoss()) break;
+         maximumDamageToMonster = monster.getMobMaxHp();
+         defined = true; break;
+       case 1221011:
+       case 21120006:
+         maximumDamageToMonster = monster.getStats().isBoss() ? 500000L : monster.getHp() - 1L;
+         defined = true;
+         break;
+       case 3211006:
+         if (monster.getStatusSourceID(MonsterStatus.FREEZE) != 3211003) break;
+         defined = true;
+         maximumDamageToMonster = 999999.0D;
+       }
+ 
+     }
+ 
+     double elementalMaxDamagePerMonster = maximumDamageToMonster;
+     if ((player.getJob() == 311) || (player.getJob() == 312) || (player.getJob() == 321) || (player.getJob() == 322))
+     {
+       Skill mortal = SkillFactory.getSkill((player.getJob() == 311) || (player.getJob() == 312) ? 3110001 : 3210001);
+       if (player.getTotalSkillLevel(mortal) > 0) {
+         MapleStatEffect mort = mortal.getEffect(player.getTotalSkillLevel(mortal));
+         if ((mort != null) && (monster.getHPPercent() < mort.getX())) {
+           elementalMaxDamagePerMonster = 999999.0D;
+           defined = true;
+           if (mort.getZ() > 0)
+             player.addHP(player.getStat().getMaxHp() * mort.getZ() / 100);
+         }
+       }
+     }
+     else if ((player.getJob() == 221) || (player.getJob() == 222))
+     {
+       Skill mortal = SkillFactory.getSkill(2210000);
+       if (player.getTotalSkillLevel(mortal) > 0) {
+         MapleStatEffect mort = mortal.getEffect(player.getTotalSkillLevel(mortal));
+         if ((mort != null) && (monster.getHPPercent() < mort.getX())) {
+           elementalMaxDamagePerMonster = 999999.0D;
+           defined = true;
+         }
+       }
+     }
+     if ((!defined) || ((theSkill != null) && ((theSkill.getId() == 33101001) || (theSkill.getId() == 3221001)))) {
+       if (player.getBuffedValue(MapleBuffStat.WK_CHARGE) != null) {
+         int chargeSkillId = player.getBuffSource(MapleBuffStat.WK_CHARGE);
+ 
+         switch (chargeSkillId) {
+         case 1211003:
+         case 1211004:
+           elements.add(Element.FIRE);
+           break;
+         case 1211005:
+         case 1211006:
+         case 21111005:
+           elements.add(Element.ICE);
+           break;
+         case 1211007:
+         case 1211008:
+         case 15101006:
+           elements.add(Element.LIGHTING);
+           break;
+         case 1221003:
+         case 1221004:
+         case 11111007:
+           elements.add(Element.HOLY);
+           break;
+         case 12101005:
+         }
+ 
+       }
+ 
+       if (player.getBuffedValue(MapleBuffStat.LIGHTNING_CHARGE) != null) {
+         elements.add(Element.LIGHTING);
+       }
+       if (player.getBuffedValue(MapleBuffStat.ELEMENT_RESET) != null)
+         elements.clear();
+       double elementalEffect;
+       if (elements.size() > 0)
+       {
+         switch (attack.skill) {
+         case 3111003:
+         case 3211003:
+           elementalEffect = attackEffect.getX() / 100.0D;
+           break;
+         default:
+           elementalEffect = 0.5D / elements.size();
+         }
+ 
+           for (Element element : elements) {
                     switch (monster.getEffectiveness(element)) {
                         case IMMUNE:
                             elementalMaxDamagePerMonster = 1;
@@ -843,30 +842,30 @@
                 }
             }
             
-/*      */ 
-/*  884 */       elementalMaxDamagePerMonster -= elementalMaxDamagePerMonster * (Math.max(PDRate - Math.max(player.getStat().ignoreTargetDEF, 0) - Math.max(attackEffect == null ? 0 : attackEffect.getIgnoreMob(), 0), 0) / 100.0D);
-/*      */ 
-/*  887 */       elementalMaxDamagePerMonster += elementalMaxDamagePerMonster / 100.0D * CritPercent;
-/*      */ 
-/*  896 */       MonsterStatusEffect imprint = monster.getBuff(MonsterStatus.IMPRINT);
-/*  897 */       if (imprint != null) {
-/*  898 */         elementalMaxDamagePerMonster += elementalMaxDamagePerMonster * imprint.getX().intValue() / 100.0D;
-/*      */       }
-/*      */ 
-/*  901 */       elementalMaxDamagePerMonster += elementalMaxDamagePerMonster * player.getDamageIncrease(monster.getObjectId()) / 100.0D;
-/*  902 */       elementalMaxDamagePerMonster *= ((monster.getStats().isBoss()) && (attackEffect != null) ? player.getStat().bossdam_r + attackEffect.getBossDamage() : player.getStat().dam_r) / 100.0D;
-/*      */     }
-/*  904 */     if (elementalMaxDamagePerMonster > 999999.0D) {
-/*  905 */       if (!defined)
-/*  906 */         elementalMaxDamagePerMonster = 999999.0D;
-/*      */     }
-/*  908 */     else if (elementalMaxDamagePerMonster <= 0.0D) {
-/*  909 */       elementalMaxDamagePerMonster = 1.0D;
-/*      */     }
-/*  911 */     return elementalMaxDamagePerMonster;
-/*      */   }
-/*      */ 
-/*      */    public static final AttackInfo DivideAttack(final AttackInfo attack, final int rate) {
+ 
+       elementalMaxDamagePerMonster -= elementalMaxDamagePerMonster * (Math.max(PDRate - Math.max(player.getStat().ignoreTargetDEF, 0) - Math.max(attackEffect == null ? 0 : attackEffect.getIgnoreMob(), 0), 0) / 100.0D);
+ 
+       elementalMaxDamagePerMonster += elementalMaxDamagePerMonster / 100.0D * CritPercent;
+ 
+       MonsterStatusEffect imprint = monster.getBuff(MonsterStatus.IMPRINT);
+       if (imprint != null) {
+         elementalMaxDamagePerMonster += elementalMaxDamagePerMonster * imprint.getX().intValue() / 100.0D;
+       }
+ 
+       elementalMaxDamagePerMonster += elementalMaxDamagePerMonster * player.getDamageIncrease(monster.getObjectId()) / 100.0D;
+       elementalMaxDamagePerMonster *= ((monster.getStats().isBoss()) && (attackEffect != null) ? player.getStat().bossdam_r + attackEffect.getBossDamage() : player.getStat().dam_r) / 100.0D;
+     }
+     if (elementalMaxDamagePerMonster > 999999.0D) {
+       if (!defined)
+         elementalMaxDamagePerMonster = 999999.0D;
+     }
+     else if (elementalMaxDamagePerMonster <= 0.0D) {
+       elementalMaxDamagePerMonster = 1.0D;
+     }
+     return elementalMaxDamagePerMonster;
+   }
+ 
+    public static final AttackInfo DivideAttack(final AttackInfo attack, final int rate) {
                  attack.real = false;
                    if (rate <= 1) {
                       return attack; //lol
@@ -880,134 +879,135 @@
                     }
                   return attack;
              }
-/*      */ 
-/*      */   public static final AttackInfo Modify_AttackCrit(AttackInfo attack, MapleCharacter chr, int type, MapleStatEffect effect)
-/*      */   {
-/*      */     int CriticalRate;
-/*      */     boolean shadow;
-/*      */     List damages;
-/*      */     List damage;
-/*  930 */     if ((attack.skill != 4211006) && (attack.skill != 3211003) && (attack.skill != 4111004)) {
-/*  931 */       CriticalRate = chr.getStat().passive_sharpeye_rate() + (effect == null ? 0 : effect.getCr());
-/*  932 */       shadow = (chr.getBuffedValue(MapleBuffStat.SHADOWPARTNER) != null) && ((type == 1) || (type == 2));
-/*  933 */       damages = new ArrayList(); damage = new ArrayList();
-/*      */ 
-/*  935 */       for (AttackPair p : attack.allDamage) {
-/*  936 */         if (p.attack != null) {
-/*  937 */           int hit = 0;
-/*  938 */           int mid_att = shadow ? p.attack.size() / 2 : p.attack.size();
+ 
+   public static final AttackInfo Modify_AttackCrit(AttackInfo attack, MapleCharacter chr, int type, MapleStatEffect effect)
+   {
+     int CriticalRate;
+     boolean shadow;
+     List damages;
+     List damage;
+     if ((attack.skill != 4211006) && (attack.skill != 3211003) && (attack.skill != 4111004)) {
+       CriticalRate = chr.getStat().passive_sharpeye_rate() + (effect == null ? 0 : effect.getCr());
+       shadow = (chr.getBuffedValue(MapleBuffStat.SHADOWPARTNER) != null) && ((type == 1) || (type == 2));
+       damages = new ArrayList(); damage = new ArrayList();
+ 
+       for (AttackPair p : attack.allDamage) {
+         if (p.attack != null) {
+           int hit = 0;
+           int mid_att = shadow ? p.attack.size() / 2 : p.attack.size();
                       //TODO:THIS IS WHERE YOU PROBABLY ADD SHADOW MELD 100% CRIT EFFECT!
-/*  940 */           int toCrit = (attack.skill == 4221001) || (attack.skill == 3221007) || (attack.skill == 23121003) || (attack.skill == 4341005) || (attack.skill == 4331006) || (attack.skill == 21120005) ? mid_att : 0;
-/*  941 */           if (toCrit == 0) {
-/*  942 */             for (Pair eachd : p.attack) {
-/*  943 */               if ((!((Boolean)eachd.right).booleanValue()) && (hit < mid_att)) {
-/*  944 */                 if ((((Integer)eachd.left).intValue() > 999999) || (Randomizer.nextInt(100) < CriticalRate)) {
-/*  945 */                   toCrit++;
-/*      */                 }
-/*  947 */                 damage.add(eachd.left);
-/*      */               }
-/*  949 */               hit++;
-/*      */             }
-/*  951 */             if (toCrit == 0) {
-/*  952 */               damage.clear();
-/*  953 */               continue;
-/*      */             }
-/*  955 */             Collections.sort(damage);
-/*  956 */             for (int i = damage.size(); i > damage.size() - toCrit; i--) {
-/*  957 */               damages.add(damage.get(i - 1));
-/*      */             }
-/*  959 */             damage.clear();
-/*      */           }
-/*  961 */           hit = 0;
-/*  962 */           for (Pair eachd : p.attack) {
-/*  963 */             if (!((Boolean)eachd.right).booleanValue()) {
-/*  964 */               if (attack.skill == 4221001)
-/*  965 */                 eachd.right = Boolean.valueOf(hit == 3);
-/*  966 */               else if ((attack.skill == 3221007) || (attack.skill == 23121003) || (attack.skill == 21120005) || (attack.skill == 4341005) || (attack.skill == 4331006) || (((Integer)eachd.left).intValue() > 999999))
-/*  967 */                 eachd.right = Boolean.valueOf(true);
-/*  968 */               else if (hit >= mid_att) {
-/*  969 */                 eachd.right = ((Pair)p.attack.get(hit - mid_att)).right;
-/*      */               }
-/*      */               else {
-/*  972 */                 eachd.right = Boolean.valueOf(damages.contains(eachd.left));
-/*      */               }
-/*      */             }
-/*  975 */             hit++;
-/*      */           }
-/*  977 */           damages.clear();
-/*      */         }
-/*      */       }
-/*      */     }
-/*  981 */     return attack;
-/*      */   }
-/*      */ 
-/*      */   public static final AttackInfo parseDmgMa(LittleEndianAccessor lea, MapleCharacter chr){
-/*      */    
+           int toCrit = (attack.skill == 4221001) || (attack.skill == 3221007) || (attack.skill == 23121003) || (attack.skill == 4341005) || (attack.skill == 4331006) || (attack.skill == 21120005) ? mid_att : 0;
+           if (toCrit == 0) {
+             for (Pair eachd : p.attack) {
+               if ((!((Boolean)eachd.right).booleanValue()) && (hit < mid_att)) {
+                 if ((((Integer)eachd.left).intValue() > 999999) || (Randomizer.nextInt(100) < CriticalRate)) {
+                   toCrit++;
+                 }
+                 damage.add(eachd.left);
+               }
+               hit++;
+             }
+             if (toCrit == 0) {
+               damage.clear();
+               continue;
+             }
+             Collections.sort(damage);
+             for (int i = damage.size(); i > damage.size() - toCrit; i--) {
+               damages.add(damage.get(i - 1));
+             }
+             damage.clear();
+           }
+           hit = 0;
+           for (Pair eachd : p.attack) {
+             if (!((Boolean)eachd.right).booleanValue()) {
+               if (attack.skill == 4221001)
+                 eachd.right = Boolean.valueOf(hit == 3);
+               else if ((attack.skill == 3221007) || (attack.skill == 23121003) || (attack.skill == 21120005) || (attack.skill == 4341005) || (attack.skill == 4331006) || (((Integer)eachd.left).intValue() > 999999))
+                 eachd.right = Boolean.valueOf(true);
+               else if (hit >= mid_att) {
+                 eachd.right = ((Pair)p.attack.get(hit - mid_att)).right;
+               }
+               else {
+                 eachd.right = Boolean.valueOf(damages.contains(eachd.left));
+               }
+             }
+             hit++;
+           }
+           damages.clear();
+         }
+       }
+     }
+     return attack;
+   }
+ 
+   public static final AttackInfo parseDmgMa(LittleEndianAccessor lea, MapleCharacter chr){
+    
                 try {
-/*  987 */       AttackInfo ret = new AttackInfo();
-/*      */ 
-/*  995 */       lea.skip(1);
-/*  996 */       ret.tbyte = lea.readByte();
-/*      */ 
-/*  998 */       ret.targets = (byte)(ret.tbyte >>> 4 & 0xF);
-/*  999 */       ret.hits = (byte)(ret.tbyte & 0xF);
-/* 1000 */       ret.skill = lea.readInt();
-/* 1001 */       if (ret.skill >= 91000000) {
-/* 1002 */         return null;
-/*      */       }
-/* 1004 */       lea.skip(GameConstants.GMS ? 9 : 17);
-/* 1005 */       if (GameConstants.isMagicChargeSkill(ret.skill))
-/* 1006 */         ret.charge = lea.readInt();
-/*      */       else {
-/* 1008 */         ret.charge = -1;
-/*      */       }
-/* 1010 */       ret.unk = lea.readByte();
-/* 1011 */       ret.display = lea.readUShort();
-/*      */ 
-/* 1017 */       lea.skip(4);
-/* 1018 */       lea.skip(1);
-/* 1019 */       ret.speed = lea.readByte();
-/* 1020 */       ret.lastAttackTickCount = lea.readInt();
-/* 1021 */       lea.skip(4);
-/*      */ 
-/* 1032 */       ret.allDamage = new ArrayList();
-/*      */ 
-/* 1034 */       for (int i = 0; i < ret.targets; i++) {
-/* 1035 */         int oid = lea.readInt();
-/*      */ 
-/* 1042 */         lea.skip(18);
-/*      */ 
-/* 1044 */         List allDamageNumbers = new ArrayList();
-/*      */ 
-/* 1046 */         for (int j = 0; j < ret.hits; j++) {
-/* 1047 */           int damage = lea.readInt();
-/* 1048 */           allDamageNumbers.add(new Pair(Integer.valueOf(damage), Boolean.valueOf(false)));
-/*      */         }
-/*      */ 
-/* 1051 */         lea.skip(4);
-/* 1052 */         ret.allDamage.add(new AttackPair(Integer.valueOf(oid).intValue(), allDamageNumbers));
-/*      */       }
-/* 1054 */       if (lea.available() >= 4L) {
-/* 1055 */         ret.position = lea.readPos();
-/*      */       }
-/* 1057 */       return ret;
-/*      */     } catch (Exception e) {
-/* 1059 */       e.printStackTrace();
-/* 1060 */     }return null;
-/*      */   }
-/*      */ 
-/*      */   public static final AttackInfo parseDmgM(LittleEndianAccessor lea, MapleCharacter chr){
-/* 1066 */     AttackInfo ret = new AttackInfo();
-/* 1067 */     lea.skip(1);
-/* 1068 */     ret.tbyte = lea.readByte();
-/*      */ 
-/* 1070 */     ret.targets = (byte)(ret.tbyte >>> 4 & 0xF);
-/* 1071 */     ret.hits = (byte)(ret.tbyte & 0xF);
-/* 1072 */     ret.skill = lea.readInt();
-/* 1073 */     if (ret.skill >= 91000000) {
-/* 1074 */       return null;
-/*      */     }
-/* 1076 */     lea.skip(9);
+       AttackInfo ret = new AttackInfo();
+ 
+       lea.skip(1);
+       ret.tbyte = lea.readByte();
+ 
+       ret.targets = (byte)(ret.tbyte >>> 4 & 0xF);
+       ret.hits = (byte)(ret.tbyte & 0xF);
+       ret.skill = lea.readInt();
+       if (ret.skill >= 91000000) {
+         return null;
+       }
+       lea.skip(GameConstants.GMS ? 9 : 17);
+              
+       if (GameConstants.isMagicChargeSkill(ret.skill))
+         ret.charge = lea.readInt();
+       else {
+         ret.charge = -1;
+       }
+       ret.unk = lea.readByte();
+       ret.display = lea.readUShort();
+ 
+       lea.skip(4);
+       lea.skip(1);
+       ret.speed = lea.readByte();
+       ret.lastAttackTickCount = lea.readInt();
+       lea.skip(4);
+ 
+       ret.allDamage = new ArrayList();
+ 
+       for (int i = 0; i < ret.targets; i++) {
+         int oid = lea.readInt();
+ 
+         lea.skip(18);
+ 
+         List allDamageNumbers = new ArrayList();
+ 
+         for (int j = 0; j < ret.hits; j++) {
+           int damage = lea.readInt();
+           allDamageNumbers.add(new Pair(Integer.valueOf(damage), Boolean.valueOf(false)));
+         }
+ 
+         lea.skip(4);
+         ret.allDamage.add(new AttackPair(Integer.valueOf(oid).intValue(), allDamageNumbers));
+       }
+       if (lea.available() >= 4L) {
+         ret.position = lea.readPos();
+       }
+       return ret;
+     } catch (Exception e) {
+       e.printStackTrace();
+     }return null;
+   }
+ 
+   public static final AttackInfo parseDmgM(LittleEndianAccessor lea, MapleCharacter chr){
+     AttackInfo ret = new AttackInfo();
+     lea.skip(1);
+     ret.tbyte = lea.readByte();
+ 
+     ret.targets = (byte)(ret.tbyte >>> 4 & 0xF);
+     ret.hits = (byte)(ret.tbyte & 0xF);
+     ret.skill = lea.readInt();
+     if (ret.skill >= 91000000) {
+       return null;
+     }
+     lea.skip(9);
         switch (ret.skill) {
             case 24121000:// mille
             case 24121005://tempest
@@ -1028,68 +1028,72 @@
                 ret.charge = 0;
                 break;
         }
-/*      */ 
-/* 1096 */     ret.unk = lea.readByte();
-/* 1097 */     ret.display = lea.readUShort();
-/* 1098 */     lea.skip(4);
-/* 1099 */     lea.skip(1);
-/* 1100 */     if ((ret.skill == 5300007) || (ret.skill == 5101012) || (ret.skill == 5081001) || (ret.skill == 15101010)) {
-/* 1101 */       lea.readInt();
-/*      */     }
-               if(ret.skill == Phantom.TEMPEST){
-                    lea.readInt();
-               }
-               
-/* 1103 */     ret.speed = lea.readByte();
-/* 1104 */     ret.lastAttackTickCount = lea.readInt();
-
-               if(ret.skill == BattleMage.TWISTER_SPIN){
-                     lea.skip(4);
-               } else {
-                     lea.skip(8);
-               }
-/*      */ 
-/* 1107 */     ret.allDamage = new ArrayList();
-/*      */ 
-/* 1109 */     if (ret.skill == ChiefBandit.MESO_EXPLOSION) {
-/* 1110 */       return parseMesoExplosion(lea, ret, chr);
-/*      */     }
-/*      */ 
-/* 1114 */     /*if (ret.skill == Phantom.MILLIE) {
-/* 1115 */      // lea.readInt();
-/*      */    // }
-/* 1117 */     for (int i = 0; i < ret.targets; i++) {
-/* 1118 */       int oid = lea.readInt();
-/*      */ 
-/* 1125 */       lea.skip(18);
-/*      */ 
-/* 1127 */       List allDamageNumbers = new ArrayList();
-/*      */ 
-/* 1129 */       for (int j = 0; j < ret.hits; j++) {
-/* 1130 */         int damage = lea.readInt();
-/*      */ 
-/* 1132 */         allDamageNumbers.add(new Pair(Integer.valueOf(damage), Boolean.valueOf(false)));
-/*      */       }
-/* 1134 */       lea.skip(4);
-/* 1135 */       ret.allDamage.add(new AttackPair(Integer.valueOf(oid).intValue(), allDamageNumbers));
-/*      */     }
-/* 1137 */     ret.position = lea.readPos();
-/* 1138 */     return ret;
-/*      */   }
-/*      */ 
-/*      */   public static final AttackInfo parseDmgR(LittleEndianAccessor lea, MapleCharacter chr)
-/*      */   {
-/* 1143 */     AttackInfo ret = new AttackInfo();
-/* 1144 */     lea.skip(1);
-/* 1145 */     ret.tbyte = lea.readByte();
-/*      */ 
-/* 1147 */     ret.targets = (byte)(ret.tbyte >>> 4 & 0xF);
-/* 1148 */     ret.hits = (byte)(ret.tbyte & 0xF);
-/* 1149 */     ret.skill = lea.readInt();
-/* 1150 */     if (ret.skill >= 91000000) {
-/* 1151 */       return null;
-/*      */     }
-/* 1153 */     lea.skip(10);
+ 
+     ret.unk = lea.readByte();
+     ret.display = lea.readUShort();
+     lea.skip(4);
+     lea.skip(1);
+     
+     if ((ret.skill == 5300007) || (ret.skill == 5101012) || (ret.skill == 5081001) || (ret.skill == 15101010)) {
+       lea.readInt();
+     }
+     if(ret.skill == Phantom.TEMPEST){
+        lea.readInt();
+     }
+    // if((ret.skill == Priest.TELEPORT_MASTERY) || (ret.skill == FPMage.TELEPORT_MASTERY) || (ret.skill == ILMage.TELEPORT_MASTERY) || (ret.skill == BattleMage.TELEPORT_MASTERY)
+    //   || (ret.skill == Evan.TELEPORT_MASTERY) || (ret.skill == BlazeWizard.TELEPORT_MASTERY) || (ret.skill == Aran.BODY_PRESSURE)){
+     //    lea.skip(9);
+    // }          
+     ret.speed = lea.readByte();
+     ret.lastAttackTickCount = lea.readInt();
+      
+     if(ret.skill == BattleMage.TWISTER_SPIN){
+          lea.skip(4);
+     } else {
+          lea.skip(8);
+     }
+ 
+     ret.allDamage = new ArrayList();
+ 
+     if (ret.skill == ChiefBandit.MESO_EXPLOSION) {
+       return parseMesoExplosion(lea, ret, chr);
+     }
+ 
+     if (ret.skill == Phantom.MILLIE) {
+       lea.readInt();
+     }
+     for (int i = 0; i < ret.targets; i++) {
+       int oid = lea.readInt();
+ 
+       lea.skip(18);
+ 
+       List allDamageNumbers = new ArrayList();
+ 
+       for (int j = 0; j < ret.hits; j++) {
+         int damage = lea.readInt();
+ 
+         allDamageNumbers.add(new Pair(Integer.valueOf(damage), Boolean.valueOf(false)));
+       }
+       lea.skip(4);
+       ret.allDamage.add(new AttackPair(Integer.valueOf(oid).intValue(), allDamageNumbers));
+     }
+     ret.position = lea.readPos();
+     return ret;
+   }
+ 
+   public static final AttackInfo parseDmgR(LittleEndianAccessor lea, MapleCharacter chr)
+   {
+     AttackInfo ret = new AttackInfo();
+     lea.skip(1);
+     ret.tbyte = lea.readByte();
+ 
+     ret.targets = (byte)(ret.tbyte >>> 4 & 0xF);
+     ret.hits = (byte)(ret.tbyte & 0xF);
+     ret.skill = lea.readInt();
+     if (ret.skill >= 91000000) {
+       return null;
+     }
+     lea.skip(10);
   switch (ret.skill) {
             case 3121004: // Hurricane
             case 3221001: // Pierce
@@ -1106,48 +1110,48 @@
                 lea.skip(4); // extra 4 bytes
                 break;
         }
-/*      */ 
-/* 1167 */     ret.charge = -1;
-/* 1168 */     ret.unk = lea.readByte();
-/* 1169 */     ret.display = lea.readUShort();
-/* 1170 */     lea.skip(4);
-/* 1171 */     lea.skip(1);
-/* 1172 */     if (ret.skill == 23111001) {
-/* 1173 */       lea.skip(4);
-/* 1174 */       lea.skip(4);
-/*      */ 
-/* 1176 */       lea.skip(4);
-/*      */     }
-/* 1178 */     ret.speed = lea.readByte();
-/* 1179 */     ret.lastAttackTickCount = lea.readInt();
-/* 1180 */     lea.skip(4);
-/* 1181 */     ret.slot = (byte)lea.readShort();
-/* 1182 */     ret.csstar = (byte)lea.readShort();
-/* 1183 */     ret.AOE = lea.readByte();
-/*      */ 
-/* 1187 */     ret.allDamage = new ArrayList();
-/*      */ 
-/* 1189 */     for (int i = 0; i < ret.targets; i++) {
-/* 1190 */       int oid = lea.readInt();
-/*      */ 
-/* 1197 */       lea.skip(18);
-/*      */ 
-/* 1199 */       List allDamageNumbers = new ArrayList();
-/* 1200 */       for (int j = 0; j < ret.hits; j++) {
-/* 1201 */         int damage = lea.readInt();
-/* 1202 */         allDamageNumbers.add(new Pair(Integer.valueOf(damage), Boolean.valueOf(false)));
-/*      */       }
-/*      */ 
-/* 1205 */       lea.skip(4);
-/*      */ 
-/* 1208 */       ret.allDamage.add(new AttackPair(Integer.valueOf(oid).intValue(), allDamageNumbers));
-/*      */     }
-/* 1210 */     lea.skip(4);
-/* 1211 */     ret.position = lea.readPos();
-/*      */ 
-/* 1213 */     return ret;
-/*      */   }
-/*      */ 
+ 
+     ret.charge = -1;
+     ret.unk = lea.readByte();
+     ret.display = lea.readUShort();
+     lea.skip(4);
+     lea.skip(1);
+     if (ret.skill == 23111001) {
+       lea.skip(4);
+       lea.skip(4);
+ 
+       lea.skip(4);
+     }
+     ret.speed = lea.readByte();
+     ret.lastAttackTickCount = lea.readInt();
+     lea.skip(4);
+     ret.slot = (byte)lea.readShort();
+     ret.csstar = (byte)lea.readShort();
+     ret.AOE = lea.readByte();
+ 
+     ret.allDamage = new ArrayList();
+ 
+     for (int i = 0; i < ret.targets; i++) {
+       int oid = lea.readInt();
+ 
+       lea.skip(18);
+ 
+       List allDamageNumbers = new ArrayList();
+       for (int j = 0; j < ret.hits; j++) {
+         int damage = lea.readInt();
+         allDamageNumbers.add(new Pair(Integer.valueOf(damage), Boolean.valueOf(false)));
+       }
+ 
+       lea.skip(4);
+ 
+       ret.allDamage.add(new AttackPair(Integer.valueOf(oid).intValue(), allDamageNumbers));
+     }
+     lea.skip(4);
+     ret.position = lea.readPos();
+ 
+     return ret;
+   }
+ 
     public static final AttackInfo parseMesoExplosion(final LittleEndianAccessor lea, final AttackInfo ret, final MapleCharacter chr) {
         //System.out.println(lea.toString(true));
         byte bullets;

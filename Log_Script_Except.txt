@@ -1,0 +1,5 @@
+
+------------------------ 2013-01-22 22:36:20 ------------------------
+Error executing NPC script, NPC ID : 9070007.javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: TypeError: Cannot find function getBattler in object client.MapleCharacter@471adfa0. (<Unknown source>#10) in <Unknown source> at line number 10
+------------------------ 2013-01-23 20:52:20 ------------------------
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300

@@ -83,13 +83,13 @@ public class DatabaseConnection {
      */
     public static final int NO_GENERATED_KEYS = 2;
 
-    public static final Connection getConnection() {
+    public static final Connection getConnection(){
         return con.get();
     }
 
     public static final void closeAll() throws SQLException {
-        for (final Connection con : DatabaseConnection.ThreadLocalConnection.allConnections) {
-	    if (con != null) {
+        for (final Connection con : DatabaseConnection.ThreadLocalConnection.allConnections){
+	    if (con != null){
             	con.close();
 	    }
         }
@@ -100,10 +100,10 @@ public class DatabaseConnection {
         public static final Collection<Connection> allConnections = new LinkedList<Connection>();
 
         @Override
-        protected final Connection initialValue() {
+        protected final Connection initialValue(){
             try {
                 Class.forName("com.mysql.jdbc.Driver"); // touch the mysql driver
-            } catch (final ClassNotFoundException e) {
+            } catch (final ClassNotFoundException e){
                 System.err.println("ERROR" + e);
             }
             try {
@@ -112,7 +112,7 @@ public class DatabaseConnection {
 		    constants.ServerConstants.SQL_USER,constants.ServerConstants.SQL_PASSWORD);
                 allConnections.add(con);
                 return con;
-            } catch (SQLException e) {
+            } catch (SQLException e){
                 System.err.println("ERROR" + e);
                 return null;
             }

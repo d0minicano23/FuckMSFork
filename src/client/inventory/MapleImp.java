@@ -62,15 +62,15 @@ public class MapleImp implements Serializable {
 	//probably more but idk them
 
 	private final int i;
-	private ImpFlag(int i) {
+	private ImpFlag(int i){
 	    this.i = i;
 	}
 
-	public final int getValue() {
+	public final int getValue(){
 	    return i;
 	}
 
-	public final boolean check(int flag) {
+	public final boolean check(int flag){
 	    return (flag & i) == i;
 	}
     }
@@ -80,43 +80,43 @@ public class MapleImp implements Serializable {
     private short fullness = 0, closeness = 0;
 	private byte state = 1, level = 1;
 
-    public MapleImp(final int itemid) {
+    public MapleImp(final int itemid){
         this.itemid = itemid;
     }
 	
-	public final int getItemId() {
+	public final int getItemId(){
 		return itemid;
 	}
 	
-    public final byte getState() {
+    public final byte getState(){
         return state;
     }
 
-    public final void setState(final int state) {
+    public final void setState(final int state){
         this.state = (byte) state;
     }
 	
-    public final byte getLevel() {
+    public final byte getLevel(){
         return level;
     }
 
-    public final void setLevel(final int level) {
+    public final void setLevel(final int level){
         this.level = (byte) level;
     }
 	
-    public final short getCloseness() {
+    public final short getCloseness(){
         return closeness;
     }
 
-    public final void setCloseness(final int closeness) {
+    public final void setCloseness(final int closeness){
         this.closeness = (short) Math.min(100, closeness);
     }
 
-    public final short getFullness() {
+    public final short getFullness(){
         return fullness;
     }
 
-    public final void setFullness(final int fullness) {
+    public final void setFullness(final int fullness){
         this.fullness = (short) Math.min(1000, fullness);
     }
 }

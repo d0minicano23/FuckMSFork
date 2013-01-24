@@ -27,26 +27,26 @@ public class InnerSkillValueHolder {
     private byte maxLevel = 0;
     private byte rank = 0;
     
-    public InnerSkillValueHolder(int skillId, byte skillLevel, byte maxLevel, byte rank) {
+    public InnerSkillValueHolder(int skillId, byte skillLevel, byte maxLevel, byte rank){
         this.skillId = skillId;
         this.skillLevel = skillLevel;
         this.maxLevel = maxLevel;
         this.rank = rank;
     }
     
-    public int getSkillId() {
+    public int getSkillId(){
         return skillId;
     }
     
-    public byte getSkillLevel() {
+    public byte getSkillLevel(){
         return skillLevel;
     }
     
-    public byte getMaxLevel() {
+    public byte getMaxLevel(){
         return maxLevel;
     }
     
-    public byte getRank() {
+    public byte getRank(){
         return rank;
     }
 }

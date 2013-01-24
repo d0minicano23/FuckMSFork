@@ -28,14 +28,14 @@ public abstract class CommandExecute {
         LOG;
     }
 
-    public CommandType getType() {
+    public CommandType getType(){
         return CommandType.NORMAL;
     }
 
     public static abstract class TradeExecute extends CommandExecute {
 
         @Override
-        public CommandType getType() {
+        public CommandType getType(){
             return CommandType.TRADE;
         }
     }
@@ -43,7 +43,7 @@ public abstract class CommandExecute {
     public static abstract class PokemonExecute extends CommandExecute {
 
         @Override
-        public CommandType getType() {
+        public CommandType getType(){
             return CommandType.POKEMON;
         }
     }

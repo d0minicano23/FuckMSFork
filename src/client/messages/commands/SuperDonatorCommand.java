@@ -17,18 +17,18 @@ import tools.packet.CWvsContext;
  */
 public class SuperDonatorCommand {
 
-    public static PlayerGMRank getPlayerLevelRequired() {
+    public static PlayerGMRank getPlayerLevelRequired(){
         return PlayerGMRank.SUPERDONATOR;
     }
 
          public static class Say extends CommandExecute {
 
         @Override
-        public int execute(MapleClient c, String[] splitted) {
-             if (splitted.length > 1) {
+        public int execute(MapleClient c, String[] splitted){
+             if (splitted.length > 1){
                 StringBuilder sb = new StringBuilder();
                 sb.append("[");
-                if (!c.getPlayer().isGM()) {
+                if (!c.getPlayer().isGM()){
                     sb.append("SuperDonor ");
                 }
                 sb.append(c.getPlayer().getName());
@@ -45,21 +45,21 @@ public class SuperDonatorCommand {
                   public static class Ban extends CommandExecute {
 
         @Override
-        public int execute(MapleClient c, String[] splitted) {
-			if (splitted.length < 3) {
+        public int execute(MapleClient c, String[] splitted){
+			if (splitted.length < 3){
                 c.getPlayer().dropMessage(5, "[Syntax] %ban <IGN> <Reason>");
                 return 0;
             }
 			String originalReason = StringUtil.joinStringFrom(splitted, 2);
 			String reason = c.getPlayer().getName() + " banned " + splitted[1] + ": " + originalReason;
 			MapleCharacter target = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
-			if (target != null) {
+			if (target != null){
 				String ip = target.getClient().getSession().getRemoteAddress().toString().split(":")[0];
 				reason += " (IP: " + ip + ")";
 				target.ban(reason, false);
 				World.Broadcast.broadcastSmega(CWvsContext.serverNotice(0, "[SuperDonor Ban] " + c.getPlayer().getName() + " has banned " + target + " for " + originalReason));
 			} else {
-				if (MapleCharacter.ban(splitted[1], reason, false)) {
+				if (MapleCharacter.ban(splitted[1], reason, false)){
 					c.getPlayer().dropMessage(5, "Offline Banned " + splitted[1]);
 				} else {
 					c.getPlayer().dropMessage(5, "Failed to ban " + splitted[1]);

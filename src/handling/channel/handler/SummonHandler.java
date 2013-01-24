@@ -205,7 +205,7 @@ public class SummonHandler {
             if (mob == null) {
                 continue;
             }
-            slea.skip(18); // who knows
+            slea.skip(22); // who knows
             final int damge = slea.readInt();
             allDamage.add(new Pair<Integer, Integer>(mob.getObjectId(), damge));
         }

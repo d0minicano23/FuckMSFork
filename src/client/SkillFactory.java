@@ -45,14 +45,14 @@ public class SkillFactory {
     private static final Map<Integer, List<Integer>> skillsByJob = new HashMap<Integer, List<Integer>>();
     private static final Map<Integer, SummonSkillEntry> SummonSkillInformation = new HashMap<Integer, SummonSkillEntry>();
 
-    public static void load() {
+    public static void load(){
         final MapleData delayData = MapleDataProviderFactory.getDataProvider(new File(System.getProperty("net.sf.odinms.wzpath") + "/Character.wz")).getData("00002000.img");
         final MapleData stringData = MapleDataProviderFactory.getDataProvider(new File(System.getProperty("net.sf.odinms.wzpath") + "/String.wz")).getData("Skill.img");
         final MapleDataProvider datasource = MapleDataProviderFactory.getDataProvider(new File(System.getProperty("net.sf.odinms.wzpath") + "/Skill.wz"));
         final MapleDataDirectoryEntry root = datasource.getRoot();
         int del = 0; //buster is 67 but its the 57th one!
-        for (MapleData delay : delayData) {
-            if (!delay.getName().equals("info")) {
+        for (MapleData delay : delayData){
+            if (!delay.getName().equals("info")){
                 delays.put(delay.getName(), del);
                 del++;
             }
@@ -62,16 +62,16 @@ public class SkillFactory {
         MapleData summon_data;
         SummonSkillEntry sse;
 
-        for (MapleDataFileEntry topDir : root.getFiles()) { // Loop through jobs
-            if (topDir.getName().length() <= 8) {
-                for (MapleData data : datasource.getData(topDir.getName())) { // Loop through each jobs
-                    if (data.getName().equals("skill")) {
-                        for (MapleData data2 : data) { // Loop thru each jobs
-                            if (data2 != null) {
+        for (MapleDataFileEntry topDir : root.getFiles()){ // Loop through jobs
+            if (topDir.getName().length() <= 8){
+                for (MapleData data : datasource.getData(topDir.getName())){ // Loop through each jobs
+                    if (data.getName().equals("skill")){
+                        for (MapleData data2 : data){ // Loop thru each jobs
+                            if (data2 != null){
                                 skillid = Integer.parseInt(data2.getName());
                                 Skill skil = Skill.loadFromData(skillid, data2, delayData);
                                 List<Integer> job = skillsByJob.get(skillid / 10000);
-                                if (job == null) {
+                                if (job == null){
                                     job = new ArrayList<Integer>();
                                     skillsByJob.put(skillid / 10000, job);
                                 }
@@ -80,12 +80,12 @@ public class SkillFactory {
                                 skills.put(skillid, skil);
 
                                 summon_data = data2.getChildByPath("summon/attack1/info");
-                                if (summon_data != null) {
+                                if (summon_data != null){
                                     sse = new SummonSkillEntry();
                                     sse.type = (byte) MapleDataTool.getInt("type", summon_data, 0);
                                     sse.mobCount = (byte) (skillid == 33101008 ? 3 : MapleDataTool.getInt("mobCount", summon_data, 1));
                                     sse.attackCount = (byte) MapleDataTool.getInt("attackCount", summon_data, 1);
-                                    if (summon_data.getChildByPath("range/lt") != null) {
+                                    if (summon_data.getChildByPath("range/lt") != null){
                                         final MapleData ltd = summon_data.getChildByPath("range/lt");
                                         sse.lt = (Point) ltd.getData();
                                         sse.rb = (Point) summon_data.getChildByPath("range/rb").getData();
@@ -95,14 +95,14 @@ public class SkillFactory {
                                     }
                                     //sse.range = (short) MapleDataTool.getInt("range/r", summon_data, 0);
                                     sse.delay = MapleDataTool.getInt("effectAfter", summon_data, 0) + MapleDataTool.getInt("attackAfter", summon_data, 0);
-                                    for (MapleData effect : summon_data) {
-                                        if (effect.getChildren().size() > 0) {
-                                            for (final MapleData effectEntry : effect) {
+                                    for (MapleData effect : summon_data){
+                                        if (effect.getChildren().size() > 0){
+                                            for (final MapleData effectEntry : effect){
                                                 sse.delay += MapleDataTool.getIntConvert("delay", effectEntry, 0);
                                             }
                                         }
                                     }
-                                    for (MapleData effect : data2.getChildByPath("summon/attack1")) {
+                                    for (MapleData effect : data2.getChildByPath("summon/attack1")){
                                         sse.delay += MapleDataTool.getIntConvert("delay", effect, 0);
                                     }
                                     SummonSkillInformation.put(skillid, sse);
@@ -111,8 +111,8 @@ public class SkillFactory {
                         }
                     }
                 }
-            } else if (topDir.getName().startsWith("Familiar")) {
-                for (MapleData data : datasource.getData(topDir.getName())) {
+            } else if (topDir.getName().startsWith("Familiar")){
+                for (MapleData data : datasource.getData(topDir.getName())){
                     skillid = Integer.parseInt(data.getName());
                     FamiliarEntry skil = new FamiliarEntry();
                     skil.prop = (byte) MapleDataTool.getInt("prop", data, 0);
@@ -121,29 +121,29 @@ public class SkillFactory {
                     skil.targetCount = (byte) MapleDataTool.getInt("targetCount", data, 1);
                     skil.speed = (byte) MapleDataTool.getInt("speed", data, 1);
                     skil.knockback = MapleDataTool.getInt("knockback", data, 0) > 0 || MapleDataTool.getInt("attract", data, 0) > 0;
-                    if (data.getChildByPath("lt") != null) {
+                    if (data.getChildByPath("lt") != null){
                         skil.lt = (Point) data.getChildByPath("lt").getData();
                         skil.rb = (Point) data.getChildByPath("rb").getData();
                     }
-                    if (MapleDataTool.getInt("stun", data, 0) > 0) {
+                    if (MapleDataTool.getInt("stun", data, 0) > 0){
                         skil.status.add(MonsterStatus.STUN);
                     }
-                    if (MapleDataTool.getInt("poison", data, 0) > 0) {
+                    if (MapleDataTool.getInt("poison", data, 0) > 0){
                     	skil.status.add(MonsterStatus.POISON);
                     }
-                    if (MapleDataTool.getInt("slow", data, 0) > 0) {
+                    if (MapleDataTool.getInt("slow", data, 0) > 0){
                         skil.status.add(MonsterStatus.SPEED);
                     }
                     familiars.put(skillid, skil);
                 }
-            } else if (topDir.getName().startsWith("Recipe")) {
-                for (MapleData data : datasource.getData(topDir.getName())) {
+            } else if (topDir.getName().startsWith("Recipe")){
+                for (MapleData data : datasource.getData(topDir.getName())){
                     skillid = Integer.parseInt(data.getName());
                     CraftingEntry skil = new CraftingEntry(skillid, (byte) MapleDataTool.getInt("incFatigability", data, 0), (byte) MapleDataTool.getInt("reqSkillLevel", data, 0), (byte) MapleDataTool.getInt("incSkillProficiency", data, 0), MapleDataTool.getInt("needOpenItem", data, 0) > 0, MapleDataTool.getInt("period", data, 0));
-                    for (MapleData d : data.getChildByPath("target")) {
+                    for (MapleData d : data.getChildByPath("target")){
                         skil.targetItems.add(new Triple<Integer, Integer, Integer>(MapleDataTool.getInt("item", d, 0), MapleDataTool.getInt("count", d, 0), MapleDataTool.getInt("probWeight", d, 0)));
                     }
-                    for (MapleData d : data.getChildByPath("recipe")) {
+                    for (MapleData d : data.getChildByPath("recipe")){
                         skil.reqItems.put(MapleDataTool.getInt("item", d, 0), MapleDataTool.getInt("count", d, 0));
                     }
                     crafts.put(skillid, skil);
@@ -152,46 +152,46 @@ public class SkillFactory {
         }
     }
 
-    public static List<Integer> getSkillsByJob(final int jobId) {
+    public static List<Integer> getSkillsByJob(final int jobId){
         return skillsByJob.get(jobId);
     }
 
-    public static String getSkillName(final int id) {
+    public static String getSkillName(final int id){
         Skill skil = getSkill(id);
-        if (skil != null) {
+        if (skil != null){
             return skil.getName();
         }
         return null;
     }
 
-    public static Integer getDelay(final String id) {
-        if (Delay.fromString(id) != null) {
+    public static Integer getDelay(final String id){
+        if (Delay.fromString(id) != null){
             return Delay.fromString(id).i;
         }
         return delays.get(id);
     }
 
-    private static String getName(final int id, final MapleData stringData) {
+    private static String getName(final int id, final MapleData stringData){
         String strId = Integer.toString(id);
         strId = StringUtil.getLeftPaddedStr(strId, '0', 7);
         MapleData skillroot = stringData.getChildByPath(strId);
-        if (skillroot != null) {
+        if (skillroot != null){
             return MapleDataTool.getString(skillroot.getChildByPath("name"), "");
         }
         return "";
     }
 
-    public static SummonSkillEntry getSummonData(final int skillid) {
+    public static SummonSkillEntry getSummonData(final int skillid){
         return SummonSkillInformation.get(skillid);
     }
 
-    public static Collection<Skill> getAllSkills() {
+    public static Collection<Skill> getAllSkills(){
         return skills.values();
     }
 
-    public static Skill getSkill(final int id) {
-        if (!skills.isEmpty()) {
-            if (id >= 92000000 && crafts.containsKey(Integer.valueOf(id))) { //92000000
+    public static Skill getSkill(final int id){
+        if (!skills.isEmpty()){
+            if (id >= 92000000 && crafts.containsKey(Integer.valueOf(id))){ //92000000
                 return crafts.get(Integer.valueOf(id));
             }
             return skills.get(Integer.valueOf(id));
@@ -200,23 +200,23 @@ public class SkillFactory {
         return null;
     }
 	
-	 public static long getDefaultSExpiry(final Skill skill) {
-        if (skill == null) {
+	 public static long getDefaultSExpiry(final Skill skill){
+        if (skill == null){
             return -1;
         }
         return (skill.isTimeLimited() ? (System.currentTimeMillis() + (long) (30L * 24L * 60L * 60L * 1000L)) : -1);
     }
 
-    public static CraftingEntry getCraft(final int id) {
-        if (!crafts.isEmpty()) {
+    public static CraftingEntry getCraft(final int id){
+        if (!crafts.isEmpty()){
             return crafts.get(Integer.valueOf(id));
         }
 
         return null;
     }
 
-    public static FamiliarEntry getFamiliar(final int id) {
-        if (!familiars.isEmpty()) {
+    public static FamiliarEntry getFamiliar(final int id){
+        if (!familiars.isEmpty()){
             return familiars.get(Integer.valueOf(id));
         }
 
@@ -232,7 +232,7 @@ public class SkillFactory {
         public List<Triple<Integer, Integer, Integer>> targetItems = new ArrayList<Triple<Integer, Integer, Integer>>(); // itemId / amount / probability
         public Map<Integer, Integer> reqItems = new HashMap<Integer, Integer>(); // itemId / amount
 
-        public CraftingEntry(int id, byte incFatigability, byte reqSkillLevel, byte incSkillProficiency, boolean needOpenItem, int period) {
+        public CraftingEntry(int id, byte incFatigability, byte reqSkillLevel, byte incSkillProficiency, boolean needOpenItem, int period){
             super(id);
             this.incFatigability = incFatigability;
             this.reqSkillLevel = reqSkillLevel;
@@ -249,7 +249,7 @@ public class SkillFactory {
         public boolean knockback;
         public EnumSet<MonsterStatus> status = EnumSet.noneOf(MonsterStatus.class);
 
-        public final boolean makeChanceResult() {
+        public final boolean makeChanceResult(){
             return prop >= 100 || Randomizer.nextInt(100) < prop;
         }
     }
@@ -544,13 +544,13 @@ public class SkillFactory {
         windshot(GameConstants.GMS ? 0x16D : 0x128);
         public int i;
 
-        private Delay(int i) {
+        private Delay(int i){
             this.i = i;
         }
 
-        public static Delay fromString(String s) {
-            for (Delay b : Delay.values()) {
-                if (b.name().equalsIgnoreCase(s)) {
+        public static Delay fromString(String s){
+            for (Delay b : Delay.values()){
+                if (b.name().equalsIgnoreCase(s)){
                     return b;
                 }
             }

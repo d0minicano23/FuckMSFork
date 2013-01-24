@@ -236,7 +236,7 @@ public class MTSCSPacket {
         mplew.writeInt(0);
 
         return mplew.getPacket();
-    }
+    }  
 
     public static byte[] getCSInventory(MapleClient c) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();

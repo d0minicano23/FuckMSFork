@@ -1054,12 +1054,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             case 21:
                 sel.setPotential3(amount);
                 break;
-            case 22:
-                sel.setPotential4(amount);
-                break;
-            case 23:
-                sel.setPotential5(amount);
-                break;
             case 24:
                 sel.setOwner(getText());
                 break;

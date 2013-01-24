@@ -50,46 +50,46 @@ public class CommandProcessor {
             PlayerCommand.class, InternCommand.class, GMCommand.class, AdminCommand.class, DonatorCommand.class, SuperDonatorCommand.class, SuperGMCommand.class
         };
 
-        for (Class<?> clasz : CommandFiles) {
+        for (Class<?> clasz : CommandFiles){
             try {
                 PlayerGMRank rankNeeded = (PlayerGMRank) clasz.getMethod("getPlayerLevelRequired", new Class<?>[]{}).invoke(null, (Object[]) null);
                 Class<?>[] a = clasz.getDeclaredClasses();
                 ArrayList<String> cL = new ArrayList<>();
-                for (Class<?> c : a) {
+                for (Class<?> c : a){
                     try {
-                        if (!Modifier.isAbstract(c.getModifiers()) && !c.isSynthetic()) {
+                        if (!Modifier.isAbstract(c.getModifiers()) && !c.isSynthetic()){
                             Object o = c.newInstance();
                             boolean enabled;
                             try {
                                 enabled = c.getDeclaredField("enabled").getBoolean(c.getDeclaredField("enabled"));
-                            } catch (NoSuchFieldException ex) {
+                            } catch (NoSuchFieldException ex){
                                 enabled = true; //Enable all coded commands by default.
                             }
-                            if (o instanceof CommandExecute && enabled) {
+                            if (o instanceof CommandExecute && enabled){
                                 cL.add(rankNeeded.getCommandPrefix() + c.getSimpleName().toLowerCase());
                                 commands.put(rankNeeded.getCommandPrefix() + c.getSimpleName().toLowerCase(), new CommandObject((CommandExecute) o, rankNeeded.getLevel()));
-				if (rankNeeded.getCommandPrefix() != PlayerGMRank.GM.getCommandPrefix() && rankNeeded.getCommandPrefix() != PlayerGMRank.NORMAL.getCommandPrefix()) { //add it again for GM
+				if (rankNeeded.getCommandPrefix() != PlayerGMRank.GM.getCommandPrefix() && rankNeeded.getCommandPrefix() != PlayerGMRank.NORMAL.getCommandPrefix()){ //add it again for GM
                                     commands.put("!" + c.getSimpleName().toLowerCase(), new CommandObject((CommandExecute) o, PlayerGMRank.GM.getLevel()));
 				}
                             }
                         }
-                    } catch (Exception ex) {
+                    } catch (Exception ex){
                         FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, ex);
                     }
                 }
                 Collections.sort(cL);
                 commandList.put(rankNeeded.getLevel(), cL);
-            } catch (Exception ex) {
+            } catch (Exception ex){
                 FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, ex);
             }
         }
     }
 
-    private static void sendDisplayMessage(MapleClient c, String msg, CommandType type) {
-	if (c.getPlayer() == null) {
+    private static void sendDisplayMessage(MapleClient c, String msg, CommandType type){
+	if (c.getPlayer() == null){
 	    return;
 	}
-        switch (type) {
+        switch (type){
             case NORMAL:
                 c.getPlayer().dropMessage(6, msg);
                 break;
@@ -103,11 +103,11 @@ public class CommandProcessor {
 
     }
 
-    public static void dropHelp(MapleClient c) {
+    public static void dropHelp(MapleClient c){
 	final StringBuilder sb = new StringBuilder("Command list: ");
-	for (int i = 0; i <= c.getPlayer().getGMLevel(); i++) {
-	    if (commandList.containsKey(i)) {
-	        for (String s : commandList.get(i)) {
+	for (int i = 0; i <= c.getPlayer().getGMLevel(); i++){
+	    if (commandList.containsKey(i)){
+	        for (String s : commandList.get(i)){
 		    sb.append(s);
 		    sb.append(" ");
 	        }
@@ -116,21 +116,21 @@ public class CommandProcessor {
 	c.getPlayer().dropMessage(6, sb.toString());
     }
 
-    public static boolean processCommand(MapleClient c, String line, CommandType type) {
-  if (line.charAt(0) == PlayerGMRank.NORMAL.getCommandPrefix() || (c.getPlayer().getGMLevel() > PlayerGMRank.NORMAL.getLevel() && line.charAt(0) == PlayerGMRank.DONATOR.getCommandPrefix()) || line.charAt(0) == PlayerGMRank.SUPERDONATOR.getCommandPrefix()) {
+    public static boolean processCommand(MapleClient c, String line, CommandType type){
+  if (line.charAt(0) == PlayerGMRank.NORMAL.getCommandPrefix() || (c.getPlayer().getGMLevel() > PlayerGMRank.NORMAL.getLevel() && line.charAt(0) == PlayerGMRank.DONATOR.getCommandPrefix()) || line.charAt(0) == PlayerGMRank.SUPERDONATOR.getCommandPrefix()){
             String[] splitted = line.split(" ");
             splitted[0] = splitted[0].toLowerCase();
 
             CommandObject co = commands.get(splitted[0]);
-           if (co == null || co.getType() != type) {
+           if (co == null || co.getType() != type){
               sendDisplayMessage(c, "That player command does not exist.", type);
               return true;
             }
             try {
                 int ret = co.execute(c, splitted); //Don't really care about the return value. ;D
-            } catch (Exception e) {
+            } catch (Exception e){
                 sendDisplayMessage(c, "There was an error.", type);
-                if (c.getPlayer().isGM()) {
+                if (c.getPlayer().isGM()){
                     sendDisplayMessage(c, "Error: " + e, type);
 		    FileoutputUtil.outputFileError(FileoutputUtil.PacketEx_Log, e);
                 }
@@ -138,31 +138,31 @@ public class CommandProcessor {
             return true;
         }
 
-        if (c.getPlayer().getGMLevel() > PlayerGMRank.NORMAL.getLevel()) {
-            if (line.charAt(0) == PlayerGMRank.SUPERGM.getCommandPrefix() || line.charAt(0) == PlayerGMRank.INTERN.getCommandPrefix() || line.charAt(0) == PlayerGMRank.GM.getCommandPrefix() || line.charAt(0) == PlayerGMRank.ADMIN.getCommandPrefix()) { //Redundant for now, but in case we change symbols later. This will become extensible.
+        if (c.getPlayer().getGMLevel() > PlayerGMRank.NORMAL.getLevel()){
+            if (line.charAt(0) == PlayerGMRank.SUPERGM.getCommandPrefix() || line.charAt(0) == PlayerGMRank.INTERN.getCommandPrefix() || line.charAt(0) == PlayerGMRank.GM.getCommandPrefix() || line.charAt(0) == PlayerGMRank.ADMIN.getCommandPrefix()){ //Redundant for now, but in case we change symbols later. This will become extensible.
                 String[] splitted = line.split(" ");
                 splitted[0] = splitted[0].toLowerCase();
 
                 CommandObject co = commands.get(splitted[0]);
-                if (co == null) {
-		    if (splitted[0].equals(line.charAt(0) + "help")) {
+                if (co == null){
+		    if (splitted[0].equals(line.charAt(0) + "help")){
  		        dropHelp(c);
 		        return true;
 		    }
                     sendDisplayMessage(c, "That command does not exist.", type);
                     return true;
                 }
-                if (c.getPlayer().getGMLevel() >= co.getReqGMLevel()) {
+                if (c.getPlayer().getGMLevel() >= co.getReqGMLevel()){
                     int ret = 0;
 		    try {
 			ret = co.execute(c, splitted);
-		    } catch (ArrayIndexOutOfBoundsException x) {
+		    } catch (ArrayIndexOutOfBoundsException x){
 			sendDisplayMessage(c, "The command was not used properly: " + x, type);
-		    } catch (Exception e) {
+		    } catch (Exception e){
 			FileoutputUtil.outputFileError(FileoutputUtil.CommandEx_Log, e);
 		    }
-                    if (ret > 0 && c.getPlayer() != null) { //incase d/c after command or something
-			if (c.getPlayer().isGM()) {
+                    if (ret > 0 && c.getPlayer() != null){ //incase d/c after command or something
+			if (c.getPlayer().isGM()){
                             logCommandToDB(c.getPlayer(), line, "gmlog");
 			} else {
 			    logCommandToDB(c.getPlayer(), line, "internlog");
@@ -177,7 +177,7 @@ public class CommandProcessor {
         return false;
     }
 
-    private static void logCommandToDB(MapleCharacter player, String command, String table) {
+    private static void logCommandToDB(MapleCharacter player, String command, String table){
         PreparedStatement ps = null;
         try {
             ps = DatabaseConnection.getConnection().prepareStatement("INSERT INTO " + table + " (cid, command, mapid) VALUES (?, ?, ?)");
@@ -185,12 +185,12 @@ public class CommandProcessor {
             ps.setString(2, command);
             ps.setInt(3, player.getMap().getId());
             ps.executeUpdate();
-        } catch (SQLException ex) {
+        } catch (SQLException ex){
             FileoutputUtil.outputFileError(FileoutputUtil.PacketEx_Log, ex);
         } finally {
             try {
                 ps.close();
-            } catch (SQLException e) {/*Err.. Fuck?*/
+            } catch (SQLException e){/*Err.. Fuck?*/
 
             }
         }

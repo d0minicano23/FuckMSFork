@@ -223,7 +223,7 @@ public class CharLoginHandler {
         newchar.setName(name);
         newchar.setSkinColor(skinColor);
         newchar.setDemonMarking(demonMark);
-
+        newchar.setMercedesEars(mercedes ? 1 : 0);
         final MapleItemInformationProvider li = MapleItemInformationProvider.getInstance();
         final MapleInventory equip = newchar.getInventory(MapleInventoryType.EQUIPPED);
 

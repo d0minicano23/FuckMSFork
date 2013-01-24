@@ -23,7 +23,7 @@ public class MapleRing
   private String partnerName;
   private boolean equipped = false;
 
-  private MapleRing(int id, int id2, int partnerId, int itemid, String partnerName) {
+  private MapleRing(int id, int id2, int partnerId, int itemid, String partnerName){
     this.ringId = id;
     this.ringId2 = id2;
     this.partnerId = partnerId;
@@ -31,11 +31,11 @@ public class MapleRing
     this.partnerName = partnerName;
   }
 
-  public static MapleRing loadFromDb(int ringId) {
+  public static MapleRing loadFromDb(int ringId){
     return loadFromDb(ringId, false);
   }
 
-  public static MapleRing loadFromDb(int ringId, boolean equipped) {
+  public static MapleRing loadFromDb(int ringId, boolean equipped){
     try {
       Connection con = DatabaseConnection.getConnection();
       PreparedStatement ps = con.prepareStatement("SELECT * FROM rings WHERE ringId = ?");
@@ -43,7 +43,7 @@ public class MapleRing
 
       ResultSet rs = ps.executeQuery();
       MapleRing ret = null;
-      if (rs.next()) {
+      if (rs.next()){
         ret = new MapleRing(ringId, rs.getInt("partnerRingId"), rs.getInt("partnerChrId"), rs.getInt("itemid"), rs.getString("partnerName"));
         ret.setEquipped(equipped);
       }
@@ -51,7 +51,7 @@ public class MapleRing
       ps.close();
 
       return ret;
-    } catch (SQLException ex) {
+    } catch (SQLException ex){
       ex.printStackTrace();
     }
     return null;
@@ -79,15 +79,15 @@ public class MapleRing
     ps.close();
   }
 
-  public static int createRing(int itemid, MapleCharacter partner1, String partner2, String msg, int id2, int sn) {
+  public static int createRing(int itemid, MapleCharacter partner1, String partner2, String msg, int id2, int sn){
     try {
       if (partner1 == null)
         return -2;
-      if (id2 <= 0) {
+      if (id2 <= 0){
         return -1;
       }
       return makeRing(itemid, partner1, partner2, id2, msg, sn);
-    } catch (Exception ex) {
+    } catch (Exception ex){
       ex.printStackTrace();
     }return 0;
   }
@@ -98,7 +98,7 @@ public class MapleRing
     try
     {
       addToDB(itemid, partner1, partner2.getName(), partner2.getId(), ringID);
-    } catch (MySQLIntegrityConstraintViolationException mslcve) {
+    } catch (MySQLIntegrityConstraintViolationException mslcve){
       return ringID;
     }
     return ringID;
@@ -109,7 +109,7 @@ public class MapleRing
     try
     {
       addToDB(itemid, partner1, partner2, id2, ringID);
-    } catch (MySQLIntegrityConstraintViolationException mslcve) {
+    } catch (MySQLIntegrityConstraintViolationException mslcve){
       return 0;
     }
     MapleInventoryManipulator.addRing(partner1, itemid, ringID[1], sn, partner2);
@@ -117,60 +117,58 @@ public class MapleRing
     return 1;
   }
 
-  public int getRingId() {
+  public int getRingId(){
     return this.ringId;
   }
 
-  public int getPartnerRingId() {
+  public int getPartnerRingId(){
     return this.ringId2;
   }
 
-  public int getPartnerChrId() {
+  public int getPartnerChrId(){
     return this.partnerId;
   }
 
-  public int getItemId() {
+  public int getItemId(){
     return this.itemId;
   }
 
-  public boolean isEquipped() {
+  public boolean isEquipped(){
     return this.equipped;
   }
 
-  public void setEquipped(boolean equipped) {
+  public void setEquipped(boolean equipped){
     this.equipped = equipped;
   }
 
-  public String getPartnerName() {
+  public String getPartnerName(){
     return this.partnerName;
   }
 
-  public void setPartnerName(String partnerName) {
+  public void setPartnerName(String partnerName){
     this.partnerName = partnerName;
   }
 
-  public boolean equals(Object o)
-  {
-    if ((o instanceof MapleRing)) {
+  public boolean equals(Object o){
+    if ((o instanceof MapleRing)){
       return ((MapleRing)o).getRingId() == getRingId();
     }
     return false;
   }
 
-  public int hashCode()
-  {
+  public int hashCode(){
     int hash = 5;
     hash = 53 * hash + this.ringId;
     return hash;
   }
 
-  public static void removeRingFromDb(MapleCharacter player) {
+  public static void removeRingFromDb(MapleCharacter player){
     try {
       Connection con = DatabaseConnection.getConnection();
       PreparedStatement ps = con.prepareStatement("SELECT * FROM rings WHERE partnerChrId = ?");
       ps.setInt(1, player.getId());
       ResultSet rs = ps.executeQuery();
-      if (!rs.next()) {
+      if (!rs.next()){
         ps.close();
         rs.close();
         return;
@@ -184,18 +182,17 @@ public class MapleRing
       ps.setInt(2, otherId);
       ps.executeUpdate();
       ps.close();
-    } catch (SQLException sex) {
+    } catch (SQLException sex){
       sex.printStackTrace();
     }
   }
 
   public static class RingComparator implements Comparator<MapleRing>, Serializable
   {
-    public int compare(MapleRing o1, MapleRing o2)
-    {
+    public int compare(MapleRing o1, MapleRing o2){
       if (o1.ringId < o2.ringId)
         return -1;
-      if (o1.ringId == o2.ringId) {
+      if (o1.ringId == o2.ringId){
         return 0;
       }
       return 1;

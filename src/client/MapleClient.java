@@ -966,6 +966,7 @@ public class MapleClient implements Serializable {
                     player = null;
                 }
             }
+            player.checkBossReactor();//is this where it goes TODO
         }
         if (!serverTransition && isLoggedIn()) {
             updateLoginState(MapleClient.LOGIN_NOTLOGGEDIN, getSessionIPAddress());

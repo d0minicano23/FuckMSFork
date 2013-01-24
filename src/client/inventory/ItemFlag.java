@@ -40,15 +40,15 @@ public enum ItemFlag {
     SCROLL_PROTECT(0x4000); // scroll protection
     private final int i;
 
-    private ItemFlag(int i) {
+    private ItemFlag(int i){
         this.i = i;
     }
 
-    public final int getValue() {
+    public final int getValue(){
         return i;
     }
 
-    public final boolean check(int flag) {
+    public final boolean check(int flag){
         return (flag & i) == i;
     }
 }

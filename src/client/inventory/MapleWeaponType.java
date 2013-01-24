@@ -48,16 +48,16 @@ public enum MapleWeaponType {
     private final float damageMultiplier;
     private final int baseMastery;
 
-    private MapleWeaponType(final float maxDamageMultiplier, int baseMastery) {
+    private MapleWeaponType(final float maxDamageMultiplier, int baseMastery){
         this.damageMultiplier = maxDamageMultiplier;
 	this.baseMastery = baseMastery;
     }
 
-    public final float getMaxDamageMultiplier() {
+    public final float getMaxDamageMultiplier(){
         return damageMultiplier;
     }
 
-    public final int getBaseMastery() {
+    public final int getBaseMastery(){
 	return baseMastery;
     }
 };

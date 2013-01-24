@@ -172,7 +172,16 @@ public class GenericLittleEndianWriter implements LittleEndianWriter {
         writeShort(s.x);
         writeShort(s.y);
     }
-
+    
+     /**
+     * Writes a boolean true ? 1 : 0
+     *
+     * @param b The boolean to write.
+     */
+    @Override
+    public void writeBool(final boolean b) {
+        write(b ? 1 : 0);
+    }
     /**
      * Write a long integer to the stream.
      * @param l The long integer to write.

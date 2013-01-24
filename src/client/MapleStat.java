@@ -40,17 +40,17 @@ public enum MapleStat {
 
     private final long i;
 
-    private MapleStat(long i) {
+    private MapleStat(long i){
         this.i = i;
     }
 
-    public long getValue() {
+    public long getValue(){
         return i;
     }
 
-    public static final MapleStat getByValue(final long value) {
-        for (final MapleStat stat : MapleStat.values()) {
-            if (stat.i == value) {
+    public static final MapleStat getByValue(final long value){
+        for (final MapleStat stat : MapleStat.values()){
+            if (stat.i == value){
                 return stat;
             }
         }
@@ -75,11 +75,11 @@ public enum MapleStat {
 		
         private final int i;
 
-        private Temp(int i) {
+        private Temp(int i){
             this.i = i;
         }
 
-        public int getValue() {
+        public int getValue(){
             return i;
         }
     }

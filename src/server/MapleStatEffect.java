@@ -674,9 +674,6 @@ public class MapleStatEffect implements Serializable {
                 case WhiteKnight.MAGIC_CRASH:
                     ret.monsterStatus.put(MonsterStatus.MAGIC_CRASH, Integer.valueOf(1));
                     break;
-                case Paladin.DIVINE_SHIELD:
-                    ret.statups.put(MapleBuffStat.DIVINE_SHIELD, ret.info.get(MapleStatInfo.x));
-                    break;
                 case Paladin.ADVANCED_CHARGE:
                 case WhiteKnight.COMBAT_ORDERS:
                     ret.statups.put(MapleBuffStat.COMBAT_ORDERS, ret.info.get(MapleStatInfo.x));
@@ -702,6 +699,9 @@ public class MapleStatEffect implements Serializable {
                 case Outlaw.CROSS_CUT_BLAST:
                      ret.statups.put(MapleBuffStat.DAMAGE_BUFF, ret.info.get(MapleStatInfo.y));
                     break;
+                case Paladin.DIVINE_SHIELD:
+                    ret.statups.put(MapleBuffStat.DIVINE_SHIELD, 1);
+                    break;                    
                 case Priest.HOLY_MAGIC_SHELL:
                     ret.statups.put(MapleBuffStat.HOLY_MAGIC_SHELL, ret.info.get(MapleStatInfo.x));
                     ret.info.put(MapleStatInfo.cooltime, ret.info.get(MapleStatInfo.y));
@@ -1046,6 +1046,10 @@ public class MapleStatEffect implements Serializable {
                     ret.info.put(MapleStatInfo.dotTime, 3);
                 case BattleMage.DARK_AURA:
                 case 32110007://effect
+                    ret.info.put(MapleStatInfo.time, (sourceid == 32110007 ? 60000 : 2100000000));
+                    ret.statups.put(MapleBuffStat.AURA, (int) ret.level);
+                    ret.statups.put(MapleBuffStat.DARK_AURA, (int) ret.level);                    
+                    break;
                 case BattleMage.BLUE_AURA:
                 case BattleMage.ADV_BLUE_AURA:
                 case 32110008://effect
@@ -2272,7 +2276,7 @@ public class MapleStatEffect implements Serializable {
                 int sourcez = 0;
                 if (applyfrom.getStatForBuff(MapleBuffStat.DARK_AURA) != null) {
                     sourcez = BattleMage.DARK_AURA;
-                    statt = new Pair<>(MapleBuffStat.DARK_AURA, (int) (level + 10 + applyto.getTotalSkillLevel(sourcez))); //i think
+                    statt = new Pair<>(MapleBuffStat.DARK_AURA, (int) applyto.getTotalSkillLevel(sourcez)); //i think
                 } else if (applyfrom.getStatForBuff(MapleBuffStat.YELLOW_AURA) != null) {
                     sourcez = BattleMage.YELLOW_AURA;
                     statt = new Pair<>(MapleBuffStat.YELLOW_AURA, (int) applyto.getTotalSkillLevel(sourcez));
@@ -3000,19 +3004,19 @@ public class MapleStatEffect implements Serializable {
         boolean sameSrc = this.sourceid == effect.sourceid;
         switch (this.sourceid) { // All these are passive skills, will have to cast the normal ones.
             case BattleMage.ADV_DARK_AURA: // Advanced Dark Aura
-                sameSrc = effect.sourceid == 32001003;
+                sameSrc = effect.sourceid == BattleMage.DARK_AURA;
                 break;
             case BattleMage.ADV_BLUE_AURA: // Advanced Blue Aura
-                sameSrc = effect.sourceid == 32111012;
+                sameSrc = effect.sourceid == BattleMage.BLUE_AURA;
                 break;
             case BattleMage.ADV_YELLOW_AURA: // Advanced Yellow Aura
-                sameSrc = effect.sourceid == 32101003;
+                sameSrc = effect.sourceid == BattleMage.YELLOW_AURA;
                 break;
             case Mechanic.EXTREME: // Extreme Mech
-                sameSrc = effect.sourceid == 35001002;
+                sameSrc = effect.sourceid == Mechanic.PROTOTYPE;
                 break;
             case Mechanic.SIEGE_MODE: // Mech: Siege Mode
-                sameSrc = effect.sourceid == 35111004;
+                sameSrc = effect.sourceid == Mechanic.SIEGE;
                 break;
         }
         return effect != null && sameSrc && this.skill == effect.skill;

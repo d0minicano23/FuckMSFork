@@ -29,7 +29,7 @@ public class SkillEntry implements Serializable {
     public byte masterlevel;
     public long expiration;
 
-    public SkillEntry(final int skillevel, final byte masterlevel, final long expiration) {
+    public SkillEntry(final int skillevel, final byte masterlevel, final long expiration){
         this.skillevel = skillevel;
         this.masterlevel = masterlevel;
         this.expiration = expiration;

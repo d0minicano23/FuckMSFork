@@ -45,7 +45,7 @@ public class Start {
             throw new RuntimeException("[EXCEPTION] Please check if the SQL server is active.");
         }
 
-       System.out.println("[" + ServerConstants.SERVER_NAME + " " + ServerConstants.MAPLE_VERSION +"."+ ServerConstants.MAPLE_PATCH +" ]");
+       System.out.println("[" + ServerConstants.SERVER_NAME + " " + ServerConstants.MAPLE_VERSION +"."+ ServerConstants.MAPLE_PATCH +"]");
         World.init();
         WorldTimer.getInstance().start();
         EtcTimer.getInstance().start();

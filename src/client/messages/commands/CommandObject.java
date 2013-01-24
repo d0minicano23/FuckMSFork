@@ -15,7 +15,7 @@ public class CommandObject {
     /** what gets done when this command is used */
     private CommandExecute exe;
 
-    public CommandObject(CommandExecute c, int gmLevel) {
+    public CommandObject(CommandExecute c, int gmLevel){
         exe = c;
         gmLevelReq = gmLevel;
     }
@@ -28,11 +28,11 @@ public class CommandObject {
      * @param splitted the arguments
      * @return See {@link CommandExecute#execute}
      */
-    public int execute(MapleClient c, String[] splitted) {
+    public int execute(MapleClient c, String[] splitted){
         return exe.execute(c, splitted);
     }
 
-    public CommandType getType() {
+    public CommandType getType(){
         return exe.getType();
     }
 
@@ -41,7 +41,7 @@ public class CommandObject {
      *
      * @return the required GM Level
      */
-    public int getReqGMLevel() {
+    public int getReqGMLevel(){
         return gmLevelReq;
     }
 }

@@ -44,12 +44,12 @@ public class MapleAndroid implements Serializable {
     private Point pos = new Point(0, 0);
     private boolean changed = false;
 
-    private MapleAndroid(final int itemid, final int uniqueid) {
+    private MapleAndroid(final int itemid, final int uniqueid){
         this.itemid = itemid;
         this.uniqueid = uniqueid;
     }
 
-    public static final MapleAndroid loadFromDb(final int itemid, final int uid) {
+    public static final MapleAndroid loadFromDb(final int itemid, final int uid){
         try {
             final MapleAndroid ret = new MapleAndroid(itemid, uid);
 
@@ -58,7 +58,7 @@ public class MapleAndroid implements Serializable {
             ps.setInt(1, uid);
 
             final ResultSet rs = ps.executeQuery();
-            if (!rs.next()) {
+            if (!rs.next()){
                 rs.close();
                 ps.close();
                 return null;
@@ -72,14 +72,14 @@ public class MapleAndroid implements Serializable {
             ps.close();
 
             return ret;
-        } catch (SQLException ex) {
+        } catch (SQLException ex){
             ex.printStackTrace();
             return null;
         }
     }
 
-    public final void saveToDb() {
-	if (!changed) {
+    public final void saveToDb(){
+	if (!changed){
 	    return;
 	}
         try {
@@ -91,21 +91,21 @@ public class MapleAndroid implements Serializable {
             ps.executeUpdate(); // Execute statement
             ps.close();
 	    changed = false;
-        } catch (final SQLException ex) {
+        } catch (final SQLException ex){
             ex.printStackTrace();
         }
     }
 
-    public static final MapleAndroid create(final int itemid, final int uniqueid) {
+    public static final MapleAndroid create(final int itemid, final int uniqueid){
         Pair<List<Integer>, List<Integer>> aInfo = MapleItemInformationProvider.getInstance().getAndroidInfo(itemid == 1662006 ? 5 : (itemid - 1661999));
-	if (aInfo == null) {
+	if (aInfo == null){
 	    return null;
 	}
         return create(itemid, uniqueid, aInfo.left.get(Randomizer.nextInt(aInfo.left.size())), aInfo.right.get(Randomizer.nextInt(aInfo.right.size())));
     }
 
-    public static final MapleAndroid create(int itemid, int uniqueid, int hair, int face) {
-        if (uniqueid <= -1) { //wah
+    public static final MapleAndroid create(int itemid, int uniqueid, int hair, int face){
+        if (uniqueid <= -1){ //wah
             uniqueid = MapleInventoryIdentifier.getInstance();
         }
         try { // Commit to db first
@@ -116,7 +116,7 @@ public class MapleAndroid implements Serializable {
             pse.setInt(4, face);
             pse.executeUpdate();
             pse.close();
-        } catch (final SQLException ex) {
+        } catch (final SQLException ex){
             ex.printStackTrace();
             return null;
         }
@@ -128,61 +128,61 @@ public class MapleAndroid implements Serializable {
         return pet;
     }
 
-    public int getUniqueId() {
+    public int getUniqueId(){
         return uniqueid;
     }
 
-    public final void setHair(final int closeness) {
+    public final void setHair(final int closeness){
         this.hair = closeness;
 	this.changed = true;
     }
 
-    public final int getHair() {
+    public final int getHair(){
         return hair;
     }
 
-    public final void setFace(final int closeness) {
+    public final void setFace(final int closeness){
         this.face = closeness;
 	this.changed = true;
     }
 
-    public final int getFace() {
+    public final int getFace(){
         return face;
     }
 	
-	public String getName() {
+	public String getName(){
 		return name;
 	}
 	
-	public void setName(String n) {
+	public void setName(String n){
 		this.name = n;
 		this.changed = true;
 	}
 
-    public final Point getPos() {
+    public final Point getPos(){
         return pos;
     }
 
-    public final void setPos(final Point pos) {
+    public final void setPos(final Point pos){
         this.pos = pos;
     }
 
-    public final int getStance() {
+    public final int getStance(){
         return stance;
     }
 
-    public final void setStance(final int stance) {
+    public final void setStance(final int stance){
         this.stance = stance;
     }
 
-    public final int getItemId() {
+    public final int getItemId(){
         return itemid;
     }
 
-    public final void updatePosition(final List<LifeMovementFragment> movement) {
-        for (final LifeMovementFragment move : movement) {
-            if (move instanceof LifeMovement) {
-                if (move instanceof AbsoluteLifeMovement) {
+    public final void updatePosition(final List<LifeMovementFragment> movement){
+        for (final LifeMovementFragment move : movement){
+            if (move instanceof LifeMovement){
+                if (move instanceof AbsoluteLifeMovement){
                     setPos(((LifeMovement) move).getPosition());
                 }
                 setStance(((LifeMovement) move).getNewstate());

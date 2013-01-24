@@ -18,16 +18,16 @@ public class Rank {
         private char commandPrefix;
         private int level;
 
-        PlayerGMRank(char ch, int level) {
+        PlayerGMRank(char ch, int level){
             commandPrefix = ch;
             this.level = level;
         }
         
-        public char getCommandPrefix() {
+        public char getCommandPrefix(){
             return commandPrefix;
         }
 
-        public int getLevel() {
+        public int getLevel(){
             return level;
         }
     }
@@ -39,11 +39,11 @@ public class Rank {
         POKEMON(2);
         private int level;
 
-        CommandType(int level) {
+        CommandType(int level){
             this.level = level;
         }
 
-        public int getType() {
+        public int getType(){
             return level;
         }
     }

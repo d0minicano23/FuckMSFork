@@ -29,14 +29,14 @@ public class CardData implements Serializable {
     public int cid;
     public short job, level;
 
-    public CardData(int cid, short level, short job) {
+    public CardData(int cid, short level, short job){
         this.cid = cid;
         this.level = level;
         this.job = job;
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return "CID: " + cid + ", Job: " + job + ", Level: " + level;
     }
 }

@@ -45,7 +45,7 @@ public class MonsterFamiliar extends AnimatedMapleMapObject implements Serializa
     private short fh = 0;
     private byte vitality;
 
-    public MonsterFamiliar(int characterid, int id, int familiar, long expiry, String name, int fatigue, byte vitality) {
+    public MonsterFamiliar(int characterid, int id, int familiar, long expiry, String name, int fatigue, byte vitality){
         this.familiar = familiar;
         this.characterid = characterid;
         this.expiry = expiry;
@@ -57,7 +57,7 @@ public class MonsterFamiliar extends AnimatedMapleMapObject implements Serializa
         setPosition(new Point(0, 0));
     }
 
-    public MonsterFamiliar(int characterid, int familiar, long expiry) {
+    public MonsterFamiliar(int characterid, int familiar, long expiry){
         this.familiar = familiar;
         this.characterid = characterid;
         this.expiry = expiry;
@@ -67,105 +67,105 @@ public class MonsterFamiliar extends AnimatedMapleMapObject implements Serializa
         this.id = Randomizer.nextInt();
     }
 
-    public String getOriginalName() {
+    public String getOriginalName(){
         return getOriginalStats().getName();
     }
 
-    public MapleMonsterStats getOriginalStats() {
+    public MapleMonsterStats getOriginalStats(){
         return MapleLifeFactory.getMonsterStats(MapleItemInformationProvider.getInstance().getFamiliar(familiar).mob);
     }
 
-    public void addFatigue(MapleCharacter owner) {
+    public void addFatigue(MapleCharacter owner){
         addFatigue(owner, 1);
     }
 
-    public void addFatigue(MapleCharacter owner, int f) {
+    public void addFatigue(MapleCharacter owner, int f){
         //f += ((familiar / 10000) % 10) * f;
         fatigue = Math.min(vitality * 300, Math.max(0, fatigue + f));
         owner.getClient().getSession().write(CField.updateFamiliar(this));
-        if (fatigue >= (vitality * 300)) {
+        if (fatigue >= (vitality * 300)){
             owner.removeFamiliar();
         }
     }
 
-    public int getFamiliar() {
+    public int getFamiliar(){
         return familiar;
     }
 
-    public int getId() {
+    public int getId(){
         return id;
     }
 
-    public int getFatigue() {
+    public int getFatigue(){
         return fatigue;
     }
 
-    public int getCharacterId() {
+    public int getCharacterId(){
         return characterid;
     }
 
-    public final String getName() {
+    public final String getName(){
         return name;
     }
 
-    public long getExpiry() {
+    public long getExpiry(){
         return expiry;
     }
 
-    public byte getVitality() {
+    public byte getVitality(){
         return vitality;
     }
 
-    public void setFatigue(int f) {
+    public void setFatigue(int f){
         this.fatigue = f;
     }
 
-    public void setName(String n) {
+    public void setName(String n){
         this.name = n;
     }
 
-    public void setExpiry(long e) {
+    public void setExpiry(long e){
         this.expiry = e;
     }
 
-    public void setVitality(int v) {
+    public void setVitality(int v){
         this.vitality = (byte) v;
     }
 
-    public void setFh(int f) {
+    public void setFh(int f){
         this.fh = (short) f;
     }
 
-    public short getFh() {
+    public short getFh(){
         return fh;
     }
 
     @Override
-    public void sendSpawnData(MapleClient client) {
+    public void sendSpawnData(MapleClient client){
         client.getSession().write(CField.spawnFamiliar(this, true, false));
     }
 
     @Override
-    public void sendDestroyData(MapleClient client) {
+    public void sendDestroyData(MapleClient client){
         client.getSession().write(CField.spawnFamiliar(this, false, false));
     }
 
     @Override
-    public MapleMapObjectType getType() {
+    public MapleMapObjectType getType(){
         return MapleMapObjectType.FAMILIAR;
     }
 
-    public final void updatePosition(final List<LifeMovementFragment> movement) {
-        for (final LifeMovementFragment move : movement) {
-            if (move instanceof LifeMovement) {
-                if (move instanceof AbsoluteLifeMovement) {
+    public final void updatePosition(final List<LifeMovementFragment> movement){
+        for (final LifeMovementFragment move : movement){
+            if (move instanceof LifeMovement){
+                if (move instanceof AbsoluteLifeMovement){
                     setFh(((AbsoluteLifeMovement) move).getUnk());
                 }
             }
         }
     }
 
-    public void writeRegisterPacket(MaplePacketLittleEndianWriter mplew, boolean chr) {
+    public void writeRegisterPacket(MaplePacketLittleEndianWriter mplew, boolean chr){
         mplew.writeInt(getCharacterId()); //lol
         mplew.writeInt(getFamiliar());
         mplew.writeZeroBytes(13);

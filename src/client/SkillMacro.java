@@ -34,7 +34,7 @@ public class SkillMacro implements Serializable {
     private int shout;
     private int position;
 
-    public SkillMacro(int skill1, int skill2, int skill3, String name, int shout, int position) {
+    public SkillMacro(int skill1, int skill2, int skill3, String name, int shout, int position){
 	this.skill1 = skill1;
 	this.skill2 = skill2;
 	this.skill3 = skill3;
@@ -43,59 +43,59 @@ public class SkillMacro implements Serializable {
 	this.position = position;
     }
 
-    public int getMacroId() {
+    public int getMacroId(){
 	return macroId;
     }
 
-    public int getSkill1() {
+    public int getSkill1(){
 	return skill1;
     }
 
-    public int getSkill2() {
+    public int getSkill2(){
 	return skill2;
     }
 
-    public int getSkill3() {
+    public int getSkill3(){
 	return skill3;
     }
 
-    public String getName() {
+    public String getName(){
 	return name;
     }
 
-    public int getShout() {
+    public int getShout(){
 	return shout;
     }
 
-    public int getPosition() {
+    public int getPosition(){
 	return position;
     }
 
-    public void setMacroId(int macroId) {
+    public void setMacroId(int macroId){
 	this.macroId = macroId;
     }
 
-    public void setSkill1(int skill1) {
+    public void setSkill1(int skill1){
 	this.skill1 = skill1;
     }
 
-    public void setSkill2(int skill2) {
+    public void setSkill2(int skill2){
 	this.skill2 = skill2;
     }
 
-    public void setSkill3(int skill3) {
+    public void setSkill3(int skill3){
 	this.skill3 = skill3;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
 	this.name = name;
     }
 
-    public void setShout(int shout) {
+    public void setShout(int shout){
 	this.shout = shout;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(int position){
 	this.position = position;
     }
 }

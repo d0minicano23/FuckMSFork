@@ -432,7 +432,6 @@ public class PlayersHandler {
                     c.getPlayer().setMarriageId(chr.getId());
 
                     chr.fakeRelog();
-                    c.getPlayer().fakeRelog();
                 } catch (Exception e) {
                     FileoutputUtil.outputFileError(FileoutputUtil.PacketEx_Log, e);
                 }

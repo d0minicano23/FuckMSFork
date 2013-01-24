@@ -41,7 +41,7 @@ public class MapleMount implements Serializable {
     private long lastFatigue = 0;
     private transient WeakReference<MapleCharacter> owner;
 
-    public MapleMount(MapleCharacter owner, int id, int skillid, byte fatigue, byte level, int exp) {
+    public MapleMount(MapleCharacter owner, int id, int skillid, byte fatigue, byte level, int exp){
         this.itemid = id;
         this.skillid = skillid;
         this.fatigue = fatigue;
@@ -51,7 +51,7 @@ public class MapleMount implements Serializable {
     }
 
     public void saveMount(final int charid) throws SQLException {
-        if (!changed) {
+        if (!changed){
             return;
         }
         Connection con = DatabaseConnection.getConnection();
@@ -64,77 +64,77 @@ public class MapleMount implements Serializable {
         ps.close();
     }
 
-    public int getItemId() {
+    public int getItemId(){
         return itemid;
     }
 
-    public int getSkillId() {
+    public int getSkillId(){
         return skillid;
     }
 
-    public byte getFatigue() {
+    public byte getFatigue(){
         return fatigue;
     }
 
-    public int getExp() {
+    public int getExp(){
         return exp;
     }
 
-    public byte getLevel() {
+    public byte getLevel(){
         return level;
     }
 
-    public void setItemId(int c) {
+    public void setItemId(int c){
         changed = true;
         this.itemid = c;
     }
 
-    public void setFatigue(byte amount) {
+    public void setFatigue(byte amount){
         changed = true;
         fatigue += amount;
-        if (fatigue < 0) {
+        if (fatigue < 0){
             fatigue = 0;
         }
     }
 
-    public void setExp(int c) {
+    public void setExp(int c){
         changed = true;
         this.exp = c;
     }
 
-    public void setLevel(byte c) {
+    public void setLevel(byte c){
         changed = true;
         this.level = c;
     }
 
-    public void increaseFatigue() {
+    public void increaseFatigue(){
         changed = true;
         this.fatigue++;
-        if (fatigue > 100 && owner.get() != null) {
+        if (fatigue > 100 && owner.get() != null){
             owner.get().cancelEffectFromBuffStat(MapleBuffStat.MONSTER_RIDING);
         }
         update();
     }
 
-    public final boolean canTire(long now) {
+    public final boolean canTire(long now){
 	return lastFatigue > 0 && lastFatigue + 30000 < now;
     }
 
-    public void startSchedule() {
+    public void startSchedule(){
 	lastFatigue = System.currentTimeMillis();
     }
 
-    public void cancelSchedule() {
+    public void cancelSchedule(){
 	lastFatigue = 0;
     }
 
-    public void increaseExp() {
+    public void increaseExp(){
         int e;
-        if (level >= 1 && level <= 7) {
+        if (level >= 1 && level <= 7){
             e = Randomizer.nextInt(10) + 15;
-        } else if (level >= 8 && level <= 15) {
+        } else if (level >= 8 && level <= 15){
             e = Randomizer.nextInt(13) + 15 / 2;
-        } else if (level >= 16 && level <= 24) {
+        } else if (level >= 16 && level <= 24){
             e = Randomizer.nextInt(23) + 18 / 2;
         } else {
             e = Randomizer.nextInt(28) + 25 / 2;
@@ -142,9 +142,9 @@ public class MapleMount implements Serializable {
         setExp(exp + e);
     }
 
-    public void update() {
+    public void update(){
         final MapleCharacter chr = owner.get();
-        if (chr != null) {
+        if (chr != null){
 //	    cancelSchedule();
             chr.getMap().broadcastMessage(CWvsContext.updateMount(chr, false));
         }

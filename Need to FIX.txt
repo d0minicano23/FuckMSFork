@@ -19,8 +19,6 @@
 
 - Protection icon / ward does not come off after item use.
 
-- Using hammer
-
 - cash items have the mount nebulite text (I think I can find it in     getSocketState() )
 
 - need to add renegade shop
@@ -31,6 +29,51 @@
 
 - ANDROID DISAPPEARS WHEN ON ROPE. 
 
-- BATTLE MAGE DARK AURA, AND REAPER NOT WORKING PROPERLY (REAPER BUFF DOES NOT DISSAPEAR, AND ARUA DOES NOT CAST).
+- BATTLE MAGE: REAPER NOT WORKING PROPERLY (REAPER BUFF DOES NOT DISSAPEAR   AND MULTI REAPER IS NOT SUMMONED).
+  
+  ALSO ADV DARK AURA DOES NOT WORK PROPERLY (CASTED EFFECT NOT PASSIVE).
 
-- CANNOT EQUIP KATARA UNLESS THERE IS A DAGGER EQUIPPED
+- NEED TO FIX DIVINE SHIELD AND HOLY MAGIC SHELL
+
+
+Aran
+*When you hit mobs you get no combos to use you're special skills.
+*Body pressure (Skill)-doesn't work properly when mob touch you it will show the damage but it won't affect mobs.
+*When you spam final toss-(Skill) there's a delayed
+Magician/I/L
+*Infinity (Skill)-doesn't work.
+*Arcane Aim (Skill)-does not work.
+*Elquines (Skill)-does no damage
+*The DoT from Ice Demon (Skill)-does not work.
+Mechanic
+*Satellite (Skill) - does no damage.
+*Rock 'n Shock (Skill) - does no damage.
+*Healing Robot H-LX (Skill) - does not heal
+*Giant Robot SG-88 (Skill) - does no damage, and leaves big robot on screen.
+Cannonmaster
+*Anchors Aweight (Skill)-won't do any damage to mobs.
+*Monkey Militia (Skill)-won't do any damage to mobs.
+Demon Slayer
+*The skill in 'Demon Slayer Basic' which has a no name and it has the animation of Judgement.That skill contain super high damage bug.
+Phantom
+*Mille Aiguilles (Skill)-Say that it cost 15 mp to use that skill but when you use it, doesn't cost any mp.
+*Skill Swipe does not work.
+Wild Hunter
+*Wild hunter jags uncatchable.
+*Wild trap doesn't do any damage when summon.
+*Silver hawk does no damage when summon.
+Mercedes
+*Elemental Knights (Skill)-doesn't do damage
+Bowmaster
+*Silver hawk doesn't do any damage to mobs.
+*Puppet does no damage to mobs.
+*Phoenix doesn't do any damage to mobs.
+Markman
+*Golden Eagle does no damage.
+*Frostprey does no damage.
+*Puppet doesn't do any damage when mobs get hit by them.
+Mihile
+*Eduring Spirit will make you disconnect.
+*Rolling soul doesn't work properly.
+Jett
+*Turret Deployment doesn't do any damage when summon

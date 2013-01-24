@@ -48,14 +48,14 @@ public enum ItemLoader {
     private int value;
     private String table, table_equip, arg;
 
-    private ItemLoader(String table, String table_equip, int value, String arg) {
+    private ItemLoader(String table, String table_equip, int value, String arg){
         this.table = table;
         this.table_equip = table_equip;
         this.value = value;
         this.arg = arg;
     }
 
-    public int getValue() {
+    public int getValue(){
         return value;
     }
 
@@ -72,7 +72,7 @@ public enum ItemLoader {
         query.append(arg);
         query.append("` = ?");
 
-        if (login) {
+        if (login){
             query.append(" AND `inventorytype` = ");
             query.append(MapleInventoryType.EQUIPPED.getType());
         }
@@ -82,15 +82,15 @@ public enum ItemLoader {
         ps.setInt(2, id);
         ResultSet rs = ps.executeQuery();
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        while (rs.next()) {
-            if (!ii.itemExists(rs.getInt("itemid"))) { //EXPENSIVE
+        while (rs.next()){
+            if (!ii.itemExists(rs.getInt("itemid"))){ //EXPENSIVE
                 continue;
             }
             MapleInventoryType mit = MapleInventoryType.getByType(rs.getByte("inventorytype"));
 
-            if (mit.equals(MapleInventoryType.EQUIP) || mit.equals(MapleInventoryType.EQUIPPED)) {
+            if (mit.equals(MapleInventoryType.EQUIP) || mit.equals(MapleInventoryType.EQUIPPED)){
                 Equip equip = new Equip(rs.getInt("itemid"), rs.getShort("position"), rs.getInt("uniqueid"), rs.getShort("flag"));
-                if (!login && equip.getPosition() != -55) { //monsterbook
+                if (!login && equip.getPosition() != -55){ //monsterbook
                     equip.setQuantity((short) 1);
                     equip.setInventoryId(rs.getLong("inventoryitemid"));
                     equip.setOwner(rs.getString("owner"));
@@ -121,26 +121,26 @@ public enum ItemLoader {
                     equip.setPotential2(rs.getInt("potential2"));
                     equip.setPotential3(rs.getInt("potential3"));
                     equip.setPotential4(rs.getInt("potential4"));
-                    equip.setPotential5(rs.getInt("potential5"));
+                    equip.setPotential5(rs.getInt("potential5"));                    
                     equip.setSocket1(rs.getInt("socket1"));
                     equip.setSocket2(rs.getInt("socket2"));
-                    equip.setSocket3(rs.getInt("socket3"));
+                    equip.setSocket3(rs.getInt("socket3"));                    
                     equip.setGiftFrom(rs.getString("sender"));
                     equip.setIncSkill(rs.getInt("incSkill"));
                     equip.setPVPDamage(rs.getShort("pvpDamage"));
                     equip.setCharmEXP(rs.getShort("charmEXP"));
-                    if (equip.getCharmEXP() < 0) { //has not been initialized yet
+                    if (equip.getCharmEXP() < 0){ //has not been initialized yet
                         equip.setCharmEXP(((Equip) ii.getEquipById(equip.getItemId())).getCharmEXP());
                     }
-                    if (equip.getUniqueId() > -1) {
-                        if (GameConstants.isEffectRing(rs.getInt("itemid"))) {
+                    if (equip.getUniqueId() > -1){
+                        if (GameConstants.isEffectRing(rs.getInt("itemid"))){
                             MapleRing ring = MapleRing.loadFromDb(equip.getUniqueId(), mit.equals(MapleInventoryType.EQUIPPED));
-                            if (ring != null) {
+                            if (ring != null){
                                 equip.setRing(ring);
                             }
-                        } else if (equip.getItemId() / 10000 == 166) {
+                        } else if (equip.getItemId() / 10000 == 166){
                             MapleAndroid ring = MapleAndroid.loadFromDb(equip.getItemId(), equip.getUniqueId());
-                            if (ring != null) {
+                            if (ring != null){
                                 equip.setAndroid(ring);
                             }
                         }
@@ -154,10 +154,10 @@ public enum ItemLoader {
                 item.setExpiration(rs.getLong("expiredate"));
                 item.setGMLog(rs.getString("GM_Log"));
                 item.setGiftFrom(rs.getString("sender"));
-                if (GameConstants.isPet(item.getItemId())) {
-                    if (item.getUniqueId() > -1) {
+                if (GameConstants.isPet(item.getItemId())){
+                    if (item.getUniqueId() > -1){
                         MaplePet pet = MaplePet.loadFromDb(item.getItemId(), item.getUniqueId(), item.getPosition());
-                        if (pet != null) {
+                        if (pet != null){
                             item.setPet(pet);
                         }
                     } else {
@@ -191,7 +191,7 @@ public enum ItemLoader {
         ps.setInt(2, id);
         ps.executeUpdate();
         ps.close();
-        if (items == null) {
+        if (items == null){
             return;
         }
         StringBuilder query_2 = new StringBuilder("INSERT INTO `");
@@ -200,14 +200,13 @@ public enum ItemLoader {
         query_2.append(arg);
         query_2.append(", itemid, inventorytype, position, quantity, owner, GM_Log, uniqueid, expiredate, flag, `type`, sender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         ps = con.prepareStatement(query_2.toString(), Statement.RETURN_GENERATED_KEYS);
-        PreparedStatement pse = con.prepareStatement("INSERT INTO " + table_equip + " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        final Iterator<Pair<Item, MapleInventoryType>> iter = items.iterator();
+        PreparedStatement pse = con.prepareStatement("INSERT INTO " + table_equip + " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");        final Iterator<Pair<Item, MapleInventoryType>> iter = items.iterator();
         Pair<Item, MapleInventoryType> pair;
-        while (iter.hasNext()) {
+        while (iter.hasNext()){
             pair = iter.next();
             Item item = pair.getLeft();
             MapleInventoryType mit = pair.getRight();
-            if (item.getPosition() == -55) {
+            if (item.getPosition() == -55){
                 continue;
             }
             ps.setInt(1, id);
@@ -217,7 +216,7 @@ public enum ItemLoader {
             ps.setInt(5, item.getQuantity());
             ps.setString(6, item.getOwner());
             ps.setString(7, item.getGMLog());
-            if (item.getPet() != null) { //expensif?
+            if (item.getPet() != null){ //expensif?
                 //item.getPet().saveToDb();
                 ps.setInt(8, Math.max(item.getUniqueId(), item.getPet().getUniqueId()));
             } else {
@@ -231,7 +230,7 @@ public enum ItemLoader {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
 
-            if (!rs.next()) {
+            if (!rs.next()){
                 rs.close();
                 continue;
             }
@@ -239,7 +238,7 @@ public enum ItemLoader {
             rs.close();
 
             item.setInventoryId(iid);
-            if (mit.equals(MapleInventoryType.EQUIP) || mit.equals(MapleInventoryType.EQUIPPED)) {
+            if (mit.equals(MapleInventoryType.EQUIP) || mit.equals(MapleInventoryType.EQUIPPED)){
                 Equip equip = (Equip) item;
                 pse.setLong(1, iid);
                 pse.setInt(2, equip.getUpgradeSlots());
@@ -267,10 +266,10 @@ public enum ItemLoader {
                 pse.setInt(24, equip.getPotential2());
                 pse.setInt(25, equip.getPotential3());
                 pse.setInt(26, equip.getPotential4());
-                pse.setInt(27, equip.getPotential5());
+                pse.setInt(27, equip.getPotential5());                
                 pse.setInt(28, equip.getSocket1());
                 pse.setInt(29, equip.getSocket2());
-                pse.setInt(30, equip.getSocket3());
+                pse.setInt(30, equip.getSocket3());                
                 pse.setInt(31, equip.getIncSkill());
                 pse.setShort(32, equip.getCharmEXP());
                 pse.setShort(33, equip.getPVPDamage());

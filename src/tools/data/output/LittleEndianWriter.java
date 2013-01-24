@@ -92,6 +92,8 @@ public interface LittleEndianWriter {
      * @param s The Point position to write.
      */
     void writePos(final Point s);
+    
+    void writeBool(final boolean s);
 
     /**
      * Writes a maple-convention ASCII string to the sequence.

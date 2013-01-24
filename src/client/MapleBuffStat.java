@@ -292,26 +292,26 @@ public enum MapleBuffStat implements Serializable, Buffstat {
     // [8] [7] [6] [5] [4] [3] [2] [1]
     // [0] [1] [2] [3] [4] [5] [6] [7]
 
-    private MapleBuffStat(int buffstat, int first) {
+    private MapleBuffStat(int buffstat, int first){
         this.buffstat = buffstat;
         this.first = first;
     }
 
-    private MapleBuffStat(int buffstat, int first, boolean stacked) {
+    private MapleBuffStat(int buffstat, int first, boolean stacked){
         this.buffstat = buffstat;
         this.first = first;
         this.stacked = stacked;
     }
 
-    public final int getPosition() {
+    public final int getPosition(){
         return getPosition(false);
     }
 
-    public final int getPosition(boolean fromZero) {
-        if (!fromZero) {
+    public final int getPosition(boolean fromZero){
+        if (!fromZero){
             return first; // normal one
         }
-        switch (first) {
+        switch (first){
             case 8:
                 return 0;
             case 7:
@@ -332,11 +332,11 @@ public enum MapleBuffStat implements Serializable, Buffstat {
         return 0; // none
     }
 
-    public final int getValue() {
+    public final int getValue(){
         return buffstat;
     }
 
-    public final boolean canStack() {
+    public final boolean canStack(){
         return stacked;
     }
 }

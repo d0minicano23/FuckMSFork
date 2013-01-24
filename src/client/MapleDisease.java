@@ -54,37 +54,37 @@ public enum MapleDisease implements Serializable, Buffstat {
     private int first;
     private int disease;
 
-    private MapleDisease(int i, int first, int disease) {
+    private MapleDisease(int i, int first, int disease){
         this.i = i;
         this.first = first;
         this.disease = disease;
     }
 
-    public int getPosition() {
+    public int getPosition(){
         return first;
     }
 
-    public int getValue() {
+    public int getValue(){
         return i;
     }
 
-    public int getDisease() {
+    public int getDisease(){
         return disease;
     }
 
-    public static final MapleDisease getRandom() {
-        while (true) {
-            for (MapleDisease dis : MapleDisease.values()) {
-                if (Randomizer.nextInt(MapleDisease.values().length) == 0) {
+    public static final MapleDisease getRandom(){
+        while (true){
+            for (MapleDisease dis : MapleDisease.values()){
+                if (Randomizer.nextInt(MapleDisease.values().length) == 0){
                     return dis;
                 }
             }
         }
     }
 
-    public static final MapleDisease getBySkill(final int skill) {
-        for (MapleDisease d : MapleDisease.values()) {
-            if (d.getDisease() == skill) {
+    public static final MapleDisease getBySkill(final int skill){
+        for (MapleDisease d : MapleDisease.values()){
+            if (d.getDisease() == skill){
                 return d;
             }
         }

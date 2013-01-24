@@ -162,151 +162,172 @@ public class GameConstants {
         "durability", "randOption", "randStat", "masterLevel", "reqSkillLevel", "elemDefault", "incRMAS", 
         "incRMAF", "incRMAI", "incRMAL", "canLevel", "skill", "charmEXP"};
     
-    public static final int[] hyperTele = {310000000, 220000000, 100000000, 250000000, 240000000, 104000000, 103000000, 102000000, 101000000, 120000000, 260000000, 200000000, 230000000};
-    
+   public static final int[] hyperTele = {10000, 20000, 30000, 40000, 50000, 1000000, 1010000, 1020000, 2000000, //Maple Island
+        104000000, 104010000, 104010100, 104010200, 104020000, 103010100, 103010000, 103000000, 103050000, 103020000, 103020020, 103020100, 103020200, 103020300, 103020310, 103020320, 103020400, 103020410, 103020420, 103030000, 103030100, 103030200, 103030300, 103030400, 102000000, 102010000, 102010100, 102020000, 102020100, 102020200, 102020300, 102020400, 102020500, 102040000, 102040100, 102040200, 102040300, 102040400, 102040500, 102040600, 102030000, 102030100, 102030200, 102030300, 102030400, 101000000, 101010000, 101010100, 101020000, 101020100, 101020200, 101020300, 101030000, 101030100, 101030200, 101030300, 101030400, 101030500, 101030101, 101030201, 101040000, 101040100, 101040200, 101040300, 101040310, 101040320, 101050000, 101050400, 100000000, 100010000, 100010100, 100020000, 100020100, 100020200, 100020300, 100020400, 100020500, 100020401, 100020301, 100040000, 100040100, 100040200, 100040300, 100040400, 100020101, 106020000, 120010100, 120010000, 120000000, 120020000, 120020100, 120020200, 120020300, 120020400, 120020500, 120020600, 120020700, 120030000, 120030100, 120030200, 120030300, 120030400, 120030500, //Victoria Island
+        105000000, 105010000, 105010100, 105020000, 105020100, 105020200, 105020300, 105020400, 105020500, 105030000, 105030100, 105030200, 105030300, 105030400, 105030500, 105100000, 105100100, //Sleepy Wood
+        120000100, 120000101, 120000102, 120000103, 120000104, 120000201, 120000202, 120000301, //Nautilus
+        103040000, 103040100, 103040101, 103040102, 103040103, 103040200, 103040201, 103040202, 103040203, 103040300, 103040301, 103040302, 103040303, 103040400, //Kerning Square
+        200000000, 200010000, 200010100, 200010110, 200010120, 200010130, 200010111, 200010121, 200010131, 200010200, 200010300, 200010301, 200010302, 200020000, 200030000, 200040000, 200050000, 200060000, 200070000, 200080000, 200000100, 200000200, 200000300, 200100000, 200080100, 200080200, 200081500, 200082200, 200082300, 211000000, 211000100, 211000200, 211010000, 211020000, 211030000, 211040000, 211050000, 211040100, 211040200, 921120000, //Orbis
+        211040300, 211040400, 211040500, 211040600, 211040700, 211040800, 211040900, 211041000, 211041100, 211041200, 211041300, 211041400, 211041500, 211041600, 211041700, 211041800, 211041900, 211042000, 211042100, 211042200, 211042300, 211042400, 280030000, 211060000, //Dead Mine
+        211060010, 211060100, 211060200, 211060201, 211060300, 211060400, 211060401, 211060410, 211060500, 211060600, 211060601, 211060610, 211060620, 211060700, 211060800, 211060801, 211060810, 211060820, 211060830, 211060900, 211061000, 211061001, 211070000, //Lion King's Castle
+        220000000, 220000100, 220000300, 220000400, 220000500, 220010000, 220010100, 220010200, 220010300, 220010400, 220010500, 220010600, 220010700, 220010800, 220010900, 220011000, 220020000, 220020100, 220020200, 220020300, 220020400, 220020500, 220020600, 220030100, 220030200, 220030300, 220030400, 220030000, 220040000, 220040100, 220040200, 220040300, 220040400, 220050000, 220050100, 220050200, 221023200, 221022300, 221022200, 221021700, 221021600, 221021100, 221020000, 221000000, 221030000, 221030100, 221030200, 221030300, 221030400, 221030500, 221030600, 221040000, 221040100, 221040200, 221040300, 221040400, 222000000, 222010000, 222010001, 222010002, 222010100, 222010101, 222010102, 222010200, 222010201, 222010300, 222010400, 222020300, 222020200, 222020100, 222020000, //Ludas Lake
+        220050300, 220060000, 220060100, 220060200, 220060300, 220060400, 220070000, 220070100, 220070200, 220070300, 220070400, 220080000, 220080001, //Clock Tower Lower Floor
+        300000100, 300000000, 300010000, 300010100, 300010200, 300010400, 300020000, 300020100, 300020200, 300030000, 300030100, 300010410, 300020210, 300030200, 300030300, 300030310, //Ellin Forest
+        230010000, 230010100, 230010200, 230010201, 230010300, 230010400, 230020000, 230020100, 230020200, 230020201, 230020300, 230030000, 230030100, 230030101, 230030200, 230040000, 230040100, 230040200, 230040300, 230040400, 230040410, 230040420, 230000000, //Aqua Road
+        250000000, 250000100, 250010000, 250010100, 250010200, 250010300, 250010301, 250010302, 250010303, 250010304, 250010400, 250010500, 250010501, 250010502, 250010503, 250010600, 250010700, 250020000, 250020100, 250020200, 250020300, 251000000, 251000100, 251010000, 251010200, 251010300, 251010400, 251010401, 251010402, 251010403, 251010500, //Mu Lung Garden
+        240010100, 240010200, 240010300, 240010400, 240010500, 240010600, 240010700, 240010800, 240010900, 240011000, 240020000, 240020100, 240020101, 240020200, 240020300, 240020400, 240020401, 240020500, 240030000, 240030100, 240030101, 240030102, 240030200, 240030300, 240040000, 240040100, 240040200, 240040300, 240040400, 240040500, 240040510, 240040511, 240040520, 240040521, 240040600, 240040700, 240050000, 240010000, 240000000, //Minar Forest
+        240070000, 240070010, 240070100, 240070200, 240070300, 240070400, 240070500, 240070600, //Neo City
+        260010000, 260010100, 260010200, 260010300, 260010400, 260010500, 260010600, 260010700, 260020000, 260020100, 260020200, 260020300, 260020400, 260020500, 260020600, 260020610, 260020620, 260020700, 261000000, 260000000, 926010000, 261010000, 261010001, 261010002, 261010003, 261010100, 261010101, 261010102, 261010103, 261020000, 261020100, 261020200, 261020300, 261020400, 261020500, 261020600, 261020700, 260000300, 260000200, //Nihal Desert
+        270000000, 270000100, 270010000, 270010100, 270010110, 270010111, 270010200, 270010210, 270010300, 270010310, 270010400, 270010500, 270020000, 270020100, 270020200, 270020210, 270020211, 270020300, 270020310, 270020400, 270020410, 270020500, 270030000, 270030100, 270030110, 270030200, 270030210, 270030300, 270030310, 270030400, 270030410, 270030411, 270030500, 270040000, 270050000, //Temple of Time
+        271000000, 271000100, 271000200, 271000210, 271000300, 271020000, 271020100, 271010000, 271010100, 271010200, 271010300, 271010301, 271010400, 271010500, 271030000, 271030100, 271030101, 271030102, 271030200, 271030201, 271030300, 271030310, 271030320, 271030400, 271030410, 271030500, 271030510, 271030520, 271030530, 271030540, 271030600, 271040000, 271040100, //Gate of Future
+        130000000, 130000100, 130000110, 130000120, 130000200, 130000210, 130010000, 130010010, 130010020, 130010100, 130010110, 130010120, 130010200, 130010210, 130010220, 130020000, 130030005, 130030006, 130030000, //Ereve
+        140000000, 140010000, 140010100, 140010200, 140020000, 140020100, 140020200, 140030000, 140090000, 140020300, //Rien
+        310000000, 310000010, 310020000, 310020100, 310020200, 310030000, 310030100, 310030110, 310030200, 310030300, 310030310, 310040000, 310040100, 310040110, 310040200, 310040300, 310040400, 310050000, 310050100, 310050200, 310050300, 310050400, 310050500, 310050510, 310050520, 310050600, 310050700, 310050800, 310060000, 310060100, 310060110, 310060120, 310060200, 310060210, 310060220, 310060300, 310010000, //Edelstein
+        600000000, 600010100, 600010200, 600010300, 600010400, 600010500, 600010600, 600010700, 600020000, 600020100, 600020200, 600020300, 600020400, 600020500, 600020600, 682000000, 610010000, 610010001, 610010002, 610010004, 610020000, 610020001, 610020006, 610040000, 610040100, 610040200, 610040210, 610040220, 610040230, 610040400//Masteria
+        };  
+   
     public static int isBeginnerJob;
 
-    public static int getExpNeededForLevel(final int level) {
-        if (level < 0 || level >= exp.length) {
+    public static int getExpNeededForLevel(final int level){
+        if (level < 0 || level >= exp.length){
             return Integer.MAX_VALUE;
         }
         return exp[level];
     }
 
-    public static int getGuildExpNeededForLevel(final int level) {
-        if (level < 0 || level >= guildexp.length) {
+    public static int getGuildExpNeededForLevel(final int level){
+        if (level < 0 || level >= guildexp.length){
             return Integer.MAX_VALUE;
         }
         return guildexp[level];
     }
 
-    public static int getPVPExpNeededForLevel(final int level) {
-        if (level < 0 || level >= pvpExp.length) {
+    public static int getPVPExpNeededForLevel(final int level){
+        if (level < 0 || level >= pvpExp.length){
             return Integer.MAX_VALUE;
         }
         return pvpExp[level];
     }
 
-    public static int getClosenessNeededForLevel(final int level) {
+    public static int getClosenessNeededForLevel(final int level){
         return closeness[level - 1];
     }
 
-    public static int getMountExpNeededForLevel(final int level) {
+    public static int getMountExpNeededForLevel(final int level){
         return mountexp[level - 1];
     }
 
-    public static int getTraitExpNeededForLevel(final int level) {
-        if (level < 0 || level >= cumulativeTraitExp.length) {
+    public static int getTraitExpNeededForLevel(final int level){
+        if (level < 0 || level >= cumulativeTraitExp.length){
             return Integer.MAX_VALUE;
         }
         return cumulativeTraitExp[level];
     }
 
-    public static int getSetExpNeededForLevel(final int level) {
-        if (level < 0 || level >= setScore.length) {
+    public static int getSetExpNeededForLevel(final int level){
+        if (level < 0 || level >= setScore.length){
             return Integer.MAX_VALUE;
         }
         return setScore[level];
     }
 
-    public static int getMonsterHP(final int level) {
-        if (level < 0 || level >= mobHpVal.length) {
+    public static int getMonsterHP(final int level){
+        if (level < 0 || level >= mobHpVal.length){
             return Integer.MAX_VALUE;
         }
         return mobHpVal[level];
     }
 
-    public static int getBookLevel(final int level) {
+    public static int getBookLevel(final int level){
         return (int) ((5 * level) * (level + 1));
     }
 
-    public static int getTimelessRequiredEXP(final int level) {
+    public static int getTimelessRequiredEXP(final int level){
         return 70 + (level * 10);
     }
 
-    public static int getReverseRequiredEXP(final int level) {
+    public static int getReverseRequiredEXP(final int level){
         return 60 + (level * 5);
     }
 
-    public static int getProfessionEXP(final int level) {
+    public static int getProfessionEXP(final int level){
         return ((100 * level * level) + (level * 400)) / 2;
     }
 
-    public static boolean isHarvesting(final int itemId) {
+    public static boolean isHarvesting(final int itemId){
         return itemId >= 1500000 && itemId < 1520000;
     }
 
-    public static int maxViewRangeSq() {
+    public static int maxViewRangeSq(){
         return 1000000; // 1024 * 768
     }
 
-    public static int maxViewRangeSq_Half() {
+    public static int maxViewRangeSq_Half(){
         return 500000; // 800 * 800
     }
 
-    public static boolean isJobFamily(final int baseJob, final int currentJob) {
+    public static boolean isJobFamily(final int baseJob, final int currentJob){
         return currentJob >= baseJob && currentJob / 100 == baseJob / 100;
     }
 
-    public static boolean isKOC(final int job) {
+    public static boolean isKOC(final int job){
         return job >= 1000 && job < 2000;
     }
 
-    public static boolean isEvan(final int job) {
+    public static boolean isEvan(final int job){
         return job == 2001 || (job / 100 == 22);
     }
 
-    public static boolean isMercedes(final int job) {
+    public static boolean isMercedes(final int job){
         return job == 2002 || (job / 100 == 23);
     }
 	
-	public static boolean isJett(final int job) {
+	public static boolean isJett(final int job){
         return job == 508 || (job / 10 == 57);
     }
 	
-	public static boolean isPhantom(final int job) {     
+	public static boolean isPhantom(final int job){     
 	return job == 2003 || (job / 100 == 24);
     }
         
-    public static boolean isWildHunter(final int job) {     
+    public static boolean isWildHunter(final int job){     
 	 return job == 3000 || (job >= 3300 && job <= 3312);
     }
 
-    public static boolean isSeparatedSp(int job) {
+    public static boolean isSeparatedSp(int job){
          return (isEvan(job)) || (isResist(job)) || (isMercedes(job)) || (isJett(job)) || (isPhantom(job) || (isMihile(job)));
     }
      
-        
-    public static boolean isDemon(final int job) {
+    public static boolean isDemon(final int job){
         return job == 3001 || (job >= 3100 && job <= 3112);
     }
 
-    public static boolean isAran(final int job) {
+    public static boolean isAran(final int job){
         return job >= 2000 && job <= 2112 && job != 2001 && job != 2002 && job != 2003;
     }
 
-    public static boolean isResist(final int job) {
+    public static boolean isResist(final int job){
         return job / 1000 == 3;
     }
 
-    public static boolean isAdventurer(final int job) {
+    public static boolean isAdventurer(final int job){
         return job >= 0 && job < 1000;
     }
 
-    public static boolean isCannon(final int job) {
+    public static boolean isCannon(final int job){
         return job == 1 || job == 501 || (job >= 530 && job <= 532);
     }
     
-    public static boolean isDualBlade(final int job) {
+    public static boolean isDualBlade(final int job){
         return (job >= 430 && job <= 434);
     }
     
-    public static boolean isMihile(int job) {
+    public static boolean isMihile(int job){
         return job == 5000 || (job >= 5100 && job <= 5112);
     }
 
-    public static boolean isRecoveryIncSkill(final int id) {
-        switch (id) {
+    public static boolean isRecoveryIncSkill(final int id){
+        switch (id){
             case 1110000:
             case 2000000:
             case 1210000:
@@ -318,12 +339,12 @@ public class GameConstants {
         return false;
     }
 
-    public static boolean isLinkedAranSkill(final int id) {
+    public static boolean isLinkedAranSkill(final int id){
         return getLinkedAranSkill(id) != id;
     }
 
-    public static int getLinkedAranSkill(final int id) {
-        switch (id) {
+    public static int getLinkedAranSkill(final int id){
+        switch (id){
             case 21110007:
             case 21110008:
                 return 21110002;
@@ -389,8 +410,8 @@ public class GameConstants {
         return id;
     }
 
-    public final static boolean isForceIncrease(int skillid) {
-        switch (skillid) {
+    public final static boolean isForceIncrease(int skillid){
+        switch (skillid){
             case 24100003:
             case 24120002:
             case 31000004:
@@ -408,16 +429,16 @@ public class GameConstants {
         return false;
     }
 
-    public static int getBOF_ForJob(final int job) {
+    public static int getBOF_ForJob(final int job){
         return PlayerStats.getSkillByJob(12, job);
     }
 
-    public static int getEmpress_ForJob(final int job) {
+    public static int getEmpress_ForJob(final int job){
         return PlayerStats.getSkillByJob(73, job);
     }
 
-    public static boolean isElementAmp_Skill(final int skill) {
-        switch (skill) {
+    public static boolean isElementAmp_Skill(final int skill){
+        switch (skill){
             case 2110001:
             case 2210001:
             case 12110001:
@@ -427,8 +448,8 @@ public class GameConstants {
         return false;
     }
 
-    public static int getMPEaterForJob(final int job) {
-        switch (job) {
+    public static int getMPEaterForJob(final int job){
+        switch (job){
             case 210:
             case 211:
             case 212:
@@ -445,90 +466,90 @@ public class GameConstants {
         return 2100000; // Default, in case GM
     }
 
-    public static int getJobShortValue(int job) {
-        if (job >= 1000) {
+    public static int getJobShortValue(int job){
+        if (job >= 1000){
             job -= (job / 1000) * 1000;
         }
         job /= 100;
-        if (job == 4) { // For some reason dagger/ claw is 8.. IDK
+        if (job == 4){ // For some reason dagger/ claw is 8.. IDK
             job *= 2;
-        } else if (job == 3) {
+        } else if (job == 3){
             job += 1;
-        } else if (job == 5) {
+        } else if (job == 5){
             job += 11; // 16
         }
         return job;
     }
 
-    public static boolean isPyramidSkill(final int skill) {
+    public static boolean isPyramidSkill(final int skill){
         return isBeginnerJob(skill / 10000) && skill % 10000 == 1020;
     }
 
-    public static boolean isInflationSkill(final int skill) {
+    public static boolean isInflationSkill(final int skill){
         return isBeginnerJob(skill / 10000) && skill % 10000 == 1092;
     }
 
-    public static boolean isMulungSkill(final int skill) {
+    public static boolean isMulungSkill(final int skill){
         return isBeginnerJob(skill / 10000) && (skill % 10000 == 1009 || skill % 10000 == 1010 || skill % 10000 == 1011);
     }
 
-    public static boolean isIceKnightSkill(final int skill) {
+    public static boolean isIceKnightSkill(final int skill){
         return isBeginnerJob(skill / 10000) && (skill % 10000 == 1098 || skill % 10000 == 99 || skill % 10000 == 100 || skill % 10000 == 103 || skill % 10000 == 104 || skill % 10000 == 1105);
     }
 
-    public static boolean isThrowingStar(final int itemId) {
+    public static boolean isThrowingStar(final int itemId){
         return itemId / 10000 == 207;
     }
 
-    public static boolean isBullet(final int itemId) {
+    public static boolean isBullet(final int itemId){
         return itemId / 10000 == 233;
     }
 
-    public static boolean isRechargable(final int itemId) {
+    public static boolean isRechargable(final int itemId){
         return isThrowingStar(itemId) || isBullet(itemId);
     }
 
-    public static boolean isOverall(final int itemId) {
+    public static boolean isOverall(final int itemId){
         return itemId / 10000 == 105;
     }
 
-    public static boolean isPet(final int itemId) {
+    public static boolean isPet(final int itemId){
         return itemId / 10000 == 500;
     }
 
-    public static boolean isArrowForCrossBow(final int itemId) {
+    public static boolean isArrowForCrossBow(final int itemId){
         return itemId >= 2061000 && itemId < 2062000;
     }
 
-    public static boolean isArrowForBow(final int itemId) {
+    public static boolean isArrowForBow(final int itemId){
         return itemId >= 2060000 && itemId < 2061000;
     }
 
-    public static boolean isMagicWeapon(final int itemId) {
+    public static boolean isMagicWeapon(final int itemId){
         final int s = itemId / 10000;
         return s == 137 || s == 138; // wand, staff
     }
 
-    public static boolean isWeapon(final int itemId) {
+    public static boolean isWeapon(final int itemId){
         return itemId >= 1300000 && itemId < 1533000;
     }
 
-    public static MapleInventoryType getInventoryType(final int itemId) {
+    public static MapleInventoryType getInventoryType(final int itemId){
         final byte type = (byte) (itemId / 1000000);
-        if (type < 1 || type > 5) {
+        if (type < 1 || type > 5){
             return MapleInventoryType.UNDEFINED;
         }
         return MapleInventoryType.getByType(type);
     }
     
-    public static boolean isInBag(final int slot, final byte type) {
+    public static boolean isInBag(final int slot, final byte type){
         return ((slot >= 101 && slot <= 512) && type == MapleInventoryType.ETC.getType());
     }
 
-    public static MapleWeaponType getWeaponType(final int itemId) {
+    public static MapleWeaponType getWeaponType(final int itemId){
         int cat = itemId / 10000;
         cat = cat % 100;
-        switch (cat) { // 39, 50, 51 ??
+        switch (cat){ // 39, 50, 51 ??
             case 30:
                 return MapleWeaponType.SWORD1H;
             case 31:
@@ -573,50 +594,50 @@ public class GameConstants {
                 return MapleWeaponType.CANNON;
         }
         if(ServerConstants.ADMIN_SERVER){
-        System.out.println("Found new Weapon: " + cat + ", ItemId: " + itemId);
+            System.out.println("Found new Weapon: " + cat + ", ItemId: " + itemId);
         }
         return MapleWeaponType.NOT_A_WEAPON;
     }
 
-    public static boolean isShield(final int itemId) {
+    public static boolean isShield(final int itemId){
         int cat = itemId / 10000;
         cat = cat % 100;
         return cat == 9;
     }
 
-    public static boolean isEquip(final int itemId) {
+    public static boolean isEquip(final int itemId){
         return itemId / 1000000 == 1;
     }
 
-    public static boolean isCleanSlate(int itemId) {
+    public static boolean isCleanSlate(int itemId){
         return itemId / 100 == 20490;
     }
 
-    public static boolean isAccessoryScroll(int itemId) {
+    public static boolean isAccessoryScroll(int itemId){
         return itemId / 100 == 20492;
     }
 
-    public static boolean isChaosScroll(int itemId) {
-        if (itemId >= 2049105 && itemId <= 2049110) {
+    public static boolean isChaosScroll(int itemId){
+        if (itemId >= 2049105 && itemId <= 2049110){
             return false;
         }
         return itemId / 100 == 20491 || itemId == 2040126;
     }
 
-    public static int getChaosNumber(int itemId) {
+    public static int getChaosNumber(int itemId){
         return itemId == 2049116 ? 10 : 5;
     }
 
-    public static boolean isEquipScroll(int scrollId) {
+    public static boolean isEquipScroll(int scrollId){
         return scrollId / 100 == 20493;
     }
 
-    public static boolean isPotentialScroll(int scrollId) {
+    public static boolean isPotentialScroll(int scrollId){
         return scrollId / 100 == 20494 || scrollId / 100 == 20497 || scrollId == 5534000;
     }
 
-    public static boolean isSpecialScroll(final int scrollId) {
-        switch (scrollId) {
+    public static boolean isSpecialScroll(final int scrollId){
+        switch (scrollId){
             case 2040727: // Spikes on show
             case 2041058: // Cape for Cold protection
             case 2530000:
@@ -629,8 +650,8 @@ public class GameConstants {
         return false;
     }
 
-    public static boolean isTwoHanded(final int itemId) {
-        switch (getWeaponType(itemId)) {
+    public static boolean isTwoHanded(final int itemId){
+        switch (getWeaponType(itemId)){
             case AXE2H:
             case GUN:
             case KNUCKLE:
@@ -648,44 +669,44 @@ public class GameConstants {
         }
     }
 
-    public static boolean isTownScroll(final int id) {
+    public static boolean isTownScroll(final int id){
         return id >= 2030000 && id < 2040000;
     }
 
-    public static boolean isUpgradeScroll(final int id) {
+    public static boolean isUpgradeScroll(final int id){
         return id >= 2040000 && id < 2050000;
     }
 
-    public static boolean isGun(final int id) {
+    public static boolean isGun(final int id){
         return id >= 1492000 && id < 1500000;
     }
 
-    public static boolean isUse(final int id) {
+    public static boolean isUse(final int id){
         return id >= 2000000 && id < 3000000;
     }
 
-    public static boolean isSummonSack(final int id) {
+    public static boolean isSummonSack(final int id){
         return id / 10000 == 210;
     }
 
-    public static boolean isMonsterCard(final int id) {
+    public static boolean isMonsterCard(final int id){
         return id / 10000 == 238;
     }
 
-    public static boolean isSpecialCard(final int id) {
+    public static boolean isSpecialCard(final int id){
         return id / 1000 >= 2388;
     }
 
-    public static int getCardShortId(final int id) {
+    public static int getCardShortId(final int id){
         return id % 10000;
     }
 
-    public static boolean isGem(final int id) {
+    public static boolean isGem(final int id){
         return id >= 4250000 && id <= 4251402;
     }
 
-    public static boolean isOtherGem(final int id) {
-        switch (id) {
+    public static boolean isOtherGem(final int id){
+        switch (id){
             case 4001174:
             case 4001175:
             case 4001176:
@@ -712,46 +733,46 @@ public class GameConstants {
         return false;
     }
 
-    public static boolean isCustomQuest(final int id) {
+    public static boolean isCustomQuest(final int id){
         return id > 99999;
     }
 
-    public static int getTaxAmount(final int meso) {
-        if (meso >= 100000000) {
+    public static int getTaxAmount(final int meso){
+        if (meso >= 100000000){
             return (int) Math.round(0.06 * meso);
-        } else if (meso >= 25000000) {
+        } else if (meso >= 25000000){
             return (int) Math.round(0.05 * meso);
-        } else if (meso >= 10000000) {
+        } else if (meso >= 10000000){
             return (int) Math.round(0.04 * meso);
-        } else if (meso >= 5000000) {
+        } else if (meso >= 5000000){
             return (int) Math.round(0.03 * meso);
-        } else if (meso >= 1000000) {
+        } else if (meso >= 1000000){
             return (int) Math.round(0.018 * meso);
-        } else if (meso >= 100000) {
+        } else if (meso >= 100000){
             return (int) Math.round(0.008 * meso);
         }
         return 0;
     }
 
-    public static int EntrustedStoreTax(final int meso) {
-        if (meso >= 100000000) {
+    public static int EntrustedStoreTax(final int meso){
+        if (meso >= 100000000){
             return (int) Math.round(0.03 * meso);
-        } else if (meso >= 25000000) {
+        } else if (meso >= 25000000){
             return (int) Math.round(0.025 * meso);
-        } else if (meso >= 10000000) {
+        } else if (meso >= 10000000){
             return (int) Math.round(0.02 * meso);
-        } else if (meso >= 5000000) {
+        } else if (meso >= 5000000){
             return (int) Math.round(0.015 * meso);
-        } else if (meso >= 1000000) {
+        } else if (meso >= 1000000){
             return (int) Math.round(0.009 * meso);
-        } else if (meso >= 100000) {
+        } else if (meso >= 100000){
             return (int) Math.round(0.004 * meso);
         }
         return 0;
     }
 
-    public static int getAttackDelay(final int id, final Skill skill) {
-        switch (id) { // Assume it's faster(2)
+    public static int getAttackDelay(final int id, final Skill skill){
+        switch (id){ // Assume it's faster(2)
             case 3121004: // Storm of Arrow
             case 24121000:
             case 24121005:
@@ -776,18 +797,18 @@ public class GameConstants {
             case 0: // Normal Attack, TODO delay for each weapon type
                 return 570;
         }
-        if (skill != null && skill.getSkillType() == 3) {
+        if (skill != null && skill.getSkillType() == 3){
             return 0; //final attack
         }
-        if (skill != null && skill.getDelay() > 0 && !isNoDelaySkill(id)) {
+        if (skill != null && skill.getDelay() > 0 && !isNoDelaySkill(id)){
             return skill.getDelay();
         }
         // TODO delay for final attack, weapon type, swing,stab etc
         return 330; // Default usually
     }
 
-    public static byte gachaponRareItem(final int id) {
-        switch (id) {
+    public static byte gachaponRareItem(final int id){
+        switch (id){
             case 2340000: // White Scroll
             case 2049100: // Chaos Scroll
             case 2049000: // Reverse Scroll
@@ -2045,8 +2066,8 @@ public class GameConstants {
         4031629, 1 // Pot
     };
 
-    public static boolean isReverseItem(int itemId) {
-        switch (itemId) {
+    public static boolean isReverseItem(int itemId){
+        switch (itemId){
             case 1002790:
             case 1002791:
             case 1002792:
@@ -2099,8 +2120,8 @@ public class GameConstants {
         }
     }
 
-    public static boolean isTimelessItem(int itemId) {
-        switch (itemId) {
+    public static boolean isTimelessItem(int itemId){
+        switch (itemId){
             case 1032031: //shield earring, but technically
             case 1102172:
             case 1002776:
@@ -2157,17 +2178,17 @@ public class GameConstants {
         }
     }
 
-    public static boolean isRing(int itemId) {
+    public static boolean isRing(int itemId){
         return itemId >= 1112000 && itemId < 1113000;
     }// 112xxxx - pendants, 113xxxx - belts
 
     //if only there was a way to find in wz files -.-
-    public static boolean isEffectRing(int itemid) {
+    public static boolean isEffectRing(int itemid){
         return isFriendshipRing(itemid) || isCrushRing(itemid) || isMarriageRing(itemid);
     }
 
-    public static boolean isMarriageRing(int itemId) {
-        switch (itemId) {
+    public static boolean isMarriageRing(int itemId){
+        switch (itemId){
             case 1112803:
             case 1112806:
             case 1112807:
@@ -2177,8 +2198,8 @@ public class GameConstants {
         return false;
     }
 
-    public static boolean isFriendshipRing(int itemId) {
-        switch (itemId) {
+    public static boolean isFriendshipRing(int itemId){
+        switch (itemId){
             case 1112800:
             case 1112801:
             case 1112802:
@@ -2193,8 +2214,8 @@ public class GameConstants {
         return false;
     }
 
-    public static boolean isCrushRing(int itemId) {
-        switch (itemId) {
+    public static boolean isCrushRing(int itemId){
+        switch (itemId){
             case 1112001:
             case 1112002:
             case 1112003:
@@ -2213,8 +2234,8 @@ public class GameConstants {
     
     public static int[] Equipments_Bonus = {1122017}; // I am guessing you put equipment that stacks together for bonuses
 
-    public static int Equipment_Bonus_EXP(final int itemid) {
-        switch (itemid) {
+    public static int Equipment_Bonus_EXP(final int itemid){
+        switch (itemid){
             case 1122017:
                 return 10;
         }
@@ -2224,26 +2245,26 @@ public class GameConstants {
     public static int[] blockedMaps = {180000001, 180000002, 109050000, 280030000, 240060200, 280090000, 280030001, 240060201, 950101100, 950101010};
     //If you can think of more maps that could be exploitable via npc,block nao pliz!
 
-    public static int getExpForLevel(int i, int itemId) {
-        if (isReverseItem(itemId)) {
+    public static int getExpForLevel(int i, int itemId){
+        if (isReverseItem(itemId)){
             return getReverseRequiredEXP(i);
-        } else if (getMaxLevel(itemId) > 0) {
+        } else if (getMaxLevel(itemId) > 0){
             return getTimelessRequiredEXP(i);
         }
         return 0;
     }
 
-    public static int getMaxLevel(final int itemId) {
+    public static int getMaxLevel(final int itemId){
         Map<Integer, Map<String, Integer>> inc = MapleItemInformationProvider.getInstance().getEquipIncrements(itemId);
         return inc != null ? (inc.size()) : 0;
     }
 
-    public static int getStatChance() {
+    public static int getStatChance(){
         return 25;
     }
 
-    public static MonsterStatus getStatFromWeapon(final int itemid) {
-        switch (itemid) {
+    public static MonsterStatus getStatFromWeapon(final int itemid){
+        switch (itemid){
             case 1302109:
             case 1312041:
             case 1322067:
@@ -2280,8 +2301,8 @@ public class GameConstants {
         return null;
     }
 
-    public static int getXForStat(MonsterStatus stat) {
-        switch (stat) {
+    public static int getXForStat(MonsterStatus stat){
+        switch (stat){
             case DARKNESS:
                 return -70;
             case SPEED:
@@ -2290,8 +2311,8 @@ public class GameConstants {
         return 0;
     }
 
-    public static int getSkillForStat(MonsterStatus stat) {
-        switch (stat) {
+    public static int getSkillForStat(MonsterStatus stat){
+        switch (stat){
             case DARKNESS:
                 return 1111003;
             case SPEED:
@@ -2426,11 +2447,11 @@ public class GameConstants {
         2049100,
         2049100};
 
-    public static int getSkillBook(final int job) {
-        if (job >= 2210 && job <= 2218) {
+    public static int getSkillBook(final int job){
+        if (job >= 2210 && job <= 2218){
             return job - 2209;
         }
-        switch (job) {
+        switch (job){
             case 570:
             case 2310:
             case 2410:
@@ -2462,11 +2483,11 @@ public class GameConstants {
         return 0;
     }
 
-public static int getSkillBook(final int job, final int level) {
-   if (job >= 2210 && job <= 2218) {
+public static int getSkillBook(final int job, final int level){
+   if (job >= 2210 && job <= 2218){
             return job - 2209;
         }
-        switch (job) {
+        switch (job){
            
             case 508:
             case 570:
@@ -2505,12 +2526,12 @@ public static int getSkillBook(final int job, final int level) {
         return 0;
     }
 
-    public static int getSkillBookForSkill(final int skillid) {
+    public static int getSkillBookForSkill(final int skillid){
         return getSkillBook(skillid / 10000);
     }
 
-    public static int getLinkedMountItem(final int sourceid) {
-        switch (sourceid % 1000) {
+    public static int getLinkedMountItem(final int sourceid){
+        switch (sourceid % 1000){
             case 1:
             case 24:
             case 25:
@@ -2625,9 +2646,9 @@ public static int getSkillBook(final int job, final int level) {
         return 0;
     }
 
-    public static int getMountItem(final int sourceid, final MapleCharacter chr) {
+    public static int getMountItem(final int sourceid, final MapleCharacter chr){
 
-        switch (sourceid) {
+        switch (sourceid){
             case 20021160: 
                 return 1932086; 
             case 20021161: 
@@ -2639,10 +2660,10 @@ public static int getSkillBook(final int job, final int level) {
             case 5221006:
                 return 1932000;
             case 33001001: //temp.
-                if (chr == null) {
+                if (chr == null){
                     return 1932015;
                 }
-                switch (chr.getIntNoRecord(JAGUAR)) {
+                switch (chr.getIntNoRecord(JAGUAR)){
                     case 20:
                         return 1932030;
                     case 30:
@@ -2663,15 +2684,15 @@ public static int getSkillBook(final int job, final int level) {
 			//case 30011109:
 			//	return 1932085;
         }
-        if (!isBeginnerJob(sourceid / 10000)) {
-            if (sourceid / 10000 == 8000 && sourceid != 80001000) { //todoo clean up
+        if (!isBeginnerJob(sourceid / 10000)){
+            if (sourceid / 10000 == 8000 && sourceid != 80001000){ //todoo clean up
                 final Skill skil = SkillFactory.getSkill(sourceid);
-                if (skil != null && skil.getTamingMob() > 0) {
+                if (skil != null && skil.getTamingMob() > 0){
                     return skil.getTamingMob();
                 } else {
                     final int link = getLinkedMountItem(sourceid);
-                    if (link > 0) {
-                        if (link < 10000) {
+                    if (link > 0){
+                        if (link < 10000){
                             return getMountItem(link, chr);
                         } else {
                             return link;
@@ -2681,7 +2702,7 @@ public static int getSkillBook(final int job, final int level) {
             }
             return 0;
         }
-        switch (sourceid % 10000) {
+        switch (sourceid % 10000){
             case 1013:
             case 1046:
                 return 1932001;
@@ -2808,38 +2829,38 @@ public static int getSkillBook(final int job, final int level) {
         }
     }
 
-    public static boolean isKatara(int itemId) {
+    public static boolean isKatara(int itemId){
         return itemId / 10000 == 134;
     }
 
-    public static boolean isDagger(int itemId) {
+    public static boolean isDagger(int itemId){
         return itemId / 10000 == 133;
     }
 
-    public static boolean isApplicableSkill(int skil) {
+    public static boolean isApplicableSkill(int skil){
         return (skil < 60000000 && (skil % 10000 < 8000 || skil % 10000 > 8006) && !isAngel(skil)) || skil >= 92000000 || (skil >= 80000000 && skil < 80010000); //no additional/decent skills
     }
 
-    public static boolean isApplicableSkill_(int skil) { //not applicable to saving but is more of temporary
-        for (int i : PlayerStats.pvpSkills) {
-            if (skil == i) {
+    public static boolean isApplicableSkill_(int skil){ //not applicable to saving but is more of temporary
+        for (int i : PlayerStats.pvpSkills){
+            if (skil == i){
                 return true;
             }
         }
         return (skil >= 90000000 && skil < 92000000) || (skil % 10000 >= 8000 && skil % 10000 <= 8003) || isAngel(skil);
     }
 
-    public static boolean isTablet(int itemId) {
+    public static boolean isTablet(int itemId){
         return itemId / 1000 == 2047;
     }
 
-    public static boolean isGeneralScroll(int itemId) {
+    public static boolean isGeneralScroll(int itemId){
         return itemId / 1000 == 2046;
     }
 
-    public static int getSuccessTablet(final int scrollId, final int level) {
-        if (scrollId % 1000 / 100 == 2) { //2047_2_00 = armor, 2047_3_00 = accessory
-            switch (level) {
+    public static int getSuccessTablet(final int scrollId, final int level){
+        if (scrollId % 1000 / 100 == 2){ //2047_2_00 = armor, 2047_3_00 = accessory
+            switch (level){
                 case 0:
                     return 70;
                 case 1:
@@ -2861,8 +2882,8 @@ public static int getSkillBook(final int job, final int level) {
                 default:
                     return 7;
             }
-        } else if (scrollId % 1000 / 100 == 3) {
-            switch (level) {
+        } else if (scrollId % 1000 / 100 == 3){
+            switch (level){
                 case 0:
                     return 70;
                 case 1:
@@ -2875,7 +2896,7 @@ public static int getSkillBook(final int job, final int level) {
                     return 7;
             }
         } else {
-            switch (level) {
+            switch (level){
                 case 0:
                     return 70;
                 case 1:
@@ -2896,9 +2917,9 @@ public static int getSkillBook(final int job, final int level) {
         }
     }
 
-    public static int getCurseTablet(final int scrollId, final int level) {
-        if (scrollId % 1000 / 100 == 2) { //2047_2_00 = armor, 2047_3_00 = accessory
-            switch (level) {
+    public static int getCurseTablet(final int scrollId, final int level){
+        if (scrollId % 1000 / 100 == 2){ //2047_2_00 = armor, 2047_3_00 = accessory
+            switch (level){
                 case 0:
                     return 10;
                 case 1:
@@ -2920,8 +2941,8 @@ public static int getSkillBook(final int job, final int level) {
                 default:
                     return 100;
             }
-        } else if (scrollId % 1000 / 100 == 3) {
-            switch (level) {
+        } else if (scrollId % 1000 / 100 == 3){
+            switch (level){
                 case 0:
                     return 12;
                 case 1:
@@ -2934,7 +2955,7 @@ public static int getSkillBook(final int job, final int level) {
                     return 100;
             }
         } else {
-            switch (level) {
+            switch (level){
                 case 0:
                     return 10;
                 case 1:
@@ -2955,29 +2976,29 @@ public static int getSkillBook(final int job, final int level) {
         }
     }
 
-    public static boolean isAccessory(final int itemId) {
+    public static boolean isAccessory(final int itemId){
         return (itemId >= 1010000 && itemId < 1040000) || (itemId >= 1122000 && itemId < 1153000) || (itemId >= 1112000 && itemId < 1113000);
     }
 
-    public static boolean potentialIDFits(final int potentialID, final int newstate, final int i) {
+    public static boolean potentialIDFits(final int potentialID, final int newstate, final int i){
         //first line is always the best
         //but, sometimes it is possible to get second/third line as well
         //may seem like big chance, but it's not as it grabs random potential ID anyway
-	if (newstate == 20) {
+	if (newstate == 20){
             return (i == 0 || Randomizer.nextInt(10) == 0 ? potentialID >= 40000 : potentialID >= 30000 && potentialID < 60004); // xml say so
-        } else if (newstate == 19) {
+        } else if (newstate == 19){
             return (i == 0 || Randomizer.nextInt(10) == 0 ? potentialID >= 30000 : potentialID >= 20000 && potentialID < 30000);
-        } else if (newstate == 18) {
+        } else if (newstate == 18){
             return (i == 0 || Randomizer.nextInt(10) == 0 ? potentialID >= 20000 && potentialID < 30000 : potentialID >= 10000 && potentialID < 20000);
-        } else if (newstate == 17) {
+        } else if (newstate == 17){
             return (i == 0 || Randomizer.nextInt(10) == 0 ? potentialID >= 10000 && potentialID < 20000 : potentialID < 10000);
         } else {
             return false;
         }
     }
 
-    public static boolean optionTypeFits(final int optionType, final int itemId) {
-        switch (optionType) {
+    public static boolean optionTypeFits(final int optionType, final int itemId){
+        switch (optionType){
             case 10: // weapons
                 return isWeapon(itemId);
             case 11: // all equipment except weapons
@@ -3001,25 +3022,25 @@ public static int getSkillBook(final int job, final int level) {
         }
     }
 	
-	public static int getNebuliteGrade(final int id) {
-		if (id / 10000 != 306) {
+	public static int getNebuliteGrade(final int id){
+		if (id / 10000 != 306){
 			return -1;
 		}
-		if (id >= 3060000 && id < 3061000) {
+		if (id >= 3060000 && id < 3061000){
 			return 0;
-		} else if (id >= 3061000 && id < 3062000) {
+		} else if (id >= 3061000 && id < 3062000){
 			return 1;
-		} else if (id >= 3062000 && id < 3063000) {
+		} else if (id >= 3062000 && id < 3063000){
 			return 2;
-		} else if (id >= 3063000 && id < 3064000) {
+		} else if (id >= 3063000 && id < 3064000){
 			return 3;
 		}
 		return 4;
     }
 
-    public static final boolean isMountItemAvailable(final int mountid, final int jobid) {
-        if (jobid != 900 && mountid / 10000 == 190) {
-            switch (mountid) {
+    public static final boolean isMountItemAvailable(final int mountid, final int jobid){
+        if (jobid != 900 && mountid / 10000 == 190){
+            switch (mountid){
                 case 1902000:
                 case 1902001:
                 case 1902002:
@@ -3039,35 +3060,35 @@ public static int getSkillBook(final int job, final int level) {
                     return isEvan(jobid);
             }
 
-            if (isResist(jobid)) {
+            if (isResist(jobid)){
                 return false; //none lolol
             }
         }
-        if (mountid / 10000 != 190) {
+        if (mountid / 10000 != 190){
             return false;
         }
         return true;
     }
 
-    public static boolean isMechanicItem(final int itemId) {
+    public static boolean isMechanicItem(final int itemId){
         return itemId >= 1610000 && itemId < 1660000;
     }
 
-    public static boolean isEvanDragonItem(final int itemId) {
+    public static boolean isEvanDragonItem(final int itemId){
         return itemId >= 1940000 && itemId < 1980000; //194 = mask, 195 = pendant, 196 = wings, 197 = tail
     }
 
-    public static boolean canScroll(final int itemId) {
+    public static boolean canScroll(final int itemId){
         return itemId / 100000 != 19 && itemId / 100000 != 16; //no mech/taming/dragon
     }
 
-    public static boolean canHammer(final int itemId) {
-        switch (itemId) {
+    public static boolean canHammer(final int itemId){
+        switch (itemId){
             case 1122000:
             case 1122076: //ht, chaos ht
                 return false;
         }
-        if (!canScroll(itemId)) {
+        if (!canScroll(itemId)){
             return false;
         }
         return true;
@@ -3084,38 +3105,38 @@ public static int getSkillBook(final int job, final int level) {
         1092030,
         2040804};
 
-    public static int getMasterySkill(final int job) {
-        if (job >= 1410 && job <= 1412) {
+    public static int getMasterySkill(final int job){
+        if (job >= 1410 && job <= 1412){
             return 14100000;
-        } else if (job >= 410 && job <= 412) {
+        } else if (job >= 410 && job <= 412){
             return 4100000;
-        } else if (job >= 520 && job <= 522) {
+        } else if (job >= 520 && job <= 522){
             return 5200000;
         }
         return 0;
     }
 
-    public static int getExpRate_Below10(final int job) {
-        if (GameConstants.isEvan(job)) {
+    public static int getExpRate_Below10(final int job){
+        if (GameConstants.isEvan(job)){
             return 1;
-        } else if (GameConstants.isAran(job) || GameConstants.isKOC(job) || GameConstants.isResist(job)) {
+        } else if (GameConstants.isAran(job) || GameConstants.isKOC(job) || GameConstants.isResist(job)){
             return 5;
         }
         return 10;
     }
 
-    public static int getExpRate_Quest(final int level) {
+    public static int getExpRate_Quest(final int level){
         return (level >= 30 ? (level >= 70 ? (level >= 120 ? 10 : 5) : 2) : 1);
     }
     
-    public static final String getCommandBlockedMsg() {
+    public static final String getCommandBlockedMsg(){
         return "You may not use this command here.";
     }
 
   
 
-    public static int getCustomReactItem(final int rid, final int original) {
-        if (rid == 2008006) { //orbis pq LOL
+    public static int getCustomReactItem(final int rid, final int original){
+        if (rid == 2008006){ //orbis pq LOL
             return (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) + 4001055);
             //4001056 = sunday. 4001062 = saturday
         } else {
@@ -3123,23 +3144,23 @@ public static int getSkillBook(final int job, final int level) {
         }
     }
 
-    public static int getJobNumber(int jobz) {
+    public static int getJobNumber(int jobz){
         int job = (jobz % 1000);
-        if (job / 100 == 0 || isBeginnerJob(jobz)) {
+        if (job / 100 == 0 || isBeginnerJob(jobz)){
             return 0; //beginner
-        } else if ((job / 10) % 10 == 0 || job == 501) {
+        } else if ((job / 10) % 10 == 0 || job == 501){
             return 1;
         } else {
             return 2 + (job % 10);
         }
     }
 
-    public static boolean isBeginnerJob(final int job) {
+    public static boolean isBeginnerJob(final int job){
         return job == 0 || job == 1 || job == 1000 || job == 2000 || job == 2001 || job == 3000 || job == 3001 || job == 2002;
     }
 
-    public static boolean isForceRespawn(int mapid) {
-        switch (mapid) {
+    public static boolean isForceRespawn(int mapid){
+        switch (mapid){
             case 103000800: //kerning PQ crocs
             case 925100100: //crocs and stuff
                 return true;
@@ -3148,12 +3169,12 @@ public static int getSkillBook(final int job, final int level) {
         }
     }
 
-    public static int getFishingTime(boolean vip, boolean gm) {
+    public static int getFishingTime(boolean vip, boolean gm){
         return gm ? 1000 : (vip ? 30000 : 60000);
     }
 
-    public static int getCustomSpawnID(int summoner, int def) {
-        switch (summoner) {
+    public static int getCustomSpawnID(int summoner, int def){
+        switch (summoner){
             case 9400589:
             case 9400748: //MV
                 return 9400706; //jr
@@ -3162,8 +3183,8 @@ public static int getSkillBook(final int job, final int level) {
         }
     }
 
-    public static boolean canForfeit(int questid) {
-        switch (questid) {
+    public static boolean canForfeit(int questid){
+        switch (questid){
             case 20000:
             case 20010:
             case 20015: //cygnus quests
@@ -3174,9 +3195,9 @@ public static int getSkillBook(final int job, final int level) {
         }
     }
 
-    public static double getAttackRange(MapleStatEffect def, int rangeInc) {
+    public static double getAttackRange(MapleStatEffect def, int rangeInc){
         double defRange = ((400.0 + rangeInc) * (400.0 + rangeInc));
-        if (def != null) {
+        if (def != null){
             defRange += def.getMaxDistanceSq() + (def.getRange() * def.getRange());
         }
         //rangeInc adds to X
@@ -3186,7 +3207,7 @@ public static int getSkillBook(final int job, final int level) {
         return defRange + 120000.0;
     }
 
-    public static double getAttackRange(Point lt, Point rb) {
+    public static double getAttackRange(Point lt, Point rb){
         double defRange = (400.0 * 400.0);
         final int maxX = Math.max(Math.abs(lt == null ? 0 : lt.x), Math.abs(rb == null ? 0 : rb.x));
         final int maxY = Math.max(Math.abs(lt == null ? 0 : lt.y), Math.abs(rb == null ? 0 : rb.y));
@@ -3198,8 +3219,8 @@ public static int getSkillBook(final int job, final int level) {
         return defRange + 120000.0;
     }
 
-    public static int getLowestPrice(int itemId) {
-        switch (itemId) {
+    public static int getLowestPrice(int itemId){
+        switch (itemId){
             case 2340000: //ws
             case 2531000:
             case 2530000:
@@ -3208,23 +3229,23 @@ public static int getSkillBook(final int job, final int level) {
         return -1;
     }
 
-    public static boolean isNoDelaySkill(int skillId) {
+    public static boolean isNoDelaySkill(int skillId){
         return skillId == 5110001 || skillId == 21101003 || skillId == 15100004 || skillId == 33101004 || skillId == 32111010 || skillId == 2111007 || skillId == 2211007 || skillId == 2311007 || skillId == 32121003 || skillId == 35121005 || skillId == 35111004 || skillId == 35121013 || skillId == 35121003 || skillId == 22150004 || skillId == 22181004 || skillId == 11101002 || skillId == 13101002 || skillId == 24121000 || skillId == 22161005 || skillId == 22161005;
     }
 
-    public static boolean isNoSpawn(int mapID) {
+    public static boolean isNoSpawn(int mapID){
         return mapID == 809040100 || mapID == 925020010 || mapID == 925020011 || mapID == 925020012 || mapID == 925020013 || mapID == 925020014 || mapID == 980010000 || mapID == 980010100 || mapID == 980010200 || mapID == 980010300 || mapID == 980010020;
     }
 
-    public static int getExpRate(int job, int def) {
+    public static int getExpRate(int job, int def){
         return def;
     }
 
-    public static int getModifier(int itemId, int up) {
-        if (up <= 0) {
+    public static int getModifier(int itemId, int up){
+        if (up <= 0){
             return 0;
         }
-        switch (itemId) {
+        switch (itemId){
             case 2022459:
             case 2860179:
             case 2860193:
@@ -3239,14 +3260,14 @@ public static int getSkillBook(final int job, final int level) {
             case 2860209:
                 return 200;
         }
-        if (itemId / 10000 == 286) { //familiars
+        if (itemId / 10000 == 286){ //familiars
             return 150;
         }
         return 200;
     }
 
-    public static short getSlotMax(int itemId) {
-        switch (itemId) {
+    public static short getSlotMax(int itemId){
+        switch (itemId){
             case 4030003:
             case 4030004:
             case 4030005:
@@ -3267,16 +3288,16 @@ public static int getSkillBook(final int job, final int level) {
         return 0;
     }
 
-    public static boolean isDropRestricted(int itemId) {
+    public static boolean isDropRestricted(int itemId){
         return itemId == 3012000 || itemId == 4030004 || itemId == 1052098 || itemId == 1052202;
     }
 
-    public static boolean isPickupRestricted(int itemId) {
+    public static boolean isPickupRestricted(int itemId){
         return itemId == 4030003 || itemId == 4030004;
     }
 
-    public static short getStat(int itemId, int def) {
-        switch (itemId) {
+    public static short getStat(int itemId, int def){
+        switch (itemId){
             case 1002419:
                 return 5;
             case 1002959:
@@ -3289,8 +3310,8 @@ public static int getSkillBook(final int job, final int level) {
         return (short) def;
     }
 
-    public static short getHpMp(int itemId, int def) {
-        switch (itemId) {
+    public static short getHpMp(int itemId, int def){
+        switch (itemId){
             case 1122121:
                 return 500;
             case 1142002:
@@ -3300,8 +3321,8 @@ public static int getSkillBook(final int job, final int level) {
         return (short) def;
     }
 
-    public static short getATK(int itemId, int def) {
-        switch (itemId) {
+    public static short getATK(int itemId, int def){
+        switch (itemId){
             case 1122121:
                 return 3;
             case 1002959:
@@ -3312,8 +3333,8 @@ public static int getSkillBook(final int job, final int level) {
         return (short) def;
     }
 
-    public static short getDEF(int itemId, int def) {
-        switch (itemId) {
+    public static short getDEF(int itemId, int def){
+        switch (itemId){
             case 1122121:
                 return 250;
             case 1002959:
@@ -3322,12 +3343,12 @@ public static int getSkillBook(final int job, final int level) {
         return (short) def;
     }
 
-    public static boolean isDojo(int mapId) {
+    public static boolean isDojo(int mapId){
         return mapId >= 925020100 && mapId <= 925023814;
     }
 
-    public static int getPartyPlayHP(int mobID) {
-        switch (mobID) {
+    public static int getPartyPlayHP(int mobID){
+        switch (mobID){
             case 4250000:
                 return 836000;
             case 4250001:
@@ -3351,8 +3372,8 @@ public static int getSkillBook(final int job, final int level) {
         return 0;
     }
 
-    public static int getPartyPlayEXP(int mobID) {
-        switch (mobID) {
+    public static int getPartyPlayEXP(int mobID){
+        switch (mobID){
             case 4250000:
                 return 5770;
             case 4250001:
@@ -3376,8 +3397,8 @@ public static int getSkillBook(final int job, final int level) {
         return 0;
     }
 
-    public static int getPartyPlay(int mapId) {
-        switch (mapId) {
+    public static int getPartyPlay(int mapId){
+        switch (mapId){
             case 300010000:
             case 300010100:
             case 300010200:
@@ -3396,36 +3417,36 @@ public static int getSkillBook(final int job, final int level) {
         return 0;
     }
 
-    public static int getPartyPlay(int mapId, int def) {
+    public static int getPartyPlay(int mapId, int def){
         int dd = getPartyPlay(mapId);
-        if (dd > 0) {
+        if (dd > 0){
             return dd;
         }
         return def / 2;
     }
 
-    public static boolean isHyperTeleMap(int mapId) {
-        for (int i : hyperTele) {
-            if (i == mapId) {
+    public static boolean isHyperTeleMap(int mapId){
+        for (int i : hyperTele){
+            if (i == mapId){
                 return true;
             }
         }
         return false;
     }
 
-    public static int getCurrentDate() {
+    public static int getCurrentDate(){
         final String time = FileoutputUtil.CurrentReadable_Time();
         return Integer.parseInt(new StringBuilder(time.substring(0, 4)).append(time.substring(5, 7)).append(time.substring(8, 10)).append(time.substring(11, 13)).toString());
     }
 
-    public static int getCurrentDate_NoTime() {
+    public static int getCurrentDate_NoTime(){
         final String time = FileoutputUtil.CurrentReadable_Time();
         return Integer.parseInt(new StringBuilder(time.substring(0, 4)).append(time.substring(5, 7)).append(time.substring(8, 10)).toString());
     }
 
-    public static void achievementRatio(MapleClient c) {
+    public static void achievementRatio(MapleClient c){
         //PQs not affected: Amoria, MV, CWK, English, Zakum, Horntail(?), Carnival, Ghost, Guild, LudiMaze, Elnath(?) 
-        switch (c.getPlayer().getMapId()) {
+        switch (c.getPlayer().getMapId()){
             case 240080600:
             case 920010000:
             case 930000000:
@@ -3555,18 +3576,18 @@ public static int getSkillBook(final int job, final int level) {
         }
     }
 
-    public static boolean isAngel(int sourceid) {
+    public static boolean isAngel(int sourceid){
         return isBeginnerJob(sourceid / 10000) && (sourceid % 10000 == 1085 || sourceid % 10000 == 1087 || sourceid % 10000 == 1090 || sourceid % 10000 == 1179);
     }
 
-    public static boolean isFishingMap(int mapid) {
+    public static boolean isFishingMap(int mapid){
         return mapid == 749050500 || mapid == 749050501 || mapid == 749050502 || mapid == 970020000 || mapid == 970020005;
     }
 
-    public static int getRewardPot(int itemid, int closeness) {
-        switch (itemid) {
+    public static int getRewardPot(int itemid, int closeness){
+        switch (itemid){
             case 2440000:
-                switch (closeness / 10) {
+                switch (closeness / 10){
                     case 0:
                     case 1:
                     case 2:
@@ -3582,7 +3603,7 @@ public static int getSkillBook(final int job, final int level) {
                 }
                 return 2028057;
             case 2440001:
-                switch (closeness / 10) {
+                switch (closeness / 10){
                     case 0:
                     case 1:
                     case 2:
@@ -3609,12 +3630,12 @@ public static int getSkillBook(final int job, final int level) {
         return 0;
     }
 
-    public static boolean isEventMap(final int mapid) {
+    public static boolean isEventMap(final int mapid){
         return (mapid >= 109010000 && mapid < 109050000) || (mapid > 109050001 && mapid < 109090000) || (mapid >= 809040000 && mapid <= 809040100);
     }
 
-    public static boolean isMagicChargeSkill(final int skillid) {
-        switch (skillid) {
+    public static boolean isMagicChargeSkill(final int skillid){
+        switch (skillid){
             case 2121001: // Big Bang
             case 2221001:
             case 2321001:
@@ -3625,12 +3646,12 @@ public static int getSkillBook(final int job, final int level) {
         return false;
     }
 
-    public static boolean isTeamMap(final int mapid) {
+    public static boolean isTeamMap(final int mapid){
         return mapid == 109080000 || mapid == 109080001 || mapid == 109080002 || mapid == 109080003 || mapid == 109080010 || mapid == 109080011 || mapid == 109080012 || mapid == 109090300 || mapid == 109090301 || mapid == 109090302 || mapid == 109090303 || mapid == 109090304 || mapid == 910040100 || mapid == 960020100 || mapid == 960020101 || mapid == 960020102 || mapid == 960020103 || mapid == 960030100 || mapid == 689000000 || mapid == 689000010;
     }
 
-    public static int getStatDice(int stat) {
-        switch (stat) {
+    public static int getStatDice(int stat){
+        switch (stat){
             case 2:
                 return 30;
             case 3:
@@ -3645,8 +3666,8 @@ public static int getSkillBook(final int job, final int level) {
         return 0;
     }
 
-    public static String getCashBlockedMsg(final int id) {
-        switch (id) {
+    public static String getCashBlockedMsg(final int id){
+        switch (id){
             case 5211014:
             case 5211015:
             case 5211016:
@@ -3661,43 +3682,43 @@ public static int getSkillBook(final int job, final int level) {
         }
         return "This item is blocked from the Cash Shop.";
     }
-    public static int getDiceStat(int buffid, int stat) {
-        if (buffid == stat || buffid % 10 == stat || buffid / 10 == stat) {
+    public static int getDiceStat(int buffid, int stat){
+        if (buffid == stat || buffid % 10 == stat || buffid / 10 == stat){
             return getStatDice(stat);
-        } else if (buffid == (stat * 100)) {
+        } else if (buffid == (stat * 100)){
             return getStatDice(stat) + 10;
         }
         return 0;
     }
 
 
-	public static int getSkillLevel(final int level) {
-		if (level >= 70 && level < 120) {
+	public static int getSkillLevel(final int level){
+		if (level >= 70 && level < 120){
 			return 2;
-		} else if (level >= 120 && level < 200) {
+		} else if (level >= 120 && level < 200){
 			return 3;
-		} else if (level == 200) {
+		} else if (level == 200){
 			return 4;
 		}
 		return 1;
 	}
         
-    public static int[] getInnerSkillbyRank(int rank) {
-         if (rank == 0) {
+    public static int[] getInnerSkillbyRank(int rank){
+         if (rank == 0){
              return rankC;
-         } else if (rank == 1) {
+         } else if (rank == 1){
              return rankB;
-         } else if (rank == 2) {
+         } else if (rank == 2){
              return rankA;
-         } else if (rank == 3) {
+         } else if (rank == 3){
              return rankS;
          } else {
              return null;
          }
      }
 
-    public static final boolean isStealSkill(int skillId) {
-        switch (skillId) {
+    public static final boolean isStealSkill(int skillId){
+        switch (skillId){
             case 24001001:
             case 24101001:
             case 24111001:
@@ -3707,8 +3728,8 @@ public static int getSkillBook(final int job, final int level) {
         return false;
     }
 
-    public static final int getStealSkill(int job) {
-        switch (job) {
+    public static final int getStealSkill(int job){
+        switch (job){
             case 1:
                 return 24001001;
             case 2:
@@ -3722,8 +3743,8 @@ public static int getSkillBook(final int job, final int level) {
     }
     
 
-    public static final int getNumSteal(int jobNum) {
-        switch (jobNum) {
+    public static final int getNumSteal(int jobNum){
+        switch (jobNum){
             case 1:
                 return 4;
             case 2:
@@ -3737,7 +3758,7 @@ public static int getSkillBook(final int job, final int level) {
     }
 
         
-    public static final boolean canSteal(Skill skil) {
+    public static final boolean canSteal(Skill skil){
         return skil != null && !skil.isMovement() && !isLinkedAranSkill(skil.getId()) && skil.getId() % 10000 >= 1000 && getJobNumber(skil.getId() / 10000) > 0 && !isDualBlade(skil.getId() / 10000) && !isCannon(skil.getId() / 10000) && !isJett(skil.getId() / 10000) && skil.getId() < 8000000 && skil.getEffect(1) != null && skil.getEffect(1).getSummonMovementType() == null && !skil.getEffect(1).isUnstealable();
     }
     public static final List<Pair<Integer, String>> SCRIPTABLE_NPCS = new ArrayList<>();

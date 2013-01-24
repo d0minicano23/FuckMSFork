@@ -850,7 +850,7 @@ public class MapleInventoryManipulator {
         }
         if (source.getState() >= 17) {
             final Map<Skill, SkillEntry> ss = new HashMap<>();
-            int[] potentials = {source.getPotential1(), source.getPotential2(), source.getPotential3(), source.getPotential4(), source.getPotential5()};
+            int[] potentials = {source.getPotential1(), source.getPotential2(), source.getPotential3()};
             for (int i : potentials) {
                 if (i > 0) {
                     StructItemOption pot = ii.getPotentialInfo(i).get(ii.getReqLevel(source.getItemId()) / 10);
@@ -863,15 +863,15 @@ public class MapleInventoryManipulator {
         }
         if (source.getSocketState() > 15) {
             final Map<Skill, SkillEntry> ss = new HashMap<>();
-            int[] sockets = {source.getSocket1(), source.getSocket2(), source.getSocket3()};
-            for (int i : sockets) {
-                if (i > 0) {
-                    StructItemOption soc = ii.getSocketInfo(i);
+            int sockets = source.getSocket1();
+
+                if (sockets > 0) {
+                    StructItemOption soc = ii.getSocketInfo(sockets);
                     if (soc != null && soc.get("skillID") > 0) {
                         ss.put(SkillFactory.getSkill(PlayerStats.getSkillByJob(soc.get("skillID"), c.getPlayer().getJob())), new SkillEntry((byte) 1, (byte) 0, -1));
                     }
                 }
-            }
+
             c.getPlayer().changeSkillLevel_Skip(ss, true);
         }
         c.getSession().write(InventoryPacket.moveInventoryItem(MapleInventoryType.EQUIP, src, dst, (byte) 2, false, false));
@@ -919,7 +919,7 @@ public class MapleInventoryManipulator {
         MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         if (source.getState() >= 17) {
             final Map<Skill, SkillEntry> ss = new HashMap<>();
-            int[] potentials = {source.getPotential1(), source.getPotential2(), source.getPotential3(), source.getPotential4(), source.getPotential5()};
+            int[] potentials = {source.getPotential1(), source.getPotential2(), source.getPotential3()};
             for (int i : potentials) {
                 if (i > 0) {
                     StructItemOption pot = ii.getPotentialInfo(i).get(ii.getReqLevel(source.getItemId()) / 10);
@@ -932,15 +932,14 @@ public class MapleInventoryManipulator {
         }
         if (source.getSocketState() > 15) {
             final Map<Skill, SkillEntry> ss = new HashMap<>();
-            int[] sockets = {source.getSocket1(), source.getSocket2(), source.getSocket3()};
-            for (int i : sockets) {
-                if (i > 0) {
-                    StructItemOption soc = ii.getSocketInfo(i);
+            int sockets = source.getSocket1();
+                if (sockets > 0) {
+                    StructItemOption soc = ii.getSocketInfo(sockets);
                     if (soc != null && soc.get("skillID") > 0) {
                         ss.put(SkillFactory.getSkill(PlayerStats.getSkillByJob(soc.get("skillID"), c.getPlayer().getJob())), new SkillEntry((byte) 1, (byte) 0, -1));
                     }
                 }
-            }
+            
             c.getPlayer().changeSkillLevel_Skip(ss, true);
         }
         c.getSession().write(InventoryPacket.moveInventoryItem(MapleInventoryType.EQUIP, src, dst, (byte) 1, false, false));

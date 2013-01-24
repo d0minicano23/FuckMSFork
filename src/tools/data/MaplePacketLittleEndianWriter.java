@@ -174,6 +174,10 @@ public class MaplePacketLittleEndianWriter {
         writeShort(s.y);
     }
 
+    public void writeBool(final boolean b) {
+        write(b ? 1 : 0);
+    }
+    
     public final void writeRect(final Rectangle s) {
         writeInt(s.x);
         writeInt(s.y);

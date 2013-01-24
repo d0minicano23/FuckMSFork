@@ -38,7 +38,7 @@ public class MonsterStatusEffect {
     private boolean reflect = false;
     private long cancelTime = 0;
 
-    public MonsterStatusEffect(final MonsterStatus stat, final Integer x, final int skillId, final MobSkill mobskill, final boolean monsterSkill) {
+    public MonsterStatusEffect(final MonsterStatus stat, final Integer x, final int skillId, final MobSkill mobskill, final boolean monsterSkill){
         this.stati = stat;
         this.skill = skillId;
         this.monsterSkill = monsterSkill;
@@ -46,7 +46,7 @@ public class MonsterStatusEffect {
         this.x = x;
     }
 
-    public MonsterStatusEffect(final MonsterStatus stat, final Integer x, final int skillId, final MobSkill mobskill, final boolean monsterSkill, final boolean reflect) {
+    public MonsterStatusEffect(final MonsterStatus stat, final Integer x, final int skillId, final MobSkill mobskill, final boolean monsterSkill, final boolean reflect){
         this.stati = stat;
         this.skill = skillId;
         this.monsterSkill = monsterSkill;
@@ -55,72 +55,72 @@ public class MonsterStatusEffect {
 	this.reflect = reflect;
     }
 
-    public final MonsterStatus getStati() {
+    public final MonsterStatus getStati(){
         return stati;
     }
 
-    public final Integer getX() {
+    public final Integer getX(){
         return x;
     }
 
-    public final void setValue(final MonsterStatus status, final Integer newVal) {
+    public final void setValue(final MonsterStatus status, final Integer newVal){
         stati = status;
         x = newVal;
     }
 
-    public final int getSkill() {
+    public final int getSkill(){
         return skill;
     }
 
-    public final MobSkill getMobSkill() {
+    public final MobSkill getMobSkill(){
         return mobskill;
     }
 
-    public final boolean isMonsterSkill() {
+    public final boolean isMonsterSkill(){
         return monsterSkill;
     }
 
-    public final void setCancelTask(final long cancelTask) {
+    public final void setCancelTask(final long cancelTask){
         this.cancelTime = System.currentTimeMillis() + cancelTask;
     }
 
-    public final long getCancelTask() {
+    public final long getCancelTask(){
 	return this.cancelTime;
     }
 
-    public final void setPoisonSchedule(final int poisonSchedule, MapleCharacter chrr) {
+    public final void setPoisonSchedule(final int poisonSchedule, MapleCharacter chrr){
         this.poisonSchedule = poisonSchedule;
 	this.weakChr = new WeakReference<MapleCharacter>(chrr);
     }
 
-    public final int getPoisonSchedule() {
+    public final int getPoisonSchedule(){
 	return this.poisonSchedule;
     }
 
-    public final boolean shouldCancel(long now) {
+    public final boolean shouldCancel(long now){
 	return (cancelTime > 0 && cancelTime <= now);
     }
 
-    public final void cancelTask() {
+    public final void cancelTask(){
 	cancelTime = 0;
     }
 
-    public final boolean isReflect() {
+    public final boolean isReflect(){
         return reflect;
     }
 
-    public final int getFromID() {
+    public final int getFromID(){
 	return weakChr == null || weakChr.get() == null ? 0 : weakChr.get().getId();
     }
 
-    public final void cancelPoisonSchedule(MapleMonster mm) {
+    public final void cancelPoisonSchedule(MapleMonster mm){
 	mm.doPoison(this, weakChr);
         this.poisonSchedule = 0;
 	this.weakChr = null;
     }
 
-    public final static int genericSkill(MonsterStatus stat) {
-	switch(stat) {
+    public final static int genericSkill(MonsterStatus stat){
+	switch(stat){
 	    case STUN:
 		return 90001001;
 	    case SPEED:

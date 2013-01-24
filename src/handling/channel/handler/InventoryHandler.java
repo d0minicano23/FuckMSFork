@@ -51,6 +51,7 @@ import client.SkillEntry;
 import constants.GameConstants;
 import client.SkillFactory;
 import client.anticheat.CheatingOffense;
+import client.inventory.SocketFlag;
 import database.DatabaseConnection;
 import handling.channel.ChannelServer;
 import handling.world.MaplePartyCharacter;
@@ -369,8 +370,10 @@ public class InventoryHandler {
         }
         // Can only use once-> 2nd and 3rd must use NPC.
         final Equip eqq = (Equip) toMount;
-        if (eqq.getSocketState() != 0) { // Used before
+        if (eqq.getSocketState()<0){ // Used before
             c.getPlayer().dropMessage(1, "This item already has a socket.");
+        }else if(eqq.getSocketState()>1){
+            c.getPlayer().dropMessage(1, "This item already has a nebulite mounted.");
         } else {
             eqq.setSocket1(0); // First socket, GMS removed the other 2
             MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, alienSocket.getPosition(), (short) 1, false);
@@ -393,18 +396,16 @@ public class InventoryHandler {
         }
         final Equip eqq = (Equip) toMount;
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        boolean success = false;
         if (eqq.getSocket1() == 0) { // If the socket is empty
             final StructItemOption pot = ii.getSocketInfo(nebuliteId);
-            if (pot != null && GameConstants.optionTypeFits(pot.optionType, eqq.getItemId())) {
+           if (pot != null && GameConstants.optionTypeFits(pot.optionType, eqq.getItemId())) {
                 eqq.setSocket1(pot.opID);
                 MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.SETUP, nebulite.getPosition(), (short) 1, false);
                 c.getPlayer().forceReAddItem(toMount, MapleInventoryType.EQUIP);
-                success = true;
+                c.getPlayer().getMap().broadcastMessage(CField.showNebuliteEffect(c.getPlayer().getId(), true));
             }
         }
-        c.getPlayer().getMap().broadcastMessage(CField.showNebuliteEffect(c.getPlayer().getId(), success));
-        c.getSession().write(CWvsContext.enableActions());
+        c.getSession().write(CWvsContext.enableActions());        
     }
 
     public static final void UseNebuliteFusion(final LittleEndianAccessor slea, final MapleClient c) {
@@ -478,12 +479,6 @@ public class InventoryHandler {
             if (eqq.getPotential2() != 0) {
                 lines++;
             }
-            if (eqq.getPotential3() != 0) {
-                lines++;
-            }
-            if (eqq.getPotential4() != 0) {
-                lines++;
-            }
             while (eqq.getState() != new_state) {
                 //31001 = haste, 31002 = door, 31003 = se, 31004 = hb, 41005 = combat orders, 41006 = advanced blessing, 41007 = speed infusion
                 for (int i = 0; i < lines; i++) { // minimum 2 lines, max 5
@@ -498,10 +493,6 @@ public class InventoryHandler {
                                 eqq.setPotential2(pot.opID);
                             } else if (i == 2) {
                                 eqq.setPotential3(pot.opID);
-                            } else if (i == 3) {
-                                eqq.setPotential4(pot.opID);
-                            } else if (i == 4) {
-                                eqq.setPotential5(pot.opID);
                             }
                             rewarded = true;
                         }
@@ -2520,6 +2511,12 @@ public class InventoryHandler {
                 }
                 break;
             }
+            case 5155000:{ //Carta Pearl (Mercedes Ear Remover)
+                c.getPlayer().changeElf();
+                //final Item item = c.getPlayer().getInventory(MapleInventoryType.CASH).getItem((byte) slea.readInt());
+                //MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.CASH, item.getPosition(), (short) 1, false);
+                break;
+            }     
             case 5750000: { //alien cube
                 if (c.getPlayer().getLevel() < 10) {
                     c.getPlayer().dropMessage(1, "You may not use this until level 10.");

@@ -42,30 +42,30 @@ public class Skill {
     private int id, animationTime = 0, masterLevel = 0, maxLevel = 0, delay = 0, trueMax = 0, eventTamingMob = 0, skillType = 0; //4 is alert
     private boolean invisible = false, chargeskill = false, timeLimited = false, combatOrders = false, pvpDisabled = false, magic = false, casterMove = false, pushTarget = false, pullTarget = false;
 
-    public Skill(final int id) {
+    public Skill(final int id){
         super();
         this.id = id;
     }
 
-    public void setName(final String name) {
+    public void setName(final String name){
         this.name = name;
     }
 
-    public int getId() {
+    public int getId(){
         return id;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public static final Skill loadFromData(final int id, final MapleData data, final MapleData delayData) {
+    public static final Skill loadFromData(final int id, final MapleData data, final MapleData delayData){
         Skill ret = new Skill(id);
 
         boolean isBuff = false;
         final int skillType = MapleDataTool.getInt("skillType", data, -1);
         final String elem = MapleDataTool.getString("elemAttr", data, null);
-        if (elem != null) {
+        if (elem != null){
             ret.element = Element.getFromChar(elem.charAt(0));
         }
         ret.skillType = skillType;
@@ -73,12 +73,12 @@ public class Skill {
         ret.timeLimited = MapleDataTool.getInt("timeLimited", data, 0) > 0;
         ret.combatOrders = MapleDataTool.getInt("combatOrders", data, 0) > 0;
         ret.masterLevel = MapleDataTool.getInt("masterLevel", data, 0);
-        if ((id == 22111001 || id == 22140000 || id == 22141002)) {
+        if ((id == 22111001 || id == 22140000 || id == 22141002)){
             ret.masterLevel = 5; //hack
         }
         ret.eventTamingMob = MapleDataTool.getInt("eventTamingMob", data, 0);
         final MapleData inf = data.getChildByPath("info");
-        if (inf != null) {
+        if (inf != null){
             ret.pvpDisabled = MapleDataTool.getInt("pvp", inf, 1) <= 0;
             ret.magic = MapleDataTool.getInt("magicDamage", inf, 0) > 0;
             ret.casterMove = MapleDataTool.getInt("casterMove", inf, 0) > 0;
@@ -86,9 +86,9 @@ public class Skill {
             ret.pullTarget = MapleDataTool.getInt("pullTarget", inf, 0) > 0;
         }
         final MapleData effect = data.getChildByPath("effect");
-        if (skillType == 2) {
+        if (skillType == 2){
             isBuff = true;
-        } else if (skillType == 3) { //final attack
+        } else if (skillType == 3){ //final attack
             ret.animation = new ArrayList<Integer>();
             ret.animation.add(0);
             isBuff = effect != null;
@@ -98,40 +98,40 @@ public class Skill {
             final MapleData ball = data.getChildByPath("ball");
 
             boolean action = false;
-            if (action_ == null) {
-                if (data.getChildByPath("prepare/action") != null) {
+            if (action_ == null){
+                if (data.getChildByPath("prepare/action") != null){
                     action_ = data.getChildByPath("prepare/action");
                     action = true;
                 }
             }
             isBuff = effect != null && hit == null && ball == null;
-            if (action_ != null) {
+            if (action_ != null){
                 String d = null;
-                if (action) { //prepare
+                if (action){ //prepare
                     d = MapleDataTool.getString(action_, null);
                 } else {
                     d = MapleDataTool.getString("0", action_, null);
                 }
-                if (d != null) {
+                if (d != null){
                     isBuff |= d.equals("alert2");
                     final MapleData dd = delayData.getChildByPath(d);
-                    if (dd != null) {
-                        for (MapleData del : dd) {
+                    if (dd != null){
+                        for (MapleData del : dd){
                             ret.delay += Math.abs(MapleDataTool.getInt("delay", del, 0));
                         }
-                        if (ret.delay > 30) { //then, faster(2) = (10+2)/16 which is basically 3/4
+                        if (ret.delay > 30){ //then, faster(2) = (10+2)/16 which is basically 3/4
                             ret.delay = (int) Math.round(ret.delay * 11.0 / 16.0); //fastest(1) lolol
                             ret.delay -= (ret.delay % 30); //round to 30ms
                         }
                     }
-                    if (SkillFactory.getDelay(d) != null) { //this should return true always
+                    if (SkillFactory.getDelay(d) != null){ //this should return true always
                         ret.animation = new ArrayList<Integer>();
                         ret.animation.add(SkillFactory.getDelay(d));
-                        if (!action) {
-                            for (MapleData ddc : action_) {
-                                if (!MapleDataTool.getString(ddc, d).equals(d)) {
+                        if (!action){
+                            for (MapleData ddc : action_){
+                                if (!MapleDataTool.getString(ddc, d).equals(d)){
                                     String c = MapleDataTool.getString(ddc);
-                                    if (SkillFactory.getDelay(c) != null) {
+                                    if (SkillFactory.getDelay(c) != null){
                                         ret.animation.add(SkillFactory.getDelay(c));
                                     }
                                 }
@@ -140,7 +140,7 @@ public class Skill {
                     }
                 }
             }
-            switch (id) {
+            switch (id){
                 case Hero.RUSH:
                 case Paladin.RUSH:
                 case DarkKnight.RUSH:
@@ -174,6 +174,7 @@ public class Skill {
                 case Beginner.OZ_FLAME:
                 case Beginner.OZ_FLAME_GEAR:
                 case Phantom.TEMPEST:
+                case Mechanic.PROTOTYPE: //TEMP. mech    
                     isBuff = false;
                     break;
                 case Beginner.RECOVERY:
@@ -400,7 +401,6 @@ public class Skill {
                 case WildHunter.JAGUAR: //jaguar
                 case WildHunter.WILD_TRAP: //puppet
                 case Mechanic.FLAME_LAUNCHER:
-                case Mechanic.PROTOTYPE: //TEMP. mech
                 case Mechanic.PORTAL:
                 case Mechanic.PERFECT_ARMOR:
                 case Mechanic.ENHANCED_FLAME_LAUNCHER:
@@ -447,179 +447,179 @@ public class Skill {
         ret.chargeskill = data.getChildByPath("keydown") != null;
         //some skills have old system, some new		
 	final MapleData level = data.getChildByPath("common");
-        if (level != null) {
+        if (level != null){
             ret.maxLevel = MapleDataTool.getInt("maxLevel", level, 1); //10 just a failsafe, shouldn't actually happens
             ret.trueMax = ret.maxLevel + (ret.combatOrders ? 2 : 0);
-            for (int i = 1; i <= ret.trueMax; i++) {
+            for (int i = 1; i <= ret.trueMax; i++){
                 ret.effects.add(MapleStatEffect.loadSkillEffectFromData(level, id, isBuff, i, "x"));
             }
 
         } else {
-            for (final MapleData leve : data.getChildByPath("level")) {
+            for (final MapleData leve : data.getChildByPath("level")){
                 ret.effects.add(MapleStatEffect.loadSkillEffectFromData(leve, id, isBuff, Byte.parseByte(leve.getName()), null));
             }
             ret.maxLevel = ret.effects.size();
             ret.trueMax = ret.effects.size();
         }
         final MapleData level2 = data.getChildByPath("PVPcommon");
-        if (level2 != null) {
+        if (level2 != null){
             ret.pvpEffects = new ArrayList<MapleStatEffect>();
-            for (int i = 1; i <= ret.trueMax; i++) {
+            for (int i = 1; i <= ret.trueMax; i++){
                 ret.pvpEffects.add(MapleStatEffect.loadSkillEffectFromData(level2, id, isBuff, i, "x"));
             }
         }
         final MapleData reqDataRoot = data.getChildByPath("req");
-        if (reqDataRoot != null) {
-            for (final MapleData reqData : reqDataRoot.getChildren()) {
+        if (reqDataRoot != null){
+            for (final MapleData reqData : reqDataRoot.getChildren()){
                 ret.requiredSkill.add(new Pair<Integer, Byte>(Integer.parseInt(reqData.getName()), (byte) MapleDataTool.getInt(reqData, 1)));
             }
         }
         ret.animationTime = 0;
-        if (effect != null) {
-            for (final MapleData effectEntry : effect) {
+        if (effect != null){
+            for (final MapleData effectEntry : effect){
                 ret.animationTime += MapleDataTool.getIntConvert("delay", effectEntry, 0);
             }
         }
         return ret;
     }
 
-    public MapleStatEffect getEffect(final int level) {
-        if (effects.size() < level) {
-            if (effects.size() > 0) { //incAllskill
+    public MapleStatEffect getEffect(final int level){
+        if (effects.size() < level){
+            if (effects.size() > 0){ //incAllskill
                 return effects.get(effects.size() - 1);
             }
             return null;
-        } else if (level <= 0) {
+        } else if (level <= 0){
             return effects.get(0);
         }
         return effects.get(level - 1);
     }
 
-    public MapleStatEffect getPVPEffect(final int level) {
-        if (pvpEffects == null) {
+    public MapleStatEffect getPVPEffect(final int level){
+        if (pvpEffects == null){
             return getEffect(level);
         }
-        if (pvpEffects.size() < level) {
-            if (pvpEffects.size() > 0) { //incAllskill
+        if (pvpEffects.size() < level){
+            if (pvpEffects.size() > 0){ //incAllskill
                 return pvpEffects.get(pvpEffects.size() - 1);
             }
             return null;
-        } else if (level <= 0) {
+        } else if (level <= 0){
             return pvpEffects.get(0);
         }
         return pvpEffects.get(level - 1);
     }
 
-    public int getSkillType() {
+    public int getSkillType(){
         return skillType;
     }
 
-    public List<Integer> getAllAnimation() {
+    public List<Integer> getAllAnimation(){
         return animation;
     }
 
-    public int getAnimation() {
-        if (animation == null) {
+    public int getAnimation(){
+        if (animation == null){
             return -1;
         }
         return animation.get(Randomizer.nextInt(animation.size()));
     }
 
-    public boolean isPVPDisabled() {
+    public boolean isPVPDisabled(){
         return pvpDisabled;
     }
 
-    public boolean isChargeSkill() {
+    public boolean isChargeSkill(){
         return chargeskill;
     }
 
-    public boolean isInvisible() {
+    public boolean isInvisible(){
         return invisible;
     }
 
-    public boolean hasRequiredSkill() {
+    public boolean hasRequiredSkill(){
         return requiredSkill.size() > 0;
     }
 
-    public List<Pair<Integer, Byte>> getRequiredSkills() {
+    public List<Pair<Integer, Byte>> getRequiredSkills(){
         return requiredSkill;
     }
 
-    public int getMaxLevel() {
+    public int getMaxLevel(){
         return maxLevel;
     }
 
-    public int getTrueMax() {
+    public int getTrueMax(){
         return trueMax;
     }
 
-    public boolean combatOrders() {
+    public boolean combatOrders(){
         return combatOrders;
     }
 
-    public boolean canBeLearnedBy(int job) {
+    public boolean canBeLearnedBy(int job){
         int jid = job;
         int skillForJob = id / 10000;
         
-        if (skillForJob == 2001) {
+        if (skillForJob == 2001){
             return GameConstants.isEvan(job); //special exception for beginner -.-
-        } else if (skillForJob == 0) {
+        } else if (skillForJob == 0){
             return GameConstants.isAdventurer(job); //special exception for beginner
-        } else if (skillForJob == 1000) {
+        } else if (skillForJob == 1000){
             return GameConstants.isKOC(job); //special exception for beginner
-        } else if (skillForJob == 2000) {
+        } else if (skillForJob == 2000){
             return GameConstants.isAran(job); //special exception for beginner
-        } else if (skillForJob == 3000) {
+        } else if (skillForJob == 3000){
             return GameConstants.isResist(job); //special exception for beginner
-        } else if (skillForJob == 1) {
+        } else if (skillForJob == 1){
             return GameConstants.isCannon(job); //special exception for beginner
-        } else if (skillForJob == 3001) {
+        } else if (skillForJob == 3001){
             return GameConstants.isDemon(job); //special exception for beginner
-        } else if (skillForJob == 2002) {
+        } else if (skillForJob == 2002){
             return GameConstants.isMercedes(job); //special exception for beginner
-        } else if (skillForJob == 508) {
+        } else if (skillForJob == 508){
             return GameConstants.isJett(job); //special exception for beginner
-	} else if (skillForJob == 2003) {
+	} else if (skillForJob == 2003){
             return GameConstants.isPhantom(job); //special exception for beginner
-        } else if (jid / 100 != skillForJob / 100) { // wrong job
+        } else if (jid / 100 != skillForJob / 100){ // wrong job
             return false;
-        } else if (jid / 1000 != skillForJob / 1000) { // wrong job
+        } else if (jid / 1000 != skillForJob / 1000){ // wrong job
             return false;
-        } else if (GameConstants.isPhantom(skillForJob) && !GameConstants.isPhantom(job)) {
+        } else if (GameConstants.isPhantom(skillForJob) && !GameConstants.isPhantom(job)){
             return false;
-	} else if (GameConstants.isJett(skillForJob) && !GameConstants.isJett(job)) {
+	} else if (GameConstants.isJett(skillForJob) && !GameConstants.isJett(job)){
             return false;
-	} else if (GameConstants.isCannon(skillForJob) && !GameConstants.isCannon(job)) {
+	} else if (GameConstants.isCannon(skillForJob) && !GameConstants.isCannon(job)){
             return false;
-        } else if (GameConstants.isDemon(skillForJob) && !GameConstants.isDemon(job)) {
+        } else if (GameConstants.isDemon(skillForJob) && !GameConstants.isDemon(job)){
             return false;
-        } else if (GameConstants.isAdventurer(skillForJob) && !GameConstants.isAdventurer(job)) {
+        } else if (GameConstants.isAdventurer(skillForJob) && !GameConstants.isAdventurer(job)){
             return false;
-        } else if (GameConstants.isKOC(skillForJob) && !GameConstants.isKOC(job)) {
+        } else if (GameConstants.isKOC(skillForJob) && !GameConstants.isKOC(job)){
             return false;
-        } else if (GameConstants.isAran(skillForJob) && !GameConstants.isAran(job)) {
+        } else if (GameConstants.isAran(skillForJob) && !GameConstants.isAran(job)){
             return false;
-        } else if (GameConstants.isEvan(skillForJob) && !GameConstants.isEvan(job)) {
+        } else if (GameConstants.isEvan(skillForJob) && !GameConstants.isEvan(job)){
             return false;
-        } else if (GameConstants.isMercedes(skillForJob) && !GameConstants.isMercedes(job)) {
+        } else if (GameConstants.isMercedes(skillForJob) && !GameConstants.isMercedes(job)){
             return false;
-        } else if (GameConstants.isResist(skillForJob) && !GameConstants.isResist(job)) {
+        } else if (GameConstants.isResist(skillForJob) && !GameConstants.isResist(job)){
             return false;
-        } else if ((jid / 10) % 10 == 0 && (skillForJob / 10) % 10 > (jid / 10) % 10) { // wrong 2nd job
+        } else if ((jid / 10) % 10 == 0 && (skillForJob / 10) % 10 > (jid / 10) % 10){ // wrong 2nd job
             return false;
-        } else if ((skillForJob / 10) % 10 != 0 && (skillForJob / 10) % 10 != (jid / 10) % 10) { //wrong 2nd job
+        } else if ((skillForJob / 10) % 10 != 0 && (skillForJob / 10) % 10 != (jid / 10) % 10){ //wrong 2nd job
             return false;
-        } else if (skillForJob % 10 > jid % 10) { // wrong 3rd/4th job
+        } else if (skillForJob % 10 > jid % 10){ // wrong 3rd/4th job
             return false;
         }
         return true;
     }
 
-    public boolean isTimeLimited() {
+    public boolean isTimeLimited(){
         return timeLimited;
     }
-    public boolean isFourthJobSkill(int skillid) {
-         switch (skillid / 10000) {
+    public boolean isFourthJobSkill(int skillid){
+         switch (skillid / 10000){
              case 112:
              case 122:
              case 132:
@@ -638,8 +638,8 @@ public class Skill {
          return false;
     }
     
-    public boolean isThirdJobSkill(int skillid) {
-        switch (skillid / 10000) {
+    public boolean isThirdJobSkill(int skillid){
+        switch (skillid / 10000){
             case 111:
             case 121:
             case 131:
@@ -656,8 +656,8 @@ public class Skill {
         }
         return false;
     }
-    public boolean isSecondJobSkill(int skillid) {
-        switch(skillid / 10000) {
+    public boolean isSecondJobSkill(int skillid){
+        switch(skillid / 10000){
             case 110:
             case 120:
             case 130:
@@ -674,8 +674,8 @@ public class Skill {
         }
         return false;
     }
-    public boolean isFourthJob() {
-		switch (id) { // I guess imma make an sql table to store these, so that we could max them all out.
+    public boolean isFourthJob(){
+		switch (id){ // I guess imma make an sql table to store these, so that we could max them all out.
 			case 3220010:
 			case 3120011:
 			case 33120010:
@@ -697,65 +697,65 @@ public class Skill {
 				return false;
 		}			
         //resurrection has master level while ult.strafe does not.. wtf, impossible to tell from WZ
-        if ((id / 10000) == 2312) { //all 10 skills.
+        if ((id / 10000) == 2312){ //all 10 skills.
             return true;
-        }if (id == 24121009 || id == 24121010) { //LOL WTF U LOSER
+        }if (id == 24121009 || id == 24121010){ //LOL WTF U LOSER
             return true;
         }
-        if ((getMaxLevel() <= 15 && !invisible && getMasterLevel() <= 0)) {
+        if ((getMaxLevel() <= 15 && !invisible && getMasterLevel() <= 0)){
             return false;
         }
-        if (id / 10000 >= 2210 && id / 10000 < 3000) { //evan skill
+        if (id / 10000 >= 2210 && id / 10000 < 3000){ //evan skill
             return ((id / 10000) % 10) >= 7 || getMasterLevel() > 0;
         }
-        if (id / 10000 >= 430 && id / 10000 <= 434) { //db skill
+        if (id / 10000 >= 430 && id / 10000 <= 434){ //db skill
             return ((id / 10000) % 10) == 4 || getMasterLevel() > 0;
         }
         return ((id / 10000) % 10) == 2 && id < 90000000 && !isBeginnerSkill();
     }
 
-    public Element getElement() {
+    public Element getElement(){
         return element;
     }
 
-    public int getAnimationTime() {
+    public int getAnimationTime(){
         return animationTime;
     }
 
-    public int getMasterLevel() {
+    public int getMasterLevel(){
         return masterLevel;
     }
 
-    public int getDelay() {
+    public int getDelay(){
         return delay;
     }
 
-    public int getTamingMob() {
+    public int getTamingMob(){
         return eventTamingMob;
     }
 
-    public boolean isBeginnerSkill() {
+    public boolean isBeginnerSkill(){
         int jobId = id / 10000;
         return GameConstants.isBeginnerJob(jobId);
     }
 
-    public boolean isMagic() {
+    public boolean isMagic(){
         return magic;
     }
 
-    public boolean isMovement() {
+    public boolean isMovement(){
         return casterMove;
     }
 
-    public boolean isPush() {
+    public boolean isPush(){
         return pushTarget;
     }
 
-    public boolean isPull() {
+    public boolean isPull(){
         return pullTarget;
     }
 
-    public boolean isSpecialSkill() {
+    public boolean isSpecialSkill(){
         int jobId = id / 10000;
         return jobId == 900 || jobId == 800 || jobId == 9000 || jobId == 9200 || jobId == 9201 || jobId == 9202 || jobId == 9203 || jobId == 9204;
     }

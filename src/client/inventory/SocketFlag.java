@@ -29,7 +29,8 @@ public enum SocketFlag {
     SOCKET_BOX_3(0x08),
     USED_SOCKET_1(0x10),
     USED_SOCKET_2(0x20),
-    USED_SOCKET_3(0x40);
+    USED_SOCKET_3(0x40),
+    USED_SOCKET_4(0x100);
     private final int i;
 
     private SocketFlag(int i) {

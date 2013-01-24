@@ -12,9 +12,9 @@ import java.util.Calendar;
  */
 public class Calander {
     
-       public static boolean getEventTime() {
+       public static boolean getEventTime(){
         int time = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        switch (Calendar.DAY_OF_WEEK) {
+        switch (Calendar.DAY_OF_WEEK){
             case 1:
                 return time >= 1 && time <= 5;
             case 2:

@@ -35,6 +35,8 @@ public interface MapleCharacterLook {
 	
     public int getDemonMarking();
     
+    public int getMercedesEars();
+    
     public short getJob();
 
     public Map<Byte, Integer> getEquips();

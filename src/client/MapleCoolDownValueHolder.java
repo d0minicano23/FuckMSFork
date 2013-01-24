@@ -26,7 +26,7 @@ public class MapleCoolDownValueHolder {
     public long startTime;
     public long length;
 
-    public MapleCoolDownValueHolder(int skillId, long startTime, long length) {
+    public MapleCoolDownValueHolder(int skillId, long startTime, long length){
         super();
         this.skillId = skillId;
         this.startTime = startTime;

@@ -16,23 +16,23 @@ public class MapleTrait {
         final int limit;
         final MapleStat stat;
 
-        private MapleTraitType(int type, MapleStat theStat) {
+        private MapleTraitType(int type, MapleStat theStat){
             this.limit = type;
             this.stat = theStat;
         }
 
-        public int getLimit() {
+        public int getLimit(){
             return limit;
         }
 
-        public MapleStat getStat() {
+        public MapleStat getStat(){
             return stat;
         }
 
-        public static MapleTraitType getByQuestName(String q) {
+        public static MapleTraitType getByQuestName(String q){
             String qq = q.substring(0, q.length() - 3); //e.g. charmEXP, charmMin
-            for (MapleTraitType t : MapleTraitType.values()) {
-                if (t.name().equals(qq)) {
+            for (MapleTraitType t : MapleTraitType.values()){
+                if (t.name().equals(qq)){
                     return t;
                 }
             }
@@ -44,30 +44,30 @@ public class MapleTrait {
     private short exp = 0;
     private byte level = 0;
 
-    public MapleTrait(MapleTraitType t) {
+    public MapleTrait(MapleTraitType t){
         this.type = t;
     }
 
-    public void setExp(int e) {
+    public void setExp(int e){
         this.totalExp = e;
 		this.localTotalExp = e;
         recalcLevel();
     }
 
-    public void addExp(int e) {
+    public void addExp(int e){
         this.totalExp += e;
 		this.localTotalExp += e;
-        if (e != 0) {
+        if (e != 0){
             recalcLevel();
         }
     }
 
-    public void addExp(int e, MapleCharacter c) {
+    public void addExp(int e, MapleCharacter c){
         addTrueExp(e * c.getClient().getChannelServer().getTraitRate(), c);
     }
 	
-    public void addTrueExp(int e, MapleCharacter c) {
-        if (e != 0) {
+    public void addTrueExp(int e, MapleCharacter c){
+        if (e != 0){
 			this.totalExp += e;
 			this.localTotalExp += e;
 			c.updateSingleStat(type.stat, totalExp);
@@ -76,8 +76,8 @@ public class MapleTrait {
         }
     }
 
-    public boolean recalcLevel() {
-        if (totalExp < 0) {
+    public boolean recalcLevel(){
+        if (totalExp < 0){
             totalExp = 0;
 			localTotalExp = 0;
             level = 0;
@@ -85,8 +85,8 @@ public class MapleTrait {
             return false;
         }
         final int oldLevel = level;
-        for (byte i = 0; i < 100; i++) {
-            if (GameConstants.getTraitExpNeededForLevel(i) > localTotalExp) {
+        for (byte i = 0; i < 100; i++){
+            if (GameConstants.getTraitExpNeededForLevel(i) > localTotalExp){
                 exp = (short) (GameConstants.getTraitExpNeededForLevel(i) - localTotalExp);
                 level = (byte) (i - 1);
                 return level > oldLevel;
@@ -99,31 +99,31 @@ public class MapleTrait {
         return level > oldLevel;
     }
 
-    public int getLevel() {
+    public int getLevel(){
         return level;
     }
 
-    public int getExp() {
+    public int getExp(){
         return exp;
     }
 
-    public int getTotalExp() {
+    public int getTotalExp(){
         return totalExp;
     }
 	
-	public int getLocalTotalExp() {
+	public int getLocalTotalExp(){
 		return localTotalExp;
 	}
 	
-	public void addLocalExp(int e) {
+	public void addLocalExp(int e){
 		this.localTotalExp += e;
 	}
 	
-	public void clearLocalExp() {
+	public void clearLocalExp(){
 		this.localTotalExp = totalExp;
 	}
 
-    public MapleTraitType getType() {
+    public MapleTraitType getType(){
         return type;
     }
 }

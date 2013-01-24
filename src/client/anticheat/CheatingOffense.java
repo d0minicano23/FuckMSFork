@@ -63,42 +63,42 @@ public enum CheatingOffense {
     private final int autobancount;
     private byte bantype = 0; // 0 = Disabled, 1 = Enabled, 2 = DC
 
-    public final byte getPoints() {
+    public final byte getPoints(){
         return points;
     }
 
-    public final long getValidityDuration() {
+    public final long getValidityDuration(){
         return validityDuration;
     }
 
-    public final boolean shouldAutoban(final int count) {
-        if (autobancount < 0) {
+    public final boolean shouldAutoban(final int count){
+        if (autobancount < 0){
             return false;
         }
         return count >= autobancount;
     }
 
-    public final byte getBanType() {
+    public final byte getBanType(){
         return bantype;
     }
 
-    public final void setEnabled(final boolean enabled) {
+    public final void setEnabled(final boolean enabled){
         bantype = (byte) (enabled ? 1 : 0);
     }
 
-    public final boolean isEnabled() {
+    public final boolean isEnabled(){
         return bantype >= 1;
     }
 
-    private CheatingOffense(final byte points, final long validityDuration) {
+    private CheatingOffense(final byte points, final long validityDuration){
         this(points, validityDuration, -1, (byte) 2);
     }
 
-    private CheatingOffense(final byte points, final long validityDuration, final int autobancount) {
+    private CheatingOffense(final byte points, final long validityDuration, final int autobancount){
         this(points, validityDuration, autobancount, (byte) 1);
     }
 
-    private CheatingOffense(final byte points, final long validityDuration, final int autobancount, final byte bantype) {
+    private CheatingOffense(final byte points, final long validityDuration, final int autobancount, final byte bantype){
         this.points = points;
         this.validityDuration = validityDuration;
         this.autobancount = autobancount;

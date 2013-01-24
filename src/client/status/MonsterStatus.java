@@ -73,32 +73,32 @@ public enum MonsterStatus implements Serializable, Buffstat {
     private final int first;
     private final boolean end;
 
-    private MonsterStatus(int i, int first) {
+    private MonsterStatus(int i, int first){
         this.i = i;
         this.first = first;
         this.end = false;
     }
 
-    private MonsterStatus(int i, int first, boolean end) {
+    private MonsterStatus(int i, int first, boolean end){
         this.i = i;
         this.first = first;
         this.end = end;
     }
 
-    public int getPosition() {
+    public int getPosition(){
         return first;
     }
 
-    public boolean isEmpty() {
+    public boolean isEmpty(){
         return end;
     }
 
-    public int getValue() {
+    public int getValue(){
         return i;
     }
 
-    public static final MonsterStatus getBySkill_Pokemon(final int skill) {
-        switch (skill) {
+    public static final MonsterStatus getBySkill_Pokemon(final int skill){
+        switch (skill){
             case 120:
                 return SEAL;
             case 121:
@@ -115,8 +115,8 @@ public enum MonsterStatus implements Serializable, Buffstat {
         return null;
     }
 
-    public static final MapleDisease getLinkedDisease(final MonsterStatus skill) {
-        switch (skill) {
+    public static final MapleDisease getLinkedDisease(final MonsterStatus skill){
+        switch (skill){
             case STUN:
             case SHADOW_WEB:
                 return MapleDisease.STUN;

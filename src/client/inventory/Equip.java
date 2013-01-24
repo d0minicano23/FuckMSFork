@@ -39,16 +39,16 @@ public class Equip extends Item implements Serializable {
     private MapleRing ring = null;
     private MapleAndroid android = null;
 
-    public Equip(int id, short position, byte flag) {
+    public Equip(int id, short position, byte flag){
         super(id, position, (short) 1, flag);
     }
 
-    public Equip(int id, short position, int uniqueid, short flag) {
+    public Equip(int id, short position, int uniqueid, short flag){
         super(id, position, (short) 1, flag, uniqueid);
     }
 
     @Override
-    public Item copy() {
+    public Item copy(){
         Equip ret = new Equip(getItemId(), getPosition(), getUniqueId(), getFlag());
         ret.str = str;
         ret.dex = dex;
@@ -75,7 +75,7 @@ public class Equip extends Item implements Serializable {
         ret.potential2 = potential2;
         ret.potential3 = potential3;
         ret.potential4 = potential4;
-        ret.potential5 = potential5;
+        ret.potential5 = potential5;        
         ret.socket1 = socket1;
         ret.socket2 = socket2;
         ret.socket3 = socket3;
@@ -90,229 +90,229 @@ public class Equip extends Item implements Serializable {
     }
 
     @Override
-    public byte getType() {
+    public byte getType(){
         return 1;
     }
 
-    public byte getUpgradeSlots() {
+    public byte getUpgradeSlots(){
         return upgradeSlots;
     }
 
-    public short getStr() {
+    public short getStr(){
         return str;
     }
 
-    public short getDex() {
+    public short getDex(){
         return dex;
     }
 
-    public short getInt() {
+    public short getInt(){
         return _int;
     }
 
-    public short getLuk() {
+    public short getLuk(){
         return luk;
     }
 
-    public short getHp() {
+    public short getHp(){
         return hp;
     }
 
-    public short getMp() {
+    public short getMp(){
         return mp;
     }
 
-    public short getWatk() {
+    public short getWatk(){
         return watk;
     }
 
-    public short getMatk() {
+    public short getMatk(){
         return matk;
     }
 
-    public short getWdef() {
+    public short getWdef(){
         return wdef;
     }
 
-    public short getMdef() {
+    public short getMdef(){
         return mdef;
     }
 
-    public short getAcc() {
+    public short getAcc(){
         return acc;
     }
 
-    public short getAvoid() {
+    public short getAvoid(){
         return avoid;
     }
 
-    public short getHands() {
+    public short getHands(){
         return hands;
     }
 
-    public short getSpeed() {
+    public short getSpeed(){
         return speed;
     }
 
-    public short getJump() {
+    public short getJump(){
         return jump;
     }
 
-    public void setStr(short str) {
-        if (str < 0) {
+    public void setStr(short str){
+        if (str < 0){
             str = 0;
         }
         this.str = str;
     }
 
-    public void setDex(short dex) {
-        if (dex < 0) {
+    public void setDex(short dex){
+        if (dex < 0){
             dex = 0;
         }
         this.dex = dex;
     }
 
-    public void setInt(short _int) {
-        if (_int < 0) {
+    public void setInt(short _int){
+        if (_int < 0){
             _int = 0;
         }
         this._int = _int;
     }
 
-    public void setLuk(short luk) {
-        if (luk < 0) {
+    public void setLuk(short luk){
+        if (luk < 0){
             luk = 0;
         }
         this.luk = luk;
     }
 
-    public void setHp(short hp) {
-        if (hp < 0) {
+    public void setHp(short hp){
+        if (hp < 0){
             hp = 0;
         }
         this.hp = hp;
     }
 
-    public void setMp(short mp) {
-        if (mp < 0) {
+    public void setMp(short mp){
+        if (mp < 0){
             mp = 0;
         }
         this.mp = mp;
     }
 
-    public void setWatk(short watk) {
-        if (watk < 0) {
+    public void setWatk(short watk){
+        if (watk < 0){
             watk = 0;
         }
         this.watk = watk;
     }
 
-    public void setMatk(short matk) {
-        if (matk < 0) {
+    public void setMatk(short matk){
+        if (matk < 0){
             matk = 0;
         }
         this.matk = matk;
     }
 
-    public void setWdef(short wdef) {
-        if (wdef < 0) {
+    public void setWdef(short wdef){
+        if (wdef < 0){
             wdef = 0;
         }
         this.wdef = wdef;
     }
 
-    public void setMdef(short mdef) {
-        if (mdef < 0) {
+    public void setMdef(short mdef){
+        if (mdef < 0){
             mdef = 0;
         }
         this.mdef = mdef;
     }
 
-    public void setAcc(short acc) {
-        if (acc < 0) {
+    public void setAcc(short acc){
+        if (acc < 0){
             acc = 0;
         }
         this.acc = acc;
     }
 
-    public void setAvoid(short avoid) {
-        if (avoid < 0) {
+    public void setAvoid(short avoid){
+        if (avoid < 0){
             avoid = 0;
         }
         this.avoid = avoid;
     }
 
-    public void setHands(short hands) {
-        if (hands < 0) {
+    public void setHands(short hands){
+        if (hands < 0){
             hands = 0;
         }
         this.hands = hands;
     }
 
-    public void setSpeed(short speed) {
-        if (speed < 0) {
+    public void setSpeed(short speed){
+        if (speed < 0){
             speed = 0;
         }
         this.speed = speed;
     }
 
-    public void setJump(short jump) {
-        if (jump < 0) {
+    public void setJump(short jump){
+        if (jump < 0){
             jump = 0;
         }
         this.jump = jump;
     }
 
-    public void setUpgradeSlots(byte upgradeSlots) {
+    public void setUpgradeSlots(byte upgradeSlots){
         this.upgradeSlots = upgradeSlots;
     }
 
-    public byte getLevel() {
+    public byte getLevel(){
         return level;
     }
 
-    public void setLevel(byte level) {
+    public void setLevel(byte level){
         this.level = level;
     }
 
-    public byte getViciousHammer() {
+    public byte getViciousHammer(){
         return vicioushammer;
     }
 
-    public void setViciousHammer(byte ham) {
+    public void setViciousHammer(byte ham){
         vicioushammer = ham;
     }
 
-    public int getItemEXP() {
+    public int getItemEXP(){
         return itemEXP;
     }
 
-    public void setItemEXP(int itemEXP) {
-        if (itemEXP < 0) {
+    public void setItemEXP(int itemEXP){
+        if (itemEXP < 0){
             itemEXP = 0;
         }
         this.itemEXP = itemEXP;
     }
 
-    public int getEquipExp() {
-        if (itemEXP <= 0) {
+    public int getEquipExp(){
+        if (itemEXP <= 0){
             return 0;
         }
         //aproximate value
-        if (GameConstants.isWeapon(getItemId())) {
+        if (GameConstants.isWeapon(getItemId())){
             return itemEXP / WEAPON_RATIO;
         } else {
             return itemEXP / ARMOR_RATIO;
         }
     }
 
-    public int getEquipExpForLevel() {
-        if (getEquipExp() <= 0) {
+    public int getEquipExpForLevel(){
+        if (getEquipExp() <= 0){
             return 0;
         }
         int expz = getEquipExp();
-        for (int i = getBaseLevel(); i <= GameConstants.getMaxLevel(getItemId()); i++) {
-            if (expz >= GameConstants.getExpForLevel(i, getItemId())) {
+        for (int i = getBaseLevel(); i <= GameConstants.getMaxLevel(getItemId()); i++){
+            if (expz >= GameConstants.getExpForLevel(i, getItemId())){
                 expz -= GameConstants.getExpForLevel(i, getItemId());
             } else { //for 0, dont continue;
                 break;
@@ -321,23 +321,23 @@ public class Equip extends Item implements Serializable {
         return expz;
     }
 
-    public int getExpPercentage() {
-        if (getEquipLevel() < getBaseLevel() || getEquipLevel() > GameConstants.getMaxLevel(getItemId()) || GameConstants.getExpForLevel(getEquipLevel(), getItemId()) <= 0) {
+    public int getExpPercentage(){
+        if (getEquipLevel() < getBaseLevel() || getEquipLevel() > GameConstants.getMaxLevel(getItemId()) || GameConstants.getExpForLevel(getEquipLevel(), getItemId()) <= 0){
             return 0;
         }
         return getEquipExpForLevel() * 100 / GameConstants.getExpForLevel(getEquipLevel(), getItemId());
     }
 
-    public int getEquipLevel() {
-        if (GameConstants.getMaxLevel(getItemId()) <= 0) {
+    public int getEquipLevel(){
+        if (GameConstants.getMaxLevel(getItemId()) <= 0){
             return 0;
-        } else if (getEquipExp() <= 0) {
+        } else if (getEquipExp() <= 0){
             return getBaseLevel();
         }
         int levelz = getBaseLevel();
         int expz = getEquipExp();
-        for (int i = levelz; (GameConstants.getStatFromWeapon(getItemId()) == null ? (i <= GameConstants.getMaxLevel(getItemId())) : (i < GameConstants.getMaxLevel(getItemId()))); i++) {
-            if (expz >= GameConstants.getExpForLevel(i, getItemId())) {
+        for (int i = levelz; (GameConstants.getStatFromWeapon(getItemId()) == null ? (i <= GameConstants.getMaxLevel(getItemId())) : (i < GameConstants.getMaxLevel(getItemId()))); i++){
+            if (expz >= GameConstants.getExpForLevel(i, getItemId())){
                 levelz++;
                 expz -= GameConstants.getExpForLevel(i, getItemId());
             } else { //for 0, dont continue;
@@ -347,236 +347,218 @@ public class Equip extends Item implements Serializable {
         return levelz;
     }
 
-    public int getBaseLevel() {
+    public int getBaseLevel(){
         return (GameConstants.getStatFromWeapon(getItemId()) == null ? 1 : 0);
     }
 
     @Override
-    public void setQuantity(short quantity) {
-        if (quantity < 0 || quantity > 1) {
+    public void setQuantity(short quantity){
+        if (quantity < 0 || quantity > 1){
             throw new RuntimeException("Setting the quantity to " + quantity + " on an equip (itemid: " + getItemId() + ")");
         }
         super.setQuantity(quantity);
     }
 
-    public int getDurability() {
+    public int getDurability(){
         return durability;
     }
 
-    public void setDurability(final int dur) {
+    public void setDurability(final int dur){
         this.durability = dur;
     }
 
-    public byte getEnhance() {
+    public byte getEnhance(){
         return enhance;
     }
 
-    public void setEnhance(final byte en) {
+    public void setEnhance(final byte en){
         this.enhance = en;
     }
 
-    public int getPotential1() {
+    public int getPotential1(){
         return potential1;
     }
 
-    public void setPotential1(final int en) {
+    public void setPotential1(final int en){
         this.potential1 = en;
     }
 
-    public int getPotential2() {
+    public int getPotential2(){
         return potential2;
     }
 
-    public void setPotential2(final int en) {
+    public void setPotential2(final int en){
         this.potential2 = en;
     }
 
-    public int getPotential3() {
+    public int getPotential3(){
         return potential3;
     }
 
-    public void setPotential3(final int en) {
+    public void setPotential3(final int en){
         this.potential3 = en;
     }
-
-    public int getPotential4() {
+     
+    public int getPotential4(){
         return potential4;
     }
 
-    public void setPotential4(final int en) {
+    public void setPotential4(final int en){
         this.potential4 = en;
     }
-
-    public int getPotential5() {
+    
+    public int getPotential5(){
         return potential5;
     }
 
-    public void setPotential5(final int en) {
+    public void setPotential5(final int en){
         this.potential5 = en;
     }
-
-    public byte getState() {
-        final int pots = potential1 + potential2 + potential3 + potential4 + potential5;
-        if (potential1 >= 40000 || potential2 >= 40000 || potential3 >= 40000 || potential4 >= 40000 || potential5 >= 40000) {
+    public byte getState(){
+        final int pots = potential1 + potential2 + potential3;
+        if (potential1 >= 40000 || potential2 >= 40000 || potential3 >= 40000 ){
             return 20; // legendary
-        } else if (potential1 >= 30000 || potential2 >= 30000 || potential3 >= 30000 || potential4 >= 30000 || potential5 >= 30000) {
+        } else if (potential1 >= 30000 || potential2 >= 30000 || potential3 >= 30000){
             return 19; // unique
-        } else if (potential1 >= 20000 || potential2 >= 20000 || potential3 >= 20000 || potential4 >= 20000 || potential5 >= 20000) {
+        } else if (potential1 >= 20000 || potential2 >= 20000 || potential3 >= 20000){
             return 18; // epic
-        } else if (pots >= 1) {
+        } else if (pots >= 1){
             return 17; // rare
-        } else if (pots < 0) {
+        } else if (pots < 0){
             return 1; // hidden
         }
         return 0;
     }
 
-    public void resetPotential_Fuse(boolean half, int potentialState) { //maker skill - equip first receive
+    public void resetPotential_Fuse(boolean half, int potentialState){ //maker skill - equip first receive
         //no legendary, 0.16% chance unique, 4% chance epic, else rare
         potentialState = -potentialState;
-        if (Randomizer.nextInt(100) < 4) {
+        if (Randomizer.nextInt(100) < 4){
             potentialState -= Randomizer.nextInt(100) < 4 ? 2 : 1;
         }
         setPotential1(potentialState);
-        setPotential2((Randomizer.nextInt(half ? 5 : 10) == 0 ? potentialState : 0)); //1/10 chance of 3 line
-        setPotential3(0); //just set it theoretically
-        setPotential4(0); //just set it theoretically
-        setPotential5(0); //just set it theoretically
+        setPotential2(potentialState); //1/10 chance of 3 line
+        setPotential3(Randomizer.nextInt(half ? 5 : 10) == 0 ? potentialState : 0);
     }
 
-    public void resetPotential() { //equip first one, scroll hidden on it
+    public void resetPotential(){ //equip first one, scroll hidden on it
         //no legendary, 0.16% chance unique, 4% chance epic, else rare
         final int rank = Randomizer.nextInt(100) < 4 ? (Randomizer.nextInt(100) < 4 ? -19 : -18) : -17;
         setPotential1(rank);
-        setPotential2((Randomizer.nextInt(10) == 0 ? rank : 0)); //1/10 chance of 3 line
-        setPotential3(0); //just set it theoretically
-        setPotential4(0); //just set it theoretically
-        setPotential5(0); //just set it theoretically
+        setPotential2(rank);
+        setPotential3((Randomizer.nextInt(10) == 0 ? rank : 0)); //1/10 chance of 3 line
     }
 
-    public void renewPotential(int type) { // 0 = normal miracle cube, 1 = premium, 2 = epic pot scroll, 3 = super
+    public void renewPotential(int type){ // 0 = normal miracle cube, 1 = premium, 2 = epic pot scroll, 3 = super
         final int rank = type == 2 ? -18 : (Randomizer.nextInt(100) < 4 && getState() != (type == 3 ? 20 : 19) ? -(getState() + 1) : -(getState())); // 4 % chance to up 1 tier
         setPotential1(rank);
-        if (getPotential3() > 0) {
-            setPotential2(rank); // put back old 3rd line
+        setPotential2(rank);
+        if (getPotential3() > 0){
+            setPotential3(rank); // put back old 3rd line
         } else {
-            switch (type) {
+            switch (type){
                 case 1: // premium-> suppose to be 25%
-                    setPotential2(Randomizer.nextInt(10) == 0 ? rank : 0); //1/10 chance of 3 line
+                    setPotential3(Randomizer.nextInt(10) == 0 ? rank : 0); //1/10 chance of 3 line
                     break;
                 case 2: // epic pot
-                    setPotential2(Randomizer.nextInt(10) <= 1 ? rank : 0); //2/10 chance of 3 line
+                    setPotential3(Randomizer.nextInt(10) <= 1 ? rank : 0); //2/10 chance of 3 line
                     break;
                 case 3: // super
-                    setPotential2(Randomizer.nextInt(10) <= 2 ? rank : 0); //3/10 chance of 3 line
+                    setPotential3(Randomizer.nextInt(10) <= 2 ? rank : 0); //3/10 chance of 3 line
                     break;
                 default:
-                    setPotential2(0);
+                    setPotential3(0);
                     break;
             }
         }
-        if (getPotential4() > 0) {
-            setPotential3(rank); // put back old 4th line
-        } else if (type == 3) { // super
-            setPotential3(Randomizer.nextInt(100) <= 2 ? rank : 0); // 3/100 to get 4 lines
-        } else { // premium cannot get 3 lines.
-            setPotential3(0); //just set it theoretically
-        }
-        if (getPotential5() > 0) {
-            setPotential4(rank); // put back old 5th line
-        } else if (type == 3) { // super
-            setPotential4(Randomizer.nextInt(100) <= 1 ? rank : 0); // 2/100 to get 5 lines
-        } else {
-            setPotential4(0); //just set it theoretically
-        }
-        setPotential5(0); //just set it theoretically
     }
 
-    public int getIncSkill() {
+    public int getIncSkill(){
         return incSkill;
     }
 
-    public void setIncSkill(int inc) {
+    public void setIncSkill(int inc){
         this.incSkill = inc;
     }
 
-    public short getCharmEXP() {
+    public short getCharmEXP(){
         return charmExp;
     }
 
-    public short getPVPDamage() {
+    public short getPVPDamage(){
         return pvpDamage;
     }
 
-    public void setCharmEXP(short s) {
+    public void setCharmEXP(short s){
         this.charmExp = s;
     }
 
-    public void setPVPDamage(short p) {
+    public void setPVPDamage(short p){
         this.pvpDamage = p;
     }
 
-    public MapleRing getRing() {
-        if (!GameConstants.isEffectRing(getItemId()) || getUniqueId() <= 0) {
+    public MapleRing getRing(){
+        if (!GameConstants.isEffectRing(getItemId()) || getUniqueId() <= 0){
             return null;
         }
-        if (ring == null) {
+        if (ring == null){
             ring = MapleRing.loadFromDb(getUniqueId(), getPosition() < 0);
         }
         return ring;
     }
 
-    public void setRing(MapleRing ring) {
+    public void setRing(MapleRing ring){
         this.ring = ring;
     }
 
-    public MapleAndroid getAndroid() {
-        if (getItemId() / 10000 != 166 || getUniqueId() <= 0) {
+    public MapleAndroid getAndroid(){
+        if (getItemId() / 10000 != 166 || getUniqueId() <= 0){
             return null;
         }
-        if (android == null) {
+        if (android == null){
             android = MapleAndroid.loadFromDb(getItemId(), getUniqueId());
         }
         return android;
     }
 
-    public void setAndroid(MapleAndroid ring) {
+    public void setAndroid(MapleAndroid ring){
         this.android = ring;
     }
 
-    public short getSocketState() {
-        int flag = 0;
-        if (socket1 != -1) { // Got empty sockets show msg #TODO THIS IS PROBABLY WHERE I CAN EXCLUDE CS ITEMS 
-            flag |= SocketFlag.DEFAULT.getValue();
-        }else if (socket1 != -1) { // why is this also -1?
+    public short getSocketState(){ //TODO:I NEED THE CORRECT FLAGS
+        short flag = 0;
+       if (socket1 == 0){
+           flag |= SocketFlag.DEFAULT.getValue();
+        }
+        if (socket1 == 0){
             flag |= SocketFlag.SOCKET_BOX_1.getValue();
-        }else if (socket1 > 0) {
-            flag |= SocketFlag.USED_SOCKET_1.getValue();
+       }else if (socket1 > 0){
+            flag |= SocketFlag.USED_SOCKET_4.getValue();
         }
         return (short) flag;
     }
 
-    public int getSocket1() {
+    public int getSocket1(){
         return socket1;
     }
 
-    public void setSocket1(int socket1) {
-        this.socket1 = socket1;
+    public void setSocket1(final int socket){
+         this.socket1 = socket;
     }
     
-    public int getSocket2() {
+    public int getSocket2(){
         return socket2;
     }
 
-    public void setSocket2(int socket2) {
+    public void setSocket2(int socket2){
         this.socket2 = socket2;
     }
-    
-    public int getSocket3() {
+
+    public int getSocket3(){
         return socket3;
     }
 
-    public void setSocket3(int socket3) {
+    public void setSocket3(int socket3){
         this.socket3 = socket3;
     }
 }

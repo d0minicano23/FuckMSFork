@@ -3773,4 +3773,14 @@ public final class MapleMap {
         }
         return ret;
     }
+    
+    public int getPlayerCount() {
+      List<MapleMapObject> players = getMapObjectsInRange(new Point(0, 0), Double.POSITIVE_INFINITY, Arrays.asList(MapleMapObjectType.PLAYER));
+         return players.size();
+    }
+
+   public int getMonsterCount() {
+       List<MapleMapObject> monsters = getMapObjectsInRange(new Point(0, 0), Double.POSITIVE_INFINITY, Arrays.asList(MapleMapObjectType.MONSTER));
+            return monsters.size();
+   }
 }
